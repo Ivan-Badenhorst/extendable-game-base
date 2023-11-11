@@ -23,3 +23,8 @@ void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<
 
 
 }
+
+std::vector<std::vector<float> > TileModel::getTileTable() const
+{
+    return tileTable;
+}

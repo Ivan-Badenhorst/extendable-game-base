@@ -8,6 +8,8 @@ public:
     TileModel();
     void populateTileMap(int rows, int cols, std::vector<std::unique_ptr<Tile>> tile);
 
+    std::vector<std::vector<float> > getTileTable() const;
+
 private:
     std::vector<std::vector<float>> tileTable;
 
