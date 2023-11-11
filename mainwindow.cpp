@@ -1,4 +1,4 @@
-#include "Error in " Util.relativeFilePath('D:/University/Master's/APT/Project/fp/mainwindow.h', 'D:/University/Master's/APT/Project/fp' + '/' + Util.path('mainwindow.cpp'))": SyntaxError: Expected token `)'"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)

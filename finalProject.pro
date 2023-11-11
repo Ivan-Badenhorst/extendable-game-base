@@ -22,3 +22,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../CompiledLib/ -lworl
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../CompiledLib/ -lworld
+
+INCLUDEPATH += $$PWD/../CompiledLib/inc
+DEPENDPATH += $$PWD/../CompiledLib/inc
