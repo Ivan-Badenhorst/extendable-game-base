@@ -42,10 +42,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     Maps.qrc
 
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/CompiledWorld/ -lworl
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/CompiledWorld/ -lworld
+else:unix: LIBS += -L$$PWD/CompiledWorld/ -lworl
 
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../CompiledWorld/ -lworl
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../CompiledWorld/ -lworld
-
-INCLUDEPATH += $$PWD/../CompiledWorld/inc
-DEPENDPATH += $$PWD/../CompiledWorld/inc
+INCLUDEPATH += $$PWD/CompiledWorld
+DEPENDPATH += $$PWD/CompiledWorld

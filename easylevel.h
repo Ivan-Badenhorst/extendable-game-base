@@ -10,6 +10,8 @@ public:
     EasyLevel(TileController& tc);
     TileController &getTileController() const override;
 
+    void setTileController(const TileController &newTileController);
+
 private:
     TileController& tileController;
 };

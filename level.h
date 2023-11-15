@@ -6,7 +6,8 @@
 class Level
 {
 public:
-    virtual ~Level() = default;
+    Level() = default;
+    virtual ~Level(){};
     virtual TileController& getTileController() const;
 
 

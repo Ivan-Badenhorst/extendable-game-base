@@ -6,7 +6,18 @@ EasyLevel::EasyLevel(TileController &tc)
 
 }
 
+//EasyLevel::EasyLevel()
+//{
+
+
+//}
+
 TileController &EasyLevel::getTileController() const
 {
     return tileController;
+}
+
+void EasyLevel::setTileController(const TileController &newTileController)
+{
+    tileController = newTileController;
 }
