@@ -8,7 +8,7 @@ class Level
 public:
 //    Level() = default;
 //    virtual ~Level(){};
-    virtual std::shared_ptr<TileController> getTileController() const;
+    virtual std::shared_ptr<TileController> getTileController() const {};
 
 
 };
