@@ -6,9 +6,9 @@
 class Level
 {
 public:
-    Level() = default;
-    virtual ~Level(){};
-    virtual TileController& getTileController() const;
+//    Level() = default;
+//    virtual ~Level(){};
+    virtual std::shared_ptr<TileController> getTileController() const;
 
 
 };

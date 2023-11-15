@@ -1,19 +1,21 @@
 #ifndef EASYLEVEL_H
 #define EASYLEVEL_H
 
+#include <memory>
+
 #include "tilecontroller.h"
 #include "level.h"
 
 class EasyLevel: public Level
 {
 public:
-    EasyLevel(TileController& tc);
-    TileController &getTileController() const override;
+    EasyLevel(std::shared_ptr<TileController> tc);
+    std::shared_ptr<TileController> getTileController() const override;
 
-    void setTileController(const TileController &newTileController);
+    void setTileController(std::shared_ptr<TileController> newTileController);
 
 private:
-    TileController& tileController;
+    std::shared_ptr<TileController> tileController;
 };
 
 #endif // EASYLEVEL_H

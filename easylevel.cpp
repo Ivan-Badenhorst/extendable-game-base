@@ -1,6 +1,6 @@
 #include "easylevel.h"
 
-EasyLevel::EasyLevel(TileController &tc)
+EasyLevel::EasyLevel(std::shared_ptr<TileController> tc)
     :tileController(tc)
 {
 
@@ -12,12 +12,12 @@ EasyLevel::EasyLevel(TileController &tc)
 
 //}
 
-TileController &EasyLevel::getTileController() const
+std::shared_ptr<TileController> EasyLevel::getTileController() const
 {
     return tileController;
 }
 
-void EasyLevel::setTileController(const TileController &newTileController)
+void EasyLevel::setTileController(std::shared_ptr<TileController> newTileController)
 {
     tileController = newTileController;
 }
