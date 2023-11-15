@@ -1,6 +1,8 @@
 #include "tilemodel.h"
 #include <vector>
 
+#include <iostream>
+
 TileModel::TileModel()
 {
 
@@ -20,6 +22,7 @@ void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<
 
         tileTable[j/cols].push_back(tile[j]->getValue());
     }
+
 
 
 }

@@ -4,15 +4,17 @@
 #include "mainwindow.h"
 #include "tilemodel.h"
 
+#include <memory>
+
 class TileView
 {
 public:
-    TileView(MainWindow& mw, TileModel& tm);
+    TileView(MainWindow& mw, std::shared_ptr<TileModel> tm);
     void update();
 
 private:
     MainWindow& mainWindow;
-    TileModel& tileModel;
+    std::shared_ptr<TileModel> tileModel;
 };
 
 #endif // TILEVIEW_H

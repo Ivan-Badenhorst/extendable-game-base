@@ -1,6 +1,6 @@
 #include "tilecontroller.h"
 
-TileController::TileController(TileView& tv, TileModel& tm)
+TileController::TileController(std::shared_ptr<TileView> tv, std::shared_ptr<TileModel> tm)
       :tileView(tv), tileModel(tm)
 {
 
@@ -8,7 +8,7 @@ TileController::TileController(TileView& tv, TileModel& tm)
 
 void TileController::update()
 {
-    tileView.update();
+    tileView->update();
 }
 
 

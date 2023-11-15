@@ -7,13 +7,13 @@
 class TileController
 {
 public:
-    TileController(TileView& tv, TileModel& tm);
+    TileController(std::shared_ptr<TileView> tv, std::shared_ptr<TileModel> tm);
     void update();//later this method takes the position -> or we have reference to the protag
 
 
 private:
-    TileView& tileView;
-    TileModel& tileModel;
+    std::shared_ptr<TileView> tileView;
+    std::shared_ptr<TileModel> tileModel;
 };
 
 #endif // TILECONTROLLER_H
