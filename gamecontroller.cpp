@@ -1,5 +1,7 @@
 #include "gamecontroller.h"
 
+GameController*  GameController::gameControllerInstance = nullptr;
+
 
 GameController::GameController()
 {

@@ -24,7 +24,7 @@ private:
 
 }
 ;
-//GameController*  GameController::gameControllerInstance = nullptr;
+
 
 
 #endif // GAMECONTROLLER_H
