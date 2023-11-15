@@ -17,9 +17,9 @@ Level EasyLevelFactory::createWorld(MainWindow& mw)
     TileController tc(tv, tm);
 
 
-    EasyLevel el(std::make_shared<TileController>(tc));
+    EasyLevel easyLevel(std::make_shared<TileController>(tc));
 
-    return el;
+    return easyLevel;
 
 
 

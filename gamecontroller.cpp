@@ -1,19 +1,30 @@
 #include "gamecontroller.h"
 
+
 GameController::GameController()
 {
 
 }
 
-
-GameController& GameController::getInstance()
+GameController* GameController::getInstance()
 {
-    std::lock_guard<std::mutex> lock(mutex_);
     if (gameControllerInstance == nullptr)
     {
         gameControllerInstance = new GameController();
     }
-    return *gameControllerInstance;
+    return gameControllerInstance;
 
 }
+void GameController::startGame(MainWindow & mw)
+{
+
+    EasyLevelFactory easyLevelFactory;
+    Level easy = easyLevelFactory.createWorld(mw);
+    easy.getTileController()->update();
+
+}
+
+
+
+
 

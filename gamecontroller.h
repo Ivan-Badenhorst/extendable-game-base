@@ -1,7 +1,9 @@
 #ifndef GAMECONTROLLER_H
 #define GAMECONTROLLER_H
 
-#include <mutex>
+#include "mainwindow.h"
+#include "easylevelfactory.h"
+
 #include <memory>
 
 class GameController
@@ -10,22 +12,19 @@ public:
    GameController(GameController& copyController )= delete;
    void operator=(const GameController&) = delete;
 
-   static GameController& getInstance();
+   static GameController* getInstance();
+   static void startGame(MainWindow & mw);
 
 
 private:
    static GameController* gameControllerInstance;
-   static std::mutex mutex_;
 
    GameController();
    ~GameController();
 
 }
 ;
-GameController* GameController::gameControllerInstance;
-std::mutex GameController::mutex_;
-
-
+//GameController*  GameController::gameControllerInstance = nullptr;
 
 
 #endif // GAMECONTROLLER_H
