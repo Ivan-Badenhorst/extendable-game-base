@@ -1,13 +1,27 @@
 #include "easylevelfactory.h"
 
+
 EasyLevelFactory::EasyLevelFactory()
 {
 
 }
 
-LevelFactory EasyLevelFactory::createWorld()
+Level EasyLevelFactory::createWorld(MainWindow& mw)
 {
     World w;
     w.createWorld(":/worldmap.png", 0,0);
+    TileModel tm;
+    tm.populateTileMap(w.getRows(), w.getCols(), w.getTiles());
+    TileView tv(mw, tm);
+
+    TileController tc(tv, tm);
+
+    EasyLevel el(tc);
+
+    return el;
+
+
+
+
 }
 

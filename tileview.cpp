@@ -2,7 +2,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 
-TileView::TileView(std::shared_ptr<MainWindow> mw, TileModel& tm)
+TileView::TileView(MainWindow& mw, TileModel& tm)
     : mainWindow(mw), tileModel(tm)
 {
 
@@ -19,7 +19,7 @@ void TileView::update()
         for (int col = 0; col< tileTable[row].size(); col++ )
         {
             //how do we get scene?
-            auto rect = mainWindow->getUi()->scene->addRect(row*2,col*2, 2, 2);
+            auto rect = mainWindow.getScene()->addRect(row*2,col*2, 2, 2);
 
             int colorval = round(tileTable[row][col]*255);
             QBrush *brush = new QBrush(QColor(colorval,0,0));

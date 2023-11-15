@@ -1,6 +1,12 @@
 #include "easylevel.h"
 
-EasyLevel::EasyLevel()
+EasyLevel::EasyLevel(TileController &tc)
+    :tileController(tc)
 {
 
+}
+
+TileController &EasyLevel::getTileController() const
+{
+    return tileController;
 }

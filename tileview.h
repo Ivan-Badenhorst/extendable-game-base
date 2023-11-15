@@ -7,11 +7,11 @@
 class TileView
 {
 public:
-    TileView(std::shared_ptr<MainWindow> mw, TileModel& tm);
+    TileView(MainWindow& mw, TileModel& tm);
     void update();
 
 private:
-    std::shared_ptr<MainWindow> mainWindow;
+    MainWindow& mainWindow;
     TileModel& tileModel;
 };
 
