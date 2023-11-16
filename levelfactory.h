@@ -1,7 +1,6 @@
 #ifndef LEVELFACTORY_H
 #define LEVELFACTORY_H
 
-#include "world.h"
 #include "mainwindow.h"
 #include "level.h"
 
