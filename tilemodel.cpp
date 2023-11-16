@@ -22,9 +22,6 @@ void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<
 
         tileTable[j/cols].push_back(tile[j]->getValue());
     }
-
-
-
 }
 
 std::vector<std::vector<float> > TileModel::getTileTable() const
