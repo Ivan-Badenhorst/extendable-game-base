@@ -1,4 +1,5 @@
 #include "gamecontroller.h"
+#include "easylevel.h"
 
 #include <iostream>
 #include <memory>
