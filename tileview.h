@@ -6,11 +6,12 @@
 
 #include <memory>
 
-class TileView
+class TileView //refactor this -> we need a subclass for graphical view
 {
 public:
     TileView(MainWindow& mw, std::shared_ptr<TileModel> tm);
-    void update();
+    void update(); //change this such that it only renders as the player walks!!!
+
 
 private:
     MainWindow& mainWindow;

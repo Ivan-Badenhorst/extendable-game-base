@@ -12,7 +12,7 @@ TileView::TileView(MainWindow& mw, std::shared_ptr<TileModel> tm)
 
 void TileView::update()
 {
-    std::cout << "start update" << std::endl;
+
     auto tileTable = tileModel->getTileTable();
     int tileDim = 50;
 
