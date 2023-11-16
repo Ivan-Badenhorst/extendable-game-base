@@ -6,7 +6,7 @@ EasyLevelFactory::EasyLevelFactory()
 
 }
 
-EasyLevel EasyLevelFactory::createWorld(MainWindow& mw)
+Level* EasyLevelFactory::createWorld(MainWindow& mw)
 {
     World w;
     w.createWorld(":/worldmap.png", 0,0);
@@ -17,7 +17,7 @@ EasyLevel EasyLevelFactory::createWorld(MainWindow& mw)
     TileController tc(std::make_shared<TileView>(tv), std::make_shared<TileModel>(tm));
 
 
-    EasyLevel easyLevel(std::make_shared<TileController>(tc));
+    auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc));
 
     return easyLevel;
 

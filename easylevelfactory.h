@@ -7,11 +7,11 @@
 #include "tilecontroller.h"
 #include "easylevel.h"
 
-class EasyLevelFactory/*: public LevelFactory*/
+class EasyLevelFactory: public LevelFactory
 {
 public:
     EasyLevelFactory();
-    EasyLevel createWorld(MainWindow& mw);
+    Level* createWorld(MainWindow& mw) override;
 
     //remember to cache here when moving to next level
 
