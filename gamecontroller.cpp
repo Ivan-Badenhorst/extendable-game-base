@@ -24,7 +24,7 @@ void GameController::startGame(MainWindow & mw)
 
     EasyLevelFactory easyLevelFactory;
     std::cout << "made factory" << std::endl;
-    Level easy = easyLevelFactory.createWorld(mw);
+    EasyLevel easy = easyLevelFactory.createWorld(mw);
     std::cout << "made level" << std::endl;
 
     auto tileController = easy.getTileController();

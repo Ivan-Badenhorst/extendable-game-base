@@ -14,6 +14,7 @@ void TileView::update()
 {
     std::cout << "start update" << std::endl;
     auto tileTable = tileModel->getTileTable();
+    int tileDim = 50;
 
     std::cout << "before for loop" << std::endl;
     for(int row = 0; row< tileTable.size(); row++)
@@ -23,7 +24,7 @@ void TileView::update()
         for (int col = 0; col< tileTable[row].size(); col++ )
         {
             std::cout << col << std::endl;
-            auto rect = mainWindow.getScene()->addRect(row*2,col*2, 2, 2);
+            auto rect = mainWindow.getScene()->addRect(row*tileDim,col*tileDim, tileDim, tileDim);
 
             int colorval = round(tileTable[row][col]*255);
             QBrush *brush = new QBrush(QColor(colorval,0,0));
