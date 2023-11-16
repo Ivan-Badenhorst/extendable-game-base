@@ -1,6 +1,7 @@
 #include "gamecontroller.h"
 
 #include <iostream>
+#include <memory>
 
 GameController*  GameController::gameControllerInstance = nullptr;
 
@@ -24,7 +25,8 @@ void GameController::startGame(MainWindow & mw)
 
     EasyLevelFactory easyLevelFactory;
     std::cout << "made factory" << std::endl;
-    EasyLevel easy = easyLevelFactory.createWorld(mw);
+    auto easy = easyLevelFactory.createWorld(mw);
+    //EasyLevel* easy = std::static_pointer_cast<EasyLevel>(es);
     std::cout << "made level" << std::endl;
 
     auto tileController = easy.getTileController();
