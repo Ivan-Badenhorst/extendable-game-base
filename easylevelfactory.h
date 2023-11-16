@@ -2,10 +2,7 @@
 #define EASYLEVELFACTORY_H
 
 #include "levelfactory.h"
-#include "tilemodel.h"
-#include "tileview.h"
-#include "tilecontroller.h"
-#include "easylevel.h"
+
 
 class EasyLevelFactory: public LevelFactory
 {
