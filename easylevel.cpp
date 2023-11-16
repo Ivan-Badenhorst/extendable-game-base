@@ -6,12 +6,6 @@ EasyLevel::EasyLevel(std::shared_ptr<TileController> tc)
 
 }
 
-//EasyLevel::EasyLevel()
-//{
-
-
-//}
-
 std::shared_ptr<TileController> EasyLevel::getTileController() const
 {
     return tileController;
