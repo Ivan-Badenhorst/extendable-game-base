@@ -17,7 +17,7 @@ SOURCES += \
     mainwindow.cpp \
     tilecontroller.cpp \
     tilemodel.cpp \
-    tileview.cpp
+    tileviewgraphical.cpp
 
 HEADERS += \
     easylevel.h \
@@ -28,7 +28,8 @@ HEADERS += \
     mainwindow.h \
     tilecontroller.h \
     tilemodel.h \
-    tileview.h
+    tileview.h \
+    tileviewgraphical.h
 
 FORMS += \
     mainwindow.ui

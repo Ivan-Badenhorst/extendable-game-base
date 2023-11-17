@@ -1,6 +1,6 @@
 #include "easylevelfactory.h"
 #include "tilemodel.h"
-#include "tileview.h"
+#include "tileviewgraphical.h"
 #include "tilecontroller.h"
 #include "easylevel.h"
 
@@ -16,10 +16,10 @@ Level* EasyLevelFactory::createWorld(MainWindow& mw)
 
     TileModel tm;
     tm.populateTileMap(w.getRows(), w.getCols(), w.getTiles());
-
-    TileView tv(mw, std::make_shared<TileModel>(tm));
-
-    TileController tc(std::make_shared<TileView>(tv), std::make_shared<TileModel>(tm));
+    
+    TileViewGraphical tv(mw, std::make_shared<TileModel>(tm));
+    
+    TileController tc(std::make_shared<TileViewGraphical>(tv), std::make_shared<TileModel>(tm));
 
     auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc));
 

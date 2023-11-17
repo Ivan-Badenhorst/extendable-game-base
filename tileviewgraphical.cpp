@@ -1,16 +1,16 @@
-#include "tileview.h"
+#include "tileviewgraphical.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 
 #include <iostream>
 
-TileView::TileView(MainWindow& mw, std::shared_ptr<TileModel> tm)
+TileViewGraphical::TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> tm)
     : mainWindow(mw), tileModel(tm)
 {
 
 }
 
-void TileView::update()
+void TileViewGraphical::update()
 {
 
     auto tileTable = tileModel->getTileTable();

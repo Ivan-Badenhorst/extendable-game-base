@@ -2,12 +2,12 @@
 #define TILECONTROLLER_H
 
 #include "tilemodel.h"
-#include "tileview.h"
+#include "tileviewgraphical.h"
 
 class TileController
 {
 public:
-    TileController(std::shared_ptr<TileView> tv, std::shared_ptr<TileModel> tm);
+    TileController(std::shared_ptr<TileViewGraphical> tv, std::shared_ptr<TileModel> tm);
     void update();//later this method takes the position -> or we have reference to the protag
 
     ///POSSIBLE FUTURE METHODS:
@@ -17,7 +17,7 @@ public:
 
 
 private:
-    std::shared_ptr<TileView> tileView;
+    std::shared_ptr<TileViewGraphical> tileView;
     std::shared_ptr<TileModel> tileModel;
 };
 
