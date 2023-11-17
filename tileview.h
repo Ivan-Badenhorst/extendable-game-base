@@ -4,7 +4,7 @@
 class TileView
 {
 public:
-    virtual void update() = 0;
+    virtual void update(int row = 0, int col = 0) = 0;
 
 };
 

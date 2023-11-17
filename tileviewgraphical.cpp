@@ -10,7 +10,7 @@ TileViewGraphical::TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> 
 
 }
 
-void TileViewGraphical::update()
+void TileViewGraphical::update(int positionRow, int positionCol)
 {
 
     auto tileTable = tileModel->getTileTable();

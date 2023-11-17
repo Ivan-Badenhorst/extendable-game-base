@@ -11,7 +11,7 @@ class TileViewGraphical: public TileView //refactor this -> we need a subclass f
 {
 public:
     TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> tm);
-    void update() override; //change this such that it only renders as the player walks!!!
+    void update(int row = 0, int col = 0) override; //change this such that it only renders as the player walks!!!
 
 
 private:
