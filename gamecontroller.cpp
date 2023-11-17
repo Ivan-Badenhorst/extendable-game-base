@@ -42,9 +42,14 @@ void GameController::startGame(MainWindow & mw)
     //first wait for render to complete!!!!
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
 
-    std::cout << "start wait" << std::endl;
+
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    std::cout << "end wait" << std::endl;
+
+    tileController->update(50, 0);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
     tileController->update(50, 50);
 
     delete easyLevel;
