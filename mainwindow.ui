@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>919</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,17 +17,17 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>75</x>
-      <y>31</y>
-      <width>651</width>
-      <height>351</height>
+      <x>60</x>
+      <y>30</y>
+      <width>800</width>
+      <height>400</height>
      </rect>
     </property>
     <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
+     <enum>Qt::ScrollBarAsNeeded</enum>
     </property>
     <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
+     <enum>Qt::ScrollBarAsNeeded</enum>
     </property>
    </widget>
   </widget>
@@ -36,7 +36,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>919</width>
      <height>21</height>
     </rect>
    </property>
