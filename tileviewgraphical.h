@@ -3,14 +3,15 @@
 
 #include "mainwindow.h"
 #include "tilemodel.h"
+#include "tileview.h"
 
 #include <memory>
 
-class TileViewGraphical //refactor this -> we need a subclass for graphical view
+class TileViewGraphical: public TileView //refactor this -> we need a subclass for graphical view
 {
 public:
     TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> tm);
-    void update(); //change this such that it only renders as the player walks!!!
+    void update() override; //change this such that it only renders as the player walks!!!
 
 
 private:
