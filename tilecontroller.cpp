@@ -6,9 +6,9 @@ TileController::TileController(std::shared_ptr<TileView> tv, std::shared_ptr<Til
 
 }
 
-void TileController::update()
+void TileController::update(int row, int col)
 {
-    tileView->update();
+    tileView->update(row, col);
 }
 
 

@@ -4,6 +4,12 @@
 #include <iostream>
 #include <memory>
 
+#include <thread>
+#include <chrono>
+#include <QCoreApplication>
+#include <QEventLoop>
+
+
 GameController*  GameController::gameControllerInstance = nullptr;
 
 
@@ -30,8 +36,16 @@ void GameController::startGame(MainWindow & mw)
 
 
     auto tileController = easyLevel->getTileController();
-    tileController->update();
 
+    tileController->update(0, 0);
+
+    //first wait for render to complete!!!!
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+
+    std::cout << "start wait" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::cout << "end wait" << std::endl;
+    tileController->update(50, 50);
 
     delete easyLevel;
 

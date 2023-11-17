@@ -8,7 +8,7 @@ class TileController
 {
 public:
     TileController(std::shared_ptr<TileView> tv, std::shared_ptr<TileModel> tm);
-    void update();//later this method takes the position -> or we have reference to the protag
+    void update(int row = 0, int col = 0);//later this method takes the position -> or we have reference to the protag
 
     ///POSSIBLE FUTURE METHODS:
     //update model for new level
