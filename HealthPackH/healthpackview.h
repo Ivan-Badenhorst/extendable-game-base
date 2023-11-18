@@ -4,7 +4,8 @@
 class HealthPackView
 {
 public:
-    virtual void update() = 0;//maybe add position so we only rerender one hp? Maybe make it optional through OVERLOAD?
+    virtual void update() = 0;
+    virtual void update(int row, int col,  bool used = true) = 0;
 };
 
 #endif // HEALTHPACKVIEW_H
