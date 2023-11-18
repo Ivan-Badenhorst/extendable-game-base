@@ -16,3 +16,14 @@ std::vector<std::array<int, 3> > HealthPackModel::getHealthPacks() const
 {
     return healthPacks;
 }
+
+bool HealthPackModel::containsHp(int row, int col)
+{
+    for(auto& hp: healthPacks){
+        if(hp[0] == row && hp[1] == col && hp[2] > 0){
+            hp[2] = 0;
+            return true;
+        }
+    }
+    return false;
+}
