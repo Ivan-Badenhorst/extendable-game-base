@@ -17,7 +17,6 @@ SOURCES += \
     mainwindow.cpp \
     protagonistcontroller.cpp \
     protagonistmodel.cpp \
-    protagonistview.cpp \
     tilecontroller.cpp \
     tilemodel.cpp \
     tileviewgraphical.cpp

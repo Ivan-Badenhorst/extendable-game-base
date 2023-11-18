@@ -1,11 +1,11 @@
 #ifndef PROTAGONISTVIEW_H
 #define PROTAGONISTVIEW_H
 
-
 class ProtagonistView
 {
 public:
-    ProtagonistView();
+    virtual void update() = 0;
 };
 
-#endif // PROTAGONISTVIEW_H
+
+#endif
