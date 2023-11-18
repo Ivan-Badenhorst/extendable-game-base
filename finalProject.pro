@@ -15,6 +15,9 @@ SOURCES += \
     levelfactory.cpp \
     main.cpp \
     mainwindow.cpp \
+    protagonistcontroller.cpp \
+    protagonistmodel.cpp \
+    protagonistview.cpp \
     tilecontroller.cpp \
     tilemodel.cpp \
     tileviewgraphical.cpp
@@ -26,6 +29,9 @@ HEADERS += \
     level.h \
     levelfactory.h \
     mainwindow.h \
+    protagonistcontroller.h \
+    protagonistmodel.h \
+    protagonistview.h \
     tilecontroller.h \
     tilemodel.h \
     tileview.h \
@@ -43,9 +49,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     Maps.qrc
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/CompiledWorld/ -lworl
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/CompiledWorld/ -lworld
-else:unix: LIBS += -L$$PWD/CompiledWorld/ -lworl
 
-INCLUDEPATH += $$PWD/CompiledWorld
-DEPENDPATH += $$PWD/CompiledWorld
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../CompiledLib/ -lworl
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../CompiledLib/ -lworld
+
+INCLUDEPATH += $$PWD/../CompiledLib/inc
+DEPENDPATH += $$PWD/../CompiledLib/inc
