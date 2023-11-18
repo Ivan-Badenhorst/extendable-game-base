@@ -41,6 +41,9 @@ void GameController::startGame(MainWindow & mw)
 
     tileController->update(0, 0);
 
+    auto hpController = easyLevel->getHpController();
+
+
     //first wait for render to complete!!!!
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
 

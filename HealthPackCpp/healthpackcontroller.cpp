@@ -5,3 +5,8 @@ HealthPackController::HealthPackController(std::shared_ptr<HealthPackView> hpv, 
 {
 
 }
+
+void HealthPackController::refreshAll()
+{
+
+}

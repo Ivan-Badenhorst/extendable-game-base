@@ -8,6 +8,7 @@ class HealthPackController
 {
 public:
     HealthPackController(std::shared_ptr<HealthPackView> hpv, std::shared_ptr<HealthPackModel> hpm);
+    void refreshAll();
     //add an update method!! See model for more details
 
 private:
