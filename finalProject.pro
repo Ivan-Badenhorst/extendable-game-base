@@ -9,27 +9,31 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    TileCpp/tilecontroller.cpp \
+    TileCpp/tilemodel.cpp \
+    TileCpp/tileviewgraphical.cpp \
     easylevel.cpp \
     easylevelfactory.cpp \
     gamecontroller.cpp \
     levelfactory.cpp \
     main.cpp \
-    mainwindow.cpp \
-    tilecontroller.cpp \
-    tilemodel.cpp \
-    tileviewgraphical.cpp
+    mainwindow.cpp
+
 
 HEADERS += \
+    Tile/tileviewgraphical.h \
+    TileH/tilecontroller.h \
+    TileH/tilemodel.h \
+    TileH/tileview.h \
+    TileH/tileviewgraphical.h \
     easylevel.h \
     easylevelfactory.h \
     gamecontroller.h \
     level.h \
     levelfactory.h \
-    mainwindow.h \
-    tilecontroller.h \
-    tilemodel.h \
-    tileview.h \
-    tileviewgraphical.h
+    mainwindow.h
+
+
 
 FORMS += \
     mainwindow.ui
