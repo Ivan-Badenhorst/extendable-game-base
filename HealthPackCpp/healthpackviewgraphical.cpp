@@ -1,4 +1,4 @@
-#include "healthpackviewgraphical.h"
+#include "HealthPackH/healthpackviewgraphical.h"
 
 HealthPackViewGraphical::HealthPackViewGraphical()
 {

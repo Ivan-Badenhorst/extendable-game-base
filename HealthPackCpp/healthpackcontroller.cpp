@@ -1,4 +1,4 @@
-#include "healthpackcontroller.h"
+#include "HealthPackH/healthpackcontroller.h"
 
 HealthPackController::HealthPackController()
 {
