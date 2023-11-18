@@ -48,6 +48,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 
 RESOURCES += \
+    HealthPack.qrc \
     Maps.qrc
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/CompiledWorld/ -lworl

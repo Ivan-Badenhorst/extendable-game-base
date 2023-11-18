@@ -42,6 +42,7 @@ void GameController::startGame(MainWindow & mw)
     tileController->update(0, 0);
 
     auto hpController = easyLevel->getHpController();
+    hpController->refreshAll();
 
 
     //first wait for render to complete!!!!

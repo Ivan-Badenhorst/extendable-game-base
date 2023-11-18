@@ -13,10 +13,12 @@ class HealthPackViewGraphical: public HealthPackView
 public:
     HealthPackViewGraphical(MainWindow& mw, std::shared_ptr<HealthPackModel> hpm);
     void update() override;
+    //MAYBE SECOND ONE WITH LOCATION!!!
 
 private:
     MainWindow& mainWindow;
     std::shared_ptr<HealthPackModel> hpModel;
+    int tileDim {50};
 };
 
 #endif // HEALTHPACKVIEWGRAPHICAL_H
