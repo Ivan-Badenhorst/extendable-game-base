@@ -10,3 +10,10 @@ void HealthPackController::refreshAll()
 {
     hpView->update();
 }
+
+bool HealthPackController::update(int row, int col)
+{
+    bool contains = hpModel->containsHp(row, col);
+    if(contains){hpView->update(row,col);}
+    return contains;
+}

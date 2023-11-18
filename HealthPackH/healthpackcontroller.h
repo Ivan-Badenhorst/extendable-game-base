@@ -10,8 +10,9 @@ class HealthPackController
 {
 public:
     HealthPackController(std::shared_ptr<HealthPackView> hpv, std::shared_ptr<HealthPackModel> hpm);
-    void refreshAll();//MAYBE REMOVE THIS METHOD!! NEED IT FOR TESTING!!!
-    //add an update method!! See model for more details
+    void refreshAll();
+    bool update(int row, int col);//row and col are tile numbers
+
 
 private:
     std::shared_ptr<HealthPackView> hpView;
