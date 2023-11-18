@@ -6,6 +6,7 @@
 #include "tilemodel.h"
 
 #include <iostream>
+#include <cstdlib>
 
 TileViewGraphical::TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> tm)
     : mainWindow(mw), tileModel(tm)
@@ -33,15 +34,28 @@ void TileViewGraphical::update(int positionRow, int positionCol)
 
     auto tileTable = tileModel->getTileTable();
 
-
-    //at the moment this displays all tiles!! I should only display the tiles around
-    //the user!
-
-    if(prevRow < 0 || prevCol < 0){
-        std::cout << "full render" << std::endl;
+    //render entire display if we moved more than 2 squares, or if we are doing the initial display
+    if(prevRow < 0 || prevCol < 0 || std::abs(positionRow-prevRow) > 1 || std::abs(positionCol - prevCol) > 1){
+        displaySection(positionRow-displayHeight/2, positionRow+displayHeight/2, positionCol-displayWidth/2, positionCol+displayWidth/2);
     }
-    else{
-        std::cout << "no full render" << std::endl;
+    else{//only display the new tiles
+        if(positionRow > prevRow){//moved 1 row down
+            int r = positionRow+displayHeight/2;
+            displaySection(r, r, positionCol-displayWidth/2, positionCol+displayWidth/2);
+        }
+        else if(positionRow < prevRow){//moved 1 row up
+            int r = positionRow-displayHeight/2;
+            displaySection(r, r, positionCol-displayWidth/2, positionCol+displayWidth/2);
+        }
+
+        if(positionCol > prevCol){//moved 1 col right
+            int r = positionCol+displayWidth/2;
+            displaySection(positionRow-displayHeight/2, positionRow+displayHeight/2, r, r);
+        }
+        else if(positionCol < prevCol){
+            int r = positionCol-displayWidth/2;
+            displaySection(positionRow-displayHeight/2, positionRow+displayHeight/2, r, r);
+        }
     }
 
     ///IDEAS FOR NOW:
@@ -53,29 +67,11 @@ void TileViewGraphical::update(int positionRow, int positionCol)
      *
      */
 
-    //write function that takes row start, row end, col start and col end to add the rectangles
-
-//    for(int row = 0; row< tileTable.size(); row++)
-//    {
-//        std::cout << row << std::endl;
-
-//        for (int col = 0; col< tileTable[row].size(); col++ )
-//        {
-//            auto rect = mainWindow.getScene()->addRect(row*tileDim,col*tileDim, tileDim, tileDim);
-
-//            int colorval = round(tileTable[row][col]*255);
-//            QBrush *brush = new QBrush(QColor(colorval,0,0));
-//            rect->setBrush(*brush);
-
-//        }
-
-//    }
-
-    displaySection(-4, 4, -0, 0);
-    QRectF areaToShow = QRectF(positionRow-400, positionCol-200, 800, 400);
 
 
-    //QRectF areaToShow = QRectF(positionRow, positionCol, 800, 400);
+//    displaySection(-4, 4, -8, 8);
+//    displaySection(-4, 4, -8, 8);
+    QRectF areaToShow = QRectF(positionRow-tileDim*displayWidth/2, positionCol-tileDim*displayHeight/2, tileDim*displayWidth, tileDim*displayHeight);
     mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
 }
 
@@ -89,7 +85,7 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
         for (int col = colStart; col <= colEnd; col++ )
         {
 
-            if(hasBeenRendered[row+(displayWidth/2)][col+(displayHeight/2)] == false){
+            if(hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] == false){
 
                 auto rect = mainWindow.getScene()->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
 
@@ -106,7 +102,7 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
                 rect->setBrush(brush);
 
-                hasBeenRendered[row+(displayWidth/2)][col+(displayHeight/2)] = true;
+                hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] = true;
 
                 std::cout << row <<";"<< col << std::endl;
 
