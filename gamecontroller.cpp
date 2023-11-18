@@ -60,8 +60,7 @@ void GameController::startGame(MainWindow & mw)
 
     QRectF areaToShow = QRectF(0, 0, 800, 400);
     mw.getUi()->graphicsView->setSceneRect(areaToShow);
-
-    delete easyLevel;
+  //  delete easyLevel;
 
 }
 

@@ -15,7 +15,7 @@ EasyLevelFactory::EasyLevelFactory()
 Level* EasyLevelFactory::createWorld(MainWindow& mw)
 {
     World w;
-    w.createWorld(":/worldmap.png", 0,10);
+    w.createWorld(":/worldmap.png", 0,40);
 
     //tile
     TileModel tm;
