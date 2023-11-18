@@ -10,8 +10,14 @@ public:
 
     std::vector<std::vector<float> > getTileTable() const;
 
+    int getRows() const;
+
+    int getColumns() const;
+
 private:
     std::vector<std::vector<float>> tileTable;
+    int rows;
+    int columns;
 
 };
 

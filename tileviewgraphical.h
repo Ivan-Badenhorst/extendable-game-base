@@ -20,6 +20,11 @@ private:
     int prevRow {-1};
     int prevCol {-1};
     int tileDim {50};
+
+    int displayWidth {16}; //in number of tiles
+    int displayHeight {8}; //in number of tiles
+
+    std::vector<std::vector<bool>> hasBeenRendered;
     void displaySection(int rowStart, int rowEnd, int colStart, int colEnd);
 };
 

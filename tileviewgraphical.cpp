@@ -3,13 +3,29 @@
 #include <QGraphicsRectItem>
 
 #include "ui_mainwindow.h"
+#include "tilemodel.h"
 
 #include <iostream>
 
 TileViewGraphical::TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> tm)
     : mainWindow(mw), tileModel(tm)
 {
+    int tileRows =  tm->getRows()+ displayHeight;
+    int tileCols = tm->getColumns() + displayWidth;
+    hasBeenRendered.reserve(tileRows);
 
+
+    for (int i = 0; i < tileRows; i++) {
+        hasBeenRendered.emplace_back();
+        hasBeenRendered.back().reserve(tileCols);
+    }
+
+    //set all to false -> nothing has been rendered yet
+    for (size_t i = 0; i < tileRows; ++i) {
+        for (size_t j = 0; j < tileCols; ++j) {
+            hasBeenRendered[i].push_back(false);
+        }
+    }
 }
 
 void TileViewGraphical::update(int positionRow, int positionCol)
@@ -55,7 +71,7 @@ void TileViewGraphical::update(int positionRow, int positionCol)
 
 //    }
 
-    displaySection(-8, 8, -4, 4);
+    displaySection(-4, 4, -0, 0);
     QRectF areaToShow = QRectF(positionRow-400, positionCol-200, 800, 400);
 
 
@@ -69,24 +85,33 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
     for(int row = rowStart; row <= rowEnd; row++)
     {
-        std::cout << row << std::endl;
 
         for (int col = colStart; col <= colEnd; col++ )
         {
-            auto rect = mainWindow.getScene()->addRect(row*tileDim,col*tileDim, tileDim, tileDim);
 
-            int r = 0;
-            int g = 0;
-            int b = 0;
+            if(hasBeenRendered[row+(displayWidth/2)][col+(displayHeight/2)] == false){
+
+                auto rect = mainWindow.getScene()->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
+
+                int r = 0;
+                int g = 0;
+                int b = 0;
 
 
-            if(row >= 0 && row < tileTable.size() && col >= 0 && col < tileTable[0].size()){
-                r = round(tileTable[row][col]*255);
+                if(row >= 0 && row < tileTable.size() && col >= 0 && col < tileTable[0].size()){
+                    r = round(tileTable[row][col]*255);
+                }
+
+                QBrush brush(QColor(r,g,b));
+
+                rect->setBrush(brush);
+
+                hasBeenRendered[row+(displayWidth/2)][col+(displayHeight/2)] = true;
+
+                std::cout << row <<";"<< col << std::endl;
+
             }
 
-            QBrush brush(QColor(r,g,b));
-
-            rect->setBrush(brush);
 
         }
 
