@@ -1,0 +1,4 @@
+#ifndef HEALTHPACKVIEW_H
+#define HEALTHPACKVIEW_H
+
+#endif // HEALTHPACKVIEW_H

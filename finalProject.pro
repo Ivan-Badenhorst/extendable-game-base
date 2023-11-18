@@ -9,6 +9,9 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    HealthPackCpp/healthpackcontroller.cpp \
+    HealthPackCpp/healthpackmodel.cpp \
+    HealthPackCpp/healthpackviewgraphical.cpp \
     easylevel.cpp \
     easylevelfactory.cpp \
     gamecontroller.cpp \
@@ -20,6 +23,10 @@ SOURCES += \
     tileviewgraphical.cpp
 
 HEADERS += \
+    HealthPackH/healthpackcontroller.h \
+    HealthPackH/healthpackmodel.h \
+    HealthPackH/healthpackview.h \
+    HealthPackH/healthpackviewgraphical.h \
     easylevel.h \
     easylevelfactory.h \
     gamecontroller.h \
