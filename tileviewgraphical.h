@@ -19,7 +19,8 @@ private:
     std::shared_ptr<TileModel> tileModel;
     int prevRow {-1};
     int prevCol {-1};
-    void displaySection(int tileDim, auto tileTable);
+    int tileDim {50};
+    void displaySection(int rowStart, int rowEnd, int colStart, int colEnd);
 };
 
 #endif // TILEVIEWGRAPHICAL_H

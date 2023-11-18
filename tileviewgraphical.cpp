@@ -16,7 +16,7 @@ void TileViewGraphical::update(int positionRow, int positionCol)
 {
 
     auto tileTable = tileModel->getTileTable();
-    int tileDim = 50;
+
 
     //at the moment this displays all tiles!! I should only display the tiles around
     //the user!
@@ -37,24 +37,62 @@ void TileViewGraphical::update(int positionRow, int positionCol)
      *
      */
 
-    for(int row = 0; row< tileTable.size(); row++)
+    //write function that takes row start, row end, col start and col end to add the rectangles
+
+//    for(int row = 0; row< tileTable.size(); row++)
+//    {
+//        std::cout << row << std::endl;
+
+//        for (int col = 0; col< tileTable[row].size(); col++ )
+//        {
+//            auto rect = mainWindow.getScene()->addRect(row*tileDim,col*tileDim, tileDim, tileDim);
+
+//            int colorval = round(tileTable[row][col]*255);
+//            QBrush *brush = new QBrush(QColor(colorval,0,0));
+//            rect->setBrush(*brush);
+
+//        }
+
+//    }
+
+    displaySection(-8, 8, -4, 4);
+    QRectF areaToShow = QRectF(positionRow-400, positionCol-200, 800, 400);
+
+
+    //QRectF areaToShow = QRectF(positionRow, positionCol, 800, 400);
+    mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
+}
+
+void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, int colEnd)
+{
+    auto tileTable = tileModel->getTileTable();
+
+    for(int row = rowStart; row <= rowEnd; row++)
     {
         std::cout << row << std::endl;
 
-        for (int col = 0; col< tileTable[row].size(); col++ )
+        for (int col = colStart; col <= colEnd; col++ )
         {
             auto rect = mainWindow.getScene()->addRect(row*tileDim,col*tileDim, tileDim, tileDim);
 
-            int colorval = round(tileTable[row][col]*255);
-            QBrush *brush = new QBrush(QColor(colorval,0,0));
-            rect->setBrush(*brush);
+            int r = 0;
+            int g = 0;
+            int b = 0;
+
+
+            if(row >= 0 && row < tileTable.size() && col >= 0 && col < tileTable[0].size()){
+                r = round(tileTable[row][col]*255);
+            }
+
+            QBrush brush(QColor(r,g,b));
+
+            rect->setBrush(brush);
 
         }
 
+
     }
 
-    QRectF areaToShow = QRectF(positionRow, positionCol, 800, 400);
-    mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
 }
 
 
