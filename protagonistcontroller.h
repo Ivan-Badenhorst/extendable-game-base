@@ -8,7 +8,7 @@ class ProtagonistController
 {
 public:
     ProtagonistController(std::shared_ptr<ProtagonistView> pv, std::shared_ptr<ProtagonistModel> pm);
-    // add an update method to update the view
+    // add a method to tell the view
 private:
     std::shared_ptr<ProtagonistView> protView;
     std::shared_ptr<ProtagonistModel> protModel;

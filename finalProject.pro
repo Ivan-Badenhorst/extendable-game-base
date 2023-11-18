@@ -17,6 +17,7 @@ SOURCES += \
     mainwindow.cpp \
     protagonistcontroller.cpp \
     protagonistmodel.cpp \
+    protagonistviewgraphical.cpp \
     tilecontroller.cpp \
     tilemodel.cpp \
     tileviewgraphical.cpp
@@ -31,6 +32,7 @@ HEADERS += \
     protagonistcontroller.h \
     protagonistmodel.h \
     protagonistview.h \
+    protagonistviewgraphical.h \
     tilecontroller.h \
     tilemodel.h \
     tileview.h \
