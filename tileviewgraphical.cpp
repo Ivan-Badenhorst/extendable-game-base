@@ -31,47 +31,44 @@ TileViewGraphical::TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> 
 
 void TileViewGraphical::update(int positionRow, int positionCol)
 {
+    // Calculate half of the display width and height
+    auto halfDisplayWidth = displayWidth / 2;
+    auto halfDisplayHeight = displayHeight / 2;
 
     auto tileTable = tileModel->getTileTable();
 
-    //render entire display if we moved more than 2 squares, or if we are doing the initial display
     if(prevRow < 0 || prevCol < 0 || std::abs(positionRow-prevRow) > 1 || std::abs(positionCol - prevCol) > 1){
-        displaySection(positionRow-displayHeight/2, positionRow+displayHeight/2, positionCol-displayWidth/2, positionCol+displayWidth/2);
+        displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
     }
     else{//only display the new tiles
         if(positionRow > prevRow){//moved 1 row down
-            int r = positionRow+displayHeight/2;
-            displaySection(r, r, positionCol-displayWidth/2, positionCol+displayWidth/2);
+            int r = positionRow+halfDisplayHeight;
+            displaySection(r, r, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
         }
         else if(positionRow < prevRow){//moved 1 row up
-            int r = positionRow-displayHeight/2;
-            displaySection(r, r, positionCol-displayWidth/2, positionCol+displayWidth/2);
+            int r = positionRow-halfDisplayHeight;
+            displaySection(r, r, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
         }
 
         if(positionCol > prevCol){//moved 1 col right
-            int r = positionCol+displayWidth/2;
-            displaySection(positionRow-displayHeight/2, positionRow+displayHeight/2, r, r);
+            int r = positionCol+halfDisplayWidth;
+            displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, r, r);
         }
         else if(positionCol < prevCol){
-            int r = positionCol-displayWidth/2;
-            displaySection(positionRow-displayHeight/2, positionRow+displayHeight/2, r, r);
+            int r = positionCol-halfDisplayWidth;
+            displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, r, r);
         }
     }
 
-    ///IDEAS FOR NOW:
-    // save previous position so we know how we moved -> to know how to render
-    /**
-     * Possible mechanism:
-     * keep a table same size as the map, where we remember what has been rendered
-     * unless we don't care (if we can remove rectangles that have been rendered before!
-     *
-     */
 
 
 
-//    displaySection(-4, 4, -8, 8);
-//    displaySection(-4, 4, -8, 8);
-    QRectF areaToShow = QRectF(positionRow-tileDim*displayWidth/2, positionCol-tileDim*displayHeight/2, tileDim*displayWidth, tileDim*displayHeight);
+    // Calculate the position to show
+    auto topLeftX = positionRow*tileDim - halfDisplayWidth*tileDim;
+    auto topLeftY = positionCol*tileDim - halfDisplayHeight*tileDim;
+    QRectF areaToShow = QRectF(topLeftX, topLeftY, tileDim*displayWidth, tileDim*displayHeight);
+
+
     mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
 }
 
@@ -92,7 +89,6 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
                 int r = 0;
                 int g = 0;
                 int b = 0;
-
 
                 if(row >= 0 && row < tileTable.size() && col >= 0 && col < tileTable[0].size()){
                     r = round(tileTable[row][col]*255);

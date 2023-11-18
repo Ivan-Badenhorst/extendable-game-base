@@ -40,14 +40,14 @@ void GameController::startGame(MainWindow & mw)
     auto tileController = easyLevel->getTileController();
 
     std::cout << "start position:" << std::endl;
-    tileController->update(50, 50);
+    tileController->update(0, 0);
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
 
     std::cout << "One down" << std::endl;
-    tileController->update(50, 0);
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    tileController->update(1, 0);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
     std::cout << "start position" << std::endl;
@@ -56,16 +56,27 @@ void GameController::startGame(MainWindow & mw)
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
     std::cout << "one right" << std::endl;
-    tileController->update(0, 50);
+    tileController->update(0, 1);
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
     std::cout << "one down" << std::endl;
-    tileController->update(50, 50);
+    tileController->update(1, 1);
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     std::this_thread::sleep_for(std::chrono::seconds(2));
-//    tileController->update(50, 0);
-//    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+
+
+
+    std::cout << "5 5" << std::endl;
+    tileController->update(5, 5);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    std::cout << "29 29" << std::endl;
+    tileController->update(499, 499);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
 
 //    std::this_thread::sleep_for(std::chrono::seconds(2));
 
