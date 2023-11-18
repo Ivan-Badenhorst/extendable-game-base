@@ -58,8 +58,22 @@ void GameController::startGame(MainWindow & mw)
 
     tileController->update(50, 50);
 
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    //I will now test the healthpack update -> USING ALL HEALTH PACKS!!!:
+    for(int i=0; i< 30; i++){
+        for(int j=0; j<30;j++){
+            hpController->update(i,j);
+
+        }
+    }
+
+
     QRectF areaToShow = QRectF(0, 0, 800, 400);
     mw.getUi()->graphicsView->setSceneRect(areaToShow);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
   //  delete easyLevel;
 
 }

@@ -4,6 +4,9 @@
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
 
+
+#include <QCoreApplication>
+
 HealthPackViewGraphical::HealthPackViewGraphical(MainWindow &mw, std::shared_ptr<HealthPackModel> hpm)
     :mainWindow(mw), hpModel(hpm)
 {
@@ -35,27 +38,32 @@ void HealthPackViewGraphical::update(int row, int col, bool used)
     auto icon1 = QPixmap(":/HealthPackUsed");
     auto icon2 = QPixmap(":/HealthPackFull");
 
+    std::shared_ptr<QGraphicsPixmapItem> itemsToRerender;
     for(auto& hp: healthpackDisplays){
         int colDisplay = hp.get()->x()/tileDim;
         int rowDisplay = hp.get()->y()/tileDim;
 
-        if(colDisplay == col && rowDisplay == row){
-
-            if(used){//used pack
-                hp = std::make_shared<QGraphicsPixmapItem>(icon1);
-            }
-            else
-            {
-                hp = std::make_shared<QGraphicsPixmapItem>(icon2);
-            }
-
+        if(colDisplay == row && rowDisplay == col){
+            itemsToRerender = hp;
         }
     }
+
+    mainWindow.getScene()->removeItem(itemsToRerender.get());
+    itemsToRerender.reset();
+
+    if(used){
+        displayHp(std::make_shared<QGraphicsPixmapItem>(icon1), std::array<int, 3>{row, col, 0});
+    }
+    else
+    {
+        displayHp(std::make_shared<QGraphicsPixmapItem>(icon2), std::array<int, 3>{row, col, 1});
+    }
+
 }
 
 void HealthPackViewGraphical::displayHp(std::shared_ptr<QGraphicsPixmapItem> icon, std::array<int, 3> hp)
 {
-    icon->setZValue(1.1);
+
     icon->setPos(hp[0]*tileDim, hp[1]*tileDim);
     healthpackDisplays.push_back(icon);
     mainWindow.getScene()->addItem(icon.get());
