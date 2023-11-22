@@ -19,9 +19,13 @@ public:
 private:
     MainWindow& mainWindow;
     std::shared_ptr<HealthPackModel> hpModel;
+
+    float zValue {1.1};
     int tileDim {50};
+
     std::vector<std::shared_ptr<QGraphicsPixmapItem>> healthpackDisplays;
     void displayHp(std::shared_ptr<QGraphicsPixmapItem> icon, std::array<int, 3> hp);
+
 };
 
 #endif // HEALTHPACKVIEWGRAPHICAL_H

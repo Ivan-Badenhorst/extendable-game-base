@@ -31,7 +31,7 @@ TileViewGraphical::TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> 
 
 void TileViewGraphical::update(int positionRow, int positionCol)
 {
-    // Calculate half of the display width and height
+
     auto halfDisplayWidth = displayWidth / 2;
     auto halfDisplayHeight = displayHeight / 2;
 
@@ -64,12 +64,15 @@ void TileViewGraphical::update(int positionRow, int positionCol)
 
 
     // Calculate the position to show
-    auto topLeftX = positionRow*tileDim - halfDisplayWidth*tileDim;
-    auto topLeftY = positionCol*tileDim - halfDisplayHeight*tileDim;
+    auto  topLeftY = positionRow*tileDim - halfDisplayHeight*tileDim;
+    auto topLeftX= positionCol*tileDim - halfDisplayWidth*tileDim;
     QRectF areaToShow = QRectF(topLeftX, topLeftY, tileDim*displayWidth, tileDim*displayHeight);
 
 
     mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
+
+    prevCol = positionCol;
+    prevRow = positionRow;
 }
 
 void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, int colEnd)
@@ -83,7 +86,7 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
         {
 
             if(hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] == false){
-
+//            if(hasBeenRendered[row][col] == false){
                 auto rect = mainWindow.getScene()->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
 
                 int r = 0;
@@ -97,10 +100,11 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
                 QBrush brush(QColor(r,g,b));
 
                 rect->setBrush(brush);
+                rect->setZValue(0);
 
                 hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] = true;
-
-                std::cout << row <<";"<< col << std::endl;
+//                hasBeenRendered[row][col] = true;
+//                std::cout << row <<";"<< col << std::endl;
 
             }
 

@@ -21,6 +21,7 @@ private:
     int prevCol {-1};
     int tileDim {50};
 
+
     int displayWidth {16}; //in number of tiles
     int displayHeight {8}; //in number of tiles
 

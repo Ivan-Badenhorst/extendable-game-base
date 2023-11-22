@@ -16,8 +16,11 @@ HealthPackViewGraphical::HealthPackViewGraphical(MainWindow &mw, std::shared_ptr
 void HealthPackViewGraphical::update()
 {
     healthpackDisplays.clear();
+
+
     auto icon1 = QPixmap(":/HealthPackUsed");
     auto icon2 = QPixmap(":/HealthPackFull");
+
 
     for(auto& hp: hpModel->getHealthPacks()){
 
@@ -31,19 +34,21 @@ void HealthPackViewGraphical::update()
 
     }
 
+
 }
 
 void HealthPackViewGraphical::update(int row, int col, bool used)
 {
+    std::cout << "Update called: " << row << ";" << col << std::endl;
     auto icon1 = QPixmap(":/HealthPackUsed");
     auto icon2 = QPixmap(":/HealthPackFull");
 
     std::shared_ptr<QGraphicsPixmapItem> itemsToRerender;
     for(auto& hp: healthpackDisplays){
-        int colDisplay = hp.get()->x()/tileDim;
-        int rowDisplay = hp.get()->y()/tileDim;
+        int colDisplay = hp.get()->y()/tileDim;
+        int rowDisplay = hp.get()->x()/tileDim;
 
-        if(colDisplay == row && rowDisplay == col){
+        if(colDisplay == col && rowDisplay == row){
             itemsToRerender = hp;
         }
     }
@@ -63,8 +68,8 @@ void HealthPackViewGraphical::update(int row, int col, bool used)
 
 void HealthPackViewGraphical::displayHp(std::shared_ptr<QGraphicsPixmapItem> icon, std::array<int, 3> hp)
 {
-
-    icon->setPos(hp[0]*tileDim, hp[1]*tileDim);
+    icon->setPos(hp[1]*tileDim, hp[0]*tileDim);
+    icon->setZValue(zValue);
     healthpackDisplays.push_back(icon);
     mainWindow.getScene()->addItem(icon.get());
 }
