@@ -68,6 +68,9 @@ void GameController::startGame(MainWindow & mw)
     hpController = easyLevel->getHpController();
     hpController->refreshAll();
 
+    auto protagonistController = easyLevel->getProtController();
+    protagonistController->refreshAll();
+    
 
 }
 

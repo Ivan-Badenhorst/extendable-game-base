@@ -20,7 +20,11 @@ SOURCES += \
     gamecontroller.cpp \
     levelfactory.cpp \
     main.cpp \
+    protagonistcontroller.cpp \
+    protagonistmodel.cpp \
+    protagonistviewgraphical.cpp \
     mainwindow.cpp
+
 
 
 HEADERS += \
@@ -39,9 +43,11 @@ HEADERS += \
     level.h \
     levelfactory.h \
     mainwindow.h \
+    protagonistcontroller.h \
+    protagonistmodel.h \
+    protagonistview.h \
+    protagonistviewgraphical.h \
     constants.h
-
-
 
 FORMS += \
     mainwindow.ui
@@ -53,12 +59,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 
 RESOURCES += \
-    HealthPack.qrc \
-    Maps.qrc
+    Maps.qrc \
+    Protagonist.qrc \
+    HealthPack.qrc 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/CompiledWorld/ -lworl
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/CompiledWorld/ -lworld
-else:unix: LIBS += -L$$PWD/CompiledWorld/ -lworl
 
-INCLUDEPATH += $$PWD/CompiledWorld
-DEPENDPATH += $$PWD/CompiledWorld
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../CompiledLib/ -lworl
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../CompiledLib/ -lworld
+
+INCLUDEPATH += $$PWD/../CompiledLib/inc
+DEPENDPATH += $$PWD/../CompiledLib/inc
