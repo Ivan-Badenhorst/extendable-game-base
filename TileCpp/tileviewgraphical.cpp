@@ -1,9 +1,9 @@
-#include "tileviewgraphical.h"
+#include "TileH/tileviewgraphical.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 
 #include "ui_mainwindow.h"
-#include "tilemodel.h"
+#include "TileH/tilemodel.h"
 
 #include <iostream>
 #include <cstdlib>

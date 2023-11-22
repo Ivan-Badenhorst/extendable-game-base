@@ -73,11 +73,12 @@ void GameController::startGame(MainWindow & mw)
     }
 
 
-    QRectF areaToShow = QRectF(0, 0, 800, 400);
-    mw.getUi()->graphicsView->setSceneRect(areaToShow);
+//    QRectF areaToShow = QRectF(0, 0, 800, 400);
+//    mw.getUi()->graphicsView->setSceneRect(areaToShow);
+    tileController->update(29, 29);
     QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     std::this_thread::sleep_for(std::chrono::seconds(2));
-  //  delete easyLevel;
+    delete easyLevel;
 
 }
 
