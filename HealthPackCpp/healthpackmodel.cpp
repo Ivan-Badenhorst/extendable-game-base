@@ -1,5 +1,6 @@
 #include "HealthPackH/healthpackmodel.h"
 
+#include <iostream>
 
 HealthPackModel::HealthPackModel(std::vector<std::unique_ptr<Tile> > tiles)
 {
@@ -8,6 +9,7 @@ HealthPackModel::HealthPackModel(std::vector<std::unique_ptr<Tile> > tiles)
         hp[1] = t->getYPos();
         hp[0] = t->getXPos();
         hp[2] = 1;
+        std::cout << hp[1] << ";" << hp[0] << std::endl;
         healthPacks.push_back(hp);
     }
 }

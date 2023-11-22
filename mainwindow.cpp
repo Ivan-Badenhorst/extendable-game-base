@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     gameController = GameController::getInstance();
     gameController->startGame(*this);
+    std::cout << std::endl;
 
 }
 

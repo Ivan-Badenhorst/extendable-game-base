@@ -16,8 +16,11 @@ HealthPackViewGraphical::HealthPackViewGraphical(MainWindow &mw, std::shared_ptr
 void HealthPackViewGraphical::update()
 {
     healthpackDisplays.clear();
+
+
     auto icon1 = QPixmap(":/HealthPackUsed");
     auto icon2 = QPixmap(":/HealthPackFull");
+
 
     for(auto& hp: hpModel->getHealthPacks()){
 
@@ -31,12 +34,12 @@ void HealthPackViewGraphical::update()
 
     }
 
-    zValue = 1.2;
 
 }
 
 void HealthPackViewGraphical::update(int row, int col, bool used)
 {
+    std::cout << "Update called: " << row << ";" << col << std::endl;
     auto icon1 = QPixmap(":/HealthPackUsed");
     auto icon2 = QPixmap(":/HealthPackFull");
 
@@ -65,7 +68,6 @@ void HealthPackViewGraphical::update(int row, int col, bool used)
 
 void HealthPackViewGraphical::displayHp(std::shared_ptr<QGraphicsPixmapItem> icon, std::array<int, 3> hp)
 {
-
     icon->setPos(hp[1]*tileDim, hp[0]*tileDim);
     icon->setZValue(zValue);
     healthpackDisplays.push_back(icon);

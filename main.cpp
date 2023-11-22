@@ -11,9 +11,5 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    auto controller = GameController::getInstance();
-    controller->startGame(w);
-
-
     return a.exec();
 }

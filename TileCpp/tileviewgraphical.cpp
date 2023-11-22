@@ -31,15 +31,13 @@ TileViewGraphical::TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> 
 
 void TileViewGraphical::update(int positionRow, int positionCol)
 {
-    // Calculate half of the display width and height
-    std::cout << "We update view with positionRow: "<<  positionRow << std::endl;
+
     auto halfDisplayWidth = displayWidth / 2;
     auto halfDisplayHeight = displayHeight / 2;
 
     auto tileTable = tileModel->getTileTable();
 
     if(prevRow < 0 || prevCol < 0 || std::abs(positionRow-prevRow) > 1 || std::abs(positionCol - prevCol) > 1){
-        std::cout << "full render" << std::endl;
         displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
     }
     else{//only display the new tiles

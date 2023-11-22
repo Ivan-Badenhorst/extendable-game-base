@@ -25,6 +25,7 @@ private:
 
     std::vector<std::shared_ptr<QGraphicsPixmapItem>> healthpackDisplays;
     void displayHp(std::shared_ptr<QGraphicsPixmapItem> icon, std::array<int, 3> hp);
+
 };
 
 #endif // HEALTHPACKVIEWGRAPHICAL_H
