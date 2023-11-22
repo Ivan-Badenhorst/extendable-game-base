@@ -20,7 +20,7 @@ private:
     MainWindow& mainWindow;
     std::shared_ptr<HealthPackModel> hpModel;
 
-    float zValue {1.1};
+    float zValue {1};
     int tileDim {50};
 
     std::vector<std::shared_ptr<QGraphicsPixmapItem>> healthpackDisplays;

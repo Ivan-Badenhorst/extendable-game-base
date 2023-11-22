@@ -24,6 +24,7 @@ private:
    static GameController* gameControllerInstance;
    std::shared_ptr<TileController> tileController;
    std::shared_ptr<HealthPackController> hpController;
+   std::shared_ptr<ProtagonistController> protController;
    int row {0};
    int col {0};
    int width;

@@ -35,6 +35,7 @@ void GameController::input(const ArrowDirection &direction)
     }
 
     hpController->update(row, col);
+    protController->update(row, col);
     tileController->update(row, col);
 
 
@@ -68,8 +69,8 @@ void GameController::startGame(MainWindow & mw)
     hpController = easyLevel->getHpController();
     hpController->refreshAll();
 
-    auto protagonistController = easyLevel->getProtController();
-    protagonistController->refreshAll();
+    protController = easyLevel->getProtController();
+    protController->refreshAll();
     
 
 }
