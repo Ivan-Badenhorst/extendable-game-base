@@ -24,22 +24,23 @@ void GameController::input(const ArrowDirection &direction)
 {
     switch (direction) {
     case ArrowDirection::Left:
-        if(row > 0) row--;
-        break;
-    case ArrowDirection::Right:
-        if(row < height) row++;
-        break;
-    case ArrowDirection::Up:
         if(col > 0) col--;
         break;
+    case ArrowDirection::Right:
+        if(col < width-1) col++;
+        break;
+    case ArrowDirection::Up:
+        if(row > 0) row--;
+        break;
     case ArrowDirection::Down:
-        if(col < width) col++;
+        if(row < height-1) row++;
         break;
     }
 
     hpController->update(row, col);
-    std::cout << row << ";" << col << std::endl;
+//    std::cout << row << ";" << col << std::endl;
     tileController->update(row, col);
+
 
 }
 
