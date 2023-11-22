@@ -5,3 +5,9 @@ ProtagonistViewGraphical::ProtagonistViewGraphical(MainWindow& mw, std::shared_p
 {
 
 }
+
+void ProtagonistViewGraphical::update()
+{
+    // do shit
+}
+
