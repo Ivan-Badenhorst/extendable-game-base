@@ -20,26 +20,26 @@ GameController::GameController()
 
 }
 
-void GameController::input(const ArrowDirection &direction) const
+void GameController::input(const ArrowDirection &direction)
 {
     switch (direction) {
-    case ArrowDirection::Up:
-        std::cout << "Handling Up direction..." << std::endl;
-        // Perform actions for Up direction
-        break;
-    case ArrowDirection::Down:
-        std::cout << "Handling Down direction..." << std::endl;
-        // Perform actions for Down direction
-        break;
     case ArrowDirection::Left:
-        std::cout << "Handling Left direction..." << std::endl;
-        // Perform actions for Left direction
+        if(row > 0) row--;
         break;
     case ArrowDirection::Right:
-        std::cout << "Handling Right direction..." << std::endl;
-        // Perform actions for Right direction
+        if(row < height) row++;
+        break;
+    case ArrowDirection::Up:
+        if(col > 0) col--;
+        break;
+    case ArrowDirection::Down:
+        if(col < width) col++;
         break;
     }
+
+    hpController->update(row, col);
+    std::cout << row << ";" << col << std::endl;
+    tileController->update(row, col);
 
 }
 
@@ -63,6 +63,10 @@ void GameController::startGame(MainWindow & mw)
 
 
     tileController = easyLevel->getTileController();
+
+    auto [h, w] = tileController->getDimensions();
+    height = h;
+    width = w;
 
     std::cout << "start position:" << std::endl;
     tileController->update(0, 0);

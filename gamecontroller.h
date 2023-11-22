@@ -13,7 +13,7 @@ class GameController
 public:
    GameController(GameController& copyController )= delete;
    void operator=(const GameController&) = delete;
-   void input(const ArrowDirection& direction) const;
+   void input(const ArrowDirection& direction);
 
    static GameController* getInstance();
    void startGame(MainWindow & mw);
@@ -24,6 +24,10 @@ private:
    static GameController* gameControllerInstance;
    std::shared_ptr<TileController> tileController;
    std::shared_ptr<HealthPackController> hpController;
+   int row {0};
+   int col {0};
+   int width;
+   int height;
 
    GameController();
    ~GameController();
