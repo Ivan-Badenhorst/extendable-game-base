@@ -38,7 +38,8 @@ HEADERS += \
     gamecontroller.h \
     level.h \
     levelfactory.h \
-    mainwindow.h
+    mainwindow.h \
+    constants.h
 
 
 

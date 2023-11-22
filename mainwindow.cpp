@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-
+#include "constants.h"
+#include "gamecontroller.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -12,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
     scene = new QGraphicsScene(this);
     ui->graphicsView->setScene(scene);
     this->setFocus();
+
+    gameController = GameController::getInstance();
+    gameController->startGame(*this);
+
 }
 
 MainWindow::~MainWindow()
@@ -29,17 +33,26 @@ QGraphicsScene *MainWindow::getScene() const
     return scene;
 }
 
+
+
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    {
-        if(event->key() == Qt::Key_Down)
-        {
-            std::cout << "lmaoooooooooooooo" << std::endl;
-        }
-        else if(event->key() == Qt::Key_R)
-        {
-            std::cout << "HEHEHEHE" << std::endl;
-        }
+    switch (event->key()) {
+    case Qt::Key_Left:
+        gameController->input(ArrowDirection::Left);
+        break;
+    case Qt::Key_Right:
+        gameController->input(ArrowDirection::Right);
+        break;
+    case Qt::Key_Up:
+        gameController->input(ArrowDirection::Up);
+        break;
+    case Qt::Key_Down:
+        gameController->input(ArrowDirection::Down);
+        break;
+    default:
+        QWidget::keyPressEvent(event);
+        break;
     }
 }
 

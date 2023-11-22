@@ -1,5 +1,5 @@
 #include "gamecontroller.h"
-#include "easylevel.h"
+
 
 #include "ui_mainwindow.h"
 
@@ -20,6 +20,31 @@ GameController::GameController()
 
 }
 
+void GameController::input(const ArrowDirection &direction) const
+{
+    switch (direction) {
+    case ArrowDirection::Up:
+        std::cout << "Handling Up direction..." << std::endl;
+        // Perform actions for Up direction
+        break;
+    case ArrowDirection::Down:
+        std::cout << "Handling Down direction..." << std::endl;
+        // Perform actions for Down direction
+        break;
+    case ArrowDirection::Left:
+        std::cout << "Handling Left direction..." << std::endl;
+        // Perform actions for Left direction
+        break;
+    case ArrowDirection::Right:
+        std::cout << "Handling Right direction..." << std::endl;
+        // Perform actions for Right direction
+        break;
+    }
+
+}
+
+
+
 GameController* GameController::getInstance()
 {
     if (gameControllerInstance == nullptr)
@@ -37,15 +62,15 @@ void GameController::startGame(MainWindow & mw)
     EasyLevel* easyLevel = static_cast<EasyLevel*>(level);
 
 
-    auto tileController = easyLevel->getTileController();
+    tileController = easyLevel->getTileController();
 
     std::cout << "start position:" << std::endl;
     tileController->update(0, 0);
-
-    auto hpController = easyLevel->getHpController();
+    hpController = easyLevel->getHpController();
     hpController->refreshAll();
 
 
+    /*
     //first wait for render to complete!!!!
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     std::this_thread::sleep_for(std::chrono::seconds(2));
@@ -78,7 +103,7 @@ void GameController::startGame(MainWindow & mw)
     tileController->update(29, 29);
     QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     std::this_thread::sleep_for(std::chrono::seconds(2));
-    delete easyLevel;
+    delete easyLevel;*/
 
 }
 
