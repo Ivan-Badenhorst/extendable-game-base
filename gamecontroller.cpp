@@ -41,23 +41,28 @@ void GameController::startGame(MainWindow & mw)
 
     tileController->update(0, 0);
 
+
+    //protagonist:
+    auto protagonistController = easyLevel->getProtController();
+    protagonistController->refreshAll();
+
     //first wait for render to complete!!!!
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
 
 
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
-    tileController->update(50, 0);
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+//    tileController->update(50, 0);
+//    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
 
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+//    std::this_thread::sleep_for(std::chrono::seconds(2));
 
-    tileController->update(50, 50);
+//    tileController->update(50, 50);
 
-    QRectF areaToShow = QRectF(0, 0, 800, 400);
-    mw.getUi()->graphicsView->setSceneRect(areaToShow);
+//    QRectF areaToShow = QRectF(0, 0, 800, 400);
+//    mw.getUi()->graphicsView->setSceneRect(areaToShow);
 
-    delete easyLevel;
+   // delete easyLevel;
 
 }
 
