@@ -15,15 +15,7 @@ class ProtagonistModel: public World
 {
 public:
     ProtagonistModel(std::unique_ptr<Protagonist> prot);
-//    ProtagonistModel() = default;
-    // Methods to interact with the stored protagonist data
-//     ProtagonistData getProtagonistData() const;
-//    int getPositionX() const { return protagonistData.x; }
-//    int getPositionY() const { return protagonistData.y; }
-//    float getHealth() const { return protagonistData.health; }
-//    void setHealth(float value) { protagonistData.health = value; }
-//    float getEnergy() const { return protagonistData.energy; }
-//    void setEnergy(float value) { protagonistData.energy = value; }
+
 
     int getPositionX() const { return protagonist->getXPos(); }
     int getPositionY() const { return protagonist->getYPos(); }
@@ -33,12 +25,10 @@ public:
     void setEnergy(float value) { protagonist->setEnergy(value); }
     // Add more methods as and when needed (also question. should i make them all inline?)
 
-    // add a method that moves it
-
-//    std::shared_ptr<Protagonist> getProtagonist() const;
+    // add a method that moves the protagonist later
+    const std::unique_ptr<Protagonist>& getProtagonist()const;
 
 private:
-//    ProtagonistData protagonistData; // Struct to store protagonist data
     std::unique_ptr<Protagonist> protagonist; // Unique pointer to hold the Protagonist
 };
 

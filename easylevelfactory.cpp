@@ -24,14 +24,13 @@ Level* EasyLevelFactory::createWorld(MainWindow& mw)
     
     TileController tc(std::make_shared<TileViewGraphical>(tv), std::make_shared<TileModel>(tm));
 
-    //prot:
+    //protagonist:
     std::unique_ptr<Protagonist> protagonistPtr = w.getProtagonist();
-    //ProtagonistModel pm(std::move(protagonistPtr));
     auto pm = std::make_shared<ProtagonistModel>(std::move(protagonistPtr));
-   // auto sharedProtagonistModel = std::make_shared<ProtagonistModel>(pm);
     auto pvg = std::make_shared<ProtagonistViewGraphical>(mw, pm);
-//    ProtagonistViewGraphical pvg(mw, pm);
     ProtagonistController pc(pvg,pm);
+
+
     auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc), std::make_shared<ProtagonistController>(pc));
 
     return easyLevel;
