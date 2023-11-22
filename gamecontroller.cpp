@@ -45,9 +45,14 @@ void GameController::startGame(MainWindow & mw)
     //protagonist:
     auto protagonistController = easyLevel->getProtController();
     protagonistController->refreshAll();
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    protagonistController->update(0,9);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+
 
     //first wait for render to complete!!!!
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+
 
 
     std::this_thread::sleep_for(std::chrono::seconds(2));

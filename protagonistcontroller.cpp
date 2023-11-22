@@ -10,3 +10,8 @@ void ProtagonistController::refreshAll()
 {
     protView->update();
 }
+
+void ProtagonistController::update(int row, int col)
+{
+    protView->update(row, col);
+}
