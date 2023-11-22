@@ -5,3 +5,8 @@ ProtagonistController::ProtagonistController(std::shared_ptr<ProtagonistView> pv
 {
 
 }
+
+void ProtagonistController::refreshAll()
+{
+    protView->update();
+}

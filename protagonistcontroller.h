@@ -8,7 +8,7 @@ class ProtagonistController
 {
 public:
     ProtagonistController(std::shared_ptr<ProtagonistView> pv, std::shared_ptr<ProtagonistModel> pm);
-    // add a method to tell the view
+    void refreshAll();
 private:
     std::shared_ptr<ProtagonistView> protView;
     std::shared_ptr<ProtagonistModel> protModel;
