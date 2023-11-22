@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QKeyEvent>
+#include <iostream>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,5 +25,9 @@ public:
 private:
     Ui::MainWindow *ui;
     QGraphicsScene* scene;
+
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+
 };
 #endif // MAINWINDOW_H
