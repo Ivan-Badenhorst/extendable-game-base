@@ -13,14 +13,30 @@ ProtagonistViewGraphical::ProtagonistViewGraphical(MainWindow& mw, std::shared_p
 
 void ProtagonistViewGraphical::update()
 {
-    // do shit
     auto prot = QPixmap(":/prisoner");
     auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
     protIcon->setZValue(1.1);
 
-    // set pos protIcon->setPos(*tileDim, hp[1]*tileDim);
+
     protagonistDisplay = protIcon;
     mainWindow.getScene()->addItem(protagonistDisplay.get());
 
 }
+
+void ProtagonistViewGraphical::update(int row, int col)
+{
+    auto prot = QPixmap(":/prisoner");
+    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
+    mainWindow.getScene()->removeItem(protagonistDisplay.get());
+    protagonistDisplay.reset();
+
+
+    protIcon->setPos(col*tileDim, row*tileDim);
+    protIcon->setZValue(1.1);
+
+    protagonistDisplay = protIcon;
+    mainWindow.getScene()->addItem(protagonistDisplay.get());
+
+}
+
 

@@ -10,7 +10,7 @@ class ProtagonistViewGraphical : public ProtagonistView
 public:
     ProtagonistViewGraphical(MainWindow& mw, std::shared_ptr<ProtagonistModel> pm);
     void update() override;
-    //void update(int row, int col) override;
+    void update(int row, int col) override;
 
 private:
     MainWindow& mainWindow;
