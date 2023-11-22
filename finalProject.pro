@@ -12,31 +12,35 @@ SOURCES += \
     HealthPackCpp/healthpackcontroller.cpp \
     HealthPackCpp/healthpackmodel.cpp \
     HealthPackCpp/healthpackviewgraphical.cpp \
+    TileCpp/tilecontroller.cpp \
+    TileCpp/tilemodel.cpp \
+    TileCpp/tileviewgraphical.cpp \
     easylevel.cpp \
     easylevelfactory.cpp \
     gamecontroller.cpp \
     levelfactory.cpp \
     main.cpp \
-    mainwindow.cpp \
-    tilecontroller.cpp \
-    tilemodel.cpp \
-    tileviewgraphical.cpp
+    mainwindow.cpp
+
 
 HEADERS += \
     HealthPackH/healthpackcontroller.h \
     HealthPackH/healthpackmodel.h \
     HealthPackH/healthpackview.h \
     HealthPackH/healthpackviewgraphical.h \
+    Tile/tileviewgraphical.h \
+    TileH/tilecontroller.h \
+    TileH/tilemodel.h \
+    TileH/tileview.h \
+    TileH/tileviewgraphical.h \
     easylevel.h \
     easylevelfactory.h \
     gamecontroller.h \
     level.h \
     levelfactory.h \
-    mainwindow.h \
-    tilecontroller.h \
-    tilemodel.h \
-    tileview.h \
-    tileviewgraphical.h
+    mainwindow.h
+
+
 
 FORMS += \
     mainwindow.ui
