@@ -3,6 +3,9 @@
 #include "tileviewgraphical.h"
 #include "tilecontroller.h"
 #include "easylevel.h"
+#include "HealthPackH/healthpackmodel.h"
+#include "HealthPackH/healthpackcontroller.h"
+#include "HealthPackH/healthpackviewgraphical.h"
 
 EasyLevelFactory::EasyLevelFactory()
 {
@@ -12,16 +15,20 @@ EasyLevelFactory::EasyLevelFactory()
 Level* EasyLevelFactory::createWorld(MainWindow& mw)
 {
     World w;
-    w.createWorld(":/maze1.png", 0,0);
+    w.createWorld(":/worldmap.png", 0,40);
 
+    //tile
     TileModel tm;
     tm.populateTileMap(w.getRows(), w.getCols(), w.getTiles());
-    
     TileViewGraphical tv(mw, std::make_shared<TileModel>(tm));
-    
     TileController tc(std::make_shared<TileViewGraphical>(tv), std::make_shared<TileModel>(tm));
 
-    auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc));
+    //healthPacks
+    HealthPackModel hpm(w.getHealthPacks());
+    HealthPackViewGraphical hpv(mw, std::make_shared<HealthPackModel>(hpm));
+    HealthPackController hpc(std::make_shared<HealthPackViewGraphical>(hpv), std::make_shared<HealthPackModel>(hpm));
+
+    auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc), std::make_shared<HealthPackController>(hpc));
 
     return easyLevel;
 }

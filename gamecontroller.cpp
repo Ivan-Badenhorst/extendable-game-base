@@ -41,6 +41,12 @@ void GameController::startGame(MainWindow & mw)
 
     std::cout << "start position:" << std::endl;
     tileController->update(0, 0);
+
+    auto hpController = easyLevel->getHpController();
+    hpController->refreshAll();
+
+
+    //first wait for render to complete!!!!
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
@@ -55,37 +61,23 @@ void GameController::startGame(MainWindow & mw)
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
-    std::cout << "one right" << std::endl;
-    tileController->update(0, 1);
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     std::this_thread::sleep_for(std::chrono::seconds(2));
 
-    std::cout << "one down" << std::endl;
-    tileController->update(1, 1);
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    //I will now test the healthpack update -> USING ALL HEALTH PACKS!!!:
+    for(int i=0; i< 30; i++){
+        for(int j=0; j<30;j++){
+            hpController->update(i,j);
+
+        }
+    }
+
+
+    QRectF areaToShow = QRectF(0, 0, 800, 400);
+    mw.getUi()->graphicsView->setSceneRect(areaToShow);
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     std::this_thread::sleep_for(std::chrono::seconds(2));
-
-
-
-    std::cout << "5 5" << std::endl;
-    tileController->update(5, 5);
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-
-    std::cout << "29 29" << std::endl;
-    tileController->update(499, 499);
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-
-
-//    std::this_thread::sleep_for(std::chrono::seconds(2));
-
-//    tileController->update(50, 50);
-
-//    QRectF areaToShow = QRectF(0, 0, 800, 400);
-//    mw.getUi()->graphicsView->setSceneRect(areaToShow);
-
-//    delete easyLevel;
+  //  delete easyLevel;
 
 }
 
