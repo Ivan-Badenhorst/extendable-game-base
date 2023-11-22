@@ -5,6 +5,7 @@ class ProtagonistView
 {
 public:
     virtual void update() = 0;
+    //virtual void update(int row, int col) = 0;
 };
 
 
