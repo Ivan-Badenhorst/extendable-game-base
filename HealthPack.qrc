@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>HealthPackFull.png</file>
+        <file>HealthPackUsed.png</file>
+    </qresource>
+</RCC>

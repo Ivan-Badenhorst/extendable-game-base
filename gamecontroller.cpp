@@ -1,7 +1,4 @@
 #include "gamecontroller.h"
-#include "easylevel.h"
-
-#include "ui_mainwindow.h"
 
 #include <iostream>
 #include <memory>
@@ -20,6 +17,31 @@ GameController::GameController()
 
 }
 
+void GameController::input(const ArrowDirection &direction)
+{
+    switch (direction) {
+    case ArrowDirection::Left:
+        if(col > 0) col--;
+        break;
+    case ArrowDirection::Right:
+        if(col < width-1) col++;
+        break;
+    case ArrowDirection::Up:
+        if(row > 0) row--;
+        break;
+    case ArrowDirection::Down:
+        if(row < height-1) row++;
+        break;
+    }
+
+    hpController->update(row, col);
+    tileController->update(row, col);
+
+
+}
+
+
+
 GameController* GameController::getInstance()
 {
     if (gameControllerInstance == nullptr)
@@ -36,38 +58,19 @@ void GameController::startGame(MainWindow & mw)
     auto level = easyLevelFactory.createWorld(mw);
     EasyLevel* easyLevel = static_cast<EasyLevel*>(level);
 
+    tileController = easyLevel->getTileController();
 
-    auto tileController = easyLevel->getTileController();
+    auto [h, w] = tileController->getDimensions();
+    height = h;
+    width = w;
 
     tileController->update(0, 0);
+    hpController = easyLevel->getHpController();
+    hpController->refreshAll();
 
-
-    //protagonist:
     auto protagonistController = easyLevel->getProtController();
     protagonistController->refreshAll();
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    protagonistController->update(0,9);
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
-
-
-    //first wait for render to complete!!!!
-
-
-
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-
-//    tileController->update(50, 0);
-//    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
-
-//    std::this_thread::sleep_for(std::chrono::seconds(2));
-
-//    tileController->update(50, 50);
-
-//    QRectF areaToShow = QRectF(0, 0, 800, 400);
-//    mw.getUi()->graphicsView->setSceneRect(areaToShow);
-
-   // delete easyLevel;
+    
 
 }
 

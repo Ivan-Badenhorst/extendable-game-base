@@ -9,20 +9,34 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    HealthPackCpp/healthpackcontroller.cpp \
+    HealthPackCpp/healthpackmodel.cpp \
+    HealthPackCpp/healthpackviewgraphical.cpp \
+    TileCpp/tilecontroller.cpp \
+    TileCpp/tilemodel.cpp \
+    TileCpp/tileviewgraphical.cpp \
     easylevel.cpp \
     easylevelfactory.cpp \
     gamecontroller.cpp \
     levelfactory.cpp \
     main.cpp \
-    mainwindow.cpp \
     protagonistcontroller.cpp \
     protagonistmodel.cpp \
     protagonistviewgraphical.cpp \
-    tilecontroller.cpp \
-    tilemodel.cpp \
-    tileviewgraphical.cpp
+    mainwindow.cpp
+
+
 
 HEADERS += \
+    HealthPackH/healthpackcontroller.h \
+    HealthPackH/healthpackmodel.h \
+    HealthPackH/healthpackview.h \
+    HealthPackH/healthpackviewgraphical.h \
+    Tile/tileviewgraphical.h \
+    TileH/tilecontroller.h \
+    TileH/tilemodel.h \
+    TileH/tileview.h \
+    TileH/tileviewgraphical.h \
     easylevel.h \
     easylevelfactory.h \
     gamecontroller.h \
@@ -33,10 +47,7 @@ HEADERS += \
     protagonistmodel.h \
     protagonistview.h \
     protagonistviewgraphical.h \
-    tilecontroller.h \
-    tilemodel.h \
-    tileview.h \
-    tileviewgraphical.h
+    constants.h
 
 FORMS += \
     mainwindow.ui
@@ -49,7 +60,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     Maps.qrc \
-    Protagonist.qrc
+    Protagonist.qrc \
+    HealthPack.qrc 
+
 
 
 

@@ -1,7 +1,8 @@
 #include "easylevel.h"
 
-EasyLevel::EasyLevel(std::shared_ptr<TileController> tc, std::shared_ptr<ProtagonistController> pc)
-    :tileController(tc), protController(pc)
+
+EasyLevel::EasyLevel(std::shared_ptr<TileController> tc, std::shared_ptr<ProtagonistController> pc, std::shared_ptr<HealthPackController>hpm)
+    :tileController(tc), protController(pc), hpController(hpm)
 {
 
 }
@@ -16,7 +17,13 @@ void EasyLevel::setTileController(std::shared_ptr<TileController> newTileControl
     tileController = newTileController;
 }
 
+
 std::shared_ptr<ProtagonistController> EasyLevel::getProtController() const
 {
     return protController;
+}
+
+std::shared_ptr<HealthPackController> EasyLevel::getHpController() const
+{
+    return hpController;
 }
