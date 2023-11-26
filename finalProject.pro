@@ -18,9 +18,13 @@ SOURCES += \
     easylevel.cpp \
     easylevelfactory.cpp \
     enemycontroller.cpp \
+    enemymodel.cpp \
+    enemyviewgraphical.cpp \
     gamecontroller.cpp \
     levelfactory.cpp \
     main.cpp \
+    penemymodel.cpp \
+    penemyviewgraphical.cpp \
     protagonistcontroller.cpp \
     protagonistmodel.cpp \
     protagonistviewgraphical.cpp \
@@ -41,11 +45,15 @@ HEADERS += \
     easylevel.h \
     easylevelfactory.h \
     enemycontroller.h \
+    enemymodelinterface.h \
+    enemyviewgraphical.h \
     enemyviewinterface.h \
     gamecontroller.h \
     level.h \
     levelfactory.h \
     mainwindow.h \
+    penemymodel.h \
+    penemyviewgraphical.h \
     protagonistcontroller.h \
     protagonistmodel.h \
     protagonistview.h \
