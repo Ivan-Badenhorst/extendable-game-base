@@ -18,6 +18,7 @@
 #include "penemymodel.h"
 #include "enemycontroller.h"
 #include "enemyviewgraphical.h"
+#include "penemyviewgraphical.h"
 
 EasyLevelFactory::EasyLevelFactory()
 {
@@ -52,33 +53,30 @@ Level* EasyLevelFactory::createWorld(MainWindow& mw)
     // Create one model per enemy type
     EnemyModel em;
     PEnemyModel pem;
-    std::cout << "HEYYYYYYYYY" << std::endl;
+
 
     // Get enemies from the world and iterate through them (for Enemy and PEnemy only)
     for (auto& enemy : w.getEnemies()) {
-        std::cout << "LOOPING THROUGH THE ENEMIES " << std::endl;
         // Check if the enemy can be casted to PEnemy
         if (auto pEnemy = dynamic_cast<PEnemy*>(enemy.get())) {
             // Add the enemy to PEnemyModel
-            std::cout << "Adding PEnemy" << std::endl;
             pem.addEnemy(move(enemy));
         } else {
             // Add the enemy to EnemyModel
-            std::cout << "Adding Enemy" << std::endl;
             em.addEnemy(move(enemy));
         }
     }
 
-    std::cout << "YOOOOOOO" << std::endl;
-
     // Create the enemies views
     EnemyViewGraphical evg(mw, std::make_shared<EnemyModel>(em));
+    PEnemyViewGraphical pevg(mw, std::make_shared<PEnemyModel>(pem));
 
     // Create an EnemyController and add the enemies models to it
     EnemyController ec;
     ec.addEnemyModel(std::make_shared<EnemyModel>(em));
     ec.addEnemyModel(std::make_shared<PEnemyModel>(pem));
     ec.addEnemyGraphicalView(std::make_shared<EnemyViewGraphical>(evg));
+    ec.addEnemyGraphicalView(std::make_shared<PEnemyViewGraphical>(pevg));
     
 
     auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc), 
