@@ -63,7 +63,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     Maps.qrc \
     Protagonist.qrc \
-    HealthPack.qrc 
+    HealthPack.qrc \
+    Enemies.qrc
 
 
 
