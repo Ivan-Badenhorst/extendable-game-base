@@ -14,6 +14,10 @@
 #include "HealthPackH/healthpackcontroller.h"
 #include "HealthPackH/healthpackviewgraphical.h"
 
+#include "enemymodel.h"
+#include "penemymodel.h"
+#include "enemycontroller.h"
+
 EasyLevelFactory::EasyLevelFactory()
 {
 
@@ -42,9 +46,34 @@ Level* EasyLevelFactory::createWorld(MainWindow& mw)
     HealthPackViewGraphical hpv(mw, std::make_shared<HealthPackModel>(hpm));
     HealthPackController hpc(std::make_shared<HealthPackViewGraphical>(hpv), std::make_shared<HealthPackModel>(hpm));
 
-    auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc), std::make_shared<ProtagonistController>(pc), std::make_shared<HealthPackController>(hpc));
+    //enemies
+    EnemyModel em;
+    PEnemyModel pem;
 
+    // Get enemies from the world and iterate through them
+    for (auto& enemy : w.getEnemies()) {
+        // Check if the enemy can be casted to PEnemy
+        if (auto pEnemy = dynamic_cast<PEnemy*>(enemy.get())) {
+            // Add the enemy to PEnemyModel
+            pem.addEnemy(move(enemy));
+        } else {
+            // Add the enemy to EnemyModel
+            em.addEnemy(move(enemy));
+        }
+    }
 
-    return easyLevel;
-}
+    EnemyController ec;
+    ec.addEnemyModel(std::make_shared<EnemyModel>(em));
+    ec.addEnemyModel(std::make_shared<PEnemyModel>(pem));
+    
+
+    auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc), 
+                                std::make_shared<ProtagonistController>(pc), 
+                                std::make_shared<HealthPackController>(hpc),
+                                std::make_shared<EnemyController>(ec));
+
+    
+
+        return easyLevel;
+    }
 
