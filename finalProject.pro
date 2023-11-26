@@ -17,6 +17,7 @@ SOURCES += \
     TileCpp/tileviewgraphical.cpp \
     easylevel.cpp \
     easylevelfactory.cpp \
+    enemycontroller.cpp \
     gamecontroller.cpp \
     levelfactory.cpp \
     main.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     TileH/tileviewgraphical.h \
     easylevel.h \
     easylevelfactory.h \
+    enemycontroller.h \
     gamecontroller.h \
     level.h \
     levelfactory.h \
