@@ -33,7 +33,7 @@ HEADERS += \
     HealthPackH/healthpackmodel.h \
     HealthPackH/healthpackview.h \
     HealthPackH/healthpackviewgraphical.h \
-    Tile/tileviewgraphical.h \
+    TileH/tileviewgraphical.h \
     TileH/tilecontroller.h \
     TileH/tilemodel.h \
     TileH/tileview.h \
