@@ -52,3 +52,6 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+/.qtc_clangd
+/debug/finalProject.exe
+/.vscode
