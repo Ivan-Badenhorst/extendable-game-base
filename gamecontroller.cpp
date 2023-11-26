@@ -71,6 +71,9 @@ void GameController::startGame(MainWindow & mw)
 
     protController = easyLevel->getProtController();
     protController->refreshAll();
+
+    enemyController = easyLevel->getEnemyController();
+    enemyController->refreshAllGraphical();
     
 
 }

@@ -39,7 +39,7 @@ void HealthPackViewGraphical::update()
 
 void HealthPackViewGraphical::update(int row, int col, bool used)
 {
-    std::cout << "Update called: " << row << ";" << col << std::endl;
+    //std::cout << "Update called: " << row << ";" << col << std::endl;
     auto icon1 = QPixmap(":/HealthPackUsed");
     auto icon2 = QPixmap(":/HealthPackFull");
 

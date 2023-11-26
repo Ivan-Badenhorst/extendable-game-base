@@ -17,9 +17,14 @@ SOURCES += \
     TileCpp/tileviewgraphical.cpp \
     easylevel.cpp \
     easylevelfactory.cpp \
+    enemycontroller.cpp \
+    enemymodel.cpp \
+    enemyviewgraphical.cpp \
     gamecontroller.cpp \
     levelfactory.cpp \
     main.cpp \
+    penemymodel.cpp \
+    penemyviewgraphical.cpp \
     protagonistcontroller.cpp \
     protagonistmodel.cpp \
     protagonistviewgraphical.cpp \
@@ -32,17 +37,23 @@ HEADERS += \
     HealthPackH/healthpackmodel.h \
     HealthPackH/healthpackview.h \
     HealthPackH/healthpackviewgraphical.h \
-    Tile/tileviewgraphical.h \
+    TileH/tileviewgraphical.h \
     TileH/tilecontroller.h \
     TileH/tilemodel.h \
     TileH/tileview.h \
     TileH/tileviewgraphical.h \
     easylevel.h \
     easylevelfactory.h \
+    enemycontroller.h \
+    enemymodelinterface.h \
+    enemyviewgraphical.h \
+    enemyviewinterface.h \
     gamecontroller.h \
     level.h \
     levelfactory.h \
     mainwindow.h \
+    penemymodel.h \
+    penemyviewgraphical.h \
     protagonistcontroller.h \
     protagonistmodel.h \
     protagonistview.h \
@@ -61,7 +72,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     Maps.qrc \
     Protagonist.qrc \
-    HealthPack.qrc 
+    HealthPack.qrc \
+    Enemies.qrc
 
 
 
@@ -73,3 +85,17 @@ INCLUDEPATH += $$PWD/../CompiledLib/inc
 DEPENDPATH += $$PWD/../CompiledLib/inc
 
 
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/release/ -lworld
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/debug/ -lworld
+else:unix: LIBS += -L$$PWD/../APT_fp_resources/worldsource/ -lworld
+
+INCLUDEPATH += $$PWD/../APT_fp_resources/worldsource/debug
+DEPENDPATH += $$PWD/../APT_fp_resources/worldsource/debug
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/release/ -lworld
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/debug/ -lworld
+else:unix: LIBS += -L$$PWD/../APT_fp_resources/worldsource/ -lworld
+
+INCLUDEPATH += $$PWD/../APT_fp_resources/worldsource
+DEPENDPATH += $$PWD/../APT_fp_resources/worldsource
