@@ -33,7 +33,6 @@ HEADERS += \
     HealthPackH/healthpackmodel.h \
     HealthPackH/healthpackview.h \
     HealthPackH/healthpackviewgraphical.h \
-    IEnemyView.h \
     TileH/tileviewgraphical.h \
     TileH/tilecontroller.h \
     TileH/tilemodel.h \
@@ -42,6 +41,7 @@ HEADERS += \
     easylevel.h \
     easylevelfactory.h \
     enemycontroller.h \
+    enemyviewinterface.h \
     gamecontroller.h \
     level.h \
     levelfactory.h \
