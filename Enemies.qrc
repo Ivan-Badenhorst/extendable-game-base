@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>PEnemy_alive.jpg</file>
-        <file>Enemy_alive.jpg</file>
+        <file>PEnemy_alive.png</file>
+        <file>Enemy_alive.png</file>
     </qresource>
 </RCC>
