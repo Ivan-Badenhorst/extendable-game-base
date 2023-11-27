@@ -55,8 +55,9 @@ GameController* GameController::getInstance()
     return gameControllerInstance;
 
 }
-void GameController::startGame(MainWindow & mw)
+void GameController::startGame(MainWindow & mw, std::unique_ptr<GameView> gv)
 {
+    gameView = std::move(gv);
 
     EasyLevelFactory easyLevelFactory;
     auto level = easyLevelFactory.createWorld(mw);
