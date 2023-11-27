@@ -20,7 +20,7 @@ std::vector<std::shared_ptr<EnemyViewInterface>>GameView::getEnemyView() const
 
 void GameView::setEnemyView(std::vector<std::shared_ptr<EnemyViewInterface> > newEnemyView)
 {
-    enemyView = std::move(newEnemyView);
+    enemyView = newEnemyView;
 }
 
 std::shared_ptr<TileView>GameView::getTileView() const
@@ -30,7 +30,7 @@ std::shared_ptr<TileView>GameView::getTileView() const
 
 void GameView::setTileView(std::shared_ptr<TileView> newTileView)
 {
-    tileView = std::move(newTileView);
+    tileView = newTileView;
 }
 
 std::shared_ptr<HealthPackView>GameView::getHpView() const
@@ -40,7 +40,7 @@ std::shared_ptr<HealthPackView>GameView::getHpView() const
 
 void GameView::setHpView(std::shared_ptr<HealthPackView> newHpView)
 {
-    hpView = std::move(newHpView);
+    hpView = newHpView;
 }
 
 std::shared_ptr<ProtagonistView>GameView::getProtView() const
@@ -50,5 +50,5 @@ std::shared_ptr<ProtagonistView>GameView::getProtView() const
 
 void GameView::setProtView(std::shared_ptr<ProtagonistView> newProtView)
 {
-    protView = std::move(newProtView);
+    protView = newProtView;
 }

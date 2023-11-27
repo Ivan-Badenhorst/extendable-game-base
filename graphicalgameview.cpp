@@ -1,4 +1,5 @@
 #include "graphicalgameview.h"
+#include "protagonistviewgraphical.h"
 #include "qboxlayout.h"
 #include "qgraphicsview.h"
 
@@ -19,6 +20,11 @@ void GraphicalGameView::initializeMainWindow()
     healthBar->setGeometry(300, 500, 280, 20);
     healthBar->show();
 
+    if(auto pView = dynamic_cast<ProtagonistViewGraphical*>(protView.get())){
+//        auto pViewS = std::make_shared<ProtagonistViewGraphical>(*pView);
+//        pViewS->setHealthBar(healthBar);
+        pView->setHealthBar(healthBar);
+    };
     ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
     QGraphicsView* view = new QGraphicsView(mainWindow.getScene());
 //    view->setGeometry(60, 30, 800, 400);

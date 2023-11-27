@@ -33,7 +33,7 @@ public:
     std::shared_ptr<ProtagonistView>getProtView() const;
     void setProtView(std::shared_ptr<ProtagonistView> newProtView);
 
-private:
+protected:
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyView;
     std::shared_ptr<TileView> tileView;
     std::shared_ptr<HealthPackView> hpView;
