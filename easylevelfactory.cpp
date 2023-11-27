@@ -33,20 +33,20 @@ Level* EasyLevelFactory::createWorld(MainWindow& mw)
     //tile
     TileModel tm;
     tm.populateTileMap(w.getRows(), w.getCols(), w.getTiles());
-    TileViewGraphical tv(mw, std::make_shared<TileModel>(tm));
-    TileController tc(std::make_shared<TileViewGraphical>(tv), std::make_shared<TileModel>(tm));
+//    TileViewGraphical tv(mw, std::make_shared<TileModel>(tm));
+    TileController tc(std::make_shared<TileModel>(tm));
 
 
     //protagonist:
     std::unique_ptr<Protagonist> protagonistPtr = w.getProtagonist();
     auto pm = std::make_shared<ProtagonistModel>(std::move(protagonistPtr));
-    auto pvg = std::make_shared<ProtagonistViewGraphical>(mw, pm);
-    ProtagonistController pc(pvg,pm);
+//    auto pvg = std::make_shared<ProtagonistViewGraphical>(mw, pm);
+    ProtagonistController pc(pm);
 
     //healthPacks
     HealthPackModel hpm(w.getHealthPacks(), 10);
     HealthPackViewGraphical hpv(mw, std::make_shared<HealthPackModel>(hpm));
-    HealthPackController hpc(std::make_shared<HealthPackViewGraphical>(hpv), std::make_shared<HealthPackModel>(hpm));
+    HealthPackController hpc(std::make_shared<HealthPackModel>(hpm));
 
     //enemies
 
@@ -67,16 +67,16 @@ Level* EasyLevelFactory::createWorld(MainWindow& mw)
         }
     }
 
-    // Create the enemies views
-    EnemyViewGraphical evg(mw, std::make_shared<EnemyModel>(em));
-    PEnemyViewGraphical pevg(mw, std::make_shared<PEnemyModel>(pem));
+//    // Create the enemies views
+//    EnemyViewGraphical evg(mw, std::make_shared<EnemyModel>(em));
+//    PEnemyViewGraphical pevg(mw, std::make_shared<PEnemyModel>(pem));
 
     // Create an EnemyController and add the enemies models to it
     EnemyController ec;
     ec.addEnemyModel(std::make_shared<EnemyModel>(em));
     ec.addEnemyModel(std::make_shared<PEnemyModel>(pem));
-    ec.addEnemyGraphicalView(std::make_shared<EnemyViewGraphical>(evg));
-    ec.addEnemyGraphicalView(std::make_shared<PEnemyViewGraphical>(pevg));
+//    ec.addEnemyGraphicalView(std::make_shared<EnemyViewGraphical>(evg));
+//    ec.addEnemyGraphicalView(std::make_shared<PEnemyViewGraphical>(pevg));
     
 
     auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc), 

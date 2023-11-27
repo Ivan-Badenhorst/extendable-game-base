@@ -20,7 +20,7 @@ public:
 
 private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels;
-    std::vector<std::shared_ptr<EnemyViewInterface>> enemyView;
+    std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
 };
 
 #endif // ENEMYCONTROLLER_H

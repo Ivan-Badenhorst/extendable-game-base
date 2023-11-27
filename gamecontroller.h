@@ -22,7 +22,9 @@ public:
 
 
 
-private:
+   void initializeView();
+
+   private:
    static GameController* gameControllerInstance;
     std::unique_ptr<GameView> gameView;
 
