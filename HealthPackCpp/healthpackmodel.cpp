@@ -2,14 +2,13 @@
 
 #include <iostream>
 
-HealthPackModel::HealthPackModel(std::vector<std::unique_ptr<Tile> > tiles)
+HealthPackModel::HealthPackModel(std::vector<std::unique_ptr<Tile> > tiles, int hpValue)
 {
     for(auto& t:tiles){
         std::array<int, 3> hp;
         hp[1] = t->getYPos();
         hp[0] = t->getXPos();
-        hp[2] = 1;
-        //std::cout << hp[1] << ";" << hp[0] << std::endl;
+        hp[2] = hpValue;
         healthPacks.push_back(hp);
     }
 }
@@ -19,13 +18,14 @@ std::vector<std::array<int, 3> > HealthPackModel::getHealthPacks() const
     return healthPacks;
 }
 
-bool HealthPackModel::containsHp(int row, int col)
+int HealthPackModel::containsHp(int row, int col)
 {
     for(auto& hp: healthPacks){
         if(hp[0] == row && hp[1] == col && hp[2] > 0){
+            int val = hp[2];
             hp[2] = 0;
-            return true;
+            return val;
         }
     }
-    return false;
+    return 0;
 }

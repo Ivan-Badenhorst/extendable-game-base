@@ -34,7 +34,10 @@ void GameController::input(const ArrowDirection &direction)
         break;
     }
 
-    hpController->update(row, col);
+    int hpVal = hpController->update(row, col);
+    if(hpVal > 0){
+        protController->
+    }
     protController->update(row, col);
     tileController->update(row, col);
 
