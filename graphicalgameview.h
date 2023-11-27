@@ -6,7 +6,6 @@
 
 class HealthProgressBar : public QProgressBar {
 public:
-
     explicit HealthProgressBar(QWidget *parent = nullptr) : QProgressBar(parent) {}
 
     QString text() const override {
@@ -17,6 +16,7 @@ public:
 class GraphicalGameView: public GameView
 {
 public:
+    GraphicalGameView(MainWindow& mw) : GameView(mw){};
     void initializeMainWindow() override;
     void clearMainWindow() override;
 

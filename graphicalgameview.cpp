@@ -21,5 +21,5 @@ void GraphicalGameView::initializeMainWindow()
 
 void GraphicalGameView::clearMainWindow()
 {
-
+    healthBar->reset();
 }

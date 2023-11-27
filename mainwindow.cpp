@@ -7,6 +7,8 @@
 #include <QLabel>
 
 
+#include "graphicalgameview.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -17,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->setFocus();
 
 //    createHealthBar();
+    GraphicalGameView ggv(*this);
+    std::shared_ptr<GameView> gv = std::make_shared<GraphicalGameView>(ggv);
+    gv->initializeMainWindow();
 
     gameController = GameController::getInstance();
     gameController->startGame(*this);
