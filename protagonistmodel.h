@@ -29,7 +29,11 @@ public:
     const std::unique_ptr<Protagonist>& getProtagonist()const;
 
 private:
-    std::unique_ptr<Protagonist> protagonist; // Unique pointer to hold the Protagonist
+//    std::unique_ptr<Protagonist> protagonist; // Unique pointer to hold the Protagonist
+    int x {0};
+    int y {0};
+    float health {0.0f};
+    float energy {0.0f};
 };
 
 #endif // PROTAGONISTMODEL_H
