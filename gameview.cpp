@@ -1,12 +1,11 @@
 #include "gameview.h"
 
-GameView::GameView()
+GameView::GameView(MainWindow& mw)
+    :mainWindow(mw)
 {
 
+
 }
-
-
-
 
 
 
@@ -14,42 +13,42 @@ GameView::GameView()
 
 ///Getters and Setters:
 
-EnemyViewInterface*GameView::getEnemyView() const
+std::shared_ptr<EnemyViewInterface>GameView::getEnemyView() const
 {
-    return enemyView.get();
+    return enemyView;
 }
 
-void GameView::setEnemyView(std::unique_ptr<EnemyViewInterface> newEnemyView)
+void GameView::setEnemyView(std::shared_ptr<EnemyViewInterface> newEnemyView)
 {
     enemyView = std::move(newEnemyView);
 }
 
-TileView*GameView::getTileView() const
+std::shared_ptr<TileView>GameView::getTileView() const
 {
-    return tileView.get();
+    return tileView;
 }
 
-void GameView::setTileView(std::unique_ptr<TileView> newTileView)
+void GameView::setTileView(std::shared_ptr<TileView> newTileView)
 {
     tileView = std::move(newTileView);
 }
 
-HealthPackView*GameView::getHpView() const
+std::shared_ptr<HealthPackView>GameView::getHpView() const
 {
-    return hpView.get();
+    return hpView;
 }
 
-void GameView::setHpView(std::unique_ptr<HealthPackView> newHpView)
+void GameView::setHpView(std::shared_ptr<HealthPackView> newHpView)
 {
     hpView = std::move(newHpView);
 }
 
-ProtagonistView*GameView::getProtView() const
+std::shared_ptr<ProtagonistView>GameView::getProtView() const
 {
-    return protView.get();
+    return protView;
 }
 
-void GameView::setProtView(std::unique_ptr<ProtagonistView> newProtView)
+void GameView::setProtView(std::shared_ptr<ProtagonistView> newProtView)
 {
     protView = std::move(newProtView);
 }
