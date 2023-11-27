@@ -17,12 +17,12 @@ public:
     ProtagonistModel(std::unique_ptr<Protagonist> prot);
 
 
-    int getPositionX() const { return protagonist->getXPos(); }
-    int getPositionY() const { return protagonist->getYPos(); }
-    float getHealth() const { return protagonist->getHealth(); }
-    void setHealth(float value) { protagonist->setHealth(value); }
-    float getEnergy() const { return protagonist->getEnergy(); }
-    void setEnergy(float value) { protagonist->setEnergy(value); }
+    int getPositionX() const;
+    int getPositionY() const;
+    float getHealth() const;
+    void setHealth(float value);
+    float getEnergy() const;
+    void setEnergy(float value);
     // Add more methods as and when needed (also question. should i make them all inline?)
 
     // add a method that moves the protagonist later
@@ -30,8 +30,8 @@ public:
 
 private:
 //    std::unique_ptr<Protagonist> protagonist; // Unique pointer to hold the Protagonist
-    int x {0};
-    int y {0};
+    int xPos {0};
+    int yPos {0};
     float health {0.0f};
     float energy {0.0f};
 };
