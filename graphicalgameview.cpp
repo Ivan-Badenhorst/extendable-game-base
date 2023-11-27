@@ -1,4 +1,6 @@
 #include "graphicalgameview.h"
+#include "qboxlayout.h"
+#include "qgraphicsview.h"
 
 
 
@@ -17,6 +19,25 @@ void GraphicalGameView::initializeMainWindow()
     healthBar->setGeometry(300, 500, 280, 20);
     healthBar->show();
 
+    ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
+    QGraphicsView* view = new QGraphicsView(mainWindow.getScene());
+//    view->setGeometry(60, 30, 800, 400);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    mainWindow.setCentralWidget(view);
+
+    // Create a widget to hold the view
+    QWidget* widget = new QWidget(&mainWindow);
+    widget->setFixedSize(800, 400); // Fixed size for the widget
+    QHBoxLayout* layout = new QHBoxLayout(widget);
+    layout->addWidget(view);
+    layout->setContentsMargins(60, 30, 0, 0); // Adjust the margins as needed
+
+    mainWindow.setCentralWidget(widget);
+
+    //create QGraphicsScene
+//    mainWindow->getscene = new QGraphicsScene(this);
+//    ui->graphicsView->setScene(scene);
 }
 
 void GraphicalGameView::clearMainWindow()

@@ -15,7 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(this);
-    ui->graphicsView->setScene(scene);
+    //THE SCENE SHOULD MAYBE BE MOVED TO THE GRAPHICS VIEW CLASS!
+
     this->setFocus();
 
 //    createHealthBar();

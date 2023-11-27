@@ -69,7 +69,8 @@ void TileViewGraphical::update(int positionRow, int positionCol)
     QRectF areaToShow = QRectF(topLeftX, topLeftY, tileDim*displayWidth, tileDim*displayHeight);
 
 
-    mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
+    //mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
+    mainWindow.getScene()->setSceneRect(areaToShow);
 
     prevCol = positionCol;
     prevRow = positionRow;
