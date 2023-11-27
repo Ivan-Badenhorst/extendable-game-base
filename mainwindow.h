@@ -36,16 +36,14 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void clearWindow();
 
     ///REDO THE MAIN WINDOW DESTRUCTOR TO FREE THE GAME CONTROLLER MEMORY!!
 
     Ui::MainWindow *getUi() const;
-
     QGraphicsScene *getScene() const;
-
-
-
     HealthProgressBar*getHealthBar() const;
+
 
 private:
     Ui::MainWindow *ui;
@@ -54,7 +52,7 @@ private:
 
 
     void createHealthBar();//MAYBE MOVE THIS SOMEWHERE ELSE. IDK WHERE LOL
-    std::unique_ptr<HealthProgressBar> healthBar;
+    std::shared_ptr<HealthProgressBar> healthBar;
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
