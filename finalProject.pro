@@ -21,6 +21,7 @@ SOURCES += \
     enemymodel.cpp \
     enemyviewgraphical.cpp \
     gamecontroller.cpp \
+    gameview.cpp \
     levelfactory.cpp \
     main.cpp \
     penemymodel.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     enemyviewgraphical.h \
     enemyviewinterface.h \
     gamecontroller.h \
+    gameview.h \
     level.h \
     levelfactory.h \
     mainwindow.h \
