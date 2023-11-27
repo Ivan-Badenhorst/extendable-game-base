@@ -45,6 +45,8 @@ public:
 
 
 
+    HealthProgressBar*getHealthBar() const;
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene* scene;

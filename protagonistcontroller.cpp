@@ -19,4 +19,5 @@ void ProtagonistController::update(int row, int col)
 void ProtagonistController::addHealth(int hpValue)
 {
     protModel->addHealth(hpValue);
+    protView->updateHealth();
 }

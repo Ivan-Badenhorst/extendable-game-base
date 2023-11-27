@@ -56,6 +56,11 @@ void MainWindow::createHealthBar()
 
 }
 
+HealthProgressBar*MainWindow::getHealthBar() const
+{
+    return healthBar.get();
+}
+
 
 
 void MainWindow::keyPressEvent(QKeyEvent *event)

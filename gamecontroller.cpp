@@ -35,6 +35,7 @@ void GameController::input(const ArrowDirection &direction)
     }
 
     int hpVal = hpController->update(row, col);
+    std::cout << hpVal << std::endl;
     if(hpVal > 0){
         protController->addHealth(hpVal);
     }

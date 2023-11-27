@@ -8,7 +8,7 @@
 ProtagonistViewGraphical::ProtagonistViewGraphical(MainWindow& mw, std::shared_ptr<ProtagonistModel> pm)
     : mainWindow(mw), protModel(pm)
 {
-
+    updateHealth();
 }
 
 void ProtagonistViewGraphical::update()
@@ -41,7 +41,8 @@ void ProtagonistViewGraphical::update(int row, int col)
 
 void ProtagonistViewGraphical::updateHealth()
 {
-    //do something
+    mainWindow.getHealthBar()->setValue(protModel->getCurrentHealth());
+    mainWindow.getHealthBar()->setMaximum(protModel->getMaxhealth());
 }
 
 

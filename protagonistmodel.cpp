@@ -20,7 +20,12 @@ int ProtagonistModel::getPositionY() const
     return yPos;
 }
 
-float ProtagonistModel::getHealth() const
+float ProtagonistModel::getCurrentHealth() const
+{
+    return currentHealth;
+}
+
+float ProtagonistModel::getMaxhealth() const
 {
     return maxHealth;
 }

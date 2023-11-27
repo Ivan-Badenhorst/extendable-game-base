@@ -19,7 +19,8 @@ public:
 
     int getPositionX() const;
     int getPositionY() const;
-    float getHealth() const;
+    float getCurrentHealth() const;
+    float getMaxhealth() const;
     void setMaxHealth(float value);
     float getEnergy() const;
     void setEnergy(float value);
