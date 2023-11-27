@@ -20,6 +20,7 @@ void PEnemyViewGraphical::update()
     }
 }
 
+
 void PEnemyViewGraphical::displayEnemy(std::shared_ptr<QGraphicsPixmapItem> icon, int x, int y)
 {
     icon->setPos(x*tileDim, y*tileDim);

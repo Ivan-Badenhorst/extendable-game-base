@@ -25,7 +25,7 @@ float ProtagonistModel::getHealth() const
     return maxHealth;
 }
 
-void ProtagonistModel::setHealth(float value)
+void ProtagonistModel::setMaxHealth(float value)
 {
     maxHealth = value;
 }

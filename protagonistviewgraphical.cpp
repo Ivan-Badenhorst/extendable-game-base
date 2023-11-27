@@ -39,4 +39,9 @@ void ProtagonistViewGraphical::update(int row, int col)
 
 }
 
+void ProtagonistViewGraphical::updateHealth()
+{
+    //do something
+}
+
 

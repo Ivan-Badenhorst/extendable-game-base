@@ -11,6 +11,7 @@ public:
     void refreshAll();
     void update(int row, int col);
     void landedOnHp();
+    void addHealth(int hpValue);
 
 private:
     std::shared_ptr<ProtagonistView> protView;
