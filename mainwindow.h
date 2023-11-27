@@ -16,7 +16,7 @@ public:
     explicit HealthProgressBar(QWidget *parent = nullptr) : QProgressBar(parent) {}
 
     QString text() const override {
-        return QString("%1/%2").arg(value()).arg(maximum());
+        return QString("%1/%2 HP").arg(value()).arg(maximum());
     }
 };
 

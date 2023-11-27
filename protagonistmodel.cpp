@@ -49,7 +49,6 @@ void ProtagonistModel::addHealth(int hpValue)
 {
     maxHealth += hpValue;
     currentHealth = maxHealth;
-
 }
 
 
