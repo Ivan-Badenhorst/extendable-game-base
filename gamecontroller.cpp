@@ -82,6 +82,17 @@ void GameController::startGame(MainWindow & mw, std::unique_ptr<GameView> gv)
 
 }
 
+void GameController::setNewView(std::unique_ptr<GameView> gv)
+{
+//    gameView->clearMainWindow();
+    gameView = std::move(gv);
+    gameView->initializeMainWindow();
+    tileController->setTileView(gameView->getTileView());
+    protController->setProtView(gameView->getProtView());
+    enemyController->setEnemyView(gameView->getEnemyView());
+    hpController->setHpView(gameView->getHpView());
+}
+
 
 
 

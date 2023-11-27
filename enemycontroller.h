@@ -12,11 +12,15 @@ public:
     void refreshAllGraphical();
     //bool update(int row, int col);//row and col are tile numbers
     void addEnemyModel(std::shared_ptr<EnemyModelInterface> em);
-    void addEnemyGraphicalView(std::shared_ptr<EnemyViewInterface> ev);
+
+
+    void setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface> > &newEnemyView);
+
+    std::vector<std::shared_ptr<EnemyModelInterface> > getEnemyModels() const;
 
 private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels;
-    std::vector<std::shared_ptr<EnemyViewInterface>> enemyGraphicalViews;
+    std::vector<std::shared_ptr<EnemyViewInterface>> enemyView;
 };
 
 #endif // ENEMYCONTROLLER_H

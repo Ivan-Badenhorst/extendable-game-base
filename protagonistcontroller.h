@@ -7,11 +7,15 @@
 class ProtagonistController
 {
 public:
-    ProtagonistController(std::shared_ptr<ProtagonistView> pv, std::shared_ptr<ProtagonistModel> pm);
+    ProtagonistController(std::shared_ptr<ProtagonistModel> pm);
     void refreshAll();
     void update(int row, int col);
     void landedOnHp();
     void addHealth(int hpValue);
+
+    void setProtView(const std::shared_ptr<ProtagonistView> &newProtView);
+
+    std::shared_ptr<ProtagonistModel> getProtModel() const;
 
 private:
     std::shared_ptr<ProtagonistView> protView;

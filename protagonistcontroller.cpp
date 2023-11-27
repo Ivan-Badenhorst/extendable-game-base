@@ -1,7 +1,7 @@
 #include "protagonistcontroller.h"
 
-ProtagonistController::ProtagonistController(std::shared_ptr<ProtagonistView> pv, std::shared_ptr<ProtagonistModel> pm)
-    : protView(pv), protModel(pm)
+ProtagonistController::ProtagonistController( std::shared_ptr<ProtagonistModel> pm)
+    :protModel(pm)
 {
 
 }
@@ -20,4 +20,14 @@ void ProtagonistController::addHealth(int hpValue)
 {
     protModel->addHealth(hpValue);
     protView->updateHealth();
+}
+
+void ProtagonistController::setProtView(const std::shared_ptr<ProtagonistView> &newProtView)
+{
+    protView = newProtView;
+}
+
+std::shared_ptr<ProtagonistModel> ProtagonistController::getProtModel() const
+{
+    return protModel;
 }

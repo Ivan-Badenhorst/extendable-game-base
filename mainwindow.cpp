@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent)
 //    createHealthBar();
     GraphicalGameView ggv(*this);
     std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(ggv);
-    gameView->initializeMainWindow();
 
     gameController = GameController::getInstance();
     gameController->startGame(*this, std::move(gameView));

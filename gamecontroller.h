@@ -18,6 +18,7 @@ public:
 
    static GameController* getInstance();
    void startGame(MainWindow & mw, std::unique_ptr<GameView> gv);
+   void setNewView(std::unique_ptr<GameView> gv);
 
 
 
