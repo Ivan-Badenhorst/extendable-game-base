@@ -24,7 +24,6 @@ int HealthPackModel::containsHp(int row, int col)
         if(hp[0] == row && hp[1] == col && hp[2] > 0){
             int val = hp[2];
             hp[2] = 0;
-            std::cout << "in model val we ret is: " << val << std::endl;
             return val;
         }
     }
