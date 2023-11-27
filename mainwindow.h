@@ -8,6 +8,20 @@
 #include <QKeyEvent>
 #include <iostream>
 
+#include <QProgressBar>
+
+class HealthProgressBar : public QProgressBar {
+public:
+
+    explicit HealthProgressBar(QWidget *parent = nullptr) : QProgressBar(parent) {}
+
+    QString text() const override {
+        return QString("%1/%2").arg(value()).arg(maximum());
+    }
+};
+
+
+
 //#include "gamecontroller.h"
 class GameController;
 
@@ -36,8 +50,17 @@ private:
     QGraphicsScene* scene;
     GameController* gameController;
 
+
+    void createHealthBar();//MAYBE MOVE THIS SOMEWHERE ELSE. IDK WHERE LOL
+    std::unique_ptr<HealthProgressBar> healthBar;
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 };
 #endif // MAINWINDOW_H
+
+
+
+
+
