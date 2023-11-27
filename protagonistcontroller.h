@@ -10,6 +10,8 @@ public:
     ProtagonistController(std::shared_ptr<ProtagonistView> pv, std::shared_ptr<ProtagonistModel> pm);
     void refreshAll();
     void update(int row, int col);
+    void landedOnHp();
+
 private:
     std::shared_ptr<ProtagonistView> protView;
     std::shared_ptr<ProtagonistModel> protModel;
