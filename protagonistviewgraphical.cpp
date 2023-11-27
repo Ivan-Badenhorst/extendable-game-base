@@ -41,8 +41,8 @@ void ProtagonistViewGraphical::update(int row, int col)
 
 void ProtagonistViewGraphical::updateHealth()
 {
-    mainWindow.getHealthBar()->setMaximum(protModel->getMaxhealth());
-    mainWindow.getHealthBar()->setValue(protModel->getCurrentHealth());
+//    mainWindow.getHealthBar()->setMaximum(protModel->getMaxhealth());
+//    mainWindow.getHealthBar()->setValue(protModel->getCurrentHealth());
 }
 
 

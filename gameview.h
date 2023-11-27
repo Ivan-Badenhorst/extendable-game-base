@@ -13,11 +13,11 @@ class GameView
 {
 public:
     GameView(MainWindow& mw);
-    virtual void initializeMainWindow();//function used to create the UI needed for this view
+    virtual void initializeMainWindow() = 0;//function used to create the UI needed for this view
+    virtual void clearMainWindow() = 0;
 
-private:
+protected:
     MainWindow& mainWindow;
-
 ///View attributes, getters and setters:
 
 public:
