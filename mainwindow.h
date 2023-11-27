@@ -8,17 +8,18 @@
 #include <QKeyEvent>
 #include <iostream>
 
-#include <QProgressBar>
 
-class HealthProgressBar : public QProgressBar {
-public:
+//#include <QProgressBar>
 
-    explicit HealthProgressBar(QWidget *parent = nullptr) : QProgressBar(parent) {}
+//class HealthProgressBar : public QProgressBar {
+//public:
 
-    QString text() const override {
-        return QString("%1/%2 HP").arg(value()).arg(maximum());
-    }
-};
+//    explicit HealthProgressBar(QWidget *parent = nullptr) : QProgressBar(parent) {}
+
+//    QString text() const override {
+//        return QString("%1/%2 HP").arg(value()).arg(maximum());
+//    }
+//};
 
 
 
@@ -42,7 +43,7 @@ public:
 
     Ui::MainWindow *getUi() const;
     QGraphicsScene *getScene() const;
-    HealthProgressBar*getHealthBar() const;
+    //HealthProgressBar*getHealthBar() const;
 
 
 private:
@@ -51,8 +52,8 @@ private:
     GameController* gameController;
 
 
-    void createHealthBar();//MAYBE MOVE THIS SOMEWHERE ELSE. IDK WHERE LOL
-    std::shared_ptr<HealthProgressBar> healthBar;
+//    void createHealthBar();//MAYBE MOVE THIS SOMEWHERE ELSE. IDK WHERE LOL
+    //std::shared_ptr<HealthProgressBar> healthBar;
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setScene(scene);
     this->setFocus();
 
-    createHealthBar();
+//    createHealthBar();
 
     gameController = GameController::getInstance();
     gameController->startGame(*this);
@@ -60,30 +60,29 @@ QGraphicsScene *MainWindow::getScene() const
     return scene;
 }
 
-void MainWindow::createHealthBar()
-{
+//void MainWindow::createHealthBar()
+//{
 
-    // Create a progress bar
-    healthBar = std::make_shared<HealthProgressBar>(this);
-    healthBar->setRange(0, 122); // Set the maximum health
-    healthBar->setValue(24); // Set the current health
-    healthBar->setTextVisible(true); // Hide default text
-    healthBar->setStyleSheet(
-        "QProgressBar { border: 2px solid grey; border-radius: 5px; background-color: grey; text-align: center; }"
-        "QProgressBar::chunk { background-color: green; width: 10px; }"
-        "QProgressBar::chunk:horizontal { margin: 0px; }" // Adjust margins
-        );
-    healthBar->setGeometry(300, 500, 280, 20);
-    healthBar->show();
+//    // Create a progress bar
+//    healthBar = std::make_shared<HealthProgressBar>(this);
+//    healthBar->setRange(0, 122); // Set the maximum health
+//    healthBar->setValue(24); // Set the current health
+//    healthBar->setTextVisible(true); // Hide default text
+//    healthBar->setStyleSheet(
+//        "QProgressBar { border: 2px solid grey; border-radius: 5px; background-color: grey; text-align: center; }"
+//        "QProgressBar::chunk { background-color: green; width: 10px; }"
+//        "QProgressBar::chunk:horizontal { margin: 0px; }" // Adjust margins
+//        );
+//    healthBar->setGeometry(300, 500, 280, 20);
+//    healthBar->show();
 
-    addComponent(healthBar);
 
-}
+//}
 
-HealthProgressBar*MainWindow::getHealthBar() const
-{
-    return healthBar.get();
-}
+//HealthProgressBar*MainWindow::getHealthBar() const
+//{
+//    return healthBar.get();
+//}
 
 
 
@@ -93,7 +92,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     switch (event->key()) {
     case Qt::Key_Left:
         gameController->input(ArrowDirection::Left);
-        this->clearWindow();
         break;
     case Qt::Key_Right:
         gameController->input(ArrowDirection::Right);
