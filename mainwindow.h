@@ -43,17 +43,12 @@ public:
 
     Ui::MainWindow *getUi() const;
     QGraphicsScene *getScene() const;
-    //HealthProgressBar*getHealthBar() const;
 
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene* scene;
     GameController* gameController;
-
-
-//    void createHealthBar();//MAYBE MOVE THIS SOMEWHERE ELSE. IDK WHERE LOL
-    //std::shared_ptr<HealthProgressBar> healthBar;
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
