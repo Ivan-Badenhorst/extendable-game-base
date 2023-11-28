@@ -1,4 +1,5 @@
 #include "graphicalgameview.h"
+#include "TileH/tileviewgraphical.h"
 #include "protagonistviewgraphical.h"
 #include "qboxlayout.h"
 #include "qgraphicsview.h"
@@ -21,13 +22,12 @@ void GraphicalGameView::initializeMainWindow()
     healthBar->show();
 
     if(auto pView = dynamic_cast<ProtagonistViewGraphical*>(protView.get())){
-//        auto pViewS = std::make_shared<ProtagonistViewGraphical>(*pView);
-//        pViewS->setHealthBar(healthBar);
         pView->setHealthBar(healthBar);
     };
+
     ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
-    QGraphicsView* view = new QGraphicsView(mainWindow.getScene());
-//    view->setGeometry(60, 30, 800, 400);
+    scene = std::make_shared<QGraphicsScene>(&mainWindow);
+    QGraphicsView* view = new QGraphicsView(scene.get());
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     mainWindow.setCentralWidget(view);
@@ -37,13 +37,15 @@ void GraphicalGameView::initializeMainWindow()
     widget->setFixedSize(800, 400); // Fixed size for the widget
     QHBoxLayout* layout = new QHBoxLayout(widget);
     layout->addWidget(view);
-    layout->setContentsMargins(60, 30, 0, 0); // Adjust the margins as needed
+    layout->setContentsMargins(60, 30, 0, 0);
 
     mainWindow.setCentralWidget(widget);
 
-    //create QGraphicsScene
-//    mainWindow->getscene = new QGraphicsScene(this);
-//    ui->graphicsView->setScene(scene);
+    if(auto tView = dynamic_cast<TileViewGraphical*>(tileView.get())){
+        tView->setScene(scene);
+    };
+
+    /// We now pass the scene to the views as needed
 }
 
 void GraphicalGameView::clearMainWindow()

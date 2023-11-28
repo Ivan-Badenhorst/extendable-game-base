@@ -70,7 +70,7 @@ void TileViewGraphical::update(int positionRow, int positionCol)
 
 
     //mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
-    mainWindow.getScene()->setSceneRect(areaToShow);
+    scene->setSceneRect(areaToShow);
 
     prevCol = positionCol;
     prevRow = positionRow;
@@ -88,7 +88,7 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
             if(hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] == false){
 //            if(hasBeenRendered[row][col] == false){
-                auto rect = mainWindow.getScene()->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
+                auto rect = scene->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
 
                 int r = 0;
                 int g = 0;
@@ -115,6 +115,11 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
     }
 
+}
+
+void TileViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
+{
+    scene = newScene;
 }
 
 

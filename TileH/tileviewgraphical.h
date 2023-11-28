@@ -14,6 +14,8 @@ public:
     void update(int row = 0, int col = 0) override;
 
 
+    void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
+
 private:
     MainWindow& mainWindow;
     std::shared_ptr<TileModel> tileModel;
@@ -27,6 +29,9 @@ private:
 
     std::vector<std::vector<bool>> hasBeenRendered;
     void displaySection(int rowStart, int rowEnd, int colStart, int colEnd);
+
+    std::shared_ptr<QGraphicsScene> scene;
+
 };
 
 #endif // TILEVIEWGRAPHICAL_H
