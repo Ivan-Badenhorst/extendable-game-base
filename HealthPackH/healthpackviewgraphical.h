@@ -5,19 +5,21 @@
 
 #include "HealthPackH/healthpackview.h"
 #include "HealthPackH/healthpackmodel.h"
-#include "mainwindow.h"
+#include "qgraphicsscene.h"
+
 
 
 class HealthPackViewGraphical: public HealthPackView
 {
 public:
-    HealthPackViewGraphical(MainWindow& mw, std::shared_ptr<HealthPackModel> hpm);
+    HealthPackViewGraphical(std::shared_ptr<HealthPackModel> hpm);
     void update() override;
     void update(int row, int col, bool used = true) override;
 
 
+    void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
+
 private:
-    MainWindow& mainWindow;
     std::shared_ptr<HealthPackModel> hpModel;
 
     float zValue {1};
@@ -25,6 +27,8 @@ private:
 
     std::vector<std::shared_ptr<QGraphicsPixmapItem>> healthpackDisplays;
     void displayHp(std::shared_ptr<QGraphicsPixmapItem> icon, std::array<int, 3> hp);
+
+    std::shared_ptr<QGraphicsScene> scene;
 
 };
 

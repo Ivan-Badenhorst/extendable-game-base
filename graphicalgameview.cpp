@@ -1,4 +1,5 @@
 #include "graphicalgameview.h"
+#include "HealthPackH/healthpackviewgraphical.h"
 #include "TileH/tileviewgraphical.h"
 #include "protagonistviewgraphical.h"
 #include "qboxlayout.h"
@@ -47,6 +48,9 @@ void GraphicalGameView::initializeMainWindow()
     };
     if(auto pView = dynamic_cast<ProtagonistViewGraphical*>(protView.get())){
         pView->setScene(scene);
+    };
+    if(auto hView = dynamic_cast<HealthPackViewGraphical*>(hpView.get())){
+        hView->setScene(scene);
     };
 
     /// We now pass the scene to the views as needed

@@ -45,7 +45,7 @@ Level* EasyLevelFactory::createWorld(MainWindow& mw)
 
     //healthPacks
     HealthPackModel hpm(w.getHealthPacks(), 10);
-    HealthPackViewGraphical hpv(mw, std::make_shared<HealthPackModel>(hpm));
+ //   HealthPackViewGraphical hpv(mw, std::make_shared<HealthPackModel>(hpm));
     HealthPackController hpc(std::make_shared<HealthPackModel>(hpm));
 
     //enemies

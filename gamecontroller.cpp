@@ -82,7 +82,7 @@ void GameController::startGame(MainWindow & mw, std::unique_ptr<GameView> gv)
     //setup graphic views:
     auto tv = std::make_shared<TileViewGraphical>(tileController->getTileModel());
     gameView->setTileView(tv);
-    auto hpv = std::make_shared<HealthPackViewGraphical>(mw, hpController->getHpModel());
+    auto hpv = std::make_shared<HealthPackViewGraphical>(hpController->getHpModel());
     gameView->setHpView(hpv);
     auto pv = std::make_shared<ProtagonistViewGraphical>(protController->getProtModel());
     gameView->setProtView(pv);

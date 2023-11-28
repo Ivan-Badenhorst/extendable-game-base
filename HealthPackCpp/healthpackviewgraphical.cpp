@@ -7,8 +7,8 @@
 
 #include <QCoreApplication>
 
-HealthPackViewGraphical::HealthPackViewGraphical(MainWindow &mw, std::shared_ptr<HealthPackModel> hpm)
-    :mainWindow(mw), hpModel(hpm)
+HealthPackViewGraphical::HealthPackViewGraphical(std::shared_ptr<HealthPackModel> hpm)
+    :hpModel(hpm)
 {
 
 }
@@ -53,7 +53,7 @@ void HealthPackViewGraphical::update(int row, int col, bool used)
         }
     }
 
-    mainWindow.getScene()->removeItem(itemsToRerender.get());
+    scene->removeItem(itemsToRerender.get());
     itemsToRerender.reset();
 
     if(used){
@@ -71,5 +71,10 @@ void HealthPackViewGraphical::displayHp(std::shared_ptr<QGraphicsPixmapItem> ico
     icon->setPos(hp[1]*tileDim, hp[0]*tileDim);
     icon->setZValue(zValue);
     healthpackDisplays.push_back(icon);
-    mainWindow.getScene()->addItem(icon.get());
+    scene->addItem(icon.get());
+}
+
+void HealthPackViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
+{
+    scene = newScene;
 }
