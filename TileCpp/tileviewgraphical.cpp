@@ -2,14 +2,13 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 
-#include "ui_mainwindow.h"
 #include "TileH/tilemodel.h"
 
 #include <iostream>
 #include <cstdlib>
 
-TileViewGraphical::TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> tm)
-    : mainWindow(mw), tileModel(tm)
+TileViewGraphical::TileViewGraphical(std::shared_ptr<TileModel> tm)
+    :tileModel(tm)
 {
     int tileRows =  tm->getRows()+ displayHeight;
     int tileCols = tm->getColumns() + displayWidth;

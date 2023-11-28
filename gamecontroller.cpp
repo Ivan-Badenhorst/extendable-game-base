@@ -80,11 +80,11 @@ void GameController::startGame(MainWindow & mw, std::unique_ptr<GameView> gv)
     enemyController = easyLevel->getEnemyController();
 
     //setup graphic views:
-    auto tv = std::make_shared<TileViewGraphical>(mw, tileController->getTileModel());
+    auto tv = std::make_shared<TileViewGraphical>(tileController->getTileModel());
     gameView->setTileView(tv);
     auto hpv = std::make_shared<HealthPackViewGraphical>(mw, hpController->getHpModel());
     gameView->setHpView(hpv);
-    auto pv = std::make_shared<ProtagonistViewGraphical>(mw, protController->getProtModel());
+    auto pv = std::make_shared<ProtagonistViewGraphical>(protController->getProtModel());
     gameView->setProtView(pv);
     auto em = enemyController->getEnemyModels();
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;

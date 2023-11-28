@@ -5,8 +5,8 @@
 
 
 
-ProtagonistViewGraphical::ProtagonistViewGraphical(MainWindow& mw, std::shared_ptr<ProtagonistModel> pm)
-    : mainWindow(mw), protModel(pm)
+ProtagonistViewGraphical::ProtagonistViewGraphical(std::shared_ptr<ProtagonistModel> pm)
+    : protModel(pm)
 {
     //updateHealth();
 }
@@ -19,7 +19,7 @@ void ProtagonistViewGraphical::update()
 
 
     protagonistDisplay = protIcon;
-    mainWindow.getScene()->addItem(protagonistDisplay.get());
+    scene->addItem(protagonistDisplay.get());
 
 }
 
@@ -27,7 +27,7 @@ void ProtagonistViewGraphical::update(int row, int col)
 {
     auto prot = QPixmap(":/prisoner");
     auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
-    mainWindow.getScene()->removeItem(protagonistDisplay.get());
+    scene->removeItem(protagonistDisplay.get());
     protagonistDisplay.reset();
 
 
@@ -35,7 +35,7 @@ void ProtagonistViewGraphical::update(int row, int col)
     protIcon->setZValue(1.1);
 
     protagonistDisplay = protIcon;
-    mainWindow.getScene()->addItem(protagonistDisplay.get());
+    scene->addItem(protagonistDisplay.get());
 
 }
 
@@ -49,6 +49,11 @@ void ProtagonistViewGraphical::setHealthBar(const std::shared_ptr<HealthProgress
 {
     healthBar = newHealthBar;
     updateHealth();
+}
+
+void ProtagonistViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
+{
+    scene = newScene;
 }
 
 
