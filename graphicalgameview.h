@@ -23,8 +23,6 @@ public:
 private:
     std::shared_ptr<HealthProgressBar> healthBar;
     std::shared_ptr<QGraphicsScene> scene;
-
-
 };
 
 #endif // GRAPHICALGAMEVIEW_H

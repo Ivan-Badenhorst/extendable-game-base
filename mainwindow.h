@@ -9,21 +9,6 @@
 #include <iostream>
 
 
-//#include <QProgressBar>
-
-//class HealthProgressBar : public QProgressBar {
-//public:
-
-//    explicit HealthProgressBar(QWidget *parent = nullptr) : QProgressBar(parent) {}
-
-//    QString text() const override {
-//        return QString("%1/%2 HP").arg(value()).arg(maximum());
-//    }
-//};
-
-
-
-//#include "gamecontroller.h"
 class GameController;
 
 QT_BEGIN_NAMESPACE
@@ -37,17 +22,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void clearWindow();
-
-    ///REDO THE MAIN WINDOW DESTRUCTOR TO FREE THE GAME CONTROLLER MEMORY!!
-
-    Ui::MainWindow *getUi() const;
-    QGraphicsScene *getScene() const;
 
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene* scene;
     GameController* gameController;
 
 protected:

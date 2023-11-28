@@ -14,12 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    scene = new QGraphicsScene(this);
-    //THE SCENE SHOULD MAYBE BE MOVED TO THE GRAPHICS VIEW CLASS!
 
     this->setFocus();
 
-//    createHealthBar();
     GraphicalGameView ggv(*this);
     std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(ggv);
 
@@ -33,37 +30,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::clearWindow()
-{
-    // Get the central widget of the main window
-    QWidget *centralWidget = this->centralWidget();
-    // Create a shared pointer for centralWidget and reset the main window's central widget
-    std::shared_ptr<QWidget> sharedCentralWidget(centralWidget);
-    this->setCentralWidget(nullptr); // Clear the central widget from mainWindow
-
-    // Delete all child widgets from the original central widget
-    std::shared_ptr<QLayout> layout(sharedCentralWidget->layout());
-    if (layout) {
-        while (QLayoutItem *item = layout->takeAt(0)) {
-            std::shared_ptr<QWidget> widget(item->widget());
-            if (widget) {
-                widget.reset();
-            }
-            delete item;
-        }
-    }
-
-}
-
-Ui::MainWindow *MainWindow::getUi() const
-{
-    return ui;
-}
-
-QGraphicsScene *MainWindow::getScene() const
-{
-    return scene;
-}
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {

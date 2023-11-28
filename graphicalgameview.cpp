@@ -6,18 +6,17 @@
 #include "qgraphicsview.h"
 
 
-
 void GraphicalGameView::initializeMainWindow()
 {
    //create health bar:
     healthBar = std::make_shared<HealthProgressBar>(&mainWindow);
-    healthBar->setRange(0, 122); // Set the maximum health
-    healthBar->setValue(24); // Set the current health
-    healthBar->setTextVisible(true); // Hide default text
+    healthBar->setRange(0, 122);
+    healthBar->setValue(24);
+    healthBar->setTextVisible(true);
     healthBar->setStyleSheet(
         "QProgressBar { border: 2px solid grey; border-radius: 5px; background-color: grey; text-align: center; }"
         "QProgressBar::chunk { background-color: green; width: 10px; }"
-        "QProgressBar::chunk:horizontal { margin: 0px; }" // Adjust margins
+        "QProgressBar::chunk:horizontal { margin: 0px; }"
         );
     healthBar->setGeometry(300, 500, 280, 20);
     healthBar->show();
@@ -29,7 +28,6 @@ void GraphicalGameView::initializeMainWindow()
     ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
     scene = std::make_shared<QGraphicsScene>(&mainWindow);
     QGraphicsView* view = new QGraphicsView(scene.get());
-//    view->setGeometry(60, 30, 800, 400);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     mainWindow.setCentralWidget(view);
@@ -37,7 +35,7 @@ void GraphicalGameView::initializeMainWindow()
     // Create a widget to hold the view
     QWidget* widget = new QWidget(&mainWindow);
 
-    widget->setFixedSize(800, 400); // Fixed size for the widget
+    widget->setFixedSize(800, 400);
     QHBoxLayout* layout = new QHBoxLayout(widget);
     layout->addWidget(view);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -59,7 +57,7 @@ void GraphicalGameView::initializeMainWindow()
         };
     }
 
-    /// We now pass the scene to the views as needed
+    /// STILL NEED TO IMPLEMENT THE CLEAR FUNCTION PROPERLY!!! -> CALL THE RESET IN ALL THE VIEWS!!!
 }
 
 void GraphicalGameView::clearMainWindow()
