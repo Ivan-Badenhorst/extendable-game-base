@@ -3,17 +3,16 @@
 #include <memory>
 #include "enemyviewinterface.h"
 #include "penemymodel.h"
-#include "mainwindow.h"
+
 
 class PEnemyViewGraphical: public EnemyViewInterface
 {
 public:
-    PEnemyViewGraphical(MainWindow& mw, std::shared_ptr<PEnemyModel> pem);
+    PEnemyViewGraphical(std::shared_ptr<PEnemyModel> pem);
     void update() override;
     //void update(int row, int col, bool used = true) override;
 
 private:
-    MainWindow& mainWindow;
     std::shared_ptr<PEnemyModel> penemyModel;
 
     float zValue {1};

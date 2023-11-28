@@ -8,12 +8,11 @@
 class EnemyViewGraphical: public EnemyViewInterface
 {
 public:
-    EnemyViewGraphical(MainWindow& mw, std::shared_ptr<EnemyModel> em);
+    EnemyViewGraphical(std::shared_ptr<EnemyModel> em);
     void update() override;
     //void update(int row, int col, bool used = true) override;
 
 private:
-    MainWindow& mainWindow;
     std::shared_ptr<EnemyModel> enemyModel;
 
     float zValue {1};

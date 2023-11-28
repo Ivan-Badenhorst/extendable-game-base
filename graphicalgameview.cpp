@@ -29,17 +29,18 @@ void GraphicalGameView::initializeMainWindow()
     ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
     scene = std::make_shared<QGraphicsScene>(&mainWindow);
     QGraphicsView* view = new QGraphicsView(scene.get());
-    view->setGeometry(60, 30, 800, 400);
+//    view->setGeometry(60, 30, 800, 400);
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     mainWindow.setCentralWidget(view);
 
     // Create a widget to hold the view
     QWidget* widget = new QWidget(&mainWindow);
+
     widget->setFixedSize(800, 400); // Fixed size for the widget
     QHBoxLayout* layout = new QHBoxLayout(widget);
     layout->addWidget(view);
-    layout->setContentsMargins(60, 30, 0, 0);
+    layout->setContentsMargins(0, 0, 0, 0);
 
     mainWindow.setCentralWidget(widget);
 
@@ -52,6 +53,11 @@ void GraphicalGameView::initializeMainWindow()
     if(auto hView = dynamic_cast<HealthPackViewGraphical*>(hpView.get())){
         hView->setScene(scene);
     };
+    for(auto& eV: enemyView){
+        if(auto eView = dynamic_cast<EnemyViewInterface*>(eV.get())){
+            eView->setScene(scene);
+        };
+    }
 
     /// We now pass the scene to the views as needed
 }
