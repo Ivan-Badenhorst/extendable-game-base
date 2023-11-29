@@ -24,6 +24,7 @@ SOURCES += \
     gamecontroller.cpp \
     gameview.cpp \
     graphicalgameview.cpp \
+    healthpackviewtext.cpp \
     levelfactory.cpp \
     main.cpp \
     penemymodel.cpp \
@@ -59,6 +60,7 @@ HEADERS += \
     gamecontroller.h \
     gameview.h \
     graphicalgameview.h \
+    healthpackviewtext.h \
     level.h \
     levelfactory.h \
     mainwindow.h \
