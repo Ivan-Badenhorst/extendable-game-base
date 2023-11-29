@@ -8,7 +8,7 @@
 #include <QKeyEvent>
 #include <iostream>
 
-//#include "gamecontroller.h"
+
 class GameController;
 
 QT_BEGIN_NAMESPACE
@@ -23,17 +23,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    ///REDO THE MAIN WINDOW DESTRUCTOR TO FREE THE GAME CONTROLLER MEMORY!!
-
-    Ui::MainWindow *getUi() const;
-
-    QGraphicsScene *getScene() const;
-
-
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene* scene;
     GameController* gameController;
 
 protected:
@@ -41,3 +33,8 @@ protected:
 
 };
 #endif // MAINWINDOW_H
+
+
+
+
+

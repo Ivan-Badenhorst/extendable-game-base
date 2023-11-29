@@ -2,14 +2,13 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 
-#include "ui_mainwindow.h"
 #include "TileH/tilemodel.h"
 
 #include <iostream>
 #include <cstdlib>
 
-TileViewGraphical::TileViewGraphical(MainWindow& mw, std::shared_ptr<TileModel> tm)
-    : mainWindow(mw), tileModel(tm)
+TileViewGraphical::TileViewGraphical(std::shared_ptr<TileModel> tm)
+    :tileModel(tm)
 {
     int tileRows =  tm->getRows()+ displayHeight;
     int tileCols = tm->getColumns() + displayWidth;
@@ -69,7 +68,8 @@ void TileViewGraphical::update(int positionRow, int positionCol)
     QRectF areaToShow = QRectF(topLeftX, topLeftY, tileDim*displayWidth, tileDim*displayHeight);
 
 
-    mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
+    //mainWindow.getUi()->graphicsView->setSceneRect(areaToShow);
+    scene->setSceneRect(areaToShow);
 
     prevCol = positionCol;
     prevRow = positionRow;
@@ -87,7 +87,7 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
             if(hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] == false){
 //            if(hasBeenRendered[row][col] == false){
-                auto rect = mainWindow.getScene()->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
+                auto rect = scene->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
 
                 int r = 0;
                 int g = 0;
@@ -114,6 +114,11 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
     }
 
+}
+
+void TileViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
+{
+    scene = newScene;
 }
 
 

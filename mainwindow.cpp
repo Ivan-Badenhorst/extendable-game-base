@@ -3,19 +3,24 @@
 #include "constants.h"
 #include "gamecontroller.h"
 
+#include <QHBoxLayout>
+#include <QLabel>
+
+
+#include "graphicalgameview.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    scene = new QGraphicsScene(this);
-    ui->graphicsView->setScene(scene);
     this->setFocus();
 
+    GraphicalGameView graphicalGameView(*this);
+    std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
+
     gameController = GameController::getInstance();
-    gameController->startGame(*this);
-    std::cout << std::endl;
+    gameController->startGame(std::move(gameView));
 
 }
 
@@ -23,17 +28,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-Ui::MainWindow *MainWindow::getUi() const
-{
-    return ui;
-}
-
-QGraphicsScene *MainWindow::getScene() const
-{
-    return scene;
-}
-
 
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -56,4 +50,3 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         break;
     }
 }
-

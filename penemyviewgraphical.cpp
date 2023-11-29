@@ -3,8 +3,8 @@
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
 
-PEnemyViewGraphical::PEnemyViewGraphical(MainWindow& mw, std::shared_ptr<PEnemyModel> pem)
-:mainWindow(mw), penemyModel(pem)
+PEnemyViewGraphical::PEnemyViewGraphical(std::shared_ptr<PEnemyModel> pem)
+: penemyModel(pem)
 {
 
 }
@@ -20,10 +20,11 @@ void PEnemyViewGraphical::update()
     }
 }
 
+
 void PEnemyViewGraphical::displayEnemy(std::shared_ptr<QGraphicsPixmapItem> icon, int x, int y)
 {
     icon->setPos(x*tileDim, y*tileDim);
     icon->setZValue(zValue);
-    mainWindow.getScene()->addItem(icon.get());
+    scene->addItem(icon.get());
     penemyDisplays.push_back(icon);
 }

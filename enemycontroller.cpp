@@ -8,7 +8,7 @@ EnemyController::EnemyController()
 void EnemyController::refreshAllGraphical()
 {
     // Iterate through the enemyGraphicalViews vector and refresh each view
-    for (auto const& x : enemyGraphicalViews)
+    for (auto const& x : enemyViews)
     {
         x->update();
     }
@@ -20,8 +20,12 @@ void EnemyController::addEnemyModel(std::shared_ptr<EnemyModelInterface> em)
     enemyModels.push_back(em);
 }
 
-void EnemyController::addEnemyGraphicalView(std::shared_ptr<EnemyViewInterface> ev)
+void EnemyController::setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface> > &newEnemyView)
 {
-    // Add the view to the vector
-    enemyGraphicalViews.push_back(ev);
+    enemyViews = newEnemyView;
+}
+
+std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getEnemyModels() const
+{
+    return enemyModels;
 }

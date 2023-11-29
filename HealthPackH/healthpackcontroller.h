@@ -9,10 +9,14 @@
 class HealthPackController
 {
 public:
-    HealthPackController(std::shared_ptr<HealthPackView> hpv, std::shared_ptr<HealthPackModel> hpm);
+    HealthPackController(std::shared_ptr<HealthPackModel> hpm);
     void refreshAll();
-    bool update(int row, int col);//row and col are tile numbers
+    int update(int row, int col);//row and col are tile numbers
 
+
+    void setHpView(const std::shared_ptr<HealthPackView> &newHpView);
+
+    std::shared_ptr<HealthPackModel> getHpModel() const;
 
 private:
     std::shared_ptr<HealthPackView> hpView;

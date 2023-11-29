@@ -5,6 +5,7 @@
 #include "easylevelfactory.h"
 #include "constants.h"
 #include "easylevel.h"
+#include "gameview.h"
 
 #include <memory>
 
@@ -16,12 +17,17 @@ public:
    void input(const ArrowDirection& direction);
 
    static GameController* getInstance();
-   void startGame(MainWindow & mw);
+   void startGame(std::unique_ptr<GameView> gv);
+   void setNewView(std::unique_ptr<GameView> gv);
 
 
 
-private:
+   void initializeView();
+
+   private:
    static GameController* gameControllerInstance;
+    std::unique_ptr<GameView> gameView;
+
    std::shared_ptr<TileController> tileController;
    std::shared_ptr<HealthPackController> hpController;
    std::shared_ptr<ProtagonistController> protController;

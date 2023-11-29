@@ -2,13 +2,54 @@
 #include <iostream>
 
 ProtagonistModel::ProtagonistModel(std::unique_ptr<Protagonist> prot)
-    : protagonist(std::move(prot))
 {
-
+    xPos = prot->getXPos();
+    yPos = prot->getYPos();
+    maxHealth = prot->getHealth();
+    currentHealth = maxHealth;
+    energy = prot->getEnergy();
 }
 
-const std::unique_ptr<Protagonist> &ProtagonistModel::getProtagonist() const
+int ProtagonistModel::getPositionX() const
 {
-    return protagonist;
+    return xPos;
 }
+
+int ProtagonistModel::getPositionY() const
+{
+    return yPos;
+}
+
+float ProtagonistModel::getCurrentHealth() const
+{
+    return currentHealth;
+}
+
+float ProtagonistModel::getMaxhealth() const
+{
+    return maxHealth;
+}
+
+void ProtagonistModel::setMaxHealth(float value)
+{
+    maxHealth = value;
+}
+
+float ProtagonistModel::getEnergy() const
+{
+    return energy;
+}
+
+void ProtagonistModel::setEnergy(float value)
+{
+    energy = value;
+}
+
+void ProtagonistModel::addHealth(int hpValue)
+{
+    maxHealth += hpValue;
+    currentHealth = maxHealth;
+}
+
+
 
