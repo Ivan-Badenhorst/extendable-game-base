@@ -42,3 +42,28 @@ bool EnemyController::containsEnemy(int col, int row) const
     }
     return false;
 }
+
+bool EnemyController::isDefeated(int col, int row) const
+{
+    // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
+    for (auto const& x : enemyModels)
+    {
+        if (x->containsEnemy(col, row))
+        {
+            return x->isDefeated(col, row);
+        }
+    }
+    return false;
+}
+
+void EnemyController::attackEnemy(int col, int row, int damage)
+{
+    // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
+    for (auto const& x : enemyModels)
+    {
+        if (x->containsEnemy(col, row))
+        {
+            x->attackEnemy(col, row, damage);
+        }
+    }
+}

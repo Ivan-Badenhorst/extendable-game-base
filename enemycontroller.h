@@ -48,6 +48,22 @@ public:
      */
     bool containsEnemy(int col, int row) const;
 
+    /**
+     * @brief Checks if the enemy at the given coordinates has been defeated.
+     * @param col The column to check.
+     * @param row The row to check.
+     * @return True if the enemy at the given coordinates has been defeated, false otherwise.
+     */
+    bool isDefeated(int col, int row) const;
+
+    /**
+     * @brief Attacks the enemy at the given coordinates.
+     * @param col The column to attack.
+     * @param row The row to attack.
+     * @param damage The amount of damage to deal to the enemy.
+     */
+    void attackEnemy(int col, int row, int damage);
+
 private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.
