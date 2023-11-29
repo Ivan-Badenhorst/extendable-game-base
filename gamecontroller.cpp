@@ -52,10 +52,10 @@ void GameController::input(const ArrowDirection &direction)
         std::cout << enemyModel << std::endl;
         if(enemyModel->containsEnemy(col, row))
         {
-            std::cout << "I have an enemy" << std::endl;
             row = row_save;
             col = col_save;
-            //we will call function to do animation
+            //we will call function for prot to do its thing
+            // we will call function for enemy to do its thing
         }
     }
 
