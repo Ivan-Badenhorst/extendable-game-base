@@ -89,7 +89,7 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     auto pv = std::make_shared<ProtagonistViewGraphical>();
     pv->setProtModel(protController->getProtModel());
     gameView->setProtView(pv);
-    auto em = enemyController->getEnemyModels();
+    auto em = enemyController->getAllEnemyModels();
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
 
     //IF WE GET MORE TYPE OF ENEMIES WE HAVE TO GO THROUGH THIS IN A BETTER WAY!!!!
@@ -128,9 +128,21 @@ void GameController::initializeView()
 void GameController::setNewView(std::unique_ptr<GameView> gv)
 {
     gameView->clearMainWindow();
-    //for each view I have to set the model
-
     gameView = std::move(gv);
+    //for each view I have to set the model
+    gameView->getProtView()->setProtModel(protController->getProtModel());
+    gameView->getHpView()->setHpModel(hpController->getHpModel());
+    gameView->getTileView()->setTileModel(tileController->getTileModel());
+
+    auto evs = gameView->getEnemyView();
+    auto ems = enemyController->getAllEnemyModels();
+    for(auto& ev: evs){
+           //check the view type:
+        if (auto enemyV = dynamic_cast<EnemyView*>(ev.get())) {
+            enemyV->setEnemyModel(enemyController->getEnemyModels());
+        }
+    }
+
     initializeView();
 }
 
