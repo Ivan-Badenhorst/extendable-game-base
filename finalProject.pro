@@ -20,6 +20,7 @@ SOURCES += \
     enemycontroller.cpp \
     enemymodel.cpp \
     enemyviewgraphical.cpp \
+    enemyviewtext.cpp \
     gamecontroller.cpp \
     gameview.cpp \
     graphicalgameview.cpp \
@@ -27,10 +28,13 @@ SOURCES += \
     main.cpp \
     penemymodel.cpp \
     penemyviewgraphical.cpp \
+    penemyviewtext.cpp \
     protagonistcontroller.cpp \
     protagonistmodel.cpp \
     protagonistviewgraphical.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    protagonistviewtext.cpp \
+    tileviewtext.cpp
 
 
 
@@ -50,6 +54,7 @@ HEADERS += \
     enemymodelinterface.h \
     enemyviewgraphical.h \
     enemyviewinterface.h \
+    enemyviewtext.h \
     gamecontroller.h \
     gameview.h \
     graphicalgameview.h \
@@ -58,11 +63,14 @@ HEADERS += \
     mainwindow.h \
     penemymodel.h \
     penemyviewgraphical.h \
+    penemyviewtext.h \
     protagonistcontroller.h \
     protagonistmodel.h \
     protagonistview.h \
     protagonistviewgraphical.h \
-    constants.h
+    constants.h \
+    protagonistviewtext.h \
+    tileviewtext.h
 
 FORMS += \
     mainwindow.ui

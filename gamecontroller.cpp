@@ -108,9 +108,6 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     protController->refreshAll();
     enemyController->refreshAllGraphical();
 
-
-    
-
 }
 
 void GameController::initializeView()
