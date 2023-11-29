@@ -56,6 +56,16 @@ void ProtagonistModel::takeDamage(int hpValue)
     currentHealth -= hpValue;
 }
 
+int ProtagonistModel::getAttackDamage() const
+{
+    return attackDamage;
+}
+
+void ProtagonistModel::setAttackDamage(int newAttackDamage)
+{
+    attackDamage = newAttackDamage;
+}
+
 
 
 

@@ -32,6 +32,9 @@ public:
     // add a method that moves the protagonist later
     const std::unique_ptr<Protagonist>& getProtagonist()const;
 
+    int getAttackDamage() const;
+    void setAttackDamage(int newAttackDamage);
+
 private:
 //    std::unique_ptr<Protagonist> protagonist; // Unique pointer to hold the Protagonist
     int xPos {0};
@@ -39,6 +42,7 @@ private:
     float maxHealth {0.0f};
     float currentHealth{0.0f};
     float energy {0.0f};
+    int attackDamage {10};
 };
 
 #endif // PROTAGONISTMODEL_H
