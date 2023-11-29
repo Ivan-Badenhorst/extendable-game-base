@@ -1,7 +1,7 @@
 #include "penemyviewtext.h"
 
-PEnemyViewText::PEnemyViewText(std::shared_ptr<PEnemyModel> pem)
-: penemyModel(pem)
+PEnemyViewText::PEnemyViewText()
+
 {
 
 }

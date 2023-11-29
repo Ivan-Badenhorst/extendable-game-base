@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "enemyviewgraphical.h"
+#include "enemyviewtext.h"
 #include "healthpackviewtext.h"
 #include "penemyviewgraphical.h"
+#include "penemyviewtext.h"
 #include "protagonistviewtext.h"
 #include "tileviewtext.h"
 #include "ui_mainwindow.h"
@@ -45,9 +47,9 @@ void MainWindow::changeToTextView()
     gameView->setTileView(std::make_shared<TileViewText>());
     //for each type of enemy view we make a view!!
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
-    auto pev = std::make_shared<PEnemyViewGraphical>();
+    auto pev = std::make_shared<PEnemyViewText>();
     enemyViews.push_back(pev);
-    auto ev = std::make_shared<EnemyViewGraphical>();
+    auto ev = std::make_shared<EnemyViewText>();
     enemyViews.push_back(ev);
     gameView->setEnemyView(enemyViews);
 

@@ -1,8 +1,10 @@
 #include "gamecontroller.h"
 #include "HealthPackH/healthpackviewgraphical.h"
 #include "enemyviewgraphical.h"
+#include "enemyviewtext.h"
 #include "penemymodel.h"
 #include "penemyviewgraphical.h"
+#include "penemyviewtext.h"
 #include "protagonistviewgraphical.h"
 
 #include <iostream>
@@ -38,6 +40,7 @@ void GameController::input(const ArrowDirection &direction)
         if(row < height-1) row++;
         break;
     }
+    enemyController->refreshAllGraphical();
     int hpVal = hpController->update(row, col);
     if(hpVal > 0){
         protController->addHealth(hpVal);

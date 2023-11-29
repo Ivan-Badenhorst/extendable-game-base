@@ -8,7 +8,7 @@
 class EnemyViewText: public EnemyViewInterface, public EnemyView
 {
 public:
-    EnemyViewText(std::shared_ptr<EnemyModel> em);
+    EnemyViewText();
     void update() override;
     void clearView() override;
     void setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyModel) override;

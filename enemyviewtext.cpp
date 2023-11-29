@@ -2,15 +2,17 @@
 
 #include <iostream>
 
-EnemyViewText::EnemyViewText(std::shared_ptr<EnemyModel> em)
-:enemyModel(em)
+EnemyViewText::EnemyViewText()
+
 {
 
 }
 
 void EnemyViewText::update()
 {
-
+    if(enemyModel){
+        std::cout << "enemy works!!!" << std::endl;
+    }
 }
 
 void EnemyViewText::clearView()

@@ -8,7 +8,7 @@
 class PEnemyViewText: public EnemyViewInterface, public PEnemyView
 {
 public:
-    PEnemyViewText(std::shared_ptr<PEnemyModel> pem);
+    PEnemyViewText();
     void update() override;
     void clearView() override;
 
