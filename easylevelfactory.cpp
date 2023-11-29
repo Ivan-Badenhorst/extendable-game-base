@@ -3,29 +3,26 @@
 
 #include "protagonistcontroller.h"
 #include "protagonistmodel.h"
-#include "protagonistviewgraphical.h"
 
 #include "TileH/tilemodel.h"
-#include "TileH/tileviewgraphical.h"
 #include "TileH/tilecontroller.h"
 
 #include "easylevel.h"
 #include "HealthPackH/healthpackmodel.h"
 #include "HealthPackH/healthpackcontroller.h"
-#include "HealthPackH/healthpackviewgraphical.h"
+
 
 #include "enemymodel.h"
 #include "penemymodel.h"
 #include "enemycontroller.h"
-#include "enemyviewgraphical.h"
-#include "penemyviewgraphical.h"
+
 
 EasyLevelFactory::EasyLevelFactory()
 {
 
 }
 
-Level* EasyLevelFactory::createWorld(MainWindow& mw)
+Level* EasyLevelFactory::createWorld()
 {
     World w;
     w.createWorld(":/worldmap.png", 10,10);

@@ -60,12 +60,12 @@ GameController* GameController::getInstance()
     return gameControllerInstance;
 
 }
-void GameController::startGame(MainWindow & mw, std::unique_ptr<GameView> gv)
+void GameController::startGame(std::unique_ptr<GameView> gv)
 {
     gameView = std::move(gv);
 
     EasyLevelFactory easyLevelFactory;
-    auto level = easyLevelFactory.createWorld(mw);
+    auto level = easyLevelFactory.createWorld();
     EasyLevel* easyLevel = static_cast<EasyLevel*>(level);
 
     tileController = easyLevel->getTileController();
@@ -88,6 +88,7 @@ void GameController::startGame(MainWindow & mw, std::unique_ptr<GameView> gv)
     gameView->setProtView(pv);
     auto em = enemyController->getEnemyModels();
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
+
     //IF WE GET MORE TYPE OF ENEMIES WE HAVE TO GO THROUGH THIS IN A BETTER WAY!!!!
     for(auto& e: em){
         if (auto pEnemyModel = dynamic_cast<PEnemyModel*>(e.get())) {

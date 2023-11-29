@@ -17,7 +17,7 @@ public:
    void input(const ArrowDirection& direction);
 
    static GameController* getInstance();
-   void startGame(MainWindow & mw, std::unique_ptr<GameView> gv);
+   void startGame(std::unique_ptr<GameView> gv);
    void setNewView(std::unique_ptr<GameView> gv);
 
 

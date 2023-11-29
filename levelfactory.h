@@ -9,7 +9,7 @@ class LevelFactory
 {
 public:
     LevelFactory();
-    virtual Level* createWorld(MainWindow& mw) {};
+    virtual Level* createWorld() {};
 };
 
 #endif // LEVELFACTORY_H

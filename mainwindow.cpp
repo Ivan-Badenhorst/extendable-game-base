@@ -14,14 +14,13 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     this->setFocus();
 
-    GraphicalGameView ggv(*this);
-    std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(ggv);
+    GraphicalGameView graphicalGameView(*this);
+    std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
 
     gameController = GameController::getInstance();
-    gameController->startGame(*this, std::move(gameView));
+    gameController->startGame(std::move(gameView));
 
 }
 
