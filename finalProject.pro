@@ -34,6 +34,7 @@ SOURCES += \
     protagonistviewgraphical.cpp \
     mainwindow.cpp \
     protagonistviewtext.cpp \
+    textgameview.cpp \
     tileviewtext.cpp
 
 
@@ -70,6 +71,7 @@ HEADERS += \
     protagonistviewgraphical.h \
     constants.h \
     protagonistviewtext.h \
+    textgameview.h \
     tileviewtext.h
 
 FORMS += \
