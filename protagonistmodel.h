@@ -27,6 +27,7 @@ public:
     // Add more methods as and when needed
 
     void addHealth(int hpValue);
+    void takeDamage(int hpValue);
 
     // add a method that moves the protagonist later
     const std::unique_ptr<Protagonist>& getProtagonist()const;
