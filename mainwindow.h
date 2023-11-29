@@ -22,8 +22,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
-
+    
+    
+    void changeToTextView();
+    
 private:
     Ui::MainWindow *ui;
     GameController* gameController;

@@ -4,8 +4,8 @@
 #include <QGraphicsPixmapItem>
 #include "enemyviewgraphical.h"
 
-EnemyViewGraphical::EnemyViewGraphical(std::shared_ptr<EnemyModel> em)
-:enemyModel(em)
+EnemyViewGraphical::EnemyViewGraphical()
+
 {
 
 }
@@ -26,6 +26,11 @@ void EnemyViewGraphical::clearView()
     if (scene != nullptr) {
         scene.reset();
     }
+}
+
+void EnemyViewGraphical::setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyModel)
+{
+    enemyModel = newEnemyModel;
 }
 
 void EnemyViewGraphical::displayEnemy(std::shared_ptr<QGraphicsPixmapItem> icon, int x, int y)

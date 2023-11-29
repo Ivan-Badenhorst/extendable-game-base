@@ -1,8 +1,7 @@
 #include "healthpackviewtext.h"
 
 
-HealthPackViewText::HealthPackViewText(std::shared_ptr<HealthPackModel> hpm)
-    : hpModel(hpm)
+HealthPackViewText::HealthPackViewText()
 {
 //implement
 }
@@ -20,4 +19,9 @@ void HealthPackViewText::update(int row, int col, bool used)
 void HealthPackViewText::clearView()
 {
 //implement
+}
+
+void HealthPackViewText::setHpModel(const std::shared_ptr<HealthPackModel> &newHpModel)
+{
+hpModel = newHpModel;
 }

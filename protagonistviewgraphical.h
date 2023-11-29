@@ -9,7 +9,7 @@
 class ProtagonistViewGraphical : public ProtagonistView
 {
 public:
-    ProtagonistViewGraphical(std::shared_ptr<ProtagonistModel> pm);
+    ProtagonistViewGraphical();
     void update() override;
     void update(int row, int col) override;
     void updateHealth() override;
@@ -18,6 +18,8 @@ public:
     void setHealthBar(const std::shared_ptr<HealthProgressBar> newHealthBar);
 
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
+
+    void setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel);
 
 private:
     std::shared_ptr<ProtagonistModel> protModel;

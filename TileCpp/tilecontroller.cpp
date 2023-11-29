@@ -21,6 +21,7 @@ std::tuple<int, int> TileController::getDimensions()
 void TileController::setTileView(const std::shared_ptr<TileView> &newTileView)
 {
     tileView = newTileView;
+
 }
 
 std::shared_ptr<TileModel> TileController::getTileModel() const

@@ -10,15 +10,16 @@
 class TileViewGraphical: public TileView
 {
 public:
-    TileViewGraphical(std::shared_ptr<TileModel> tm);
+    TileViewGraphical();
     void update(int row = 0, int col = 0) override;
     void clearView() override;
 
 
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
 
+    void setTileModel(const std::shared_ptr<TileModel> &newTileModel) override;
+
 private:
-    std::shared_ptr<TileModel> tileModel;
     int prevRow {-1};
     int prevCol {-1};
     int tileDim {50};

@@ -8,12 +8,11 @@
 class HealthPackViewText: public HealthPackView
 {
 public:
-    HealthPackViewText(std::shared_ptr<HealthPackModel> hpm);
+    HealthPackViewText();
     void update() override;
     void update(int row, int col,  bool used = true) override;
     void clearView() override;
-private:
-    std::shared_ptr<HealthPackModel> hpModel;
+    void setHpModel(const std::shared_ptr<HealthPackModel> &newHpModel) override;
 };
 
 #endif // HEALTHPACKVIEWTEXT_H

@@ -7,8 +7,7 @@
 
 #include <QCoreApplication>
 
-HealthPackViewGraphical::HealthPackViewGraphical(std::shared_ptr<HealthPackModel> hpm)
-    :hpModel(hpm)
+HealthPackViewGraphical::HealthPackViewGraphical()
 {
 
 }
@@ -82,4 +81,9 @@ void HealthPackViewGraphical::displayHp(std::shared_ptr<QGraphicsPixmapItem> ico
 void HealthPackViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
 {
     scene = newScene;
+}
+
+void HealthPackViewGraphical::setHpModel(const std::shared_ptr<HealthPackModel> &newHpModel)
+{
+    hpModel = newHpModel;
 }

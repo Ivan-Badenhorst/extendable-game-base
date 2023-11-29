@@ -9,12 +9,11 @@
 class TileViewText: public TileView
 {
 public:
-    TileViewText(std::shared_ptr<TileModel> tm);
+    TileViewText();
     void update(int row = 0, int col = 0) override;
     void clearView() override;
+    void setTileModel(const std::shared_ptr<TileModel> &newTileModel) override;
 
-private:
-    std::shared_ptr<TileModel> tileModel;
 };
 
 #endif // TILEVIEWTEXT_H

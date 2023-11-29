@@ -6,7 +6,7 @@
 class TextGameView: public GameView
 {
 public:
-    TextGameView(MainWindow& mw): GameView(mw){};
+    TextGameView(MainWindow& mw) : GameView(mw){};
     void initializeMainWindow() override;
     void clearMainWindow() override;
 };

@@ -5,8 +5,7 @@
 
 
 
-ProtagonistViewGraphical::ProtagonistViewGraphical(std::shared_ptr<ProtagonistModel> pm)
-    : protModel(pm)
+ProtagonistViewGraphical::ProtagonistViewGraphical()
 {
     //updateHealth();
 }
@@ -60,6 +59,11 @@ void ProtagonistViewGraphical::setHealthBar(const std::shared_ptr<HealthProgress
 void ProtagonistViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
 {
     scene = newScene;
+}
+
+void ProtagonistViewGraphical::setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel)
+{
+    protModel = newProtModel;
 }
 
 

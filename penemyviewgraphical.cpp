@@ -3,8 +3,8 @@
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
 
-PEnemyViewGraphical::PEnemyViewGraphical(std::shared_ptr<PEnemyModel> pem)
-: penemyModel(pem)
+PEnemyViewGraphical::PEnemyViewGraphical()
+
 {
 
 }
@@ -26,6 +26,11 @@ void PEnemyViewGraphical::clearView()
         scene.reset();
     }
 
+}
+
+void PEnemyViewGraphical::setPenemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel)
+{
+    penemyModel = newPenemyModel;
 }
 
 

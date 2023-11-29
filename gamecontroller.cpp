@@ -80,11 +80,14 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     enemyController = easyLevel->getEnemyController();
 
     //setup graphic views:
-    auto tv = std::make_shared<TileViewGraphical>(tileController->getTileModel());
+    auto tv = std::make_shared<TileViewGraphical>();
+    tv->setTileModel(tileController->getTileModel());
     gameView->setTileView(tv);
-    auto hpv = std::make_shared<HealthPackViewGraphical>(hpController->getHpModel());
+    auto hpv = std::make_shared<HealthPackViewGraphical>();
+    hpv->setHpModel(hpController->getHpModel());
     gameView->setHpView(hpv);
-    auto pv = std::make_shared<ProtagonistViewGraphical>(protController->getProtModel());
+    auto pv = std::make_shared<ProtagonistViewGraphical>();
+    pv->setProtModel(protController->getProtModel());
     gameView->setProtView(pv);
     auto em = enemyController->getEnemyModels();
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
@@ -92,10 +95,12 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     //IF WE GET MORE TYPE OF ENEMIES WE HAVE TO GO THROUGH THIS IN A BETTER WAY!!!!
     for(auto& e: em){
         if (auto pEnemyModel = dynamic_cast<PEnemyModel*>(e.get())) {
-            std::shared_ptr<EnemyViewInterface> pev = std::make_shared<PEnemyViewGraphical>(std::make_shared<PEnemyModel>(*pEnemyModel));
+            auto pev = std::make_shared<PEnemyViewGraphical>();
+            pev->setPenemyModel(std::make_shared<PEnemyModel>(*pEnemyModel));
             enemyViews.push_back(pev);
         } else if(auto enemyModel = dynamic_cast<EnemyModel*>(e.get())){
-            std::shared_ptr<EnemyViewInterface> ev = std::make_shared<EnemyViewGraphical>(std::make_shared<EnemyModel>(*enemyModel));
+            auto ev = std::make_shared<EnemyViewGraphical>();
+            ev->setEnemyModel(std::make_shared<EnemyModel>(*enemyModel));
             enemyViews.push_back(ev);
         }
     }
@@ -123,6 +128,8 @@ void GameController::initializeView()
 void GameController::setNewView(std::unique_ptr<GameView> gv)
 {
     gameView->clearMainWindow();
+    //for each view I have to set the model
+
     gameView = std::move(gv);
     initializeView();
 }
