@@ -4,7 +4,8 @@
 
 #include "enemyviewinterface.h"
 #include "penemymodel.h"
-class PEnemyViewText: public EnemyViewInterface
+#include "penemyview.h"
+class PEnemyViewText: public EnemyViewInterface, public PEnemyView
 {
 public:
     PEnemyViewText(std::shared_ptr<PEnemyModel> pem);
@@ -12,7 +13,7 @@ public:
     void clearView() override;
 
 
-    void setPenemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel);
+    void setPEnemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel) override;
 
 private:
     std::shared_ptr<PEnemyModel> penemyModel;

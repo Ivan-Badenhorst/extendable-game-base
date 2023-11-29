@@ -1,4 +1,5 @@
 #include "protagonistviewtext.h"
+#include <iostream>
 
 ProtagonistViewText::ProtagonistViewText()
 {

@@ -16,7 +16,7 @@ void PEnemyViewText::clearView()
 
 }
 
-void PEnemyViewText::setPenemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel)
+void PEnemyViewText::setPEnemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel)
 {
     penemyModel = newPenemyModel;
 }

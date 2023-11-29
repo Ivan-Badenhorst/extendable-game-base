@@ -28,7 +28,7 @@ void PEnemyViewGraphical::clearView()
 
 }
 
-void PEnemyViewGraphical::setPenemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel)
+void PEnemyViewGraphical::setPEnemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel)
 {
     penemyModel = newPenemyModel;
 }

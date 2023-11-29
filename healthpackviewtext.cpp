@@ -1,4 +1,5 @@
 #include "healthpackviewtext.h"
+#include <iostream>
 
 
 HealthPackViewText::HealthPackViewText()
@@ -14,6 +15,7 @@ void HealthPackViewText::update()
 void HealthPackViewText::update(int row, int col, bool used)
 {
 //implement
+
 }
 
 void HealthPackViewText::clearView()

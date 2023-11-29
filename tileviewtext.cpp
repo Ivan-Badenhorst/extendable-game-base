@@ -1,5 +1,7 @@
 #include "tileviewtext.h"
 
+#include <iostream>
+
 TileViewText::TileViewText()
 {
 

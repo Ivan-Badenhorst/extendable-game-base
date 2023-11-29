@@ -3,9 +3,10 @@
 #include <memory>
 #include "enemyviewinterface.h"
 #include "penemymodel.h"
+#include "penemyview.h"
 
 
-class PEnemyViewGraphical: public EnemyViewInterface
+class PEnemyViewGraphical: public EnemyViewInterface, public PEnemyView
 {
 public:
     PEnemyViewGraphical();
@@ -13,7 +14,7 @@ public:
     void clearView() override;
     //void update(int row, int col, bool used = true) override;
 
-    void setPenemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel);
+    void setPEnemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel) override;
 
 private:
     std::shared_ptr<PEnemyModel> penemyModel;

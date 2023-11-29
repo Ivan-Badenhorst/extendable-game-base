@@ -1,5 +1,7 @@
 #include "enemyviewtext.h"
 
+#include <iostream>
+
 EnemyViewText::EnemyViewText(std::shared_ptr<EnemyModel> em)
 :enemyModel(em)
 {

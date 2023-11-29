@@ -66,6 +66,7 @@ HEADERS += \
     levelfactory.h \
     mainwindow.h \
     penemymodel.h \
+    penemyview.h \
     penemyviewgraphical.h \
     penemyviewtext.h \
     protagonistcontroller.h \

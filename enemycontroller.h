@@ -18,8 +18,8 @@ public:
     void setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface> > &newEnemyView);
 
     std::vector<std::shared_ptr<EnemyModelInterface> > getAllEnemyModels() const;
-    std::shared_ptr<EnemyModel> getEnemyModels() const;
-    std::shared_ptr<PEnemyModel> getPEnemyModels() const;
+    std::shared_ptr<EnemyModel> getEnemyModel() const;
+    std::shared_ptr<PEnemyModel> getPEnemyModel() const;
 
 private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels;

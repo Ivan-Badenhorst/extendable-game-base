@@ -38,7 +38,6 @@ void GameController::input(const ArrowDirection &direction)
         if(row < height-1) row++;
         break;
     }
-
     int hpVal = hpController->update(row, col);
     if(hpVal > 0){
         protController->addHealth(hpVal);
@@ -96,7 +95,7 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     for(auto& e: em){
         if (auto pEnemyModel = dynamic_cast<PEnemyModel*>(e.get())) {
             auto pev = std::make_shared<PEnemyViewGraphical>();
-            pev->setPenemyModel(std::make_shared<PEnemyModel>(*pEnemyModel));
+            pev->setPEnemyModel(std::make_shared<PEnemyModel>(*pEnemyModel));
             enemyViews.push_back(pev);
         } else if(auto enemyModel = dynamic_cast<EnemyModel*>(e.get())){
             auto ev = std::make_shared<EnemyViewGraphical>();
@@ -139,8 +138,12 @@ void GameController::setNewView(std::unique_ptr<GameView> gv)
     for(auto& ev: evs){
            //check the view type:
         if (auto enemyV = dynamic_cast<EnemyView*>(ev.get())) {
-            enemyV->setEnemyModel(enemyController->getEnemyModels());
+            enemyV->setEnemyModel(enemyController->getEnemyModel());
         }
+        if (auto enemyV = dynamic_cast<PEnemyView*>(ev.get())) {
+            enemyV->setPEnemyModel(enemyController->getPEnemyModel());
+        }
+
     }
 
     initializeView();

@@ -31,7 +31,7 @@ std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getAllEnemyM
     return enemyModels;
 }
 
-std::shared_ptr<EnemyModel>  EnemyController::getEnemyModels() const
+std::shared_ptr<EnemyModel>  EnemyController::getEnemyModel() const
 {
 
     for(auto&m:enemyModels){
@@ -42,7 +42,7 @@ std::shared_ptr<EnemyModel>  EnemyController::getEnemyModels() const
 
 }
 
-std::shared_ptr<PEnemyModel>  EnemyController::getPEnemyModels() const
+std::shared_ptr<PEnemyModel>  EnemyController::getPEnemyModel() const
 {
 
     for(auto&m:enemyModels){
