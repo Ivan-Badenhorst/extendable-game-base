@@ -50,3 +50,34 @@ bool PEnemyModel::containsEnemy(int row, int col)
         return false;
     }
 }
+
+bool PEnemyModel::isDefeated(int row, int col)
+{
+    // Create a pair with the x and y position as the key
+    std::pair<int, int> key = std::make_pair(row, col);
+
+    // Check if the enemyMap contains the key
+    if (enemyMap.count(key) > 0)
+    {
+        // Return the defeated status of the enemy
+        return enemyMap[key]->getDefeated();
+    }
+    else
+    {
+        // Return false if the enemy is not in the map
+        return false;
+    }
+}
+
+void PEnemyModel::attackEnemy(int row, int col, int damage)
+{
+    // Create a pair with the x and y position as the key
+    std::pair<int, int> key = std::make_pair(row, col);
+
+    // Check if the enemyMap contains the key
+    if (enemyMap.count(key) > 0)
+    {
+        // Attack the enemy
+        enemyMap[key]->setDefeated(true);
+    }
+}   
