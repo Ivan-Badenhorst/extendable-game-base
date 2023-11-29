@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>PEnemy_alive.png</file>
         <file>Enemy_alive.png</file>
+        <file>Enemy_dead.png</file>
+        <file>Enemy_dead.png</file>
     </qresource>
 </RCC>
