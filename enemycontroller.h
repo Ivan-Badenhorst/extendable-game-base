@@ -40,6 +40,14 @@ public:
      */
     std::vector<std::shared_ptr<EnemyModelInterface>> getEnemyModels() const;
 
+    /**
+     * @brief Checks if there is an enemy at the given coordinates.
+     * @param col The column to check.
+     * @param row The row to check.
+     * @return True if there is an enemy at the given coordinates, false otherwise.
+     */
+    bool containsEnemy(int col, int row) const;
+
 private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.

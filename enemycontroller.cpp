@@ -29,3 +29,16 @@ std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getEnemyMode
 {
     return enemyModels;
 }
+
+bool EnemyController::containsEnemy(int col, int row) const
+{
+    // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
+    for (auto const& x : enemyModels)
+    {
+        if (x->containsEnemy(col, row))
+        {
+            return true;
+        }
+    }
+    return false;
+}
