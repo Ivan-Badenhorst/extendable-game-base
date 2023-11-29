@@ -33,14 +33,14 @@ void GraphicalGameView::initializeMainWindow()
     mainWindow.setCentralWidget(view.get());
 
     // Create a widget to hold the view
-    widget = std::make_shared<QWidget>(&mainWindow);
+    widget = new QWidget(&mainWindow);
 
     widget->setFixedSize(800, 400);
-    layout = std::make_shared<QHBoxLayout>(widget.get());
+    layout = new QHBoxLayout(widget);
     layout->addWidget(view.get());
     layout->setContentsMargins(0, 0, 0, 0);
 
-    mainWindow.setCentralWidget(widget.get());
+    mainWindow.setCentralWidget(widget);
 
     if(auto tView = dynamic_cast<TileViewGraphical*>(tileView.get())){
         tView->setScene(scene);
@@ -56,8 +56,6 @@ void GraphicalGameView::initializeMainWindow()
             eView->setScene(scene);
         };
     }
-    clearMainWindow();
-    /// STILL NEED TO IMPLEMENT THE CLEAR FUNCTION PROPERLY!!! -> CALL THE RESET IN ALL THE VIEWS!!!
 }
 
 void GraphicalGameView::clearMainWindow()
@@ -70,12 +68,13 @@ void GraphicalGameView::clearMainWindow()
     }
 
 
-
+    scene->setParent(nullptr);
     view.reset();
-    widget.reset();
-    layout.reset();
+    widget->setParent(nullptr);
+    widget = nullptr;
 
-    scene.reset();
+    layout = nullptr;
+
+
     healthBar.reset();
-    //healthBar->reset();
 }

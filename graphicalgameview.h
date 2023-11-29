@@ -28,8 +28,8 @@ private:
 
     //supporting components
     std::shared_ptr<QGraphicsView> view;
-    std::shared_ptr<QWidget> widget;
-    std::shared_ptr<QHBoxLayout> layout;
+    QWidget* widget;//normal pointer since memory management is done by qt
+    QHBoxLayout* layout;
 };
 
 #endif // GRAPHICALGAMEVIEW_H

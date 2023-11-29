@@ -107,6 +107,8 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     hpController->refreshAll();
     protController->refreshAll();
     enemyController->refreshAllGraphical();
+
+
     
 
 }
@@ -123,7 +125,7 @@ void GameController::initializeView()
 
 void GameController::setNewView(std::unique_ptr<GameView> gv)
 {
-//    gameView->clearMainWindow();
+    gameView->clearMainWindow();
     gameView = std::move(gv);
     initializeView();
 }
