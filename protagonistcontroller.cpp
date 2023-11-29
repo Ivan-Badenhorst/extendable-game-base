@@ -28,6 +28,11 @@ void ProtagonistController::takeDamage(int hpValue)
     protView->updateHealth();
 }
 
+int ProtagonistController::getAttackDamage()
+{
+    return protModel->getAttackDamage();
+}
+
 void ProtagonistController::setProtView(const std::shared_ptr<ProtagonistView> &newProtView)
 {
     protView = newProtView;

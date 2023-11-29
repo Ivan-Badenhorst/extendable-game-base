@@ -14,6 +14,7 @@ public:
     void addHealth(int hpValue);
     void attackEnemy();
     void takeDamage(int hpValue);
+    int getAttackDamage();
 
 
     void setProtView(const std::shared_ptr<ProtagonistView> &newProtView);
