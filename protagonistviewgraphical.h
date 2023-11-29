@@ -13,6 +13,7 @@ public:
     void update() override;
     void update(int row, int col) override;
     void updateHealth() override;
+    void clearView() override;
 
     void setHealthBar(const std::shared_ptr<HealthProgressBar> newHealthBar);
 

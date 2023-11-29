@@ -6,6 +6,7 @@ class HealthPackView
 public:
     virtual void update() = 0;
     virtual void update(int row, int col,  bool used = true) = 0;
+    virtual void clearView() = 0;
 };
 
 #endif // HEALTHPACKVIEW_H

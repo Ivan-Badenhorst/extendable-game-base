@@ -66,6 +66,11 @@ void HealthPackViewGraphical::update(int row, int col, bool used)
 
 }
 
+void HealthPackViewGraphical::clearView()
+{
+    scene.reset();
+}
+
 void HealthPackViewGraphical::displayHp(std::shared_ptr<QGraphicsPixmapItem> icon, std::array<int, 3> hp)
 {
     icon->setPos(hp[1]*tileDim, hp[0]*tileDim);

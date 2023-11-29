@@ -45,6 +45,12 @@ void ProtagonistViewGraphical::updateHealth()
     healthBar->setValue(protModel->getCurrentHealth());
 }
 
+void ProtagonistViewGraphical::clearView()
+{
+    scene.reset();
+    healthBar.reset();
+}
+
 void ProtagonistViewGraphical::setHealthBar(const std::shared_ptr<HealthProgressBar> newHealthBar)
 {
     healthBar = newHealthBar;

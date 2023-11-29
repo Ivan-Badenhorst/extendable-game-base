@@ -1,7 +1,7 @@
 #ifndef TILEVIEWGRAPHICAL_H
 #define TILEVIEWGRAPHICAL_H
 
-#include "mainwindow.h"
+#include "qgraphicsscene.h"
 #include "tilemodel.h"
 #include "tileview.h"
 
@@ -12,6 +12,7 @@ class TileViewGraphical: public TileView
 public:
     TileViewGraphical(std::shared_ptr<TileModel> tm);
     void update(int row = 0, int col = 0) override;
+    void clearView() override;
 
 
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);

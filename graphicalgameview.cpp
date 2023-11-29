@@ -56,11 +56,26 @@ void GraphicalGameView::initializeMainWindow()
             eView->setScene(scene);
         };
     }
-
+    clearMainWindow();
     /// STILL NEED TO IMPLEMENT THE CLEAR FUNCTION PROPERLY!!! -> CALL THE RESET IN ALL THE VIEWS!!!
 }
 
 void GraphicalGameView::clearMainWindow()
 {
-    healthBar->reset();
+    tileView->clearView();
+    hpView->clearView();
+    protView->clearView();
+    for(auto& eV: enemyView){
+        eV->clearView();
+    }
+
+
+
+    view.reset();
+    widget.reset();
+    layout.reset();
+
+    scene.reset();
+    healthBar.reset();
+    //healthBar->reset();
 }

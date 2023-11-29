@@ -10,6 +10,7 @@ class PEnemyViewGraphical: public EnemyViewInterface
 public:
     PEnemyViewGraphical(std::shared_ptr<PEnemyModel> pem);
     void update() override;
+    void clearView() override;
     //void update(int row, int col, bool used = true) override;
 
 private:

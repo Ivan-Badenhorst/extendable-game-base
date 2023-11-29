@@ -8,6 +8,7 @@ class EnemyViewInterface
 public:
     virtual void update() = 0;
     //virtual void update(int row, int col,  bool used = true) = 0;
+    virtual void clearView() = 0;
 
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
 

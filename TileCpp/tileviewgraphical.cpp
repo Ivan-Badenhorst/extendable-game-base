@@ -75,6 +75,11 @@ void TileViewGraphical::update(int positionRow, int positionCol)
     prevRow = positionRow;
 }
 
+void TileViewGraphical::clearView()
+{
+    scene.reset();
+}
+
 void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, int colEnd)
 {
     auto tileTable = tileModel->getTileTable();

@@ -20,6 +20,14 @@ void PEnemyViewGraphical::update()
     }
 }
 
+void PEnemyViewGraphical::clearView()
+{
+    if (scene != nullptr) {
+        scene.reset();
+    }
+
+}
+
 
 void PEnemyViewGraphical::displayEnemy(std::shared_ptr<QGraphicsPixmapItem> icon, int x, int y)
 {

@@ -15,7 +15,7 @@ public:
     HealthPackViewGraphical(std::shared_ptr<HealthPackModel> hpm);
     void update() override;
     void update(int row, int col, bool used = true) override;
-
+    void clearView() override;
 
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
 
