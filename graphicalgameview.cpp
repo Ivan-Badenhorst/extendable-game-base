@@ -27,20 +27,20 @@ void GraphicalGameView::initializeMainWindow()
 
     ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
     scene = std::make_shared<QGraphicsScene>(&mainWindow);
-    QGraphicsView* view = new QGraphicsView(scene.get());
+    view =  std::make_shared<QGraphicsView>(scene.get());
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    mainWindow.setCentralWidget(view);
+    mainWindow.setCentralWidget(view.get());
 
     // Create a widget to hold the view
-    QWidget* widget = new QWidget(&mainWindow);
+    widget = std::make_shared<QWidget>(&mainWindow);
 
     widget->setFixedSize(800, 400);
-    QHBoxLayout* layout = new QHBoxLayout(widget);
-    layout->addWidget(view);
+    layout = std::make_shared<QHBoxLayout>(widget.get());
+    layout->addWidget(view.get());
     layout->setContentsMargins(0, 0, 0, 0);
 
-    mainWindow.setCentralWidget(widget);
+    mainWindow.setCentralWidget(widget.get());
 
     if(auto tView = dynamic_cast<TileViewGraphical*>(tileView.get())){
         tView->setScene(scene);
