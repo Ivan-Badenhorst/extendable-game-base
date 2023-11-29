@@ -33,20 +33,11 @@ std::vector<std::shared_ptr<Enemy>> EnemyModel::getEnemies() const
     return enemies;
 }
 
-bool EnemyModel::containsEnemy(int row, int col)
+bool EnemyModel::containsEnemy(int col, int row)
 {
     // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(row, col);
+    std::pair<int, int> key = std::make_pair(col, row);
 
     // Check if the enemyMap contains the key
-    if (enemyMap.count(key) > 0)
-    {
-        // Return true if the enemyMap contains the key
-        return true;
-    }
-    else
-    {
-        // Return false if the enemyMap does not contain the key
-        return false;
-    }
+    return (enemyMap.count(key)>0);
 }

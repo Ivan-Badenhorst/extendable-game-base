@@ -47,8 +47,10 @@ void GameController::input(const ArrowDirection &direction)
 
     // perform some checks here that see if the enemy is present before making the move
     auto enemyModels = enemyController->getEnemyModels();
+    std::cout << enemyModels.size() << std::endl;
     for (auto & enemyModel : enemyModels){
-        if(enemyModel->containsEnemy(row, col))
+        std::cout << enemyModel << std::endl;
+        if(enemyModel->containsEnemy(col, row))
         {
             std::cout << "I have an enemy" << std::endl;
             row = row_save;
