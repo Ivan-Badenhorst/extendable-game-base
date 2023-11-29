@@ -2,6 +2,7 @@
 #include "HealthPackH/healthpackviewgraphical.h"
 #include "enemyviewgraphical.h"
 #include "penemymodel.h"
+#include "enemymodel.h"
 #include "penemyviewgraphical.h"
 #include "protagonistviewgraphical.h"
 
@@ -24,6 +25,11 @@ GameController::GameController()
 
 void GameController::input(const ArrowDirection &direction)
 {
+
+    auto row_save = row;
+    auto col_save = col;
+
+
     switch (direction) {
     case ArrowDirection::Left:
         if(col > 0) col--;
@@ -38,6 +44,19 @@ void GameController::input(const ArrowDirection &direction)
         if(row < height-1) row++;
         break;
     }
+
+    // perform some checks here that see if the enemy is present before making the move
+    auto enemyModels = enemyController->getEnemyModels();
+    for (auto & enemyModel : enemyModels){
+        if(enemyModel->containsEnemy(row, col))
+        {
+            std::cout << "I have an enemy" << std::endl;
+            row = row_save;
+            col = col_save;
+            //we will call function to do animation
+        }
+    }
+
 
     int hpVal = hpController->update(row, col);
     if(hpVal > 0){
