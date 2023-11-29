@@ -1,11 +1,12 @@
 #ifndef ENEMYVIEWGRAPHICAL_H
 #define ENEMYVIEWGRAPHICAL_H
 #include <memory>
+#include "enemyview.h"
 #include "enemyviewinterface.h"
 #include "enemymodel.h"
 #include "mainwindow.h"
 
-class EnemyViewGraphical: public EnemyViewInterface
+class EnemyViewGraphical: public EnemyViewInterface, public EnemyView
 {
 public:
     EnemyViewGraphical();
@@ -13,7 +14,7 @@ public:
     void clearView() override;
     //void update(int row, int col, bool used = true) override;
 
-    void setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyModel);
+    void setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyModel) override;
 
 private:
     std::shared_ptr<EnemyModel> enemyModel;
