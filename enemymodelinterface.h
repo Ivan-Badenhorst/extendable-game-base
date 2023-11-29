@@ -13,6 +13,8 @@ public:
     virtual void addEnemy(std::shared_ptr<Enemy> enemy) = 0;
     virtual std::vector<std::shared_ptr<Enemy>> getEnemies() const = 0;
     virtual bool containsEnemy(int row, int col) = 0;
+    virtual bool isDefeated(int row, int col) = 0;
+    virtual void attackEnemy(int row, int col, int damage) = 0;
 };
 
 #endif // ENEMYMODELINTERFACE_H
