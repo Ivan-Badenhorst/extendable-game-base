@@ -12,6 +12,8 @@ public:
     void clearView() override;
 
 
+    void setPenemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel);
+
 private:
     std::shared_ptr<PEnemyModel> penemyModel;
 };

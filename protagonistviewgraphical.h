@@ -19,10 +19,9 @@ public:
 
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
 
-    void setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel);
+    void setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel) override;
 
 private:
-    std::shared_ptr<ProtagonistModel> protModel;
     std::shared_ptr<QGraphicsPixmapItem> protagonistDisplay;
     int tileDim {50};
 

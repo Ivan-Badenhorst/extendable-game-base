@@ -10,10 +10,11 @@ public:
     EnemyViewText(std::shared_ptr<EnemyModel> em);
     void update() override;
     void clearView() override;
-
+    void setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyModel);
 
 private:
     std::shared_ptr<EnemyModel> enemyModel;
+
 };
 
 #endif // ENEMYVIEWTEXT_H

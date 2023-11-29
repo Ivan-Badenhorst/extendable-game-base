@@ -1,7 +1,6 @@
 #include "protagonistviewtext.h"
 
-ProtagonistViewText::ProtagonistViewText(std::shared_ptr<ProtagonistModel> pm)
- : protModel(pm)
+ProtagonistViewText::ProtagonistViewText()
 {
 
 }
@@ -24,4 +23,9 @@ void ProtagonistViewText::updateHealth()
 void ProtagonistViewText::clearView()
 {
 
+}
+
+void ProtagonistViewText::setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel)
+{
+    protModel = newProtModel;
 }

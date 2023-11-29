@@ -1,6 +1,7 @@
 #ifndef ENEMYVIEWINTERFACE_H
 #define ENEMYVIEWINTERFACE_H
 
+#include "enemymodel.h"
 #include "qgraphicsscene.h"
 #include <memory>
 class EnemyViewInterface

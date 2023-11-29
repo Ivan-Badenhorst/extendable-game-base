@@ -15,3 +15,9 @@ void EnemyViewText::clearView()
 {
 
 }
+
+void EnemyViewText::setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyModel)
+{
+    enemyModel = newEnemyModel;
+}
+

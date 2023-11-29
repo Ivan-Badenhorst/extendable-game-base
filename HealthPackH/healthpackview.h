@@ -8,7 +8,7 @@ public:
     virtual void update() = 0;
     virtual void update(int row, int col,  bool used = true) = 0;
     virtual void clearView() = 0;
-    virtual void setHpModel(const std::shared_ptr<HealthPackModel> &newHpModel = 0);
+    virtual void setHpModel(const std::shared_ptr<HealthPackModel> &newHpModel) = 0;
 
 protected:
     std::shared_ptr<HealthPackModel> hpModel;

@@ -8,11 +8,12 @@
 class ProtagonistViewText: public ProtagonistView
 {
 public:
-    ProtagonistViewText(std::shared_ptr<ProtagonistModel> pm);
+    ProtagonistViewText();
     void update() override;
     void update(int row, int col) override;
     void updateHealth() override;
     void clearView() override;
+    void setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel) override;
 
 private:
     std::shared_ptr<ProtagonistModel> protModel;
