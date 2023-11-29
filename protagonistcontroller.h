@@ -12,6 +12,9 @@ public:
     void update(int row, int col);
     void landedOnHp();
     void addHealth(int hpValue);
+    void attackEnemy();
+    void takeDamage(int hpValue);
+
 
     void setProtView(const std::shared_ptr<ProtagonistView> &newProtView);
 
