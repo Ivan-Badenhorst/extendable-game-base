@@ -38,6 +38,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_Right:
         gameController->input(ArrowDirection::Right);
+        std::cout << "I have received a right input" << std::endl;
         break;
     case Qt::Key_Up:
         gameController->input(ArrowDirection::Up);
@@ -49,4 +50,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         QWidget::keyPressEvent(event);
         break;
     }
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+     this->setFocus();
+
+//    If needed later on, pass the event to the base class implementation
+//    QMainWindow::mousePressEvent(event);
 }
