@@ -55,18 +55,23 @@ void GameController::input(const ArrowDirection &direction)
     // I should be able to attack the enemy until it dies
     // Dep on enemy I should also take some damage...
 
-   /*
-    *
-    * if(enemyController.containsEnemy() && !(enemyController.isDefeated()))
-    * {
-    *   row = row_save;
+
+
+    if (enemyController->containsEnemy(col, row) && !(enemyController->isDefeated(col, row)))
+    {
+        bool isDefeated = enemyController->attackEnemy(col, row, protController->getAttackDamage());
+       // protController.attackingEnemy();
+        row = row_save;
         col = col_save;
-    *
-    *   enemyController.attackEnemy(protController->getAttackDamage);
-    *   protController.attackingEnemy();
-    *
-    * }
-    */
+    }
+
+
+
+
+
+
+
+
    // bool isAttack = enemyController.attack();
 //    if(isAttack){
 //        row = row_save;
