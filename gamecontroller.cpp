@@ -15,6 +15,7 @@
 #include <QEventLoop>
 
 
+
 GameController*  GameController::gameControllerInstance = nullptr;
 
 
@@ -25,6 +26,7 @@ GameController::GameController()
 
 void GameController::input(const ArrowDirection &direction)
 {
+
 
     auto row_save = row;
     auto col_save = col;
@@ -45,19 +47,48 @@ void GameController::input(const ArrowDirection &direction)
         break;
     }
 
-    // perform some checks here that see if the enemy is present before making the move
-    auto enemyModels = enemyController->getEnemyModels();
-    std::cout << enemyModels.size() << std::endl;
-    for (auto & enemyModel : enemyModels){
-        std::cout << enemyModel << std::endl;
-        if(enemyModel->containsEnemy(col, row))
-        {
-            row = row_save;
-            col = col_save;
-            //we will call function for prot to do its thing
-            // we will call function for enemy to do its thing
-        }
-    }
+
+    //i will get a contains method //and attack method
+    // returns boolean
+    //i need a function that first sees if it's an enemy
+    // if i see that it is an enemy, I can initiate an attack
+    // I should be able to attack the enemy until it dies
+    // Dep on enemy I should also take some damage...
+
+   /*
+    *
+    * if(enemyController.containsEnemy() && !(enemyController.isDefeated()))
+    * {
+    *   row = row_save;
+        col = col_save;
+    *
+    *   enemyController.attackEnemy(protController->getAttackDamage);
+    *   protController.attackingEnemy();
+    *
+    * }
+    */
+   // bool isAttack = enemyController.attack();
+//    if(isAttack){
+//        row = row_save;
+//        col = col_save;
+//        protController.attack();
+//    }
+
+////this whole thing should be moved to enemyController as we are going away from MVC.
+//    auto enemyModels = enemyController->getEnemyModels();
+//    std::cout << enemyModels.size() << std::endl;
+//    for (auto & enemyModel : enemyModels){
+//        std::cout << enemyModel << std::endl;
+//        if(enemyModel->containsEnemy(col, row))
+//        {
+
+//            std::cout << "I am enemy" << std::endl;
+//            row = row_save;
+//            col = col_save;
+//            //we will call function for prot to do its things
+//            // we will call function for enemy to do its thing
+//        }
+//    }
 
 
     int hpVal = hpController->update(row, col);

@@ -39,8 +39,7 @@ public:
 
    GameController();
    ~GameController();
-
-}
+  }
 ;
 
 
