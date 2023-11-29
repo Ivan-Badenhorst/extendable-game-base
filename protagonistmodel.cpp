@@ -51,5 +51,11 @@ void ProtagonistModel::addHealth(int hpValue)
     currentHealth = maxHealth;
 }
 
+void ProtagonistModel::takeDamage(int hpValue)
+{
+    currentHealth -= hpValue;
+}
+
+
 
 
