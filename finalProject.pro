@@ -54,6 +54,7 @@ HEADERS += \
     easylevelfactory.h \
     enemycontroller.h \
     enemymodelinterface.h \
+    enemyview.h \
     enemyviewgraphical.h \
     enemyviewinterface.h \
     enemyviewtext.h \

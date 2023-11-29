@@ -2,6 +2,7 @@
 #define ENEMYCONTROLLER_H
 #include "enemymodel.h"
 #include "enemyviewinterface.h"
+#include "penemymodel.h"
 #include <memory>
 
 
@@ -16,7 +17,9 @@ public:
 
     void setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface> > &newEnemyView);
 
-    std::vector<std::shared_ptr<EnemyModelInterface> > getEnemyModels() const;
+    std::vector<std::shared_ptr<EnemyModelInterface> > getAllEnemyModels() const;
+    std::shared_ptr<EnemyModel> getEnemyModels() const;
+    std::shared_ptr<PEnemyModel> getPEnemyModels() const;
 
 private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels;
