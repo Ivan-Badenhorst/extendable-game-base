@@ -59,42 +59,11 @@ void GameController::input(const ArrowDirection &direction)
 
     if (enemyController->containsEnemy(col, row) && !(enemyController->isDefeated(col, row)))
     {
-        bool isDefeated = enemyController->attackEnemy(col, row, protController->getAttackDamage());
-       // protController.attackingEnemy();
+        enemyController->attackEnemy(col, row, protController->getAttackDamage());
+       // protController.attackingEnemy(); does nothing now
         row = row_save;
         col = col_save;
     }
-
-
-
-
-
-
-
-
-   // bool isAttack = enemyController.attack();
-//    if(isAttack){
-//        row = row_save;
-//        col = col_save;
-//        protController.attack();
-//    }
-
-////this whole thing should be moved to enemyController as we are going away from MVC.
-//    auto enemyModels = enemyController->getEnemyModels();
-//    std::cout << enemyModels.size() << std::endl;
-//    for (auto & enemyModel : enemyModels){
-//        std::cout << enemyModel << std::endl;
-//        if(enemyModel->containsEnemy(col, row))
-//        {
-
-//            std::cout << "I am enemy" << std::endl;
-//            row = row_save;
-//            col = col_save;
-//            //we will call function for prot to do its things
-//            // we will call function for enemy to do its thing
-//        }
-//    }
-
 
     int hpVal = hpController->update(row, col);
     if(hpVal > 0){
