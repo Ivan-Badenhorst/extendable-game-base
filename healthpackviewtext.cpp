@@ -1,4 +1,5 @@
 #include "healthpackviewtext.h"
+#include "qtextcursor.h"
 #include <iostream>
 
 
@@ -14,16 +15,22 @@ void HealthPackViewText::update()
 
 void HealthPackViewText::update(int row, int col, bool used)
 {
-//implement
+
+
 
 }
 
 void HealthPackViewText::clearView()
 {
-//implement
+    textEdit.reset();
 }
 
 void HealthPackViewText::setHpModel(const std::shared_ptr<HealthPackModel> &newHpModel)
 {
-hpModel = newHpModel;
+    hpModel = newHpModel;
+}
+
+void HealthPackViewText::setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit)
+{
+    textEdit = newTextEdit;
 }

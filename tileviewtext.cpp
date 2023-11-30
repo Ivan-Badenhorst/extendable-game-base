@@ -12,19 +12,19 @@ void TileViewText::update(int row, int col)
     auto grid = tileModel->getTileTable();
     QString output;
     for (const auto& row : grid) {
-        for (int val : row) {
+        for (auto& v: row) {
             // Top line of the tile
             output += " --- ";
         }
         output += "\n";
 
-        for (int val : row) {
+        for (auto& v : row) {
             // Left side and right side of the tile
             output += "|   |";
         }
         output += "\n";
 
-        for (int val : row) {
+        for (auto& v: row) {
             // Bottom line of the tile
             output += " --- ";
         }
