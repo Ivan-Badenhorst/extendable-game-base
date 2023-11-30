@@ -15,6 +15,7 @@ void TextGameView::initializeMainWindow()
     QFont font("Courier New");
     font.setStyleHint(QFont::Monospace);
     font.setFixedPitch(true);
+    font.setPointSize(16);
     // Set size of the QPlainTextEdit
     textEdit->setFixedSize(800, 400); // Adjust size as needed
     textEdit->setReadOnly(true);

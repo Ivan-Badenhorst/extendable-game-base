@@ -1,5 +1,4 @@
 #include "healthpackviewtext.h"
-#include "qapplication.h"
 #include "qtextcursor.h"
 #include <iostream>
 
