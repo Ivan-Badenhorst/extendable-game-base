@@ -1,4 +1,5 @@
 #include "healthpackviewtext.h"
+#include "qapplication.h"
 #include "qtextcursor.h"
 #include <iostream>
 
@@ -28,13 +29,15 @@ void HealthPackViewText::update(int row, int col, bool used)
 
 
 
-    int moveDown = 1 + 3*row;   // Number of lines to move down
-    int moveRight = 2 + 5*col;  // Number of characters to move to the right
+    int moveDown = 1 + 2*row;   // Number of lines to move down
+    int moveRight = 2 + 4*col;  // Number of characters to move to the right
 
+    textEdit->setReadOnly(false);
     auto cursor = textEdit->textCursor();
     cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
-    cursor.insertText("h");
-    cursor.insertText("h");
+    cursor.clearSelection();
+
+
 
 
     ///REPLACE THE FOR LOOP!!! FUNCTION CAN TAKE 3 PARAMETERS HEHE
@@ -52,13 +55,18 @@ void HealthPackViewText::update(int row, int col, bool used)
     textEdit->setTextCursor(cursor);
 
     // Replace the character at the new cursor position
-    if (cursor.hasSelection()) {
-        // If there is a selection, replace the selected text
-        cursor.removeSelectedText();
-    }
+    cursor.deleteChar();
+
 
     if(used) {cursor.insertText("h");}
     else {cursor.insertText("H");}
+    textEdit->repaint();
+
+    textEdit->setTextCursor(cursor);
+    textEdit->viewport()->update();
+    QApplication::processEvents();
+    textEdit->setReadOnly(true);
+
 
 }
 
