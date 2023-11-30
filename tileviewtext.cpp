@@ -9,26 +9,34 @@ TileViewText::TileViewText()
 
 void TileViewText::update(int row, int col)
 {
+    if(displayed) return;
+    displayed = true;
     auto grid = tileModel->getTileTable();
     QString output;
+
+    auto first = true;
+
     for (const auto& row : grid) {
-        for (auto& v: row) {
-            // Top line of the tile
-            output += " --- ";
+        if(first){
+            first = false;
+            for (auto& v: row) {
+                // Top line of the tile
+                output += "+---";
+            }
+            output += "+\n";
         }
-        output += "\n";
 
         for (auto& v : row) {
             // Left side and right side of the tile
-            output += "|   |";
+            output += "|   ";
         }
-        output += "\n";
+        output += "|\n";
 
         for (auto& v: row) {
             // Bottom line of the tile
-            output += " --- ";
+            output += "+---";
         }
-        output += "\n";
+        output += "+\n";
     }
 
 

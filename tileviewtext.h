@@ -19,6 +19,7 @@ public:
 
 private:
     std::shared_ptr<QPlainTextEdit> textEdit;
+    bool displayed {false};
 };
 
 #endif // TILEVIEWTEXT_H
