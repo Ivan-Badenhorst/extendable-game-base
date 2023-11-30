@@ -163,6 +163,7 @@ void GameController::switchView()
     hpController->refreshAll();
     protController->refreshAll();
     enemyController->refreshAllGraphical();
+    protController->update(row, col);
     tileController->update(row, col);
 
 
