@@ -27,8 +27,8 @@ void HealthPackViewText::update()
 void HealthPackViewText::update(int row, int col, bool used)
 {
 
-    int moveDown = 1 + 2*row;   // Number of lines to move down
-    int moveRight = 2 + 4*col;  // Number of characters to move to the right
+    int moveDown = 1 + 2*row;
+    int moveRight = 2 + 4*col;
 
     auto cursor = textEdit->textCursor();
     cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
