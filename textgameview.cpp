@@ -1,6 +1,5 @@
 #include "textgameview.h"
 #include "healthpackviewtext.h"
-#include "qscrollarea.h"
 #include "tileviewtext.h"
 
 #include <QMainWindow>
@@ -27,7 +26,7 @@ void TextGameView::initializeMainWindow()
 
     // Add the QPlainTextEdit to the main window
     QHBoxLayout* layout = new QHBoxLayout();
-    layout->setAlignment(Qt::AlignTop); // Align the QPlainTextEdit at the top of the layout
+    layout->setAlignment(Qt::AlignTop);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(textEdit.get());
 
@@ -47,5 +46,6 @@ void TextGameView::initializeMainWindow()
 
 void TextGameView::clearMainWindow()
 {
+    ///TO BE IMPLEMENTED!!!
     textEdit.reset();
 }
