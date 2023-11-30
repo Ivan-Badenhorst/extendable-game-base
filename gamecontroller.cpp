@@ -150,6 +150,13 @@ void GameController::setNewView(std::unique_ptr<GameView> gv)
     }
 
     initializeView();
+    tileController->update();
+    hpController->refreshAll();
+    protController->refreshAll();
+    enemyController->refreshAllGraphical();
+    tileController->update(row, col);
+
+
 }
 
 
