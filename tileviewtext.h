@@ -4,6 +4,7 @@
 
 #include "TileH/tilemodel.h"
 #include "TileH/tileview.h"
+#include "qplaintextedit.h"
 #include <memory>
 
 class TileViewText: public TileView
@@ -14,6 +15,10 @@ public:
     void clearView() override;
     void setTileModel(const std::shared_ptr<TileModel> &newTileModel) override;
 
+    void setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit);
+
+private:
+    std::shared_ptr<QPlainTextEdit> textEdit;
 };
 
 #endif // TILEVIEWTEXT_H
