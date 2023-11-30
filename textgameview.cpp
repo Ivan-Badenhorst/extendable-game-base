@@ -1,4 +1,5 @@
 #include "textgameview.h"
+#include "healthpackviewtext.h"
 #include "qscrollarea.h"
 #include "tileviewtext.h"
 
@@ -36,6 +37,9 @@ void TextGameView::initializeMainWindow()
 
     //pass the text edit to the individual view:
     if(auto pView = dynamic_cast<TileViewText*>(tileView.get())){
+        pView->setTextEdit(textEdit);
+    };
+    if(auto pView = dynamic_cast<HealthPackViewText*>(hpView.get())){
         pView->setTextEdit(textEdit);
     };
 }
