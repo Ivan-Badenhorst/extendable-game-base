@@ -68,6 +68,7 @@ void TileViewText::update(int row, int col)
 
 void TileViewText::clearView()
 {
+    displayed = false;
     textEdit.reset();
 }
 

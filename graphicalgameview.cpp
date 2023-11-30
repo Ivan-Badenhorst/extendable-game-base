@@ -26,7 +26,7 @@ void GraphicalGameView::initializeMainWindow()
     };
 
     ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
-    scene = std::make_shared<QGraphicsScene>(&mainWindow);
+    if(scene == nullptr) scene = std::make_shared<QGraphicsScene>(&mainWindow);
     view =  std::make_shared<QGraphicsView>(scene.get());
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -68,7 +68,8 @@ void GraphicalGameView::clearMainWindow()
     }
 
 
-    scene->setParent(nullptr);
+
+//    scene->setParent(nullptr);
     view.reset();
     widget->setParent(nullptr);
     widget = nullptr;
