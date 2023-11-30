@@ -24,6 +24,7 @@ GameController::GameController()
 
 }
 
+
 void GameController::input(const ArrowDirection &direction)
 {
     switch (direction) {
@@ -127,10 +128,18 @@ void GameController::initializeView()
 
 }
 
-void GameController::setNewView(std::unique_ptr<GameView> gv)
+void GameController::addNewView(std::unique_ptr<GameView> gv)
 {
+
+    allGameViews.push_back(std::move(gv));
+
+}
+
+void GameController::switchView()
+{
+
     gameView->clearMainWindow();
-    gameView = std::move(gv);
+    getNewView();
     //for each view I have to set the model
     gameView->getProtView()->setProtModel(protController->getProtModel());
     gameView->getHpView()->setHpModel(hpController->getHpModel());
@@ -139,7 +148,7 @@ void GameController::setNewView(std::unique_ptr<GameView> gv)
     auto evs = gameView->getEnemyView();
     auto ems = enemyController->getAllEnemyModels();
     for(auto& ev: evs){
-           //check the view type:
+        //check the view type:
         if (auto enemyV = dynamic_cast<EnemyView*>(ev.get())) {
             enemyV->setEnemyModel(enemyController->getEnemyModel());
         }
@@ -159,6 +168,13 @@ void GameController::setNewView(std::unique_ptr<GameView> gv)
 
 }
 
+
+void GameController::getNewView()
+{
+    allGameViews.push_back(std::move(gameView));
+    gameView = std::move(allGameViews.front());
+    allGameViews.pop_front();
+}
 
 
 

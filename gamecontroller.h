@@ -7,6 +7,7 @@
 #include "easylevel.h"
 #include "gameview.h"
 
+#include <deque>
 #include <memory>
 
 class GameController
@@ -18,15 +19,18 @@ public:
 
    static GameController* getInstance();
    void startGame(std::unique_ptr<GameView> gv);
-   void setNewView(std::unique_ptr<GameView> gv);
+   void addNewView(std::unique_ptr<GameView> gv);
+   void switchView();
 
 
 
    void initializeView();
 
-   private:
+private:
    static GameController* gameControllerInstance;
-    std::unique_ptr<GameView> gameView;
+   std::unique_ptr<GameView> gameView;
+   std::deque<std::unique_ptr<GameView>> allGameViews;
+
 
    std::shared_ptr<TileController> tileController;
    std::shared_ptr<HealthPackController> hpController;
@@ -39,7 +43,7 @@ public:
 
    GameController();
    ~GameController();
-
+   void getNewView();
 }
 ;
 
