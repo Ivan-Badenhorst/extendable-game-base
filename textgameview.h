@@ -3,6 +3,7 @@
 
 
 #include "gameview.h"
+#include "qplaintextedit.h"
 class TextGameView: public GameView
 {
 public:
@@ -10,7 +11,8 @@ public:
     void initializeMainWindow() override;
     void clearMainWindow() override;
 
-
+private:
+    std::shared_ptr<QPlainTextEdit> textEdit;
 };
 
 #endif // TEXTGAMEVIEW_H
