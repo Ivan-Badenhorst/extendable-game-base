@@ -30,3 +30,8 @@ void ProtagonistViewText::setProtModel(const std::shared_ptr<ProtagonistModel> &
 {
     protModel = newProtModel;
 }
+
+void ProtagonistViewText::setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit)
+{
+    textEdit = newTextEdit;
+}
