@@ -17,6 +17,8 @@
 #include "graphicalgameview.h"
 #include "textgameview.h"
 
+class TextGameView;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -24,10 +26,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setFocus();
 
+
     GraphicalGameView graphicalGameView(*this);
     std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
 
+
+    //Add here all extra views. For these the views should be made already
+
+    auto textView = getTextView();
+
     gameController = GameController::getInstance();
+    gameController->addNewView(std::move(textView));
     gameController->startGame(std::move(gameView));
 
 }
@@ -38,9 +47,9 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::changeToTextView()
+std::unique_ptr<TextGameView> MainWindow::getTextView()
 {
-    std::unique_ptr<GameView> gameView = std::make_unique<TextGameView>(*this);
+    auto gameView = std::make_unique<TextGameView>(*this);
     //make the views:
     gameView->setHpView(std::make_shared<HealthPackViewText>());
     gameView->setProtView(std::make_shared<ProtagonistViewText>());
@@ -53,8 +62,7 @@ void MainWindow::changeToTextView()
     enemyViews.push_back(ev);
     gameView->setEnemyView(enemyViews);
 
-
-    gameController->setNewView(std::move(gameView));
+    return gameView;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -73,7 +81,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         gameController->input(ArrowDirection::Down);
         break;
     case Qt::Key_S:
-        changeToTextView();
+        gameController->switchView();
         break;
     default:
         QWidget::keyPressEvent(event);
