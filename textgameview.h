@@ -9,6 +9,8 @@ public:
     TextGameView(MainWindow& mw) : GameView(mw){};
     void initializeMainWindow() override;
     void clearMainWindow() override;
+
+
 };
 
 #endif // TEXTGAMEVIEW_H
