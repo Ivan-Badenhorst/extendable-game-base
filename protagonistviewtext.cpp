@@ -22,9 +22,9 @@ void ProtagonistViewText::update(int row, int col)
     int moveRight = 2 + 4*col;
 
     auto cursor = textEdit->textCursor();
+    erasePreviousPosition(cursor);
     cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
     cursor.clearSelection();
-
     cursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, moveDown);
     cursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, moveRight);
 
@@ -32,6 +32,12 @@ void ProtagonistViewText::update(int row, int col)
     cursor.insertText("P");
 
 }
+
+void ProtagonistViewText::erasePreviousPosition(QTextCursor& cursor) {
+    cursor.deleteChar();
+    cursor.insertText(" ");
+}
+
 
 void ProtagonistViewText::updateHealth()
 {
