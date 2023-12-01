@@ -53,5 +53,6 @@ void TextGameView::clearMainWindow()
     ///TO BE IMPLEMENTED!!!
     tileView->clearView();
     hpView->clearView();
+    protView->clearView();
     textEdit.reset();
 }
