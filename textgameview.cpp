@@ -1,5 +1,6 @@
 #include "textgameview.h"
 #include "healthpackviewtext.h"
+#include "protagonistviewtext.h"
 #include "tileviewtext.h"
 
 #include <QMainWindow>
@@ -40,6 +41,9 @@ void TextGameView::initializeMainWindow()
         pView->setTextEdit(textEdit);
     };
     if(auto pView = dynamic_cast<HealthPackViewText*>(hpView.get())){
+        pView->setTextEdit(textEdit);
+    };
+    if(auto pView = dynamic_cast<ProtagonistViewText*>(protView.get())){
         pView->setTextEdit(textEdit);
     };
 }
