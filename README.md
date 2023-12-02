@@ -11,6 +11,19 @@ Latest update: 27/11/2023
 
     ![UML](uml_20232511.png)
 
+## Work Distribution:
+Week 1:
+    Developing basic MVC structure for tile and level factory. All work was done together and committed using Sudarshan’s account
+
+Week 2:
+    Ivan:       complete Tile Graphical View, implement healthpack MCV
+    Sudarshan:  implement protagonist MVC
+    Mahmoud:    implement enemy MVC
+
+Week 3:
+    Ivan:       
+    Sudarshan:  
+    Mahmoud:    
 
 
 
