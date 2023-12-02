@@ -45,6 +45,12 @@ void ProtagonistModel::setEnergy(float value)
     energy = value;
 }
 
+void ProtagonistModel::updatePosition(int newXPos, int newYPos)
+{
+    xPos = newXPos;
+    yPos = newYPos;
+}
+
 void ProtagonistModel::addHealth(int hpValue)
 {
     maxHealth += hpValue;

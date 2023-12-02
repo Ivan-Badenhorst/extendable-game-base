@@ -12,13 +12,17 @@ ProtagonistViewGraphical::ProtagonistViewGraphical()
 
 void ProtagonistViewGraphical::update()
 {
-    auto prot = QPixmap(":/prisoner");
-    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
-    protIcon->setZValue(1.1);
+    auto xPos = protModel->getPositionX();
+    auto yPos = protModel->getPositionY();
+    update(xPos,yPos);
+
+//    auto prot = QPixmap(":/prisoner");
+//    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
+//    protIcon->setZValue(1.1);
 
 
-    protagonistDisplay = protIcon;
-    scene->addItem(protagonistDisplay.get());
+//    protagonistDisplay = protIcon;
+//    scene->addItem(protagonistDisplay.get());
 
 }
 

@@ -161,9 +161,9 @@ void GameController::switchView()
     initializeView();
     tileController->update();
     hpController->refreshAll();
-    //protController->refreshAll(); this shouldn't be done.
+    protController->refreshAll();
     enemyController->refreshAllGraphical();
-    protController->update(row, col);
+    //protController->update(row, col);this shouldn't be done.
     tileController->update(row, col);
 
 
