@@ -25,6 +25,7 @@ public:
     float getEnergy() const;
     void setEnergy(float value);
     // Add more methods as and when needed
+    void updatePosition(int newXPos, int newYPos);
 
     void addHealth(int hpValue);
     void takeDamage(int hpValue);
