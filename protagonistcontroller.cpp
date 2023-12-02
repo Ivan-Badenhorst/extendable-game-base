@@ -14,6 +14,7 @@ void ProtagonistController::refreshAll()
 void ProtagonistController::update(int row, int col)
 {
     protView->update(row, col);
+    protModel->updatePosition(row, col);
 }
 
 void ProtagonistController::addHealth(int hpValue)
