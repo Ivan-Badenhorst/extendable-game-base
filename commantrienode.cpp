@@ -5,10 +5,10 @@ CommandTrieNode::CommandTrieNode()
 
 }
 
-void CommandTrieNode::insert(std::string &command)
+void CommandTrieNode::insert(const std::string &command)
 {
 
-    std::shared_ptr<CommandTrieNode> currentNode = std::make_shared<CommandTrieNode>(*this);
+    std::shared_ptr<CommandTrieNode> currentNode = shared_from_this();
 
     for (int i = 0; i < command.length(); i++) {
         char letter = command[i];

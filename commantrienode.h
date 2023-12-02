@@ -6,11 +6,11 @@
 #include <memory>
 #include <string>
 
-class CommandTrieNode
+class CommandTrieNode: public std::enable_shared_from_this<CommandTrieNode>
 {
 public:
     CommandTrieNode();
-    void insert(std::string& command);
+    void insert(const std::string& command);
     bool noChildNode(const char& letter) const;
     void insertChildNode(const char& letter);
     std::shared_ptr<CommandTrieNode> getChildNode(const char& letter) const;
