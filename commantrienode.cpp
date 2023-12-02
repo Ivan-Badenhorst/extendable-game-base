@@ -44,3 +44,22 @@ void CommandTrieNode::setEndOfCommand(const bool &val)
 {
     isEndOfCommand = val;
 }
+
+std::pair<std::optional<std::string>, bool> CommandTrieNode::findFirstMatch(const std::string &command, const bool &executeFunction)
+{
+/// FOR NOW EXECUTEFUNCTION IS NOT USED! IMPLEMENT USING LAMBDA IN NODE
+
+    std::shared_ptr<CommandTrieNode> currentNode = shared_from_this();
+    for (int i = 0; i < command.length(); i++) {
+
+        currentNode = currentNode->getChildNode(command[i]);
+
+        if (currentNode == nullptr);
+   //         return false;
+    }
+
+   // return currentNode->isEndOfWord;
+
+}
+
+
