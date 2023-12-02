@@ -18,37 +18,29 @@ void ProtagonistViewText::update()
 
 void ProtagonistViewText::update(int row, int col)
 {
-    int moveDown = 1 + 2*row;
+    int moveDown = row>0 ? 1 + 2*row: row;
     int moveRight = 2 + 4*col;
 
     auto cursor = textEdit->textCursor();
     erasePreviousPosition(cursor);
+
+
     cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
     cursor.clearSelection();
-
     cursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, moveDown);
     cursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, moveRight);
     // I need to store the H or h that was there before doing this or use something ivan did....
     cursor.deleteChar();
     cursor.insertText("P");
 
+
+
 }
 
 void ProtagonistViewText::erasePreviousPosition(QTextCursor& cursor) {
 
-    //FIX THISSSS!!
-    QString selectedText = cursor.selectedText();
-
-    if( selectedText == 'H')
-    {
-        cursor.deleteChar();
-        cursor.insertText("h");
-    }
-    else{
-        cursor.deleteChar();
-        cursor.insertText(" ");
-    }
-
+    cursor.deleteChar();
+    cursor.insertText(" ");
 }
 
 
