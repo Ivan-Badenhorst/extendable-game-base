@@ -15,6 +15,7 @@ SOURCES += \
     TileCpp/tilecontroller.cpp \
     TileCpp/tilemodel.cpp \
     TileCpp/tileviewgraphical.cpp \
+    commandtrienode.cpp \
     easylevel.cpp \
     easylevelfactory.cpp \
     enemycontroller.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     TileH/tilemodel.h \
     TileH/tileview.h \
     TileH/tileviewgraphical.h \
+    commandtrienode.h \
     easylevel.h \
     easylevelfactory.h \
     enemycontroller.h \
