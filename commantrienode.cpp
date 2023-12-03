@@ -101,11 +101,16 @@ std::pair<std::optional<std::string>, int> CommandTrieNode::findFirstMatch(const
     while(currentNode->getNumChildren() > 0){
         //first I need to get the next node
 
+
         if(currentNode->getNumChildren() > 1){//we have a split
             auto returnInt = 2;
             if(currentNode->getIsEndOfCommand()){
                 returnInt = 3;
             }
+            return std::make_pair(fullFirstMatch, returnInt);
+        }
+        else if(currentNode->isEndOfCommand){
+            auto returnInt = 3;
             return std::make_pair(fullFirstMatch, returnInt);
         }
         //here we know it has only 1 child
@@ -114,7 +119,7 @@ std::pair<std::optional<std::string>, int> CommandTrieNode::findFirstMatch(const
 
     }
 
-    fullFirstMatch.value() += currentNode->getChildNodes().begin()->first; // add the letter to the back of my return
+   // fullFirstMatch.value() += currentNode->getChildNodes().begin()->first; // add the letter to the back of my return
     auto returnInt = 1;
     return std::make_pair(fullFirstMatch, returnInt);
 
