@@ -12,9 +12,14 @@ class CommandLineEdit : public QLineEdit {
     Q_OBJECT
 public:
     explicit CommandLineEdit(QWidget *parent = nullptr): QLineEdit(parent){};
+    void setCommandTrie(const std::shared_ptr<CommandTrieNode> &newCommandTrie);
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
+
+private:
+    std::shared_ptr<CommandTrieNode> commandTrie;
+
 };
 
 
