@@ -3,7 +3,8 @@
 #include "tileviewtext.h"
 
 #include <QMainWindow>
-#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QLineEdit>
 
 
 void TextGameView::initializeMainWindow()
@@ -22,13 +23,20 @@ void TextGameView::initializeMainWindow()
     textEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     textEdit->setLineWrapMode(QPlainTextEdit::LineWrapMode::NoWrap);
 
-
+    QLineEdit* lineEdit = new CommandLineEdit(&mainWindow);
+    lineEdit->setFixedWidth(textEdit->width());
 
     // Add the QPlainTextEdit to the main window
-    QHBoxLayout* layout = new QHBoxLayout();
+    QVBoxLayout* layout = new QVBoxLayout();
     layout->setAlignment(Qt::AlignTop);
     layout->setContentsMargins(0, 0, 0, 0);
+
     layout->addWidget(textEdit.get());
+    layout->addWidget(lineEdit);
+    // Create a new QLineEdit
+
+
+
 
     // Set the layout to the central widget of the main window
     QWidget* centralWidget = new QWidget(&mainWindow);
@@ -50,4 +58,18 @@ void TextGameView::clearMainWindow()
     tileView->clearView();
     hpView->clearView();
     textEdit.reset();
+}
+
+
+
+///CommandLineEdit here:
+
+void CommandLineEdit::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
+        //here try to execute command!!
+        emit returnPressed();
+    } else {
+        QLineEdit::keyPressEvent(event);
+    }
 }

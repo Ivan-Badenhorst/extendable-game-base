@@ -4,6 +4,19 @@
 
 #include "gameview.h"
 #include "qplaintextedit.h"
+
+#include <QLineEdit>
+#include <QKeyEvent>
+class CommandLineEdit : public QLineEdit {
+    Q_OBJECT
+public:
+    explicit CommandLineEdit(QWidget *parent = nullptr): QLineEdit(parent){};
+
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+};
+
+
 class TextGameView: public GameView
 {
 public:
