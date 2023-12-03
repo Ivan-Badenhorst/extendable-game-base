@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setFocus();
-
+    gameController = GameController::getInstance();
 
     GraphicalGameView graphicalGameView(*this);
     std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto textView = getTextView();
 
-    gameController = GameController::getInstance();
+
     gameController->addNewView(std::move(textView));
     gameController->startGame(std::move(gameView));
 
