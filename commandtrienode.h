@@ -1,7 +1,8 @@
-#ifndef COMMANTRIENODE_H
-#define COMMANTRIENODE_H
+#ifndef COMMANDTRIENODE_H
+#define COMMANDTRIENODE_H
 
 
+#include <functional>
 #include <optional>
 #include <unordered_map>
 #include <memory>
@@ -13,11 +14,11 @@ public:
     ///CHANGE IMPLEMENTATION SO THAT ITS CASE INSENSITIVE!!!
 
     CommandTrieNode();
-    void insert(const std::string& command);
+    void insert(const std::string& command, const std::function<void()>& func);
     bool noChildNode(const char& letter) const;
     void insertChildNode(const char& letter);
-    std::shared_ptr<CommandTrieNode> getChildNode(const char& letter) const;
     void setEndOfCommand(const bool& val);
+
     /**
      * @brief findFirstMatch
      * @param command
@@ -29,16 +30,21 @@ public:
      *      2 -> the string returned is not a command, but there are other commands starting with the returned string
      *      3-> the string returned is a command, and there are other commands starting with the returned string
      */
-    std::pair<std::optional<std::string>, int> findFirstMatch(const std::string& command, const bool& executeFunction);//RETURN VAL SAYS: OPTIONAL STRING FOR IF INPUT IS A COMMAND, OR IF THERE IS JUST ONE COMMAND THAT STARTS WITH THE INPUT THE FULL COMMAND IS RETURNED. IF THE INPUT IS A COMMAND, BUT THERE AE LONGER ONES THE BOOL IS FALSE. IF THE COMMAND IS IN THERE, BUT NOT FULL THE COMMAND IS TRUE.
+    std::pair<std::optional<std::string>, int> findFirstMatch(const std::string& command, const bool& executeFunction);
+
     int getNumChildren() const;
     bool getIsEndOfCommand() const;
-
     std::unordered_map<char, std::shared_ptr<CommandTrieNode> > getChildNodes() const;
+    std::shared_ptr<CommandTrieNode> getChildNode(const char& letter) const;
+
+    void setCommandFunction(const std::function<void ()> &newCommandFunction);
+    void executeCommand();
 
 private:
     bool isEndOfCommand {false};
     std::unordered_map<char, std::shared_ptr<CommandTrieNode>> childNodes;
+    std::function<void()> commandFunction;
 
 };
 
-#endif // COMMANTRIENODE_H
+#endif // COMMANDTRIENODE_H
