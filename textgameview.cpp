@@ -23,7 +23,8 @@ void TextGameView::initializeMainWindow()
     textEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     textEdit->setLineWrapMode(QPlainTextEdit::LineWrapMode::NoWrap);
 
-    QLineEdit* lineEdit = new CommandLineEdit(&mainWindow);
+    //create a commandline edit
+    lineEdit = std::make_shared<CommandLineEdit>(&mainWindow);
     lineEdit->setFixedWidth(textEdit->width());
 
     // Add the QPlainTextEdit to the main window
@@ -32,10 +33,7 @@ void TextGameView::initializeMainWindow()
     layout->setContentsMargins(0, 0, 0, 0);
 
     layout->addWidget(textEdit.get());
-    layout->addWidget(lineEdit);
-    // Create a new QLineEdit
-
-
+    layout->addWidget(lineEdit.get());
 
 
     // Set the layout to the central widget of the main window
@@ -55,11 +53,21 @@ void TextGameView::initializeMainWindow()
 void TextGameView::clearMainWindow()
 {
     ///TO BE IMPLEMENTED!!!
+    lineEdit.reset();
     tileView->clearView();
     hpView->clearView();
     textEdit.reset();
 }
 
+void TextGameView::setupBasicCommands()
+{
+    commandTrie = std::make_shared<CommandTrieNode>();
+    auto moveRight = [](){
+
+    };
+    commandTrie->insert("right", moveRight);
+
+}
 
 
 ///CommandLineEdit here:

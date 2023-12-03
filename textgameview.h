@@ -2,6 +2,7 @@
 #define TEXTGAMEVIEW_H
 
 
+#include "commandtrienode.h"
 #include "gameview.h"
 #include "qplaintextedit.h"
 
@@ -24,8 +25,13 @@ public:
     void initializeMainWindow() override;
     void clearMainWindow() override;
 
+
 private:
     std::shared_ptr<QPlainTextEdit> textEdit;
+    std::shared_ptr<CommandLineEdit> lineEdit;
+    std::shared_ptr<CommandTrieNode> commandTrie;
+
+    void setupBasicCommands();///ADD A PUBLIC FUNCTION TO ADD MORE
 };
 
 #endif // TEXTGAMEVIEW_H
