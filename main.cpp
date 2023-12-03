@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <QApplication>
-#include "commandtrienode.h"
 
 int main(int argc, char *argv[])
 {
