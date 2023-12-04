@@ -103,3 +103,10 @@ else:unix: LIBS += -L$$PWD/../APT_fp_resources/worldsource/ -lworld
 
 INCLUDEPATH += $$PWD/../APT_fp_resources/worldsource
 DEPENDPATH += $$PWD/../APT_fp_resources/worldsource
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../worldlib/release/ -lworld
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../worldlib/debug/ -lworld
+else:unix: LIBS += -L$$PWD/../worldlib/ -lworld
+
+INCLUDEPATH += $$PWD/../worldlib
+DEPENDPATH += $$PWD/../worldlib
