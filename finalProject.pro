@@ -110,3 +110,8 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../CompiledLib/ -lworld
 
 INCLUDEPATH += $$PWD/../CompiledLib/inc
 DEPENDPATH += $$PWD/../CompiledLib/inc
+
+unix:!macx: LIBS += -L$$PWD/../worldlib/ -lworld
+
+INCLUDEPATH += $$PWD/../worldlib
+DEPENDPATH += $$PWD/../worldlib
