@@ -49,7 +49,9 @@ Level* EasyLevelFactory::createWorld()
 
     // Create one model per enemy type
     EnemyModel em;
+    em.setEnemyType("Enemy");
     PEnemyModel pem;
+    pem.setEnemyType("PEnemy");
 
 
     // Get enemies from the world and iterate through them (for Enemy and PEnemy only)
