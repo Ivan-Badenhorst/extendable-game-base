@@ -124,7 +124,11 @@ void CommandTrieNode::insertChildNode(const char &letter)
 
 std::shared_ptr<CommandTrieNode> CommandTrieNode::getChildNode(const char &letter) const
 {
-    return childNodes.find(letter)->second;
+    auto val = childNodes.find(letter);
+    if (val == childNodes.end()){
+        return nullptr;
+    }
+    return val->second;
 }
 
 void CommandTrieNode::setCommandFunction(const std::function<void ()> &newCommandFunction)
