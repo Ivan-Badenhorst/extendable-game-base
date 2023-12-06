@@ -51,15 +51,13 @@ void ProtagonistViewText::updateHealth()
 
 }
 
-void ProtagonistViewText::setHealthLabels(QLabel* health, QLabel* healthValue) {
-    healthLabel = health;
-    healthValueLabel = healthValue;
-}
 
 
 void ProtagonistViewText::clearView()
 {
     textEdit.reset();
+    healthLabel.reset();
+    healthValueLabel.reset();
 }
 
 void ProtagonistViewText::setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel)
@@ -72,3 +70,7 @@ void ProtagonistViewText::setTextEdit(const std::shared_ptr<QPlainTextEdit> &new
     textEdit = newTextEdit;
 }
 
+void ProtagonistViewText::setHealthLabels(std::shared_ptr<QLabel> health, std::shared_ptr<QLabel> healthValue) {
+    healthLabel = health;
+    healthValueLabel = healthValue;
+}

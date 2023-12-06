@@ -19,13 +19,13 @@ public:
     void erasePreviousPosition(QTextCursor& cursor);
     void setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit);
 
-    void setHealthLabels(QLabel *health, QLabel *healthValue);
+    void setHealthLabels(std::shared_ptr<QLabel> health, std::shared_ptr<QLabel> healthValue);
 private:
     std::shared_ptr<ProtagonistModel> protModel;
     std::shared_ptr<QPlainTextEdit> textEdit;
 
-    QLabel* healthLabel;
-    QLabel* healthValueLabel;
+    std::shared_ptr<QLabel> healthLabel;
+    std::shared_ptr<QLabel> healthValueLabel;
 
 };
 
