@@ -68,8 +68,8 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     gameView = std::move(gv);
 
     EasyLevelFactory easyLevelFactory;
-    auto level = easyLevelFactory.createWorld();
-    EasyLevel* easyLevel = static_cast<EasyLevel*>(level);
+    auto easyLevel = easyLevelFactory.createWorld();
+   // std::shared_ptr<Level> easyLevel = static_cast<EasyLevel*>(level);
 
     tileController = easyLevel->getTileController();
 
