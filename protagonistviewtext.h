@@ -18,13 +18,11 @@ public:
     void setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel) override;
     void erasePreviousPosition(QTextCursor& cursor);
     void setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit);
+    void setHealthLabels(std::shared_ptr<QLabel> healthValue);
 
-    void setHealthLabels(std::shared_ptr<QLabel> health, std::shared_ptr<QLabel> healthValue);
 private:
     std::shared_ptr<ProtagonistModel> protModel;
     std::shared_ptr<QPlainTextEdit> textEdit;
-
-    std::shared_ptr<QLabel> healthLabel;
     std::shared_ptr<QLabel> healthValueLabel;
 
 };

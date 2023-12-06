@@ -45,11 +45,9 @@ void ProtagonistViewText::erasePreviousPosition(QTextCursor& cursor) {
 
 void ProtagonistViewText::updateHealth()
 {
-    //yet to implement that
     int health = protModel->getCurrentHealth();
     int maxHealth = protModel->getMaxhealth();
     healthValueLabel->setText(QString::number(health) + " / " + QString::number(maxHealth));
-
 }
 
 
@@ -57,7 +55,7 @@ void ProtagonistViewText::updateHealth()
 void ProtagonistViewText::clearView()
 {
     textEdit.reset();
-    healthLabel.reset();
+    //healthLabel.reset();
     healthValueLabel.reset();
 }
 
@@ -71,7 +69,6 @@ void ProtagonistViewText::setTextEdit(const std::shared_ptr<QPlainTextEdit> &new
     textEdit = newTextEdit;
 }
 
-void ProtagonistViewText::setHealthLabels(std::shared_ptr<QLabel> health, std::shared_ptr<QLabel> healthValue) {
-    healthLabel = health;
+void ProtagonistViewText::setHealthLabels(std::shared_ptr<QLabel> healthValue) {
     healthValueLabel = healthValue;
 }

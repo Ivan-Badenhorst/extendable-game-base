@@ -30,7 +30,7 @@ void TextGameView::initializeMainWindow()
 
     // Check if protView is an instance of ProtagonistViewText before setting health labels
     if (auto protagonistTextView = dynamic_cast<ProtagonistViewText*>(protView.get())) {
-        protagonistTextView->setHealthLabels(healthLabel, healthValueLabel);
+        protagonistTextView->setHealthLabels(healthValueLabel);
     }
 
     layout->setAlignment(Qt::AlignTop);
