@@ -27,6 +27,9 @@ GameController::GameController()
 
 void GameController::input(const ArrowDirection &direction)
 {
+    auto rowSave = row;
+    auto colSave = col;
+
     switch (direction) {
     case ArrowDirection::Left:
         if(col > 0) col--;
@@ -42,9 +45,13 @@ void GameController::input(const ArrowDirection &direction)
         break;
     }
     enemyController->refreshAllGraphical();
+
     int hpVal = hpController->update(row, col);
     if(hpVal > 0){
+        //there is a health pack. I need to somehow remember this state
+        //so that when prot leaves this tile, i can put "h"
         protController->addHealth(hpVal);
+//        protController->update(row, col, true);
     }
     protController->update(row, col);
     tileController->update(row, col);
