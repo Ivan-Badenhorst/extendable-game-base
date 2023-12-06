@@ -15,11 +15,6 @@ std::shared_ptr<TileController> EasyLevel::getTileController() const
     return tileController;
 }
 
-void EasyLevel::setTileController(std::shared_ptr<TileController> newTileController)
-{
-    tileController = newTileController;
-}
-
 
 std::shared_ptr<ProtagonistController> EasyLevel::getProtController() const
 {
