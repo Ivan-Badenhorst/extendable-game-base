@@ -12,7 +12,6 @@ public:
     void initializeMainWindow() override;
     void clearMainWindow() override;
 
-//    void updateHealthDisplay(int currentHealth, int maxHealth);
 private:
     std::shared_ptr<QPlainTextEdit> textEdit;
     std::shared_ptr<QLabel> healthLabel;

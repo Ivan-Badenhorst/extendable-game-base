@@ -24,14 +24,9 @@ void TextGameView::initializeMainWindow()
     textEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     textEdit->setLineWrapMode(QPlainTextEdit::LineWrapMode::NoWrap);
 
-    // Add the QPlainTextEdit to the main window
     QHBoxLayout* layout = new QHBoxLayout();
-
     healthLabel = std::make_shared<QLabel>("Health: ", &mainWindow);
     healthValueLabel = std::make_shared<QLabel>(&mainWindow);
-
-//    QLabel* healthLabel = new QLabel("Health: ", &mainWindow);
- //   QLabel* healthValueLabel = new QLabel(&mainWindow);
 
     // Check if protView is an instance of ProtagonistViewText before setting health labels
     if (auto protagonistTextView = dynamic_cast<ProtagonistViewText*>(protView.get())) {
@@ -64,7 +59,6 @@ void TextGameView::initializeMainWindow()
 
 void TextGameView::clearMainWindow()
 {
-    ///TO BE IMPLEMENTED!!!
     tileView->clearView();
     hpView->clearView();
     protView->clearView();
@@ -72,9 +66,3 @@ void TextGameView::clearMainWindow()
     healthLabel.reset();
     healthValueLabel.reset();
 }
-
-//void TextGameView::updateHealthDisplay(int currentHealth, int maxHealth) {
-//    // Update the health display labels
-//    QString healthText = "Health: " + QString::number(currentHealth) + "/" + QString::number(maxHealth);
-//    healthValueLabel->setText(healthText);
-//}
