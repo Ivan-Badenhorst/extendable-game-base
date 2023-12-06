@@ -3,6 +3,7 @@
 
 
 #include "gameview.h"
+#include "qlabel.h"
 #include "qplaintextedit.h"
 class TextGameView: public GameView
 {
@@ -11,8 +12,11 @@ public:
     void initializeMainWindow() override;
     void clearMainWindow() override;
 
+//    void updateHealthDisplay(int currentHealth, int maxHealth);
 private:
     std::shared_ptr<QPlainTextEdit> textEdit;
+    //QLabel> healthLabel;
+    //std::shared_ptr<QLabel> healthValueLabel;
 };
 
 #endif // TEXTGAMEVIEW_H
