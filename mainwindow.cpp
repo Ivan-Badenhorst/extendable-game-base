@@ -38,7 +38,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_Right:
         gameController->input(ArrowDirection::Right);
-        std::cout << "I have received a right input" << std::endl;
         break;
     case Qt::Key_Up:
         gameController->input(ArrowDirection::Up);
