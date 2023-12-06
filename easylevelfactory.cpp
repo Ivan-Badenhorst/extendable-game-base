@@ -57,11 +57,11 @@ std::shared_ptr<Level> EasyLevelFactory::createWorld()
     ec.addEnemyModel(std::make_shared<EnemyModel>(em));
     ec.addEnemyModel(std::make_shared<PEnemyModel>(pem));
 
-    auto easyLevel = std::make_shared<EasyLevel>( EasyLevel(std::make_shared<TileController>(tc),
+    auto easyLevel = std::make_shared<EasyLevel>(std::make_shared<TileController>(tc),
                                 std::make_shared<ProtagonistController>(pc), 
                                 std::make_shared<HealthPackController>(hpc),
-                                                       std::make_shared<EnemyController>(ec)));
+                                                       std::make_shared<EnemyController>(ec));
 
     return easyLevel;
-    }
+}
 

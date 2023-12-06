@@ -7,7 +7,7 @@ class MediumLevelFactory: public LevelFactory
 {
 public:
     MediumLevelFactory();
-    std::shared_ptr<Level> createWorld() override {};
+    std::shared_ptr<Level> createWorld() override;
 };
 
 #endif // MEDIUMLEVELFACTORY_H
