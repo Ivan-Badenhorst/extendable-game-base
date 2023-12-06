@@ -10,7 +10,7 @@ class EnemyViewGraphical: public EnemyViewInterface
 public:
     EnemyViewGraphical(std::shared_ptr<EnemyModel> em);
     void update() override;
-    //void update(int row, int col, bool used = true) override;
+    void update(int row, int col, bool defeated) override;
 
 private:
     std::shared_ptr<EnemyModel> enemyModel;
