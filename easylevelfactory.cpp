@@ -25,7 +25,7 @@ EasyLevelFactory::EasyLevelFactory()
 std::shared_ptr<Level> EasyLevelFactory::createWorld()
 {
     World w;
-    w.createWorld(":/worldmap.png", 10,10);
+    w.createWorld(":/worldmap.png", 10,40);
 
     //tile
     TileModel tm;
