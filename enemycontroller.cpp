@@ -64,6 +64,29 @@ void EnemyController::attackEnemy(int col, int row, int damage)
         if (x->containsEnemy(col, row))
         {
             x->attackEnemy(col, row, damage);
+            auto etype = x->getEnemyType();
+            if (etype == "PEnemy")
+            {
+                for (auto const& y : enemyViews)
+                {
+                    if(y->getEnemyType() == "PEnemy")
+                    {
+                        y->update(row, col, true);
+                        break;
+                    }
+                }
+            }
+            else if (etype == "Enemy")
+            {
+                for (auto const& y : enemyViews)
+                {
+                    if(y->getEnemyType() == "Enemy")
+                    {
+                        y->update(row, col, true);
+                        break;
+                    }
+                }
+            }
         }
     }
 }
