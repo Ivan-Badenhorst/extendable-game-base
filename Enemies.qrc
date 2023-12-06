@@ -4,5 +4,9 @@
         <file>Enemy_alive.png</file>
         <file>Enemy_dead.png</file>
         <file>PEnemy_dead.png</file>
+        <file>fire1.png</file>
+        <file>fire2.png</file>
+        <file>fire3.png</file>
+        <file>fire4.png</file>
     </qresource>
 </RCC>
