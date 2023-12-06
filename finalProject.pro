@@ -28,6 +28,7 @@ SOURCES += \
     healthpackviewtext.cpp \
     levelfactory.cpp \
     main.cpp \
+    mediumlevel.cpp \
     mediumlevelfactory.cpp \
     penemymodel.cpp \
     penemyviewgraphical.cpp \
@@ -68,6 +69,7 @@ HEADERS += \
     level.h \
     levelfactory.h \
     mainwindow.h \
+    mediumlevel.h \
     mediumlevelfactory.h \
     penemymodel.h \
     penemyview.h \
