@@ -2,6 +2,7 @@
 #define PROTAGONISTVIEW_H
 
 #include "protagonistmodel.h"
+#include "qlabel.h"
 class ProtagonistView
 {
 public:

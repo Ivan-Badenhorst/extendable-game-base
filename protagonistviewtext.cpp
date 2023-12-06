@@ -18,7 +18,7 @@ void ProtagonistViewText::update()
 
 void ProtagonistViewText::update(int row, int col)
 {
-    int moveDown = row>0 ? 1 + 2*row: row;
+    int moveDown = row>0 ? 1 + 2*row: row+1;
     int moveRight = 2 + 4*col;
 
     auto cursor = textEdit->textCursor();
@@ -29,11 +29,9 @@ void ProtagonistViewText::update(int row, int col)
     cursor.clearSelection();
     cursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, moveDown);
     cursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, moveRight);
-    // I need to store the H or h that was there before doing this or use something ivan did....
+
     cursor.deleteChar();
     cursor.insertText("P");
-
-
 
 }
 
@@ -47,7 +45,17 @@ void ProtagonistViewText::erasePreviousPosition(QTextCursor& cursor) {
 void ProtagonistViewText::updateHealth()
 {
     //yet to implement that
+    int health = protModel->getCurrentHealth();
+    int maxHealth = protModel->getMaxhealth();
+    healthValueLabel->setText(QString::number(health) + " / " + QString::number(maxHealth));
+
 }
+
+void ProtagonistViewText::setHealthLabels(QLabel* health, QLabel* healthValue) {
+    healthLabel = health;
+    healthValueLabel = healthValue;
+}
+
 
 void ProtagonistViewText::clearView()
 {
@@ -63,3 +71,4 @@ void ProtagonistViewText::setTextEdit(const std::shared_ptr<QPlainTextEdit> &new
 {
     textEdit = newTextEdit;
 }
+
