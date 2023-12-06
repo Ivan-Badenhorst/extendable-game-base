@@ -7,9 +7,9 @@ class EnemyViewInterface
 {
 public:
     virtual void update() = 0;
-    //virtual void update(int row, int col,  bool used = true) = 0;
-    virtual std::string getEnemyType() const = 0;
-    virtual void setEnemyType(const std::string &value) = 0;
+    virtual void update(int row, int col,  bool defeated) = 0;
+    std::string getEnemyType() const;
+    void setEnemyType(const std::string &value);
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
 
 protected:
@@ -20,6 +20,16 @@ protected:
 inline void EnemyViewInterface::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
 {
     scene = newScene;
+}
+
+inline std::string EnemyViewInterface::getEnemyType() const
+{
+    return enemyType;
+}
+
+inline void EnemyViewInterface::setEnemyType(const std::string &value)
+{
+    enemyType = value;
 }
 
 #endif // ENEMYVIEWINTERFACE_H
