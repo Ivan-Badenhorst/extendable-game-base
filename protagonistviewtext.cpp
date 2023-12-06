@@ -13,6 +13,7 @@ void ProtagonistViewText::update()
 
 
     update(xPos,yPos);
+    updateHealth();
 
 }
 
