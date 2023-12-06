@@ -23,6 +23,9 @@ void TileViewGraphical::update(int positionRow, int positionCol)
     if(prevRow < 0 || prevCol < 0 || std::abs(positionRow-prevRow) > 1 || std::abs(positionCol - prevCol) > 1){
         displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
     }
+    else if(hasBeenRendered[positionRow][positionCol] == false){
+        displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
+    }
     else{//only display the new tiles
         if(positionRow > prevRow){//moved 1 row down
             int r = positionRow+halfDisplayHeight;
@@ -115,6 +118,9 @@ void TileViewGraphical::setTileModel(const std::shared_ptr<TileModel> &newTileMo
     tileModel = newTileModel;
     int tileRows =  tileModel->getRows()+ displayHeight;
     int tileCols = tileModel->getColumns() + displayWidth;
+
+    hasBeenRendered.clear();
+    hasBeenRendered.resize(0);
     hasBeenRendered.reserve(tileRows);
 
 

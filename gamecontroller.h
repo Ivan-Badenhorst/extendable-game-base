@@ -20,11 +20,13 @@ public:
    static GameController* getInstance();
    void startGame(std::unique_ptr<GameView> gv);
    void addNewView(std::unique_ptr<GameView> gv);
-   void switchView();
+   void switchView(bool change = true);
 
 
 
    void initializeView();
+
+   void switchLevel(); //MAKE THIS PRIVATE MAYBE? MAKE LINKED LIST OF LEVELS!!
 
 private:
    static GameController* gameControllerInstance;

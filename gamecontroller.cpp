@@ -2,6 +2,7 @@
 #include "HealthPackH/healthpackviewgraphical.h"
 #include "enemyviewgraphical.h"
 #include "enemyviewtext.h"
+#include "mediumlevelfactory.h"
 #include "penemymodel.h"
 #include "penemyviewgraphical.h"
 #include "penemyviewtext.h"
@@ -128,6 +129,8 @@ void GameController::initializeView()
 
 }
 
+
+
 void GameController::addNewView(std::unique_ptr<GameView> gv)
 {
 
@@ -135,11 +138,14 @@ void GameController::addNewView(std::unique_ptr<GameView> gv)
 
 }
 
-void GameController::switchView()
+void GameController::switchView(bool change)
 {
 
-    gameView->clearMainWindow();
-    getNewView();
+
+    if(change){
+        gameView->clearMainWindow();
+        getNewView();
+    }
     //for each view I have to set the model
     gameView->getProtView()->setProtModel(protController->getProtModel());
     gameView->getHpView()->setHpModel(hpController->getHpModel());
@@ -175,6 +181,33 @@ void GameController::getNewView()
     allGameViews.push_back(std::move(gameView));
     gameView = std::move(allGameViews.front());
     allGameViews.pop_front();
+}
+
+
+
+void GameController::switchLevel()
+{
+    //MAKE THE NEW LEVEL
+    MediumLevelFactory levelFactory;
+    auto mediumLevel = levelFactory.createWorld();
+    //UPDAGTE MY CONTROLLER POINTERS
+    tileController = mediumLevel->getTileController();
+    hpController = mediumLevel->getHpController();
+    protController = mediumLevel->getProtController();
+    enemyController = mediumLevel->getEnemyController();
+    //UPDATE ROW COL, WIDTH HEIGHT AS WELL!!!!!!
+    auto [h, w] = tileController->getDimensions();
+    height = h;
+    width = w;
+    row = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
+    col = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
+    //REFRESH THE GAME VIEW
+    gameView->clearMainWindow();
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    switchView(false);
+    tileController->update(row,col);
+
+
 }
 
 
