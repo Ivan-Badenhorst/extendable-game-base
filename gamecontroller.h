@@ -26,7 +26,8 @@ public:
 
    void initializeView();
 
-   void switchLevel(); //MAKE THIS PRIVATE MAYBE? MAKE LINKED LIST OF LEVELS!!
+   void nextLevel(); //MAKE THIS PRIVATE MAYBE? MAKE LINKED LIST OF LEVELS!!
+   void previousLevel();
 
 private:
    static GameController* gameControllerInstance;
@@ -46,6 +47,7 @@ private:
    GameController();
    ~GameController();
    void getNewView();
+   void switchLevel(LevelFactory& levelFactory);
 }
 ;
 

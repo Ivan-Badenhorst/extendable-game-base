@@ -185,16 +185,14 @@ void GameController::getNewView()
 
 
 
-void GameController::switchLevel()
+void GameController::switchLevel(LevelFactory& levelFactory)
 {
-    //MAKE THE NEW LEVEL
-    MediumLevelFactory levelFactory;
-    auto mediumLevel = levelFactory.createWorld();
+    auto level = levelFactory.createWorld();
     //UPDAGTE MY CONTROLLER POINTERS
-    tileController = mediumLevel->getTileController();
-    hpController = mediumLevel->getHpController();
-    protController = mediumLevel->getProtController();
-    enemyController = mediumLevel->getEnemyController();
+    tileController = level->getTileController();
+    hpController = level->getHpController();
+    protController = level->getProtController();
+    enemyController = level->getEnemyController();
     //UPDATE ROW COL, WIDTH HEIGHT AS WELL!!!!!!
     auto [h, w] = tileController->getDimensions();
     height = h;
@@ -206,8 +204,21 @@ void GameController::switchLevel()
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     switchView(false);
     tileController->update(row,col);
+}
+
+void GameController::nextLevel()
+{
+    //MAKE THE NEW LEVEL
+    MediumLevelFactory levelFactory;
+    switchLevel(levelFactory);
 
 
+}
+
+void GameController::previousLevel()
+{
+    EasyLevelFactory levelFactory;
+    switchLevel(levelFactory);
 }
 
 

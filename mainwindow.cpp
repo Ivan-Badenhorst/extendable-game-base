@@ -83,8 +83,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_S:
         gameController->switchView();
         break;
-    case Qt::Key_V:
-        gameController->switchLevel();
+    case Qt::Key_N:
+        gameController->nextLevel();
+        break;
+    case Qt::Key_P:
+        gameController->previousLevel();
+        break;
     default:
         QWidget::keyPressEvent(event);
         break;
