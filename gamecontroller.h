@@ -65,6 +65,7 @@ private:
     ~GameController();
     void getNewView();
     void switchLevel(std::shared_ptr<LevelFactory> &levelFactory);
+    void setupUi();
 }
 ;
 

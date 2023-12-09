@@ -194,22 +194,12 @@ void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
     protController = level->getProtController();
     enemyController = level->getEnemyController();
     //UPDATE ROW COL, WIDTH HEIGHT AS WELL!!!!!!
-    auto [h, w] = tileController->getDimensions();
-    height = h;
-    width = w;
-    row = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
-    col = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
-    //REFRESH THE GAME VIEW
-    gameView->clearMainWindow();
-    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
-    switchView(false);
-    tileController->update(row,col);
+    setupUi();
 }
 
 void GameController::nextLevel()
 {
-    //MAKE THE NEW LEVEL
-    std::cout << levels.size() << std::endl;
+
     if(currentLevel < levels.size()-1){
         currentLevel+=1;
     }
@@ -228,6 +218,20 @@ void GameController::nextLevel()
 
 }
 
+void GameController::setupUi()
+{
+    auto [h, w] = tileController->getDimensions();
+    height = h;
+    width = w;
+    row = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
+    col = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
+
+    gameView->clearMainWindow();
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    switchView(false);
+    tileController->update(row,col);
+}
+
 void GameController::previousLevel()
 {
 
@@ -237,26 +241,13 @@ void GameController::previousLevel()
     else return;
 
     if(previous){
-        std::cout << "lmaoooooooooooooooo" << std::endl;
         previous = false;
         tileController = tileControllerPrevious;
         hpController = hpControllerPrevious;
         protController = protControllerPrevious;
         enemyController = enemyControllerPrevious;
 
-
-
-        ///fix thissssss
-        auto [h, w] = tileController->getDimensions();
-        height = h;
-        width = w;
-        row = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
-        col = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
-
-        gameView->clearMainWindow();
-        QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
-        switchView(false);
-        tileController->update(row,col);
+        setupUi();
     }
     else{
         auto levelFactory = levels[currentLevel];
