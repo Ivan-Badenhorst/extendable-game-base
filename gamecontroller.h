@@ -28,26 +28,38 @@ public:
 
    void nextLevel(); //MAKE THIS PRIVATE MAYBE? MAKE LINKED LIST OF LEVELS!!
    void previousLevel();
+   void addLevel(std::shared_ptr<LevelFactory> &level);
 
 private:
-   static GameController* gameControllerInstance;
-   std::unique_ptr<GameView> gameView;
-   std::deque<std::unique_ptr<GameView>> allGameViews;
+    static GameController* gameControllerInstance;
+    std::unique_ptr<GameView> gameView;
+    std::deque<std::unique_ptr<GameView>> allGameViews;
 
 
-   std::shared_ptr<TileController> tileController;
-   std::shared_ptr<HealthPackController> hpController;
-   std::shared_ptr<ProtagonistController> protController;
-   std::shared_ptr<EnemyController> enemyController;
-   int row {0};
-   int col {0};
-   int width;
-   int height;
+    std::shared_ptr<TileController> tileController;
+    std::shared_ptr<HealthPackController> hpController;
+    std::shared_ptr<ProtagonistController> protController;
+    std::shared_ptr<EnemyController> enemyController;
 
-   GameController();
-   ~GameController();
-   void getNewView();
-   void switchLevel(LevelFactory& levelFactory);
+
+    std::vector<std::shared_ptr<LevelFactory>> levels;
+    int currentLevel {0};
+
+
+    int row {0};
+    int col {0};
+    int width;
+    int height;
+
+
+
+
+
+
+    GameController();
+    ~GameController();
+    void getNewView();
+    void switchLevel(LevelFactory& levelFactory);
 }
 ;
 

@@ -68,9 +68,9 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
 {
     gameView = std::move(gv);
 
-    EasyLevelFactory easyLevelFactory;
-    auto easyLevel = easyLevelFactory.createWorld();
-   // std::shared_ptr<Level> easyLevel = static_cast<EasyLevel*>(level);
+    auto easyLevelFactory = std::make_shared<EasyLevelFactory>();
+    levels.push_back(easyLevelFactory);
+    auto easyLevel = easyLevelFactory->createWorld();
 
     tileController = easyLevel->getTileController();
 
@@ -209,6 +209,11 @@ void GameController::switchLevel(LevelFactory& levelFactory)
 void GameController::nextLevel()
 {
     //MAKE THE NEW LEVEL
+    if(currentLevel < levels.size()){
+        currentLevel+=1;
+    }
+    else return;
+
     MediumLevelFactory levelFactory;
     switchLevel(levelFactory);
 
@@ -217,8 +222,18 @@ void GameController::nextLevel()
 
 void GameController::previousLevel()
 {
+    if(currentLevel >0){
+        currentLevel-=1;
+    }
+    else return;
+
     EasyLevelFactory levelFactory;
     switchLevel(levelFactory);
+}
+
+void GameController::addLevel(std::shared_ptr<LevelFactory> &level)
+{
+    levels.push_back(level);
 }
 
 
