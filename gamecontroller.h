@@ -28,7 +28,7 @@ public:
 
    void nextLevel(); //MAKE THIS PRIVATE MAYBE? MAKE LINKED LIST OF LEVELS!!
    void previousLevel();
-   void addLevel(std::shared_ptr<LevelFactory> &level);
+   void addLevel(const std::shared_ptr<LevelFactory> &level);
 
 private:
     static GameController* gameControllerInstance;
@@ -59,7 +59,7 @@ private:
     GameController();
     ~GameController();
     void getNewView();
-    void switchLevel(LevelFactory& levelFactory);
+    void switchLevel(std::shared_ptr<LevelFactory> &levelFactory);
 }
 ;
 

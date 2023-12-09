@@ -2,6 +2,8 @@
 #include "enemyviewgraphical.h"
 #include "enemyviewtext.h"
 #include "healthpackviewtext.h"
+#include "mediumlevel.h"
+#include "mediumlevelfactory.h"
 #include "penemyviewgraphical.h"
 #include "penemyviewtext.h"
 #include "protagonistviewtext.h"
@@ -35,9 +37,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto textView = getTextView();
 
-
     gameController->addNewView(std::move(textView));
     gameController->startGame(std::move(gameView));
+
+    MediumLevelFactory mLevelF;
+    auto levelF = std::make_shared<MediumLevelFactory>(mLevelF);
+    gameController->addLevel(levelF);
 
 }
 

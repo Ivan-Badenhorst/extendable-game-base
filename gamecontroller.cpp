@@ -185,9 +185,9 @@ void GameController::getNewView()
 
 
 
-void GameController::switchLevel(LevelFactory& levelFactory)
+void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
 {
-    auto level = levelFactory.createWorld();
+    auto level = levelFactory->createWorld();
     //UPDAGTE MY CONTROLLER POINTERS
     tileController = level->getTileController();
     hpController = level->getHpController();
@@ -209,12 +209,13 @@ void GameController::switchLevel(LevelFactory& levelFactory)
 void GameController::nextLevel()
 {
     //MAKE THE NEW LEVEL
-    if(currentLevel < levels.size()){
+    std::cout << levels.size() << std::endl;
+    if(currentLevel < levels.size()-1){
         currentLevel+=1;
     }
-    else return;
+    else{return;}
 
-    MediumLevelFactory levelFactory;
+    auto levelFactory = levels[currentLevel];
     switchLevel(levelFactory);
 
 
@@ -222,16 +223,16 @@ void GameController::nextLevel()
 
 void GameController::previousLevel()
 {
-    if(currentLevel >0){
+    if(currentLevel > 0){
         currentLevel-=1;
     }
     else return;
 
-    EasyLevelFactory levelFactory;
+    auto levelFactory = levels[currentLevel];
     switchLevel(levelFactory);
 }
 
-void GameController::addLevel(std::shared_ptr<LevelFactory> &level)
+void GameController::addLevel(const std::shared_ptr<LevelFactory> &level)
 {
     levels.push_back(level);
 }
