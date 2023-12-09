@@ -40,9 +40,13 @@ MainWindow::MainWindow(QWidget *parent)
     gameController->addNewView(std::move(textView));
     gameController->startGame(std::move(gameView));
 
-    MediumLevelFactory mLevelF;
-    auto levelF = std::make_shared<MediumLevelFactory>(mLevelF);
+
+    auto easyLevelFactory = std::make_shared<EasyLevelFactory>();
+    gameController->addLevel(easyLevelFactory);
+
+    auto levelF = std::make_shared<MediumLevelFactory>();
     gameController->addLevel(levelF);
+
 
 }
 

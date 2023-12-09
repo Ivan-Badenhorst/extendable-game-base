@@ -44,6 +44,11 @@ private:
 
     std::vector<std::shared_ptr<LevelFactory>> levels;
     int currentLevel {0};
+    std::shared_ptr<TileController> tileControllerPrevious {nullptr};
+    std::shared_ptr<HealthPackController> hpControllerPrevious {nullptr};
+    std::shared_ptr<ProtagonistController> protControllerPrevious {nullptr};
+    std::shared_ptr<EnemyController> enemyControllerPrevious {nullptr};
+    bool previous {false};
 
 
     int row {0};

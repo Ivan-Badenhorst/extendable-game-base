@@ -216,6 +216,13 @@ void GameController::nextLevel()
     else{return;}
 
     auto levelFactory = levels[currentLevel];
+    //cache current
+    tileControllerPrevious = tileController;
+    hpControllerPrevious = hpController;
+    protControllerPrevious = protController;
+    enemyControllerPrevious = enemyController;
+    previous = true;
+
     switchLevel(levelFactory);
 
 
@@ -223,13 +230,39 @@ void GameController::nextLevel()
 
 void GameController::previousLevel()
 {
+
     if(currentLevel > 0){
         currentLevel-=1;
     }
     else return;
 
-    auto levelFactory = levels[currentLevel];
-    switchLevel(levelFactory);
+    if(previous){
+        std::cout << "lmaoooooooooooooooo" << std::endl;
+        previous = false;
+        tileController = tileControllerPrevious;
+        hpController = hpControllerPrevious;
+        protController = protControllerPrevious;
+        enemyController = enemyControllerPrevious;
+
+
+
+        ///fix thissssss
+        auto [h, w] = tileController->getDimensions();
+        height = h;
+        width = w;
+        row = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
+        col = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
+
+        gameView->clearMainWindow();
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+        switchView(false);
+        tileController->update(row,col);
+    }
+    else{
+        auto levelFactory = levels[currentLevel];
+        switchLevel(levelFactory);
+    }
+
 }
 
 void GameController::addLevel(const std::shared_ptr<LevelFactory> &level)
