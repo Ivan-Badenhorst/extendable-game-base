@@ -16,7 +16,7 @@ public:
     void updateHealth() override;
     void clearView() override;
     void setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel) override;
-    void erasePreviousPosition(QTextCursor& cursor);
+    void erasePreviousPosition();//QTextCursor& cursor, int row
     void setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit);
     void setHealthLabels(std::shared_ptr<QLabel> healthValue);
 
