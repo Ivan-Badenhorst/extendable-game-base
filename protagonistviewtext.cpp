@@ -20,92 +20,38 @@ void ProtagonistViewText::update()
 
 void ProtagonistViewText::update(int row, int col)
 {
-//    int moveDown = row>0 ? 1 + 2*row: row + 1;
-//    int moveRight = 2 + 4*col;
 
-
-//    // Get the block at the desired line number (moveDown)
-//    QTextBlock block = textEdit->document()->findBlockByLineNumber(moveDown);
-
-
-//    auto cursor = textEdit->textCursor();
-
-//    erasePreviousPosition(cursor, row);
-//    cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
-//    cursor.clearSelection();
-//    cursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, moveDown);
-//    cursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, moveRight);
-
-//    cursor.deleteChar();
-//    cursor.insertText("P");
-
-///////////////////////////////////////////////////////////////////////////////////////
-//    QTextCursor cursor = textEdit->textCursor();
-//    cursor.movePosition(QTextCursor::Start);
-
-//    QTextBlock block = textEdit->document()->findBlockByLineNumber(moveDown);
-
-//    if (block.isValid()) {
-//        cursor = QTextCursor(block);
-//        cursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, moveRight);
-
-//        if (cursor.position() < block.position() + block.length()) {
-//            cursor.deleteChar();
-//            cursor.insertText("P");
-//        }
-
-//    }
-//////////////////////////////////////////////////////////////////////////////////////
-
+    erasePreviousPosition();
 
     int newMoveDown = row > 0 ? 1 + 2 * row : row + 1;
     int newMoveRight = 2 + 4 * col;
 
-    QTextCursor cursor = textEdit->textCursor();
-    QTextBlock newBlock = textEdit->document()->findBlockByLineNumber(newMoveDown);
+    auto cursor = textEdit->textCursor();
+    auto newBlock = textEdit->document()->findBlockByLineNumber(newMoveDown);
 
 
-    if (newBlock.isValid()) {
-        // Update the new position
-        QTextCursor newCursor(newBlock);
-        newCursor.movePosition(QTextCursor::StartOfBlock);
-        while (newCursor.positionInBlock() < newMoveRight) {
-            newCursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor);
-        }
-        if (newCursor.positionInBlock() == newMoveRight) {
-            newCursor.deleteChar();
-            newCursor.insertText("P");
-        }
-    }
-    erasePreviousPosition();
+    // Update the new position
+    QTextCursor newCursor(newBlock);
+    newCursor.movePosition(QTextCursor::StartOfBlock);
+    newCursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, newMoveRight);
+    newCursor.deleteChar();
+    newCursor.insertText("P");
 
 }
 
-void ProtagonistViewText::erasePreviousPosition() { //QTextCursor& cursor, int row
+void ProtagonistViewText::erasePreviousPosition() {
 
-//    if(row == 0){
-//        cursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, 1);
-//    }
-//    cursor.deleteChar();
-//    cursor.insertText(" ");
+
     int oldMoveDown = protModel->getPositionX() > 0 ? 1 + 2 * protModel->getPositionX() : protModel->getPositionX() + 1;
     int oldMoveRight = 2 + 4 * protModel->getPositionY();
 
     QTextBlock oldBlock = textEdit->document()->findBlockByLineNumber(oldMoveDown);
     QTextCursor oldCursor(oldBlock);
+
     oldCursor.movePosition(QTextCursor::StartOfBlock);
     oldCursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, oldMoveRight);
     oldCursor.deleteChar();
     oldCursor.insertText(" ");
-//    while (oldCursor.positionInBlock() < oldMoveRight) {
-//        oldCursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor);
-//    }
-//    if (oldCursor.positionInBlock() == oldMoveRight) {
-//        oldCursor.deleteChar();
-//        oldCursor.insertText(" ");
-//    }
-
-
 }
 
 
