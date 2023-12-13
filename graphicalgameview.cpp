@@ -18,11 +18,25 @@ void GraphicalGameView::initializeMainWindow()
         "QProgressBar::chunk { background-color: green; width: 10px; }"
         "QProgressBar::chunk:horizontal { margin: 0px; }"
         );
-    healthBar->setGeometry(300, 500, 280, 20);
+    healthBar->setGeometry(100, 500, 280, 20);
     healthBar->show();
+
+
+    energyBar = std::make_shared<EnergyProgressBar>(&mainWindow);
+    energyBar->setRange(0, 122);
+    energyBar->setValue(24);
+    energyBar->setTextVisible(true);
+    energyBar->setStyleSheet(
+        "QProgressBar { border: 2px solid grey; border-radius: 5px; background-color: grey; text-align: center; color: white; }"
+        "QProgressBar::chunk { background-color: blue; width: 10px; }"
+        "QProgressBar::chunk:horizontal { margin: 0px; }"
+        );
+    energyBar->setGeometry(400, 500, 280, 20);
+    energyBar->show();
 
     if(auto pView = dynamic_cast<ProtagonistViewGraphical*>(protView.get())){
         pView->setHealthBar(healthBar);
+        pView->setEnergyBar(energyBar);
     };
 
     ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
@@ -78,4 +92,5 @@ void GraphicalGameView::clearMainWindow()
 
 
     healthBar.reset();
+    energyBar.reset();
 }
