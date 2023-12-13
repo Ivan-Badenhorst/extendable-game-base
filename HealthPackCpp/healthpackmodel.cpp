@@ -21,10 +21,11 @@ std::vector<std::array<int, 3> > HealthPackModel::getHealthPacks() const
 int HealthPackModel::containsHp(int row, int col)
 {
     for(auto& hp: healthPacks){
-        if(hp[0] == row && hp[1] == col && hp[2] > 0){
-            int val = hp[2];
-            hp[2] = 0;
-            return val;
+        //made a modification to the hp[2]: >0 = unused, <0 = used, 0 = not hp.
+        if(hp[0] == row && hp[1] == col && hp[2] != 0){
+            int value = hp[2];
+            hp[2] = -1;
+            return value;
         }
     }
     return 0;
