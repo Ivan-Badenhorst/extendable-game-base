@@ -27,7 +27,7 @@ void ProtagonistViewText::update(int row, int col)
     int newMoveDown = row > 0 ? 1 + 2 * row : row + 1;
     int newMoveRight = 2 + 4 * col;
 
-    auto cursor = textEdit->textCursor();
+
     auto newBlock = textEdit->document()->findBlockByLineNumber(newMoveDown);
 
 
