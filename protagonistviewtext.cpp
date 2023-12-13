@@ -36,7 +36,12 @@ void ProtagonistViewText::update(int row, int col)
     newCursor.movePosition(QTextCursor::StartOfBlock);
     newCursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, newMoveRight);
     newCursor.deleteChar();
-    newCursor.insertText("P");
+    if(protModel->getEnergy() >0){
+        newCursor.insertText("P");
+    }
+    else{
+        newCursor.insertText("p");
+    }
 
 }
 
