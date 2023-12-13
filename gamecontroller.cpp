@@ -48,11 +48,9 @@ void GameController::input(const ArrowDirection &direction)
     float tileVal=tileController->update(row, col);
     if (tileVal > 0) protController->updateEnergy(tileVal);
     int hpVal = hpController->update(row, col);
-    if(hpVal > 0){
-        protController->addHealth(hpVal);
-    }
+    if (hpVal > 0)   protController->addHealth(hpVal);
     protController->update(row, col);
-    tileController->update(row, col);
+    //tileController->update(row, col);
     hpController->update(prevRow, prevCol);
 
 

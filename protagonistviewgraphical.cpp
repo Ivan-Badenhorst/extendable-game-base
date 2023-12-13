@@ -48,6 +48,11 @@ void ProtagonistViewGraphical::updateHealth()
     healthBar->setValue(protModel->getCurrentHealth());
 }
 
+void ProtagonistViewGraphical::updateEnergy()
+{
+    //do something with bar as well...
+}
+
 void ProtagonistViewGraphical::clearView()
 {
     scene.reset();

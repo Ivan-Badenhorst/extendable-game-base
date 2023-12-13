@@ -26,7 +26,7 @@ void ProtagonistController::addHealth(int hpValue)
 void ProtagonistController::updateEnergy(float enValue)
 {
     protModel->updateEnergy(-enValue);
-    //modify view too
+    protView->updateEnergy();
 }
 
 
