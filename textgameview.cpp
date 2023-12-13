@@ -27,10 +27,12 @@ void TextGameView::initializeMainWindow()
     QHBoxLayout* layout = new QHBoxLayout();
     healthLabel = std::make_shared<QLabel>("Health: ", &mainWindow);
     healthValueLabel = std::make_shared<QLabel>(&mainWindow);
-
+    energyLabel = std::make_shared<QLabel>("Energy: ", &mainWindow);
+    energyValueLabel = std::make_shared<QLabel>(&mainWindow);
     // Check if protView is an instance of ProtagonistViewText before setting health labels
     if (auto protagonistTextView = dynamic_cast<ProtagonistViewText*>(protView.get())) {
         protagonistTextView->setHealthLabels(healthValueLabel);
+        protagonistTextView->setEnergyLabels(energyValueLabel);
     }
 
     layout->setAlignment(Qt::AlignTop);
@@ -39,6 +41,8 @@ void TextGameView::initializeMainWindow()
     // Add health labels to the layout
     layout->addWidget(healthLabel.get());
     layout->addWidget(healthValueLabel.get());
+    layout->addWidget(energyLabel.get());
+    layout->addWidget(energyValueLabel.get());
 
     // Set the layout to the central widget of the main window
     QWidget* centralWidget = new QWidget(&mainWindow);
@@ -65,4 +69,6 @@ void TextGameView::clearMainWindow()
     textEdit.reset();
     healthLabel.reset();
     healthValueLabel.reset();
+    energyLabel.reset();
+    energyValueLabel.reset();
 }

@@ -16,6 +16,8 @@ private:
     std::shared_ptr<QPlainTextEdit> textEdit;
     std::shared_ptr<QLabel> healthLabel;
     std::shared_ptr<QLabel> healthValueLabel;
+    std::shared_ptr<QLabel> energyLabel;
+    std::shared_ptr<QLabel> energyValueLabel;
 };
 
 #endif // TEXTGAMEVIEW_H
