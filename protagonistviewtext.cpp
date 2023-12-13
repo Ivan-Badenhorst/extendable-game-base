@@ -62,12 +62,19 @@ void ProtagonistViewText::updateHealth()
     healthValueLabel->setText(QString::number(health) + " / " + QString::number(maxHealth));
 }
 
+void ProtagonistViewText::updateEnergy()
+{
+    int energy = protModel->getEnergy();
+    int maxEnergy = protModel->getMaxEnergy();
+    energyValueLabel->setText(QString::number(energy)+ " / " + QString::number(maxEnergy));
+
+}
 
 
 void ProtagonistViewText::clearView()
 {
     textEdit.reset();
-    //healthLabel.reset();
+    energyValueLabel.reset();
     healthValueLabel.reset();
 }
 
@@ -83,4 +90,7 @@ void ProtagonistViewText::setTextEdit(const std::shared_ptr<QPlainTextEdit> &new
 
 void ProtagonistViewText::setHealthLabels(std::shared_ptr<QLabel> healthValue) {
     healthValueLabel = healthValue;
+}
+void ProtagonistViewText::setEnergyLabels(std::shared_ptr<QLabel> energyValue) {
+    energyValueLabel = energyValue;
 }
