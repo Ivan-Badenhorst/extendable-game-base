@@ -30,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent)
     GraphicalGameView graphicalGameView(*this);
     std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
 
-
     //Add here all extra views. For these the views should be made already
 
     auto textView = getTextView();
@@ -38,6 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
     gameController = GameController::getInstance();
     gameController->addNewView(std::move(textView));
     gameController->startGame(std::move(gameView));
+    //connect(gameController, SIGNAL(gameOverSignal()), *this, SLOT(disableKeyInputs()));
+
+
 
 }
 
@@ -67,6 +69,7 @@ std::unique_ptr<TextGameView> MainWindow::getTextView()
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
+    if(gameController->getIsInputDisabled()) return;
     switch (event->key()) {
     case Qt::Key_Left:
         gameController->input(ArrowDirection::Left);
