@@ -23,10 +23,11 @@ public:
     float getMaxhealth() const;
     void setMaxHealth(float value);
     float getEnergy() const;
-    void setEnergy(float value);
+    //void setMaxEnergy(float value);
     // Add more methods as and when needed
     void updatePosition(int newXPos, int newYPos);
     void addHealth(int hpValue);
+    void updateEnergy(float energy);
 
     // add a method that moves the protagonist later
     const std::unique_ptr<Protagonist>& getProtagonist()const;
@@ -38,6 +39,7 @@ private:
     float maxHealth {0.0f};
     float currentHealth{0.0f};
     float energy {0.0f};
+    float maxEnergy;
 };
 
 #endif // PROTAGONISTMODEL_H
