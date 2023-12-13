@@ -14,6 +14,7 @@
 #include <chrono>
 #include <QCoreApplication>
 #include <QEventLoop>
+#include <QMessageBox>
 
 
 GameController*  GameController::gameControllerInstance = nullptr;
@@ -29,6 +30,7 @@ void GameController::input(const ArrowDirection &direction)
 {
     auto prevRow = row;
     auto prevCol = col;
+
 
     switch (direction) {
     case ArrowDirection::Left:
@@ -49,12 +51,23 @@ void GameController::input(const ArrowDirection &direction)
     if (hpVal > 0)   protController->addHealth(hpVal);
     protController->update(row, col);
     float tileVal=tileController->update(row, col);
-    if (tileVal > 0) protController->updateEnergy(tileVal);
+    if (tileVal > 0) {
+        isGameOver = protController->updateEnergy(tileVal);
+    }
+    if(isGameOver){
+        stopGame();
+    }
+
+
     //tileController->update(row, col);
     hpController->update(prevRow, prevCol);
 
 }
 
+void GameController::stopGame()
+{
+    QMessageBox::information(nullptr, "Game Over", "Game Ended - Protagonist's energy depleted!");
+}
 
 
 GameController* GameController::getInstance()

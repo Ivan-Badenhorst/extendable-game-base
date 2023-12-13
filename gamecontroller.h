@@ -40,7 +40,10 @@ private:
    int col {0};
    int width;
    int height;
+   bool isGameOver {false};
 
+
+   void stopGame();
    GameController();
    ~GameController();
    void getNewView();
