@@ -8,7 +8,7 @@ class TileController
 {
 public:
     TileController( std::shared_ptr<TileModel> tm);
-    void update(int row = 0, int col = 0);//later this method takes the position -> or we have reference to the protag
+    float update(int row = 0, int col = 0);//later this method takes the position -> or we have reference to the protag
     std::tuple<int, int> getDimensions();
     ///POSSIBLE FUTURE METHODS:
     //update model for new level

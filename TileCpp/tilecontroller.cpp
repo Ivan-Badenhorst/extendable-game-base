@@ -6,9 +6,11 @@ TileController::TileController(std::shared_ptr<TileModel> tm)
 
 }
 
-void TileController::update(int row, int col)
+float TileController::update(int row, int col)
 {
     tileView->update(row, col);
+    float val = tileModel->getTileValueAt(row,col);
+    return val;
 }
 
 std::tuple<int, int> TileController::getDimensions()
