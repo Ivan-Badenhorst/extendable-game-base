@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>prisoner.png</file>
+        <file>prisoner_dead.png</file>
     </qresource>
 </RCC>
