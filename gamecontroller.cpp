@@ -55,6 +55,7 @@ void GameController::input(const ArrowDirection &direction)
     }
     protController->update(row, col);
     tileController->update(row, col);
+    hpController->update(rowSave, colSave);
 
 
 }
