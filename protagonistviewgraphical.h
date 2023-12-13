@@ -30,6 +30,7 @@ private:
     std::shared_ptr<HealthProgressBar> healthBar;
     std::shared_ptr<EnergyProgressBar> energyBar;
     std::shared_ptr<QGraphicsScene> scene;
+    QPixmap prot;
 };
 
 #endif // PROTAGONISTVIEWGRAPHICAL_H

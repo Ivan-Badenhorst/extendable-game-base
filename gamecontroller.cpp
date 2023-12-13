@@ -66,7 +66,9 @@ void GameController::input(const ArrowDirection &direction)
 
 void GameController::stopGame()
 {
+    protController->refreshAll();
     QMessageBox::information(nullptr, "Game Over", "Game Ended - Protagonist's energy depleted!");
+
 }
 
 

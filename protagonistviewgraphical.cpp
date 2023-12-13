@@ -28,7 +28,13 @@ void ProtagonistViewGraphical::update()
 
 void ProtagonistViewGraphical::update(int row, int col)
 {
-    auto prot = QPixmap(":/prisoner");
+    if(protModel->getEnergy() >0){
+        prot =  QPixmap(":/prisoner");
+    }
+    else{
+        prot = QPixmap(":/prisoner_dead");
+    }
+
     auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
     scene->removeItem(protagonistDisplay.get());
     protagonistDisplay.reset();
