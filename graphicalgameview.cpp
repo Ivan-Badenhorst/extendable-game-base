@@ -18,8 +18,9 @@ void GraphicalGameView::initializeMainWindow()
         "QProgressBar::chunk { background-color: green; width: 10px; }"
         "QProgressBar::chunk:horizontal { margin: 0px; }"
         );
-    healthBar->setGeometry(100, 500, 280, 20);
-    healthBar->show();
+    //healthBar->setFixedSize(280, 20);
+    //healthBar->setGeometry(100, 500, 280, 20);
+    //healthBar->show();
 
 
     energyBar = std::make_shared<EnergyProgressBar>(&mainWindow);
@@ -31,28 +32,47 @@ void GraphicalGameView::initializeMainWindow()
         "QProgressBar::chunk { background-color: blue; width: 10px; }"
         "QProgressBar::chunk:horizontal { margin: 0px; }"
         );
-    energyBar->setGeometry(400, 500, 280, 20);
-    energyBar->show();
+    //energyBar->setFixedSize(280, 20);
+    //energyBar->setGeometry(400, 500, 280, 20);
+    //energyBar->show();
 
     if(auto pView = dynamic_cast<ProtagonistViewGraphical*>(protView.get())){
         pView->setHealthBar(healthBar);
         pView->setEnergyBar(energyBar);
     };
 
+
+
     ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
     if(scene == nullptr) scene = std::make_shared<QGraphicsScene>(&mainWindow);
     view =  std::make_shared<QGraphicsView>(scene.get());
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainWindow.setCentralWidget(view.get());
+    mainLayout->addWidget(view.get());
+
+    QHBoxLayout* barsLayout = new QHBoxLayout;
+    barsLayout->addWidget(healthBar.get());
+    barsLayout->addWidget(energyBar.get());
+
+    mainLayout->addLayout(barsLayout);
 
     // Create a widget to hold the view
     widget = new QWidget(&mainWindow);
 
     widget->setFixedSize(800, 400);
-    layout = new QHBoxLayout(widget);
-    layout->addWidget(view.get());
-    layout->setContentsMargins(0, 0, 0, 0);
+    widget->setLayout(mainLayout);
+    mainLayout->setAlignment(Qt::AlignTop);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+
+
+//    layout = new QHBoxLayout(widget);
+//    layout->addWidget(view.get());
+//    layout->addLayout(barsLayout);
+
+//    layout->setContentsMargins(0, 0, 0, 0);
 
     mainWindow.setCentralWidget(widget);
 
