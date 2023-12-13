@@ -32,6 +32,8 @@ public:
     // add a method that moves the protagonist later
     const std::unique_ptr<Protagonist>& getProtagonist()const;
 
+    float getMaxEnergy() const;
+
 private:
 //    std::unique_ptr<Protagonist> protagonist; // Unique pointer to hold the Protagonist
     int xPos {0};
@@ -39,7 +41,7 @@ private:
     float maxHealth {0.0f};
     float currentHealth{0.0f};
     float energy {0.0f};
-    float maxEnergy;
+    float maxEnergy{0.0f};
 };
 
 #endif // PROTAGONISTMODEL_H

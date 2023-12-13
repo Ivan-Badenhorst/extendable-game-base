@@ -46,6 +46,11 @@ void ProtagonistModel::updateEnergy(float value)
     energy += value;
 }
 
+float ProtagonistModel::getMaxEnergy() const
+{
+    return maxEnergy;
+}
+
 void ProtagonistModel::updatePosition(int newXPos, int newYPos)
 {
     xPos = newXPos;
