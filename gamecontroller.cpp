@@ -58,7 +58,6 @@ void GameController::input(const ArrowDirection &direction)
         stopGame();
     }
 
-
     //tileController->update(row, col);
     hpController->update(prevRow, prevCol);
 
@@ -68,7 +67,7 @@ void GameController::stopGame()
 {
     protController->refreshAll();
     QMessageBox::information(nullptr, "Game Over", "Game Ended - Protagonist's energy depleted!");
-
+    isInputDisabled = true;
 }
 
 
@@ -95,6 +94,7 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     height = h;
     width = w;
 
+    isInputDisabled = false;
 
     hpController = easyLevel->getHpController();
     protController = easyLevel->getProtController();
@@ -144,6 +144,11 @@ void GameController::initializeView()
     enemyController->setEnemyView(gameView->getEnemyView());
     hpController->setHpView(gameView->getHpView());
 
+}
+
+bool GameController::getIsInputDisabled() const
+{
+    return isInputDisabled;
 }
 
 void GameController::addNewView(std::unique_ptr<GameView> gv)

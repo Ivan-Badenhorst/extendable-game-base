@@ -26,7 +26,9 @@ public:
 
    void initializeView();
 
-private:
+   bool getIsInputDisabled() const;
+
+   private:
    static GameController* gameControllerInstance;
    std::unique_ptr<GameView> gameView;
    std::deque<std::unique_ptr<GameView>> allGameViews;
@@ -41,6 +43,7 @@ private:
    int width;
    int height;
    bool isGameOver {false};
+   bool isInputDisabled{false};
 
 
    void stopGame();
