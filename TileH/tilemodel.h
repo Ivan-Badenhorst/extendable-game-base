@@ -19,6 +19,7 @@ public:
     int getRows() const;
 
     int getColumns() const;
+    float getTileValueAt(int row, int col);
 
 private:
     std::vector<std::vector<float>> tileTable;
