@@ -45,7 +45,8 @@ void GameController::input(const ArrowDirection &direction)
         break;
     }
     enemyController->refreshAllGraphical();
-
+    float tileVal=tileController->update(row, col);
+    if (tileVal > 0) protController->updateEnergy(tileVal);
     int hpVal = hpController->update(row, col);
     if(hpVal > 0){
         protController->addHealth(hpVal);

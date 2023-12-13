@@ -23,6 +23,13 @@ void ProtagonistController::addHealth(int hpValue)
     protView->updateHealth();
 }
 
+void ProtagonistController::updateEnergy(float enValue)
+{
+    protModel->updateEnergy(-enValue);
+    //modify view too
+}
+
+
 void ProtagonistController::setProtView(const std::shared_ptr<ProtagonistView> &newProtView)
 {
     protView = newProtView;
