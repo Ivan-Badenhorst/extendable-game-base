@@ -50,7 +50,8 @@ void ProtagonistViewGraphical::updateHealth()
 
 void ProtagonistViewGraphical::updateEnergy()
 {
-    //do something with bar as well...
+    energyBar->setMaximum(protModel->getMaxEnergy());
+    energyBar->setValue(protModel->getEnergy());
 }
 
 void ProtagonistViewGraphical::clearView()
@@ -63,6 +64,12 @@ void ProtagonistViewGraphical::setHealthBar(const std::shared_ptr<HealthProgress
 {
     healthBar = newHealthBar;
     updateHealth();
+}
+
+void ProtagonistViewGraphical::setEnergyBar(const std::shared_ptr<EnergyProgressBar> newEnergyBar)
+{
+    energyBar = newEnergyBar;
+    updateEnergy();
 }
 
 void ProtagonistViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
