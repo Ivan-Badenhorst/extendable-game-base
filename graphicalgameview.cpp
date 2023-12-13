@@ -18,10 +18,6 @@ void GraphicalGameView::initializeMainWindow()
         "QProgressBar::chunk { background-color: green; width: 10px; }"
         "QProgressBar::chunk:horizontal { margin: 0px; }"
         );
-    //healthBar->setFixedSize(280, 20);
-    //healthBar->setGeometry(100, 500, 280, 20);
-    //healthBar->show();
-
 
     energyBar = std::make_shared<EnergyProgressBar>(&mainWindow);
     energyBar->setRange(0, 122);
@@ -32,9 +28,6 @@ void GraphicalGameView::initializeMainWindow()
         "QProgressBar::chunk { background-color: blue; width: 10px; }"
         "QProgressBar::chunk:horizontal { margin: 0px; }"
         );
-    //energyBar->setFixedSize(280, 20);
-    //energyBar->setGeometry(400, 500, 280, 20);
-    //energyBar->show();
 
     if(auto pView = dynamic_cast<ProtagonistViewGraphical*>(protView.get())){
         pView->setHealthBar(healthBar);
@@ -43,7 +36,6 @@ void GraphicalGameView::initializeMainWindow()
 
 
 
-    ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
     if(scene == nullptr) scene = std::make_shared<QGraphicsScene>(&mainWindow);
     view =  std::make_shared<QGraphicsView>(scene.get());
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -67,12 +59,6 @@ void GraphicalGameView::initializeMainWindow()
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
-
-//    layout = new QHBoxLayout(widget);
-//    layout->addWidget(view.get());
-//    layout->addLayout(barsLayout);
-
-//    layout->setContentsMargins(0, 0, 0, 0);
 
     mainWindow.setCentralWidget(widget);
 
