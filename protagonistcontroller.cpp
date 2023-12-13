@@ -23,10 +23,11 @@ void ProtagonistController::addHealth(int hpValue)
     protView->updateHealth();
 }
 
-void ProtagonistController::updateEnergy(float enValue)
+bool ProtagonistController::updateEnergy(float enValue)
 {
-    protModel->updateEnergy(-enValue);
+    bool isDead = protModel->updateEnergy(-enValue);
     protView->updateEnergy();
+    return isDead;
 }
 
 

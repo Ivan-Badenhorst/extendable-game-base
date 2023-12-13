@@ -27,7 +27,7 @@ public:
     // Add more methods as and when needed
     void updatePosition(int newXPos, int newYPos);
     void addHealth(int hpValue);
-    void updateEnergy(float energy);
+    bool updateEnergy(float energy);
 
     // add a method that moves the protagonist later
     const std::unique_ptr<Protagonist>& getProtagonist()const;

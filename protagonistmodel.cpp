@@ -41,9 +41,10 @@ float ProtagonistModel::getEnergy() const
     return energy;
 }
 
-void ProtagonistModel::updateEnergy(float value)
+bool ProtagonistModel::updateEnergy(float value)
 {
     energy += value;
+    return (energy <= 0);
 }
 
 float ProtagonistModel::getMaxEnergy() const
