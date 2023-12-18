@@ -2,7 +2,10 @@
 #define ENEMYCONTROLLER_H
 #include "enemymodel.h"
 #include "enemyviewinterface.h"
+#include "penemytimer.h"
 #include <memory>
+#include <iostream>
+#include <QPointer>
 
 
 
@@ -10,12 +13,18 @@
  * @class EnemyController
  * @brief Class responsible for controlling enemies in the game.
  */
-class EnemyController {
+class EnemyController: public std::enable_shared_from_this<EnemyController>
+{
 public:
     /**
      * @brief Default constructor for EnemyController.
      */
     EnemyController();
+
+    // /**
+    //  * @brief Initializes the enemy controller's timer.
+    //  */
+    // void init();
     
     /**
      * @brief Refreshes all graphical elements related to the enemies.
@@ -64,9 +73,13 @@ public:
      */
     void attackEnemy(int col, int row, int damage);
 
+
+    void drainPEnemy(int col, int row);
+
 private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.
+    //std::shared_ptr<PEnemyTimer> penemytimer;
 };
 
 

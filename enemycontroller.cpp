@@ -5,6 +5,13 @@ EnemyController::EnemyController()
     // Models are added in the factory using the addEnemyModel method
 }
 
+// void EnemyController::init()
+// {
+//     penemytimer =  std::make_shared<PEnemyTimer>();
+//     penemytimer->setEnemyController(shared_from_this());
+// }
+   
+
 void EnemyController::refreshAllGraphical()
 {
     // Iterate through the enemyGraphicalViews vector and refresh each view
@@ -89,4 +96,9 @@ void EnemyController::attackEnemy(int col, int row, int damage)
             }
         }
     }
+}
+
+void EnemyController::drainPEnemy(int col, int row)
+{
+    std::cout << "Draining Penemy : " << col << "," << row << std::endl;
 }

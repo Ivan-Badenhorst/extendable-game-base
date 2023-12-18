@@ -26,6 +26,7 @@ SOURCES += \
     levelfactory.cpp \
     main.cpp \
     penemymodel.cpp \
+    penemytimer.cpp \
     penemyviewgraphical.cpp \
     protagonistcontroller.cpp \
     protagonistmodel.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     levelfactory.h \
     mainwindow.h \
     penemymodel.h \
+    penemytimer.h \
     penemyviewgraphical.h \
     protagonistcontroller.h \
     protagonistmodel.h \

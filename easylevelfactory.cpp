@@ -72,6 +72,7 @@ Level* EasyLevelFactory::createWorld()
 
     // Create an EnemyController and add the enemies models to it
     EnemyController ec;
+    //ec.init();
     ec.addEnemyModel(std::make_shared<EnemyModel>(em));
     ec.addEnemyModel(std::make_shared<PEnemyModel>(pem));
 //    ec.addEnemyGraphicalView(std::make_shared<EnemyViewGraphical>(evg));
