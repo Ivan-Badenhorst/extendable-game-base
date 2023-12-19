@@ -114,7 +114,6 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
                     if (std::isinf(val)){
                         val = 0;
                     }
-                    std::cout << val << std::endl;
                     int range = round(4-val*4);
                     auto icon = getIcon(range);
                     auto item = std::make_shared<QGraphicsPixmapItem>(*icon.get());
