@@ -209,7 +209,6 @@ void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
 void GameController::nextLevel()
 {
 
-    std::cout << "NEXT LEVEL" << std::endl;
     if(currentLevel < levels.size()-1){
         currentLevel+=1;
     }
@@ -256,7 +255,6 @@ void GameController::setupUi()
 
 void GameController::previousLevel()
 {
-    std::cout << "PREVIOUS LEVEL" << std::endl;
     if(currentLevel > 0){
         currentLevel-=1;
     }
