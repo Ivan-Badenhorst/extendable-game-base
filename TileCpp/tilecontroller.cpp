@@ -37,6 +37,7 @@ void TileController::addPortal(int row, int col, bool nextLevel)
 void TileController::setTileView(const std::shared_ptr<TileView> &newTileView)
 {
     tileView = newTileView;
+
 }
 
 std::shared_ptr<TileModel> TileController::getTileModel() const

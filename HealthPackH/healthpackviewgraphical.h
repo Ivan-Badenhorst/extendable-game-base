@@ -12,15 +12,18 @@
 class HealthPackViewGraphical: public HealthPackView
 {
 public:
-    HealthPackViewGraphical(std::shared_ptr<HealthPackModel> hpm);
+    HealthPackViewGraphical();
     void update() override;
     void update(int row, int col, bool used = true) override;
+    void clearView() override;
 
+    void setHpModel(const std::shared_ptr<HealthPackModel> &newHpModel) override;
 
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
 
+
 private:
-    std::shared_ptr<HealthPackModel> hpModel;
+
 
     float zValue {1};
     int tileDim {50};

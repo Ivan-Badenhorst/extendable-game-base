@@ -7,25 +7,9 @@
 #include <iostream>
 #include <cstdlib>
 
-TileViewGraphical::TileViewGraphical(std::shared_ptr<TileModel> tm)
-    :tileModel(tm)
+TileViewGraphical::TileViewGraphical()
 {
-    int tileRows =  tm->getRows()+ displayHeight;
-    int tileCols = tm->getColumns() + displayWidth;
-    hasBeenRendered.reserve(tileRows);
 
-
-    for (int i = 0; i < tileRows; i++) {
-        hasBeenRendered.emplace_back();
-        hasBeenRendered.back().reserve(tileCols);
-    }
-
-    //set all to false -> nothing has been rendered yet
-    for (size_t i = 0; i < tileRows; ++i) {
-        for (size_t j = 0; j < tileCols; ++j) {
-            hasBeenRendered[i].push_back(false);
-        }
-    }
 }
 
 void TileViewGraphical::update(int positionRow, int positionCol)
@@ -37,6 +21,9 @@ void TileViewGraphical::update(int positionRow, int positionCol)
     auto tileTable = tileModel->getTileTable();
 
     if(prevRow < 0 || prevCol < 0 || std::abs(positionRow-prevRow) > 1 || std::abs(positionCol - prevCol) > 1){
+        displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
+    }
+    else if(hasBeenRendered[positionRow][positionCol] == false){
         displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
     }
     else{//only display the new tiles
@@ -75,6 +62,7 @@ void TileViewGraphical::update(int positionRow, int positionCol)
     prevRow = positionRow;
 }
 
+
 std::shared_ptr<QPixmap> TileViewGraphical::getIcon(int range)
 {
     switch (range) {
@@ -94,6 +82,11 @@ std::shared_ptr<QPixmap> TileViewGraphical::getIcon(int range)
         return std::make_shared<QPixmap>(":/tile_resize");
         break;
     }
+
+void TileViewGraphical::clearView()
+{
+    scene.reset();
+
 }
 
 void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, int colEnd)
@@ -153,6 +146,30 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 void TileViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
 {
     scene = newScene;
+}
+
+void TileViewGraphical::setTileModel(const std::shared_ptr<TileModel> &newTileModel)
+{
+    tileModel = newTileModel;
+    int tileRows =  tileModel->getRows()+ displayHeight;
+    int tileCols = tileModel->getColumns() + displayWidth;
+
+    hasBeenRendered.clear();
+    hasBeenRendered.resize(0);
+    hasBeenRendered.reserve(tileRows);
+
+
+    for (int i = 0; i < tileRows; i++) {
+        hasBeenRendered.emplace_back();
+        hasBeenRendered.back().reserve(tileCols);
+    }
+
+    //set all to false -> nothing has been rendered yet
+    for (size_t i = 0; i < tileRows; ++i) {
+        for (size_t j = 0; j < tileCols; ++j) {
+            hasBeenRendered[i].push_back(false);
+        }
+    }
 }
 
 

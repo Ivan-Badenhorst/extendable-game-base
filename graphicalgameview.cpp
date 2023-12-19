@@ -3,6 +3,7 @@
 #include "TileH/tileviewgraphical.h"
 #include "protagonistviewgraphical.h"
 #include "qboxlayout.h"
+#include "qgraphicsitem.h"
 #include "qgraphicsview.h"
 
 
@@ -26,21 +27,21 @@ void GraphicalGameView::initializeMainWindow()
     };
 
     ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
-    scene = std::make_shared<QGraphicsScene>(&mainWindow);
+    if(scene == nullptr) scene = std::make_shared<QGraphicsScene>(&mainWindow);
     view =  std::make_shared<QGraphicsView>(scene.get());
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     mainWindow.setCentralWidget(view.get());
 
     // Create a widget to hold the view
-    widget = std::make_shared<QWidget>(&mainWindow);
+    widget = new QWidget(&mainWindow);
 
     widget->setFixedSize(800, 400);
-    layout = std::make_shared<QHBoxLayout>(widget.get());
+    layout = new QHBoxLayout(widget);
     layout->addWidget(view.get());
     layout->setContentsMargins(0, 0, 0, 0);
 
-    mainWindow.setCentralWidget(widget.get());
+    mainWindow.setCentralWidget(widget);
 
     if(auto tView = dynamic_cast<TileViewGraphical*>(tileView.get())){
         tView->setScene(scene);
@@ -56,11 +57,40 @@ void GraphicalGameView::initializeMainWindow()
             eView->setScene(scene);
         };
     }
-
-    /// STILL NEED TO IMPLEMENT THE CLEAR FUNCTION PROPERLY!!! -> CALL THE RESET IN ALL THE VIEWS!!!
 }
 
 void GraphicalGameView::clearMainWindow()
 {
-    healthBar->reset();
+    QList<QGraphicsItem*> itemsToRemove = scene->items();
+    for (QGraphicsItem* item : itemsToRemove) {
+        if (dynamic_cast<QGraphicsRectItem*>(item)) {
+            scene->removeItem(item);
+            delete item; // Free memory of deleted items
+        }
+    }
+
+    // Update the view after removing items
+    view->viewport()->update();
+
+
+    tileView->clearView();
+    hpView->clearView();
+    protView->clearView();
+    for(auto& eV: enemyView){
+        eV->clearView();
+    }
+
+
+
+//    scene->setParent(nullptr);
+
+    view.reset();
+    widget->setParent(nullptr);
+    widget = nullptr;
+
+    layout = nullptr;
+
+
+
+    healthBar.reset();
 }
