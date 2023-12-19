@@ -77,7 +77,8 @@ RESOURCES += \
     Maps.qrc \
     Protagonist.qrc \
     HealthPack.qrc \
-    Enemies.qrc
+    Enemies.qrc \
+    tiles.qrc
 
 
 
