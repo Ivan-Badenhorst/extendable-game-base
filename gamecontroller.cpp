@@ -78,7 +78,7 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     height = h;
     width = w;
 
-    tileController->addPortal(h-1, w-1, true);
+    if(levels.size() > 1) tileController->addPortal(h-1, w-1, true);
 
 
     hpController = easyLevel->getHpController();
@@ -193,17 +193,24 @@ void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
 {
     auto level = levelFactory->createWorld();
     //UPDAGTE MY CONTROLLER POINTERS
+
+
     tileController = level->getTileController();
     hpController = level->getHpController();
     protController = level->getProtController();
     enemyController = level->getEnemyController();
     //UPDATE ROW COL, WIDTH HEIGHT AS WELL!!!!!!
+
+
     setupUi();
+    tileController->addPortal(0,0,false);
+    tileController->addPortal(height-1, width-1, true);
 }
 
 void GameController::nextLevel()
 {
 
+    std::cout << "NEXT LEVEL" << std::endl;
     if(currentLevel < levels.size()-1){
         currentLevel+=1;
     }
@@ -238,7 +245,7 @@ void GameController::setupUi()
 
 void GameController::previousLevel()
 {
-
+    std::cout << "PREVIOUS LEVEL" << std::endl;
     if(currentLevel > 0){
         currentLevel-=1;
     }
