@@ -8,8 +8,8 @@
 ///     IF YES -> RETURN TRUE SO THAT CONTROLLER KNOWS TO CALL VISUALIZATION
 ///     IF YES -> SIGNAL PROTAGONIST CONTROLER SO THAT WE UPDATE HIS MODEL
 struct Portal {
-    int row;
-    int col;
+    int row=-1;
+    int col=-1;
     bool nextLevel;
 };
 
