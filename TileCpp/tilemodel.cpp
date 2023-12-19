@@ -71,3 +71,8 @@ std::optional<bool> TileModel::getPortalAt(int row, int col)
 
     return b;  // No portal found
 }
+
+std::pair<Portal, Portal> TileModel::getPortals() const
+{
+    return portals;
+}

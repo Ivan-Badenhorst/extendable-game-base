@@ -27,6 +27,8 @@ public:
     int getColumns() const;
     std::optional<bool> getPortalAt(int row, int col);
 
+    std::pair<Portal, Portal> getPortals() const;
+
 private:
     std::vector<std::vector<float>> tileTable;
     int rows;

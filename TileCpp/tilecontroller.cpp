@@ -7,10 +7,10 @@ TileController::TileController(std::shared_ptr<TileModel> tm)
 
 }
 
-void TileController::update(int row, int col)
+void TileController::update(int row, int col, bool allowPortal)
 {
     auto p = tileModel->getPortalAt(row, col);
-    if(p.has_value()){
+    if(p.has_value() && allowPortal){
         auto gc = GameController::getInstance();
         if(p.value()) {gc->nextLevel();}
         else{ gc->previousLevel();}
