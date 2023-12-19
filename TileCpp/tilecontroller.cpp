@@ -12,8 +12,8 @@ void TileController::update(int row, int col)
     auto p = tileModel->getPortalAt(row, col);
     if(p.has_value()){
         auto gc = GameController::getInstance();
-        if(p.value()) gc->nextLevel();
-        else gc->previousLevel();
+        if(p.value()) {gc->nextLevel();}
+        else{ gc->previousLevel();}
     }
     else{
         tileView->update(row, col);
