@@ -78,6 +78,8 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     height = h;
     width = w;
 
+    tileController->addPortal(h-1, w-1, true);
+
 
     hpController = easyLevel->getHpController();
     protController = easyLevel->getProtController();
@@ -112,10 +114,12 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
 
     initializeView();
 
-    tileController->update(0, 0);
+//    tileController->update(0, 0);
     hpController->refreshAll();
     protController->refreshAll();
     enemyController->refreshAllGraphical();
+//    tileController->update(1, 1);
+    tileController->update(0, 0);
 
 }
 
@@ -258,7 +262,6 @@ void GameController::previousLevel()
 
 void GameController::addLevel(const std::shared_ptr<LevelFactory> &level)
 {
-    if()
     levels.push_back(level);
 }
 
