@@ -258,6 +258,7 @@ void GameController::previousLevel()
 
 void GameController::addLevel(const std::shared_ptr<LevelFactory> &level)
 {
+    if()
     levels.push_back(level);
 }
 

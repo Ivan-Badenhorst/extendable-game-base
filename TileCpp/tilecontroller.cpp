@@ -12,14 +12,13 @@ void TileController::update(int row, int col)
     auto p = tileModel->getPortalAt(row, col);
     if(p.has_value()){
         auto gc = GameController::getInstance();
-        if(p.value()){
-            //next level
-        }
-        else{
-            //previous level
-        }
+        if(p.value()) gc->nextLevel();
+        else gc->previousLevel();
     }
-    tileView->update(row, col);
+    else{
+        tileView->update(row, col);
+    }
+
 }
 
 std::tuple<int, int> TileController::getDimensions()

@@ -31,7 +31,7 @@ private:
     std::vector<std::vector<float>> tileTable;
     int rows;
     int columns;
-    std::vector<Portal> portals;
+    std::pair<Portal, Portal> portals;
 
 };
 

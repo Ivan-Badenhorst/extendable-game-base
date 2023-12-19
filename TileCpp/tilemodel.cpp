@@ -32,7 +32,8 @@ void TileModel::addPortal(int row, int col, bool nextLevel)
     p.row = row;
     p.col = col;
     p.nextLevel = nextLevel;
-    portals.push_back(p);
+    if(nextLevel) portals.second = p;
+    else portals.first = p;
 }
 
 std::vector<std::vector<float> > TileModel::getTileTable() const
@@ -54,12 +55,19 @@ std::optional<bool> TileModel::getPortalAt(int row, int col)
 {
     std::optional<bool> b;
 
-    for (const Portal& portal : portals) {
-        if (portal.row == row && portal.col == col) {
-            b.reset();
-            b = portal.nextLevel;
-            return b;  // Found the portal
-        }
+    auto portal = portals.first;
+    if (portal.row == row && portal.col == col) {
+        b.reset();
+        b = portal.nextLevel;
+        return b;  // Found the portal
     }
+
+    portal = portals.second;
+    if (portal.row == row && portal.col == col) {
+        b.reset();
+        b = portal.nextLevel;
+        return b;  // Found the portal
+    }
+
     return b;  // No portal found
 }
