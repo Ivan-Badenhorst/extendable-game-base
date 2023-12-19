@@ -11,7 +11,43 @@ Latest update: 27/11/2023
 
     ![UML](uml_20232511.png)
 
+## Work Distribution:
+### Week 6
+- design first UML and testing basic qt graphics
 
+### Week 7
+- Developing basic MVC structure for tile and level factory.
+- All work was done collaboratively and committed using Sudarshan’s account.
+
+### Week 8
+- Ivan:
+  - Completed Tile Graphical View.
+  - Implemented healthpack MVC.
+- Sudarshan:
+  - Implemented protagonist MVC.
+- Mahmoud:
+  - Implemented enemy MVC.
+
+### Week 9
+- Ivan: 
+  - Create structure for GameView and adjust graphics view
+- Sudarshan: 
+  - Graphics view protagonist
+- Mahmoud:
+
+### Week 10
+- Ivan: 
+  - Implement structure for text view
+- Sudarshan:
+  - Protagonist interactions
+- Mahmoud:
+
+### Week 11
+- Ivan: 
+  -implement basic level switch and start on cache
+- Sudarshan: 
+  -protagonist text view, interactions and help with cache
+- Mahmoud: 
 
 
 

@@ -26,6 +26,15 @@ void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<
     }
 }
 
+void TileModel::addPortal(int row, int col, bool nextLevel)
+{
+    Portal p;
+    p.row = row;
+    p.col = col;
+    p.nextLevel = nextLevel;
+    portals.push_back(p);
+}
+
 std::vector<std::vector<float> > TileModel::getTileTable() const
 {
     return tileTable;
@@ -39,4 +48,18 @@ int TileModel::getRows() const
 int TileModel::getColumns() const
 {
     return columns;
+}
+
+std::optional<bool> TileModel::getPortalAt(int row, int col)
+{
+    std::optional<bool> b;
+
+    for (const Portal& portal : portals) {
+        if (portal.row == row && portal.col == col) {
+            b.reset();
+            b = portal.nextLevel;
+            return b;  // Found the portal
+        }
+    }
+    return b;  // No portal found
 }

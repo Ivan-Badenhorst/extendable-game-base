@@ -15,7 +15,7 @@ public:
     //maybe a change in game mode -> like when you attack the way tiles are shown is different
     //update view -> text
 
-
+    void addPortal(int row, int col, bool nextLevel);
     void setTileView(const std::shared_ptr<TileView> &newTileView);
 
     std::shared_ptr<TileModel> getTileModel() const;
