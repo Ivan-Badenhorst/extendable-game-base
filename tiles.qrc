@@ -5,5 +5,6 @@
         <file>tiles_resize.jpg</file>
         <file>grass_resize.jpg</file>
         <file>cobble_resize.jpg</file>
+        <file>trapdoor_resize.jpg</file>
     </qresource>
 </RCC>

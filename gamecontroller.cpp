@@ -114,12 +114,11 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
 
     initializeView();
 
-//    tileController->update(0, 0);
+
     hpController->refreshAll();
     protController->refreshAll();
     enemyController->refreshAllGraphical();
-//    tileController->update(1, 1);
-    tileController->update(0, 0);
+    tileController->update(0, 0, false);
 
 }
 
@@ -169,12 +168,12 @@ void GameController::switchView(bool change)
     }
 
     initializeView();
-    tileController->update();
+    tileController->update(0, 0,false);
     hpController->refreshAll();
     protController->refreshAll();
     enemyController->refreshAllGraphical();
     protController->update(row, col);
-    tileController->update(row, col);
+//    tileController->update(row, col, false);
 
 
 }
@@ -216,7 +215,7 @@ void GameController::nextLevel()
     }
     else{return;}
 
-    auto levelFactory = levels[currentLevel];
+
     //cache current
     tileControllerPrevious = tileController;
     hpControllerPrevious = hpController;
@@ -224,8 +223,21 @@ void GameController::nextLevel()
     enemyControllerPrevious = enemyController;
     previous = true;
 
-    switchLevel(levelFactory);
+    if(next){
+        next = false;
+        tileController = tileControllerNext;
+        hpController = hpControllerNext;
+        protController = protControllerNext;
+        enemyController = enemyControllerNext;
 
+        setupUi();
+    }
+    else{
+        auto levelFactory = levels[currentLevel];
+        switchLevel(levelFactory);
+        switchView(false);
+
+    }
 
 }
 
@@ -234,13 +246,12 @@ void GameController::setupUi()
     auto [h, w] = tileController->getDimensions();
     height = h;
     width = w;
-    row = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
-    col = 0;/// THIS HAS TO BE EITHER 0 OR THE VALUE WE GET FROM CACHE!!!!
+    row = 0;
+    col = 0;
 
     gameView->clearMainWindow();
     QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
     switchView(false);
-    tileController->update(row,col);
 }
 
 void GameController::previousLevel()
@@ -250,6 +261,11 @@ void GameController::previousLevel()
         currentLevel-=1;
     }
     else return;
+    tileControllerNext = tileController;
+    hpControllerNext = hpController;
+    protControllerNext = protController;
+    enemyControllerNext = enemyController;
+    next = true;
 
     if(previous){
         previous = false;
@@ -259,11 +275,18 @@ void GameController::previousLevel()
         enemyController = enemyControllerPrevious;
 
         setupUi();
+
     }
     else{
         auto levelFactory = levels[currentLevel];
         switchLevel(levelFactory);
+        switchView(false);
     }
+
+    row = height-1;
+    col = width-1;
+    tileController->update(row, col, false);
+    protController->update(row, col);
 
 }
 

@@ -49,6 +49,11 @@ private:
     std::shared_ptr<ProtagonistController> protControllerPrevious {nullptr};
     std::shared_ptr<EnemyController> enemyControllerPrevious {nullptr};
     bool previous {false};
+    std::shared_ptr<TileController> tileControllerNext {nullptr};
+    std::shared_ptr<HealthPackController> hpControllerNext{nullptr};
+    std::shared_ptr<ProtagonistController> protControllerNext{nullptr};
+    std::shared_ptr<EnemyController> enemyControllerNext {nullptr};
+    bool next {false};
 
 
     int row {0};
