@@ -12,8 +12,34 @@ TileViewGraphical::TileViewGraphical()
 
 }
 
+void TileViewGraphical::AddPortalImage(int row, int col)
+{
+    auto icon = std::make_shared<QPixmap>(":/trapdoor_resize");
+    auto item = std::make_shared<QGraphicsPixmapItem>(*icon.get());
+
+    item->setPos(col*tileDim,row*tileDim);
+    item->setZValue(0.5);
+    tileDisplays.push_back(item);
+    scene->addItem(item.get());
+}
+
 void TileViewGraphical::update(int positionRow, int positionCol)
 {
+    if(!portalsDisplayed){
+        //display the portals
+
+        auto portals = tileModel->getPortals();
+
+        int row = portals.first.row;
+        int col = portals.first.col;
+        if(row >= 0 && col >=0) AddPortalImage(row, col);
+
+        row = portals.second.row;
+        col = portals.second.col;
+        if(row >= 0 && col >=0) AddPortalImage(row, col);
+
+        portalsDisplayed = true;
+    }
 
     auto halfDisplayWidth = displayWidth / 2;
     auto halfDisplayHeight = displayHeight / 2;
@@ -157,6 +183,7 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 void TileViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
 {
     scene = newScene;
+    portalsDisplayed = false;
 }
 
 void TileViewGraphical::setTileModel(const std::shared_ptr<TileModel> &newTileModel)
@@ -181,6 +208,7 @@ void TileViewGraphical::setTileModel(const std::shared_ptr<TileModel> &newTileMo
             hasBeenRendered[i].push_back(false);
         }
     }
+    portalsDisplayed = false;
 }
 
 
