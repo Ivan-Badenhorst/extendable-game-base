@@ -79,14 +79,20 @@ std::shared_ptr<QPixmap> TileViewGraphical::getIcon(int range)
         return std::make_shared<QPixmap>(":/cobble_resize");
         break;
     case 4:
-        return std::make_shared<QPixmap>(":/tile_resize");
+        return std::make_shared<QPixmap>(":/tiles_resize");
+        break;
+    default:
+        return std::make_shared<QPixmap>(":/mud_resize");
         break;
     }
+}
 
 void TileViewGraphical::clearView()
 {
     scene.reset();
-
+    for(auto& icon: tileDisplays){
+        icon.reset();
+    }
 }
 
 void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, int colEnd)
@@ -103,7 +109,13 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 //            if(hasBeenRendered[row][col] == false){
 
                 if(row >= 0 && row < tileTable.size() && col >= 0 && col < tileTable[0].size()){
-                    int range = round(tileTable[row][col]*4);
+
+                    auto val = tileTable[row][col];
+                    if (std::isinf(val)){
+                        val = 0;
+                    }
+                    std::cout << val << std::endl;
+                    int range = round(4-val*4);
                     auto icon = getIcon(range);
                     auto item = std::make_shared<QGraphicsPixmapItem>(*icon.get());
                     item->setPos(col*tileDim,row*tileDim);
