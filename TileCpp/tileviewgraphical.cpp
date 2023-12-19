@@ -75,6 +75,27 @@ void TileViewGraphical::update(int positionRow, int positionCol)
     prevRow = positionRow;
 }
 
+std::shared_ptr<QPixmap> TileViewGraphical::getIcon(int range)
+{
+    switch (range) {
+    case 0:
+        return std::make_shared<QPixmap>(":/mud_resize");
+        break;
+    case 1:
+        return std::make_shared<QPixmap>(":/gravel_resize");
+        break;
+    case 2:
+        return std::make_shared<QPixmap>(":/grass_resize");
+        break;
+    case 3:
+        return std::make_shared<QPixmap>(":/cobble_resize");
+        break;
+    case 4:
+        return std::make_shared<QPixmap>(":/tile_resize");
+        break;
+    }
+}
+
 void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, int colEnd)
 {
     auto tileTable = tileModel->getTileTable();
@@ -87,20 +108,33 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
             if(hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] == false){
 //            if(hasBeenRendered[row][col] == false){
-                auto rect = scene->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
-
-                int r = 0;
-                int g = 0;
-                int b = 0;
 
                 if(row >= 0 && row < tileTable.size() && col >= 0 && col < tileTable[0].size()){
-                    r = round(tileTable[row][col]*255);
+                    int range = round(tileTable[row][col]*4);
+                    auto icon = getIcon(range);
+                    auto item = std::make_shared<QGraphicsPixmapItem>(*icon.get());
+                    item->setPos(col*tileDim,row*tileDim);
+                    item->setZValue(0.1);
+                    tileDisplays.push_back(item);
+                    scene->addItem(item.get());
+                }
+                else{
+                    auto rect = scene->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
+
+                    int r = 0;
+                    int g = 0;
+                    int b = 0;
+
+                    QBrush brush(QColor(r,g,b));
+
+                    rect->setBrush(brush);
+                    rect->setZValue(0);
+
+
+
                 }
 
-                QBrush brush(QColor(r,g,b));
 
-                rect->setBrush(brush);
-                rect->setZValue(0);
 
                 hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] = true;
 //                hasBeenRendered[row][col] = true;

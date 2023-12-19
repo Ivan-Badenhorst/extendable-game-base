@@ -30,7 +30,9 @@ private:
     void displaySection(int rowStart, int rowEnd, int colStart, int colEnd);
 
     std::shared_ptr<QGraphicsScene> scene;
-
+    
+    std::shared_ptr<QPixmap> getIcon(int range);
+    std::vector<std::shared_ptr<QGraphicsPixmapItem>> tileDisplays;
 };
 
 #endif // TILEVIEWGRAPHICAL_H
