@@ -24,10 +24,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    
+
     
     std::unique_ptr<TextGameView> getTextView();
     
+
 private:
     Ui::MainWindow *ui;
     GameController* gameController;

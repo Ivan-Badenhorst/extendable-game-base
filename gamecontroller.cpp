@@ -15,6 +15,7 @@
 #include <chrono>
 #include <QCoreApplication>
 #include <QEventLoop>
+#include <QMessageBox>
 
 
 GameController*  GameController::gameControllerInstance = nullptr;
@@ -28,6 +29,10 @@ GameController::GameController()
 
 void GameController::input(const ArrowDirection &direction)
 {
+    auto prevRow = row;
+    auto prevCol = col;
+
+
     switch (direction) {
     case ArrowDirection::Left:
         if(col > 0) col--;
@@ -44,15 +49,27 @@ void GameController::input(const ArrowDirection &direction)
     }
     enemyController->refreshAllGraphical();
     int hpVal = hpController->update(row, col);
-    if(hpVal > 0){
-        protController->addHealth(hpVal);
-    }
+    if (hpVal > 0)   protController->addHealth(hpVal);
     protController->update(row, col);
-    tileController->update(row, col);
+    float tileVal=tileController->update(row, col);
+    if (tileVal > 0) {
+        isGameOver = protController->updateEnergy(tileVal);
+    }
+    if(isGameOver){
+        stopGame();
+    }
 
+    //tileController->update(row, col);
+    hpController->update(prevRow, prevCol);
 
 }
 
+void GameController::stopGame()
+{
+    protController->refreshAll();
+    QMessageBox::information(nullptr, "Game Over", "Game Ended - Protagonist's energy depleted!");
+    isInputDisabled = true;
+}
 
 
 GameController* GameController::getInstance()
@@ -77,6 +94,8 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     auto [h, w] = tileController->getDimensions();
     height = h;
     width = w;
+
+    isInputDisabled = false;
 
     if(levels.size() > 1) tileController->addPortal(h-1, w-1, true);
 
@@ -133,6 +152,11 @@ void GameController::initializeView()
 }
 
 
+bool GameController::getIsInputDisabled() const
+{
+    return isInputDisabled;
+}
+
 
 void GameController::addNewView(std::unique_ptr<GameView> gv)
 {
@@ -172,9 +196,9 @@ void GameController::switchView(bool change)
     hpController->refreshAll();
     protController->refreshAll();
     enemyController->refreshAllGraphical();
+    tileController->update(row, col);
     protController->update(row, col);
 //    tileController->update(row, col, false);
-
 
 }
 

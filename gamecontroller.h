@@ -25,6 +25,30 @@ public:
 
 
    void initializeView();
+   bool getIsInputDisabled() const;
+
+   private:
+   static GameController* gameControllerInstance;
+   std::unique_ptr<GameView> gameView;
+   std::deque<std::unique_ptr<GameView>> allGameViews;
+
+
+   std::shared_ptr<TileController> tileController;
+   std::shared_ptr<HealthPackController> hpController;
+   std::shared_ptr<ProtagonistController> protController;
+   std::shared_ptr<EnemyController> enemyController;
+   int row {0};
+   int col {0};
+   int width;
+   int height;
+   bool isGameOver {false};
+   bool isInputDisabled{false};
+
+
+   void stopGame();
+   GameController();
+   ~GameController();
+   void getNewView();
 
    void nextLevel(); //MAKE THIS PRIVATE MAYBE? MAKE LINKED LIST OF LEVELS!!
    void previousLevel();

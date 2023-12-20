@@ -4,6 +4,7 @@
 
 #include "commandtrienode.h"
 #include "gameview.h"
+#include "qlabel.h"
 #include "qplaintextedit.h"
 
 #include <QLineEdit>
@@ -33,10 +34,15 @@ public:
 
 private:
     std::shared_ptr<QPlainTextEdit> textEdit;
+    std::shared_ptr<QLabel> healthLabel;
+    std::shared_ptr<QLabel> healthValueLabel;
+    std::shared_ptr<QLabel> energyLabel;
+    std::shared_ptr<QLabel> energyValueLabel;
     std::shared_ptr<CommandLineEdit> lineEdit;
     std::shared_ptr<CommandTrieNode> commandTrie;
 
     void setupBasicCommands();///ADD A PUBLIC FUNCTION TO ADD MORE
+
 };
 
 #endif // TEXTGAMEVIEW_H

@@ -1,6 +1,8 @@
 #include "textgameview.h"
 #include "gamecontroller.h"
 #include "healthpackviewtext.h"
+#include "protagonistviewtext.h"
+#include "qlabel.h"
 #include "tileviewtext.h"
 
 #include <QMainWindow>
@@ -24,6 +26,18 @@ void TextGameView::initializeMainWindow()
     textEdit->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     textEdit->setLineWrapMode(QPlainTextEdit::LineWrapMode::NoWrap);
 
+
+    QHBoxLayout* layout = new QHBoxLayout();
+    healthLabel = std::make_shared<QLabel>("Health: ", &mainWindow);
+    healthValueLabel = std::make_shared<QLabel>(&mainWindow);
+    energyLabel = std::make_shared<QLabel>("Energy: ", &mainWindow);
+    energyValueLabel = std::make_shared<QLabel>(&mainWindow);
+    // Check if protView is an instance of ProtagonistViewText before setting health labels
+    if (auto protagonistTextView = dynamic_cast<ProtagonistViewText*>(protView.get())) {
+        protagonistTextView->setHealthLabels(healthValueLabel);
+        protagonistTextView->setEnergyLabels(energyValueLabel);
+    }
+
     //create a commandline edit
     lineEdit = std::make_shared<CommandLineEdit>(&mainWindow);
     lineEdit->setFixedWidth(textEdit->width());
@@ -31,11 +45,20 @@ void TextGameView::initializeMainWindow()
 
     // Add the QPlainTextEdit to the main window
     QVBoxLayout* layout = new QVBoxLayout();
+
     layout->setAlignment(Qt::AlignTop);
     layout->setContentsMargins(0, 0, 0, 0);
 
     layout->addWidget(textEdit.get());
+
+    // Add health labels to the layout
+    layout->addWidget(healthLabel.get());
+    layout->addWidget(healthValueLabel.get());
+    layout->addWidget(energyLabel.get());
+    layout->addWidget(energyValueLabel.get());
+
     layout->addWidget(lineEdit.get());
+
 
 
     // Set the layout to the central widget of the main window
@@ -44,21 +67,29 @@ void TextGameView::initializeMainWindow()
     mainWindow.setCentralWidget(centralWidget);
 
     //pass the text edit to the individual view:
-    if(auto pView = dynamic_cast<TileViewText*>(tileView.get())){
-        pView->setTextEdit(textEdit);
+    if(auto tView = dynamic_cast<TileViewText*>(tileView.get())){
+        tView->setTextEdit(textEdit);
     };
-    if(auto pView = dynamic_cast<HealthPackViewText*>(hpView.get())){
+    if(auto hView = dynamic_cast<HealthPackViewText*>(hpView.get())){
+        hView->setTextEdit(textEdit);
+    };
+    if(auto pView = dynamic_cast<ProtagonistViewText*>(protView.get())){
         pView->setTextEdit(textEdit);
     };
 }
 
 void TextGameView::clearMainWindow()
 {
-    ///TO BE IMPLEMENTED!!!
+
     lineEdit.reset();
     tileView->clearView();
     hpView->clearView();
+    protView->clearView();
     textEdit.reset();
+    healthLabel.reset();
+    healthValueLabel.reset();
+    energyLabel.reset();
+    energyValueLabel.reset();
 }
 
 void TextGameView::setupBasicCommands()

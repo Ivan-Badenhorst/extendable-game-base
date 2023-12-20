@@ -7,7 +7,8 @@ ProtagonistModel::ProtagonistModel(std::unique_ptr<Protagonist> prot)
     yPos = prot->getYPos();
     maxHealth = prot->getHealth();
     currentHealth = maxHealth;
-    energy = prot->getEnergy();
+    maxEnergy = prot->getEnergy();
+    energy = maxEnergy;
 }
 
 int ProtagonistModel::getPositionX() const
@@ -40,9 +41,21 @@ float ProtagonistModel::getEnergy() const
     return energy;
 }
 
-void ProtagonistModel::setEnergy(float value)
+bool ProtagonistModel::updateEnergy(float value)
 {
-    energy = value;
+    energy += value;
+    return (energy <= 0);
+}
+
+float ProtagonistModel::getMaxEnergy() const
+{
+    return maxEnergy;
+}
+
+void ProtagonistModel::updatePosition(int newXPos, int newYPos)
+{
+    xPos = newXPos;
+    yPos = newYPos;
 }
 
 void ProtagonistModel::addHealth(int hpValue)

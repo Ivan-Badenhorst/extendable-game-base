@@ -14,6 +14,16 @@ public:
     }
 };
 
+class EnergyProgressBar : public QProgressBar {
+public:
+    explicit EnergyProgressBar(QWidget *parent = nullptr) : QProgressBar(parent) {}
+
+    QString text() const override {
+        return QString("Energy: %1/%2 ").arg(value()).arg(maximum());
+    }
+};
+
+
 class GraphicalGameView: public GameView
 {
 public:
@@ -24,6 +34,7 @@ public:
 private:
     //main components
     std::shared_ptr<HealthProgressBar> healthBar;
+    std::shared_ptr<EnergyProgressBar> energyBar;
     std::shared_ptr<QGraphicsScene> scene;
 
     //supporting components

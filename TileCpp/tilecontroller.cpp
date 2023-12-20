@@ -7,7 +7,8 @@ TileController::TileController(std::shared_ptr<TileModel> tm)
 
 }
 
-void TileController::update(int row, int col, bool allowPortal)
+
+float TileController::update(int row, int col, bool allowPortal)
 {
     auto p = tileModel->getPortalAt(row, col);
     if(p.has_value() && allowPortal){
@@ -16,9 +17,10 @@ void TileController::update(int row, int col, bool allowPortal)
         else{ gc->previousLevel();}
     }
     else{
-        tileView->update(row, col);
+        tileView->update(row, col);        
     }
-
+    float val = tileModel->getTileValueAt(row,col);
+    return val;
 }
 
 std::tuple<int, int> TileController::getDimensions()

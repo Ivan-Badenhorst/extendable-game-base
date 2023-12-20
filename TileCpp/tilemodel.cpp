@@ -51,6 +51,14 @@ int TileModel::getColumns() const
     return columns;
 }
 
+
+float TileModel::getTileValueAt(int row, int col)
+{
+    if(row>=0 && row<rows && col>=0 && col<columns){
+        return tileTable[row][col];
+    }
+    return 0.0f;
+
 std::optional<bool> TileModel::getPortalAt(int row, int col)
 {
     std::optional<bool> b;

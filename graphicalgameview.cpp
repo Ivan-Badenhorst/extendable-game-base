@@ -19,27 +19,47 @@ void GraphicalGameView::initializeMainWindow()
         "QProgressBar::chunk { background-color: green; width: 10px; }"
         "QProgressBar::chunk:horizontal { margin: 0px; }"
         );
-    healthBar->setGeometry(300, 500, 280, 20);
-    healthBar->show();
+
+    energyBar = std::make_shared<EnergyProgressBar>(&mainWindow);
+    energyBar->setRange(0, 122);
+    energyBar->setValue(24);
+    energyBar->setTextVisible(true);
+    energyBar->setStyleSheet(
+        "QProgressBar { border: 2px solid grey; border-radius: 5px; background-color: grey; text-align: center; color: white; }"
+        "QProgressBar::chunk { background-color: blue; width: 10px; }"
+        "QProgressBar::chunk:horizontal { margin: 0px; }"
+        );
 
     if(auto pView = dynamic_cast<ProtagonistViewGraphical*>(protView.get())){
         pView->setHealthBar(healthBar);
+        pView->setEnergyBar(energyBar);
     };
 
-    ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
+
+
     if(scene == nullptr) scene = std::make_shared<QGraphicsScene>(&mainWindow);
     view =  std::make_shared<QGraphicsView>(scene.get());
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainWindow.setCentralWidget(view.get());
+    mainLayout->addWidget(view.get());
+
+    QHBoxLayout* barsLayout = new QHBoxLayout;
+    barsLayout->addWidget(healthBar.get());
+    barsLayout->addWidget(energyBar.get());
+
+    mainLayout->addLayout(barsLayout);
 
     // Create a widget to hold the view
     widget = new QWidget(&mainWindow);
 
     widget->setFixedSize(800, 400);
-    layout = new QHBoxLayout(widget);
-    layout->addWidget(view.get());
-    layout->setContentsMargins(0, 0, 0, 0);
+    widget->setLayout(mainLayout);
+    mainLayout->setAlignment(Qt::AlignTop);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+
 
     mainWindow.setCentralWidget(widget);
 
@@ -93,4 +113,5 @@ void GraphicalGameView::clearMainWindow()
 
 
     healthBar.reset();
+    energyBar.reset();
 }

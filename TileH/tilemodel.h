@@ -25,9 +25,10 @@ public:
     std::vector<std::vector<float> > getTileTable() const;
     int getRows() const;
     int getColumns() const;
+    float getTileValueAt(int row, int col);
     std::optional<bool> getPortalAt(int row, int col);
-
     std::pair<Portal, Portal> getPortals() const;
+
 
 private:
     std::vector<std::vector<float>> tileTable;
