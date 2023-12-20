@@ -55,8 +55,10 @@ private:
    int col {0};
    int width;
    int height;
-   bool isGameOver {false};
+   bool isGameOver{false};
    bool isInputDisabled{false};
+   bool isHealthOver{false};
+   bool isEnergyOver{false};
 
 
    void stopGame(QString title, QString message);

@@ -28,7 +28,7 @@ void ProtagonistViewGraphical::update()
 
 void ProtagonistViewGraphical::update(int row, int col)
 {
-    if(protModel->getEnergy() >0){
+    if(protModel->getEnergy() >0 && protModel->getCurrentHealth() > 0){
         prot =  QPixmap(":/prisoner");
     }
     else{

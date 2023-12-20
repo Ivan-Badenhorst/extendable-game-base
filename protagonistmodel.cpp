@@ -70,6 +70,15 @@ void ProtagonistModel::takeDamage(int hpValue)
     currentHealth -= hpValue;
 }
 
+bool ProtagonistModel::updateHealth(float hpValue)
+{
+    currentHealth += hpValue;
+    if(currentHealth > maxHealth){
+        maxHealth = currentHealth;
+    }
+    return (currentHealth <= 0);
+}
+
 int ProtagonistModel::getAttackDamage() const
 {
     return attackDamage;
