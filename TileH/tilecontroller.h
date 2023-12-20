@@ -18,7 +18,7 @@ public:
 
     void addPortal(int row, int col, bool nextLevel);
     void setTileView(const std::shared_ptr<TileView> &newTileView);
-
+    float getEnergy(int row, int col);
     std::shared_ptr<TileModel> getTileModel() const;
 
 private:

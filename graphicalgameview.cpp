@@ -2,6 +2,7 @@
 #include "HealthPackH/healthpackviewgraphical.h"
 #include "TileH/tileviewgraphical.h"
 #include "protagonistviewgraphical.h"
+#include "qapplication.h"
 #include "qboxlayout.h"
 #include "qgraphicsitem.h"
 #include "qgraphicsview.h"
@@ -81,6 +82,7 @@ void GraphicalGameView::initializeMainWindow()
 
 void GraphicalGameView::clearMainWindow()
 {
+
     QList<QGraphicsItem*> itemsToRemove = scene->items();
     for (QGraphicsItem* item : itemsToRemove) {
         if (dynamic_cast<QGraphicsRectItem*>(item)) {
@@ -88,7 +90,7 @@ void GraphicalGameView::clearMainWindow()
             delete item; // Free memory of deleted items
         }
     }
-
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
     // Update the view after removing items
     view->viewport()->update();
 
@@ -101,6 +103,7 @@ void GraphicalGameView::clearMainWindow()
     }
 
 
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
 
 //    scene->setParent(nullptr);
 
@@ -111,7 +114,10 @@ void GraphicalGameView::clearMainWindow()
     layout = nullptr;
 
 
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
 
     healthBar.reset();
     energyBar.reset();
+
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 10);
 }

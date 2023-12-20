@@ -23,7 +23,7 @@ MediumLevelFactory::MediumLevelFactory()
 std::shared_ptr<Level> MediumLevelFactory::createWorld()
 {
     World w;
-    w.createWorld(":/worldmap.png", 10,10);
+    w.createWorld(":/worldmap4.png", 100,100);
 
     //tile
     TileModel tm;

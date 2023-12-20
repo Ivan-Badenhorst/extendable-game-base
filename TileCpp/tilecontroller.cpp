@@ -21,7 +21,7 @@ float TileController::update(int row, int col, bool allowPortal)
     }
     float val = tileModel->getTileValueAt(row,col);
     return val;
-}
+    }
 
 std::tuple<int, int> TileController::getDimensions()
 {
@@ -39,6 +39,11 @@ void TileController::setTileView(const std::shared_ptr<TileView> &newTileView)
 {
     tileView = newTileView;
 
+}
+
+float TileController::getEnergy(int row, int col)
+{
+    return tileModel->getTileValueAt(row, col);
 }
 
 std::shared_ptr<TileModel> TileController::getTileModel() const

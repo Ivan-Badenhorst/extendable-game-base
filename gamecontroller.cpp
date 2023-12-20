@@ -51,16 +51,15 @@ void GameController::input(const ArrowDirection &direction)
     int hpVal = hpController->update(row, col);
     if (hpVal > 0)   protController->addHealth(hpVal);
     protController->update(row, col);
-    float tileVal=tileController->update(row, col);
+    float tileVal=tileController->getEnergy(row, col);
     if (tileVal > 0) {
         isGameOver = protController->updateEnergy(tileVal);
     }
     if(isGameOver){
         stopGame();
     }
-
-    //tileController->update(row, col);
     hpController->update(prevRow, prevCol);
+    tileController->update(row, col);
 
 }
 
@@ -192,11 +191,11 @@ void GameController::switchView(bool change)
     }
 
     initializeView();
-    tileController->update(0, 0,false);
+    tileController->update(row, col,false);
     hpController->refreshAll();
     protController->refreshAll();
     enemyController->refreshAllGraphical();
-    tileController->update(row, col);
+//    tileController->update(row, col);
     protController->update(row, col);
 //    tileController->update(row, col, false);
 
@@ -259,7 +258,6 @@ void GameController::nextLevel()
         auto levelFactory = levels[currentLevel];
         switchLevel(levelFactory);
         switchView(false);
-
     }
 
 }
@@ -288,6 +286,8 @@ void GameController::previousLevel()
     protControllerNext = protController;
     enemyControllerNext = enemyController;
     next = true;
+
+    std::cout << "PREVIOUSSSS" << std::endl;
 
     if(previous){
         previous = false;

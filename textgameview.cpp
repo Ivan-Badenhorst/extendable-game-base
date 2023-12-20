@@ -27,7 +27,7 @@ void TextGameView::initializeMainWindow()
     textEdit->setLineWrapMode(QPlainTextEdit::LineWrapMode::NoWrap);
 
 
-    QHBoxLayout* layout = new QHBoxLayout();
+    QHBoxLayout* layout1 = new QHBoxLayout();
     healthLabel = std::make_shared<QLabel>("Health: ", &mainWindow);
     healthValueLabel = std::make_shared<QLabel>(&mainWindow);
     energyLabel = std::make_shared<QLabel>("Energy: ", &mainWindow);
@@ -49,15 +49,19 @@ void TextGameView::initializeMainWindow()
     layout->setAlignment(Qt::AlignTop);
     layout->setContentsMargins(0, 0, 0, 0);
 
-    layout->addWidget(textEdit.get());
+    layout1->addWidget(textEdit.get());
+
 
     // Add health labels to the layout
-    layout->addWidget(healthLabel.get());
-    layout->addWidget(healthValueLabel.get());
-    layout->addWidget(energyLabel.get());
-    layout->addWidget(energyValueLabel.get());
+    layout1->addWidget(healthLabel.get());
+    layout1->addWidget(healthValueLabel.get());
+    layout1->addWidget(energyLabel.get());
+    layout1->addWidget(energyValueLabel.get());
 
+    layout->addLayout(layout1);
     layout->addWidget(lineEdit.get());
+
+
 
 
 
