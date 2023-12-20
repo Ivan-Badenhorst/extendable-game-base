@@ -30,7 +30,7 @@ public:
 
     void addHealth(int hpValue);
     void takeDamage(int hpValue);
-
+    bool updateHealth(float hpValue);
     bool updateEnergy(float energy);
 
 
