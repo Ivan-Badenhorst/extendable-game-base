@@ -1,5 +1,4 @@
-#include "easylevelfactory.h"
-
+#include "mediumlevelfactory.h"
 
 #include "protagonistcontroller.h"
 #include "protagonistmodel.h"
@@ -7,7 +6,7 @@
 #include "TileH/tilemodel.h"
 #include "TileH/tilecontroller.h"
 
-#include "easylevel.h"
+#include "mediumlevel.h"
 #include "HealthPackH/healthpackmodel.h"
 #include "HealthPackH/healthpackcontroller.h"
 
@@ -16,16 +15,15 @@
 #include "penemymodel.h"
 #include "enemycontroller.h"
 
-
-EasyLevelFactory::EasyLevelFactory()
+MediumLevelFactory::MediumLevelFactory()
 {
 
 }
 
-std::shared_ptr<Level> EasyLevelFactory::createWorld()
+std::shared_ptr<Level> MediumLevelFactory::createWorld()
 {
     World w;
-    w.createWorld(":/worldmap.png", 10,40);
+    w.createWorld(":/worldmap.png", 10,10);
 
     //tile
     TileModel tm;
@@ -57,11 +55,10 @@ std::shared_ptr<Level> EasyLevelFactory::createWorld()
     ec.addEnemyModel(std::make_shared<EnemyModel>(em));
     ec.addEnemyModel(std::make_shared<PEnemyModel>(pem));
 
-    auto easyLevel = std::make_shared<EasyLevel>(std::make_shared<TileController>(tc),
-                                std::make_shared<ProtagonistController>(pc), 
-                                std::make_shared<HealthPackController>(hpc),
-                                                       std::make_shared<EnemyController>(ec));
+    auto mediumLevel = std::make_shared<MediumLevel>( std::make_shared<TileController>(tc),
+                                                           std::make_shared<ProtagonistController>(pc),
+                                                           std::make_shared<HealthPackController>(hpc),
+                                                           std::make_shared<EnemyController>(ec));
 
-    return easyLevel;
+    return mediumLevel;
 }
-

@@ -12,8 +12,34 @@ TileViewGraphical::TileViewGraphical()
 
 }
 
+void TileViewGraphical::AddPortalImage(int row, int col)
+{
+    auto icon = std::make_shared<QPixmap>(":/trapdoor_resize");
+    auto item = std::make_shared<QGraphicsPixmapItem>(*icon.get());
+
+    item->setPos(col*tileDim,row*tileDim);
+    item->setZValue(0.5);
+    tileDisplays.push_back(item);
+    scene->addItem(item.get());
+}
+
 void TileViewGraphical::update(int positionRow, int positionCol)
 {
+    if(!portalsDisplayed){
+        //display the portals
+
+        auto portals = tileModel->getPortals();
+
+        int row = portals.first.row;
+        int col = portals.first.col;
+        if(row >= 0 && col >=0) AddPortalImage(row, col);
+
+        row = portals.second.row;
+        col = portals.second.col;
+        if(row >= 0 && col >=0) AddPortalImage(row, col);
+
+        portalsDisplayed = true;
+    }
 
     auto halfDisplayWidth = displayWidth / 2;
     auto halfDisplayHeight = displayHeight / 2;
@@ -21,6 +47,9 @@ void TileViewGraphical::update(int positionRow, int positionCol)
     auto tileTable = tileModel->getTileTable();
 
     if(prevRow < 0 || prevCol < 0 || std::abs(positionRow-prevRow) > 1 || std::abs(positionCol - prevCol) > 1){
+        displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
+    }
+    else if(hasBeenRendered[positionRow][positionCol] == false){
         displaySection(positionRow-halfDisplayHeight, positionRow+halfDisplayHeight, positionCol-halfDisplayWidth, positionCol+halfDisplayWidth);
     }
     else{//only display the new tiles
@@ -59,9 +88,37 @@ void TileViewGraphical::update(int positionRow, int positionCol)
     prevRow = positionRow;
 }
 
+
+std::shared_ptr<QPixmap> TileViewGraphical::getIcon(int range)
+{
+    switch (range) {
+    case 0:
+        return std::make_shared<QPixmap>(":/mud_resize");
+        break;
+    case 1:
+        return std::make_shared<QPixmap>(":/gravel_resize");
+        break;
+    case 2:
+        return std::make_shared<QPixmap>(":/grass_resize");
+        break;
+    case 3:
+        return std::make_shared<QPixmap>(":/cobble_resize");
+        break;
+    case 4:
+        return std::make_shared<QPixmap>(":/tiles_resize");
+        break;
+    default:
+        return std::make_shared<QPixmap>(":/mud_resize");
+        break;
+    }
+}
+
 void TileViewGraphical::clearView()
 {
     scene.reset();
+    for(auto& icon: tileDisplays){
+        icon.reset();
+    }
 }
 
 void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, int colEnd)
@@ -76,20 +133,38 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
             if(hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] == false){
 //            if(hasBeenRendered[row][col] == false){
-                auto rect = scene->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
-
-                int r = 0;
-                int g = 0;
-                int b = 0;
 
                 if(row >= 0 && row < tileTable.size() && col >= 0 && col < tileTable[0].size()){
-                    r = round(tileTable[row][col]*255);
+
+                    auto val = tileTable[row][col];
+                    if (std::isinf(val)){
+                        val = 0;
+                    }
+                    int range = round(4-val*4);
+                    auto icon = getIcon(range);
+                    auto item = std::make_shared<QGraphicsPixmapItem>(*icon.get());
+                    item->setPos(col*tileDim,row*tileDim);
+                    item->setZValue(0.1);
+                    tileDisplays.push_back(item);
+                    scene->addItem(item.get());
+                }
+                else{
+                    auto rect = scene->addRect(col*tileDim,row*tileDim, tileDim, tileDim);
+
+                    int r = 0;
+                    int g = 0;
+                    int b = 0;
+
+                    QBrush brush(QColor(r,g,b));
+
+                    rect->setBrush(brush);
+                    rect->setZValue(0);
+
+
+
                 }
 
-                QBrush brush(QColor(r,g,b));
 
-                rect->setBrush(brush);
-                rect->setZValue(0);
 
                 hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] = true;
 //                hasBeenRendered[row][col] = true;
@@ -108,6 +183,7 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 void TileViewGraphical::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
 {
     scene = newScene;
+    portalsDisplayed = false;
 }
 
 void TileViewGraphical::setTileModel(const std::shared_ptr<TileModel> &newTileModel)
@@ -115,6 +191,9 @@ void TileViewGraphical::setTileModel(const std::shared_ptr<TileModel> &newTileMo
     tileModel = newTileModel;
     int tileRows =  tileModel->getRows()+ displayHeight;
     int tileCols = tileModel->getColumns() + displayWidth;
+
+    hasBeenRendered.clear();
+    hasBeenRendered.resize(0);
     hasBeenRendered.reserve(tileRows);
 
 
@@ -129,6 +208,7 @@ void TileViewGraphical::setTileModel(const std::shared_ptr<TileModel> &newTileMo
             hasBeenRendered[i].push_back(false);
         }
     }
+    portalsDisplayed = false;
 }
 
 

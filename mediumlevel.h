@@ -1,23 +1,20 @@
-#ifndef EASYLEVEL_H
-#define EASYLEVEL_H
+#ifndef MEDIUMLEVEL_H
+#define MEDIUMLEVEL_H
 
-#include <memory>
-
-#include "TileH/tilecontroller.h"
-#include "HealthPackH/healthpackcontroller.h"
-#include "level.h"
 #include "protagonistcontroller.h"
 #include "enemycontroller.h"
+#include "TileH/tilecontroller.h"
+#include "HealthPackH/healthpackcontroller.h"
 
-class EasyLevel: public Level
+#include "level.h"
+
+class MediumLevel: public Level
 {
 public:
-
-    EasyLevel(std::shared_ptr<TileController> tc, 
-        std::shared_ptr<ProtagonistController> pc, 
-        std::shared_ptr<HealthPackController>hpc,
-        std::shared_ptr<EnemyController> ec);
-
+    MediumLevel(std::shared_ptr<TileController> tc,
+                std::shared_ptr<ProtagonistController> pc,
+                std::shared_ptr<HealthPackController>hpc,
+                std::shared_ptr<EnemyController> ec);
 
     std::shared_ptr<TileController> getTileController() const override;
     std::shared_ptr<HealthPackController> getHpController() const override;
@@ -31,4 +28,4 @@ private:
     std::shared_ptr<EnemyController> enemyController;
 };
 
-#endif // EASYLEVEL_H
+#endif // MEDIUMLEVEL_H

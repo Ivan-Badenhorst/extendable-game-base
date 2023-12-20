@@ -2,6 +2,7 @@
 #include "HealthPackH/healthpackviewgraphical.h"
 #include "enemyviewgraphical.h"
 #include "enemyviewtext.h"
+#include "mediumlevelfactory.h"
 #include "penemymodel.h"
 #include "penemyviewgraphical.h"
 #include "penemyviewtext.h"
@@ -84,9 +85,9 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
 {
     gameView = std::move(gv);
 
-    EasyLevelFactory easyLevelFactory;
-    auto level = easyLevelFactory.createWorld();
-    EasyLevel* easyLevel = static_cast<EasyLevel*>(level);
+    auto easyLevelFactory = std::make_shared<EasyLevelFactory>();
+    levels.push_back(easyLevelFactory);
+    auto easyLevel = easyLevelFactory->createWorld();
 
     tileController = easyLevel->getTileController();
 
@@ -95,6 +96,9 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     width = w;
 
     isInputDisabled = false;
+
+    if(levels.size() > 1) tileController->addPortal(h-1, w-1, true);
+
 
     hpController = easyLevel->getHpController();
     protController = easyLevel->getProtController();
@@ -129,10 +133,11 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
 
     initializeView();
 
-    tileController->update(0, 0);
+
     hpController->refreshAll();
     protController->refreshAll();
     enemyController->refreshAllGraphical();
+    tileController->update(0, 0, false);
 
 }
 
@@ -146,10 +151,12 @@ void GameController::initializeView()
 
 }
 
+
 bool GameController::getIsInputDisabled() const
 {
     return isInputDisabled;
 }
+
 
 void GameController::addNewView(std::unique_ptr<GameView> gv)
 {
@@ -158,11 +165,14 @@ void GameController::addNewView(std::unique_ptr<GameView> gv)
 
 }
 
-void GameController::switchView()
+void GameController::switchView(bool change)
 {
 
-    gameView->clearMainWindow();
-    getNewView();
+
+    if(change){
+        gameView->clearMainWindow();
+        getNewView();
+    }
     //for each view I have to set the model
     gameView->getProtView()->setProtModel(protController->getProtModel());
     gameView->getHpView()->setHpModel(hpController->getHpModel());
@@ -182,12 +192,13 @@ void GameController::switchView()
     }
 
     initializeView();
-    tileController->update();
+    tileController->update(0, 0,false);
     hpController->refreshAll();
     protController->refreshAll();
     enemyController->refreshAllGraphical();
     tileController->update(row, col);
-
+    protController->update(row, col);
+//    tileController->update(row, col, false);
 
 }
 
@@ -197,6 +208,113 @@ void GameController::getNewView()
     allGameViews.push_back(std::move(gameView));
     gameView = std::move(allGameViews.front());
     allGameViews.pop_front();
+}
+
+
+
+void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
+{
+    auto level = levelFactory->createWorld();
+    //UPDAGTE MY CONTROLLER POINTERS
+
+
+    tileController = level->getTileController();
+    hpController = level->getHpController();
+    protController = level->getProtController();
+    enemyController = level->getEnemyController();
+    //UPDATE ROW COL, WIDTH HEIGHT AS WELL!!!!!!
+
+
+    setupUi();
+    tileController->addPortal(0,0,false);
+    tileController->addPortal(height-1, width-1, true);
+}
+
+void GameController::nextLevel()
+{
+
+    if(currentLevel < levels.size()-1){
+        currentLevel+=1;
+    }
+    else{return;}
+
+
+    //cache current
+    tileControllerPrevious = tileController;
+    hpControllerPrevious = hpController;
+    protControllerPrevious = protController;
+    enemyControllerPrevious = enemyController;
+    previous = true;
+
+    if(next){
+        next = false;
+        tileController = tileControllerNext;
+        hpController = hpControllerNext;
+        protController = protControllerNext;
+        enemyController = enemyControllerNext;
+
+        setupUi();
+    }
+    else{
+        auto levelFactory = levels[currentLevel];
+        switchLevel(levelFactory);
+        switchView(false);
+
+    }
+
+}
+
+void GameController::setupUi()
+{
+    auto [h, w] = tileController->getDimensions();
+    height = h;
+    width = w;
+    row = 0;
+    col = 0;
+
+    gameView->clearMainWindow();
+    QCoreApplication::processEvents(QEventLoop::AllEvents, 50);
+    switchView(false);
+}
+
+void GameController::previousLevel()
+{
+    if(currentLevel > 0){
+        currentLevel-=1;
+    }
+    else return;
+    tileControllerNext = tileController;
+    hpControllerNext = hpController;
+    protControllerNext = protController;
+    enemyControllerNext = enemyController;
+    next = true;
+
+    if(previous){
+        previous = false;
+        tileController = tileControllerPrevious;
+        hpController = hpControllerPrevious;
+        protController = protControllerPrevious;
+        enemyController = enemyControllerPrevious;
+
+        setupUi();
+
+    }
+    else{
+        auto levelFactory = levels[currentLevel];
+        switchLevel(levelFactory);
+        switchView(false);
+    }
+
+    row = height-1;
+    col = width-1;
+    tileController->update(row, col, false);
+    protController->update(row, col);
+
+}
+
+void GameController::addLevel(const std::shared_ptr<LevelFactory> &level)
+{
+    levels.push_back(level);
 }
 
 

@@ -28,11 +28,16 @@ private:
     int displayWidth {16}; //in number of tiles
     int displayHeight {8}; //in number of tiles
 
+    bool portalsDisplayed {false};
+
     std::vector<std::vector<bool>> hasBeenRendered;
     void displaySection(int rowStart, int rowEnd, int colStart, int colEnd);
 
     std::shared_ptr<QGraphicsScene> scene;
-
+    
+    std::shared_ptr<QPixmap> getIcon(int range);
+    std::vector<std::shared_ptr<QGraphicsPixmapItem>> tileDisplays;
+    void AddPortalImage(int row, int col);
 };
 
 #endif // TILEVIEWGRAPHICAL_H

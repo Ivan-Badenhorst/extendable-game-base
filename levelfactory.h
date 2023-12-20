@@ -9,7 +9,7 @@ class LevelFactory
 {
 public:
     LevelFactory();
-    virtual Level* createWorld() {};
+    virtual std::shared_ptr<Level> createWorld() {};
 };
 
 #endif // LEVELFACTORY_H

@@ -1,7 +1,11 @@
 #include "healthpackviewtext.h"
 #include "qtextcursor.h"
+#include <future>
 #include <iostream>
 
+#include <QApplication>
+#include <QPlainTextEdit>
+#include <QTextBlock>
 
 HealthPackViewText::HealthPackViewText()
 {
@@ -10,6 +14,8 @@ HealthPackViewText::HealthPackViewText()
 
 void HealthPackViewText::update()
 {
+
+
     for(auto& hp: hpModel->getHealthPacks()){
 
         if(hp[2]>0){//unused pack
@@ -25,21 +31,14 @@ void HealthPackViewText::update()
 
 void HealthPackViewText::update(int row, int col, bool used)
 {
-
     int moveDown = 1 + 2*row;
     int moveRight = 2 + 4*col;
 
-    auto cursor = textEdit->textCursor();
-    cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
-    cursor.clearSelection();
-
-    cursor.movePosition(QTextCursor::Down, QTextCursor::MoveAnchor, moveDown);
-    cursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, moveRight);
-
-    cursor.deleteChar();
-    if(used) {cursor.insertText("h");}
-    else {cursor.insertText("H");}
-
+    QTextBlock  b = textEdit->document()->findBlockByLineNumber(moveDown);
+    auto position = b.length()*moveDown + moveRight;
+    auto newChar = "H";
+    if(used) newChar ="h";
+    textEdit->document()->setPlainText(textEdit->document()->toPlainText().replace(position, 1, newChar));
 }
 
 void HealthPackViewText::clearView()

@@ -2,6 +2,8 @@
 #include "enemyviewgraphical.h"
 #include "enemyviewtext.h"
 #include "healthpackviewtext.h"
+#include "mediumlevel.h"
+#include "mediumlevelfactory.h"
 #include "penemyviewgraphical.h"
 #include "penemyviewtext.h"
 #include "protagonistviewtext.h"
@@ -25,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setFocus();
-
+    gameController = GameController::getInstance();
 
     GraphicalGameView graphicalGameView(*this);
     std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
@@ -34,8 +36,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto textView = getTextView();
 
-    gameController = GameController::getInstance();
     gameController->addNewView(std::move(textView));
+
+
+
+    auto easyLevelFactory = std::make_shared<EasyLevelFactory>();
+    gameController->addLevel(easyLevelFactory);
+
+    auto levelF = std::make_shared<MediumLevelFactory>();
+    gameController->addLevel(levelF);
+
+
     gameController->startGame(std::move(gameView));
     //connect(gameController, SIGNAL(gameOverSignal()), *this, SLOT(disableKeyInputs()));
 
@@ -85,6 +96,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_S:
         gameController->switchView();
+        break;
+    case Qt::Key_N:
+        gameController->nextLevel();
+        break;
+    case Qt::Key_P:
+        gameController->previousLevel();
         break;
     default:
         QWidget::keyPressEvent(event);

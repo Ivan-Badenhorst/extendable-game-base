@@ -3,6 +3,7 @@
 #include "TileH/tileviewgraphical.h"
 #include "protagonistviewgraphical.h"
 #include "qboxlayout.h"
+#include "qgraphicsitem.h"
 #include "qgraphicsview.h"
 
 
@@ -80,6 +81,18 @@ void GraphicalGameView::initializeMainWindow()
 
 void GraphicalGameView::clearMainWindow()
 {
+    QList<QGraphicsItem*> itemsToRemove = scene->items();
+    for (QGraphicsItem* item : itemsToRemove) {
+        if (dynamic_cast<QGraphicsRectItem*>(item)) {
+            scene->removeItem(item);
+            delete item; // Free memory of deleted items
+        }
+    }
+
+    // Update the view after removing items
+    view->viewport()->update();
+
+
     tileView->clearView();
     hpView->clearView();
     protView->clearView();
@@ -90,11 +103,13 @@ void GraphicalGameView::clearMainWindow()
 
 
 //    scene->setParent(nullptr);
+
     view.reset();
     widget->setParent(nullptr);
     widget = nullptr;
 
     layout = nullptr;
+
 
 
     healthBar.reset();

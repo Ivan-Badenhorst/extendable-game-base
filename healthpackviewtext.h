@@ -6,6 +6,7 @@
 #include "HealthPackH/healthpackview.h"
 #include "qplaintextedit.h"
 #include <memory>
+#include <mutex>
 class HealthPackViewText: public HealthPackView
 {
 public:
@@ -19,6 +20,7 @@ public:
 
 private:
     std::shared_ptr<QPlainTextEdit> textEdit;
+    std::mutex myMutex;
 };
 
 #endif // HEALTHPACKVIEWTEXT_H
