@@ -1,16 +1,14 @@
 #include "mainwindow.h"
-#include "enemyviewgraphical.h"
 #include "enemyviewtext.h"
 #include "healthpackviewtext.h"
-#include "mediumlevel.h"
 #include "mediumlevelfactory.h"
-#include "penemyviewgraphical.h"
 #include "penemyviewtext.h"
 #include "protagonistviewtext.h"
 #include "tileviewtext.h"
 #include "ui_mainwindow.h"
 #include "constants.h"
 #include "gamecontroller.h"
+#include  "easylevelfactory.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -25,32 +23,25 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    //setup this
     ui->setupUi(this);
     this->setFocus();
+
     gameController = GameController::getInstance();
-
     GraphicalGameView graphicalGameView(*this);
-    std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
+    auto gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
 
-    //Add here all extra views. For these the views should be made already
-
+    //create views to add to the gameController:
     auto textView = getTextView();
-
     gameController->addNewView(std::move(textView));
 
-
-
+    //add aditional levels to the gameController:
     auto easyLevelFactory = std::make_shared<EasyLevelFactory>();
     gameController->addLevel(easyLevelFactory);
-
     auto levelF = std::make_shared<MediumLevelFactory>();
     gameController->addLevel(levelF);
 
-
     gameController->startGame(std::move(gameView));
-    //connect(gameController, SIGNAL(gameOverSignal()), *this, SLOT(disableKeyInputs()));
-
-
 
 }
 
@@ -63,10 +54,12 @@ MainWindow::~MainWindow()
 std::unique_ptr<TextGameView> MainWindow::getTextView()
 {
     auto gameView = std::make_unique<TextGameView>(*this);
+
     //make the views:
     gameView->setHpView(std::make_shared<HealthPackViewText>());
     gameView->setProtView(std::make_shared<ProtagonistViewText>());
     gameView->setTileView(std::make_shared<TileViewText>());
+
     //for each type of enemy view we make a view!!
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
     auto pev = std::make_shared<PEnemyViewText>();
@@ -103,12 +96,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_S:
         gameController->switchView();
-        break;
-    case Qt::Key_N:
-        gameController->nextLevel();
-        break;
-    case Qt::Key_P:
-        gameController->previousLevel();
         break;
     default:
         QWidget::keyPressEvent(event);
