@@ -1,7 +1,6 @@
 #include "gamecontroller.h"
 #include "HealthPackH/healthpackviewgraphical.h"
 #include "enemyviewgraphical.h"
-#include "enemyviewtext.h"
 #include "mediumlevelfactory.h"
 #include "penemymodel.h"
 #include "enemymodel.h"
@@ -53,26 +52,15 @@ void GameController::input(const ArrowDirection &direction)
     }
 
 
-
-    //i will get a contains method //and attack method
-    // returns boolean
-    //i need a function that first sees if it's an enemy
-    // if i see that it is an enemy, I can initiate an attack
-    // I should be able to attack the enemy until it dies
-    // Dep on enemy I should also take some damage...
-
-
-
     if (enemyController->containsEnemy(col, row) && !(enemyController->isDefeated(col, row)))
     {
         enemyController->attackEnemy(col, row, protController->getAttackDamage());
-        isHealthOver = protController->updateHealth(-10); //does nothing now
+        isHealthOver = protController->updateHealth(-10); //does fixed damage now
         row = prevRow;
         col = prevCol;
     }
 
 
-    enemyController->refreshAllGraphical();
     int hpVal = hpController->update(row, col);
     if (hpVal > 0)  {
         protController->updateHealth(hpVal);
