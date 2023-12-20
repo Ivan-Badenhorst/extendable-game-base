@@ -81,17 +81,17 @@ void GameController::input(const ArrowDirection &direction)
         isGameOver = protController->updateEnergy(tileVal);
     }
     if(isGameOver){
-        stopGame();
+        stopGame("Game Over", "Game Ended - Protagonist's energy depleted!");
     }
     hpController->update(prevRow, prevCol);
     tileController->update(row, col);
 
 }
 
-void GameController::stopGame()
+void GameController::stopGame(QString title, QString message)
 {
     protController->refreshAll();
-    QMessageBox::information(nullptr, "Game Over", "Game Ended - Protagonist's energy depleted!");
+    QMessageBox::information(nullptr, title, message);
     isInputDisabled = true;
 }
 
@@ -266,7 +266,10 @@ void GameController::nextLevel()
     if(currentLevel < levels.size()-1){
         currentLevel+=1;
     }
-    else{return;}
+    else{
+        stopGame("Game Complete!", "You win! Well done!");
+        return;
+    }
 
 
     //cache current
@@ -276,18 +279,14 @@ void GameController::nextLevel()
     levels[previousLevel].second.hpController = hpController;
     levels[previousLevel].second.protController = protController;
     levels[previousLevel].second.tileController = tileController;
-
-    previous = true;
-
-
-
+    levels[previousLevel].second.initialized = true;
 
     if(levels[currentLevel].second.initialized){
 
-        tileController = levels[previousLevel].second.tileController;
-        hpController = levels[previousLevel].second.hpController;
-        protController = levels[previousLevel].second.protController;
-        enemyController = levels[previousLevel].second.enemyController;
+        tileController = levels[currentLevel].second.tileController;
+        hpController = levels[currentLevel].second.hpController;
+        protController = levels[currentLevel].second.protController;
+        enemyController = levels[currentLevel].second.enemyController;
 
         setupUi();
     }
@@ -314,24 +313,24 @@ void GameController::setupUi()
 
 void GameController::previousLevel()
 {
+    int previousLevel = currentLevel;
     if(currentLevel > 0){
         currentLevel-=1;
     }
     else return;
-    tileControllerNext = tileController;
-    hpControllerNext = hpController;
-    protControllerNext = protController;
-    enemyControllerNext = enemyController;
-    next = true;
 
-    std::cout << "PREVIOUSSSS" << std::endl;
+    levels[previousLevel].second.enemyController = enemyController;
+    levels[previousLevel].second.hpController = hpController;
+    levels[previousLevel].second.protController = protController;
+    levels[previousLevel].second.tileController = tileController;
+    levels[previousLevel].second.initialized = true;
 
-    if(previous){
-        previous = false;
-        tileController = tileControllerPrevious;
-        hpController = hpControllerPrevious;
-        protController = protControllerPrevious;
-        enemyController = enemyControllerPrevious;
+    if(levels[currentLevel].second.initialized){
+
+        tileController = levels[currentLevel].second.tileController;
+        hpController = levels[currentLevel].second.hpController;
+        protController = levels[currentLevel].second.protController;
+        enemyController = levels[currentLevel].second.enemyController;
 
         setupUi();
 

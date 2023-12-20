@@ -59,7 +59,7 @@ private:
    bool isInputDisabled{false};
 
 
-   void stopGame();
+   void stopGame(QString title, QString message);
    GameController();
    ~GameController();
 
