@@ -3,8 +3,8 @@
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
 
-PEnemyViewGraphical::PEnemyViewGraphical(std::shared_ptr<PEnemyModel> pem)
-: penemyModel(pem)
+PEnemyViewGraphical::PEnemyViewGraphical()
+
 {
 
 }
@@ -18,6 +18,19 @@ void PEnemyViewGraphical::update()
     for(auto& penemy: penemyModel->getEnemies()){
         displayEnemy(std::make_shared<QGraphicsPixmapItem>(enemyIcon), penemy.get()->getXPos(), penemy.get()->getYPos());
     }
+}
+
+void PEnemyViewGraphical::clearView()
+{
+    if (scene != nullptr) {
+        scene.reset();
+    }
+
+}
+
+void PEnemyViewGraphical::setPEnemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel)
+{
+    penemyModel = newPenemyModel;
 }
 
 

@@ -14,6 +14,7 @@ void ProtagonistController::refreshAll()
 void ProtagonistController::update(int row, int col)
 {
     protView->update(row, col);
+    protModel->updatePosition(row,col);
 }
 
 void ProtagonistController::addHealth(int hpValue)
@@ -21,6 +22,14 @@ void ProtagonistController::addHealth(int hpValue)
     protModel->addHealth(hpValue);
     protView->updateHealth();
 }
+
+bool ProtagonistController::updateEnergy(float enValue)
+{
+    bool isDead = protModel->updateEnergy(-enValue);
+    protView->updateEnergy();
+    return isDead;
+}
+
 
 void ProtagonistController::setProtView(const std::shared_ptr<ProtagonistView> &newProtView)
 {

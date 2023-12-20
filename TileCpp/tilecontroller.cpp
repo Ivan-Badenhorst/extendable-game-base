@@ -1,4 +1,5 @@
 #include "TileH/tilecontroller.h"
+#include "gamecontroller.h"
 
 TileController::TileController(std::shared_ptr<TileModel> tm)
       :tileModel(tm)
@@ -6,9 +7,20 @@ TileController::TileController(std::shared_ptr<TileModel> tm)
 
 }
 
-void TileController::update(int row, int col)
+
+float TileController::update(int row, int col, bool allowPortal)
 {
-    tileView->update(row, col);
+    auto p = tileModel->getPortalAt(row, col);
+    if(p.has_value() && allowPortal){
+        auto gc = GameController::getInstance();
+        if(p.value()) {gc->nextLevel();}
+        else{ gc->previousLevel();}
+    }
+    else{
+        tileView->update(row, col);        
+    }
+    float val = tileModel->getTileValueAt(row,col);
+    return val;
 }
 
 std::tuple<int, int> TileController::getDimensions()
@@ -18,9 +30,15 @@ std::tuple<int, int> TileController::getDimensions()
 
 }
 
+void TileController::addPortal(int row, int col, bool nextLevel)
+{
+    tileModel->addPortal(row, col, nextLevel);
+}
+
 void TileController::setTileView(const std::shared_ptr<TileView> &newTileView)
 {
     tileView = newTileView;
+
 }
 
 std::shared_ptr<TileModel> TileController::getTileModel() const

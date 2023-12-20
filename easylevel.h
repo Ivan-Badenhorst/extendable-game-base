@@ -20,12 +20,9 @@ public:
 
 
     std::shared_ptr<TileController> getTileController() const override;
-
-    void setTileController(std::shared_ptr<TileController> newTileController);
-
-    std::shared_ptr<HealthPackController> getHpController() const;
-    std::shared_ptr<ProtagonistController> getProtController() const;
-    std::shared_ptr<EnemyController> getEnemyController() const;
+    std::shared_ptr<HealthPackController> getHpController() const override;
+    std::shared_ptr<ProtagonistController> getProtController() const override;
+    std::shared_ptr<EnemyController> getEnemyController() const override;
 
 private:
     std::shared_ptr<TileController> tileController;

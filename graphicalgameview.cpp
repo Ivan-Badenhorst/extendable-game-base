@@ -3,6 +3,7 @@
 #include "TileH/tileviewgraphical.h"
 #include "protagonistviewgraphical.h"
 #include "qboxlayout.h"
+#include "qgraphicsitem.h"
 #include "qgraphicsview.h"
 
 
@@ -18,29 +19,49 @@ void GraphicalGameView::initializeMainWindow()
         "QProgressBar::chunk { background-color: green; width: 10px; }"
         "QProgressBar::chunk:horizontal { margin: 0px; }"
         );
-    healthBar->setGeometry(300, 500, 280, 20);
-    healthBar->show();
+
+    energyBar = std::make_shared<EnergyProgressBar>(&mainWindow);
+    energyBar->setRange(0, 122);
+    energyBar->setValue(24);
+    energyBar->setTextVisible(true);
+    energyBar->setStyleSheet(
+        "QProgressBar { border: 2px solid grey; border-radius: 5px; background-color: grey; text-align: center; color: white; }"
+        "QProgressBar::chunk { background-color: blue; width: 10px; }"
+        "QProgressBar::chunk:horizontal { margin: 0px; }"
+        );
 
     if(auto pView = dynamic_cast<ProtagonistViewGraphical*>(protView.get())){
         pView->setHealthBar(healthBar);
+        pView->setEnergyBar(energyBar);
     };
 
-    ///TRANSFORM TO SMART POINTER!!!!!!!!!!!
-    scene = std::make_shared<QGraphicsScene>(&mainWindow);
+
+
+    if(scene == nullptr) scene = std::make_shared<QGraphicsScene>(&mainWindow);
     view =  std::make_shared<QGraphicsView>(scene.get());
     view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout;
     mainWindow.setCentralWidget(view.get());
+    mainLayout->addWidget(view.get());
+
+    QHBoxLayout* barsLayout = new QHBoxLayout;
+    barsLayout->addWidget(healthBar.get());
+    barsLayout->addWidget(energyBar.get());
+
+    mainLayout->addLayout(barsLayout);
 
     // Create a widget to hold the view
-    widget = std::make_shared<QWidget>(&mainWindow);
+    widget = new QWidget(&mainWindow);
 
     widget->setFixedSize(800, 400);
-    layout = std::make_shared<QHBoxLayout>(widget.get());
-    layout->addWidget(view.get());
-    layout->setContentsMargins(0, 0, 0, 0);
+    widget->setLayout(mainLayout);
+    mainLayout->setAlignment(Qt::AlignTop);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
 
-    mainWindow.setCentralWidget(widget.get());
+
+    mainWindow.setCentralWidget(widget);
 
     if(auto tView = dynamic_cast<TileViewGraphical*>(tileView.get())){
         tView->setScene(scene);
@@ -56,11 +77,41 @@ void GraphicalGameView::initializeMainWindow()
             eView->setScene(scene);
         };
     }
-
-    /// STILL NEED TO IMPLEMENT THE CLEAR FUNCTION PROPERLY!!! -> CALL THE RESET IN ALL THE VIEWS!!!
 }
 
 void GraphicalGameView::clearMainWindow()
 {
-    healthBar->reset();
+    QList<QGraphicsItem*> itemsToRemove = scene->items();
+    for (QGraphicsItem* item : itemsToRemove) {
+        if (dynamic_cast<QGraphicsRectItem*>(item)) {
+            scene->removeItem(item);
+            delete item; // Free memory of deleted items
+        }
+    }
+
+    // Update the view after removing items
+    view->viewport()->update();
+
+
+    tileView->clearView();
+    hpView->clearView();
+    protView->clearView();
+    for(auto& eV: enemyView){
+        eV->clearView();
+    }
+
+
+
+//    scene->setParent(nullptr);
+
+    view.reset();
+    widget->setParent(nullptr);
+    widget = nullptr;
+
+    layout = nullptr;
+
+
+
+    healthBar.reset();
+    energyBar.reset();
 }

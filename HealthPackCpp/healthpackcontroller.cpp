@@ -16,7 +16,7 @@ void HealthPackController::refreshAll()
 int HealthPackController::update(int row, int col)
 {
     int hpValue = hpModel->containsHp(row, col);
-    if(hpValue > 0) hpView->update(row,col);
+    if(hpValue != 0) hpView->update(row,col);
     return hpValue;
 }
 

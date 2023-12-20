@@ -1,5 +1,5 @@
 QT       += core gui
-
+QT       += widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -15,22 +15,31 @@ SOURCES += \
     TileCpp/tilecontroller.cpp \
     TileCpp/tilemodel.cpp \
     TileCpp/tileviewgraphical.cpp \
+    commandtrienode.cpp \
     easylevel.cpp \
     easylevelfactory.cpp \
     enemycontroller.cpp \
     enemymodel.cpp \
     enemyviewgraphical.cpp \
+    enemyviewtext.cpp \
     gamecontroller.cpp \
     gameview.cpp \
     graphicalgameview.cpp \
+    healthpackviewtext.cpp \
     levelfactory.cpp \
     main.cpp \
+    mediumlevel.cpp \
+    mediumlevelfactory.cpp \
     penemymodel.cpp \
     penemyviewgraphical.cpp \
+    penemyviewtext.cpp \
     protagonistcontroller.cpp \
     protagonistmodel.cpp \
     protagonistviewgraphical.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    protagonistviewtext.cpp \
+    textgameview.cpp \
+    tileviewtext.cpp
 
 
 
@@ -44,25 +53,36 @@ HEADERS += \
     TileH/tilemodel.h \
     TileH/tileview.h \
     TileH/tileviewgraphical.h \
+    commandtrienode.h \
     easylevel.h \
     easylevelfactory.h \
     enemycontroller.h \
     enemymodelinterface.h \
+    enemyview.h \
     enemyviewgraphical.h \
     enemyviewinterface.h \
+    enemyviewtext.h \
     gamecontroller.h \
     gameview.h \
     graphicalgameview.h \
+    healthpackviewtext.h \
     level.h \
     levelfactory.h \
     mainwindow.h \
+    mediumlevel.h \
+    mediumlevelfactory.h \
     penemymodel.h \
+    penemyview.h \
     penemyviewgraphical.h \
+    penemyviewtext.h \
     protagonistcontroller.h \
     protagonistmodel.h \
     protagonistview.h \
     protagonistviewgraphical.h \
-    constants.h
+    constants.h \
+    protagonistviewtext.h \
+    textgameview.h \
+    tileviewtext.h
 
 FORMS += \
     mainwindow.ui
@@ -77,7 +97,8 @@ RESOURCES += \
     Maps.qrc \
     Protagonist.qrc \
     HealthPack.qrc \
-    Enemies.qrc
+    Enemies.qrc \
+    tiles.qrc
 
 
 
@@ -90,16 +111,17 @@ DEPENDPATH += $$PWD/../CompiledLib/inc
 
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/release/ -lworld
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/debug/ -lworld
-else:unix: LIBS += -L$$PWD/../APT_fp_resources/worldsource/ -lworld
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/release/ -lworld
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/debug/ -lworld
+#else:unix: LIBS += -L$$PWD/../APT_fp_resources/worldsource/ -lworld
 
-INCLUDEPATH += $$PWD/../APT_fp_resources/worldsource/debug
-DEPENDPATH += $$PWD/../APT_fp_resources/worldsource/debug
+#INCLUDEPATH += $$PWD/../APT_fp_resources/worldsource/debug
+#DEPENDPATH += $$PWD/../APT_fp_resources/worldsource/debug
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/release/ -lworld
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/debug/ -lworld
-else:unix: LIBS += -L$$PWD/../APT_fp_resources/worldsource/ -lworld
+#win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/release/ -lworld
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../APT_fp_resources/worldsource/debug/ -lworld
+#else:unix: LIBS += -L$$PWD/../APT_fp_resources/worldsource/ -lworld
+
 
 INCLUDEPATH += $$PWD/../APT_fp_resources/worldsource
 DEPENDPATH += $$PWD/../APT_fp_resources/worldsource

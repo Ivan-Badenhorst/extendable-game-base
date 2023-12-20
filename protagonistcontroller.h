@@ -12,6 +12,7 @@ public:
     void update(int row, int col);
     void landedOnHp();
     void addHealth(int hpValue);
+    bool updateEnergy(float enValue);
 
     void setProtView(const std::shared_ptr<ProtagonistView> &newProtView);
 
