@@ -50,15 +50,15 @@ std::shared_ptr<Level> MediumLevelFactory::createWorld()
             em.addEnemy(std::move(enemy));
         }
     }
-
-    EnemyController ec;
-    ec.addEnemyModel(std::make_shared<EnemyModel>(em));
-    ec.addEnemyModel(std::make_shared<PEnemyModel>(pem));
+    auto ec = std::make_shared<EnemyController>();
+    ec->init();
+    ec->addEnemyModel(std::make_shared<EnemyModel>(em));
+    ec->addEnemyModel(std::make_shared<PEnemyModel>(pem));
 
     auto mediumLevel = std::make_shared<MediumLevel>( std::make_shared<TileController>(tc),
                                                            std::make_shared<ProtagonistController>(pc),
                                                            std::make_shared<HealthPackController>(hpc),
-                                                           std::make_shared<EnemyController>(ec));
+                                                           ec);
 
     return mediumLevel;
 }

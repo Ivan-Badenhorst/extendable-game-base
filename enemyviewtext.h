@@ -12,6 +12,7 @@ public:
     void update() override;
     void clearView() override;
     void setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyModel) override;
+    void update(int row, int col,  bool defeated) override;
 
 private:
     std::shared_ptr<EnemyModel> enemyModel;

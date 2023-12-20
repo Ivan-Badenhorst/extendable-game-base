@@ -25,3 +25,8 @@ void EnemyViewText::setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyMod
     enemyModel = newEnemyModel;
 }
 
+void EnemyViewText::update(int row, int col, bool defeated)
+{
+
+}
+

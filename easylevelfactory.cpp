@@ -73,11 +73,11 @@ std::shared_ptr<Level> EasyLevelFactory::createWorld()
 //    ec.addEnemyGraphicalView(std::make_shared<PEnemyViewGraphical>(pevg));
     
     /// TODO: adapt other controllers to be made shared before passed like enemycontroller
-    auto easyLevel = new EasyLevel(std::make_shared<TileController>(tc), 
+    return std::make_shared<EasyLevel>(std::make_shared<TileController>(tc),
                                 std::make_shared<ProtagonistController>(pc), 
                                 std::make_shared<HealthPackController>(hpc),
                                 ec);
 
-    return easyLevel;
+
 }
 

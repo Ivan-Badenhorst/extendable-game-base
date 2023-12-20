@@ -145,12 +145,12 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     for(auto& e: em){
         if (auto pEnemyModel = dynamic_cast<PEnemyModel*>(e.get())) {
 
-            std::shared_ptr<EnemyViewInterface> pev = std::make_shared<PEnemyViewGraphical>(std::make_shared<PEnemyModel>(*pEnemyModel));
+            auto pev = std::make_shared<PEnemyViewGraphical>();
             pev->setEnemyType("PEnemy");
             pev->setPEnemyModel(std::make_shared<PEnemyModel>(*pEnemyModel));
             enemyViews.push_back(pev);
         } else if(auto enemyModel = dynamic_cast<EnemyModel*>(e.get())){
-            std::shared_ptr<EnemyViewInterface> ev = std::make_shared<EnemyViewGraphical>(std::make_shared<EnemyModel>(*enemyModel));
+            auto ev = std::make_shared<EnemyViewGraphical>();
             ev->setEnemyType("Enemy");
             ev->setEnemyModel(std::make_shared<EnemyModel>(*enemyModel));
             enemyViews.push_back(ev);

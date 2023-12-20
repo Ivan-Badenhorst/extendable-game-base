@@ -79,7 +79,6 @@ public:
 
     void drainPEnemy(int col, int row);
 
-    std::vector<std::shared_ptr<EnemyModelInterface> > getAllEnemyModels() const;
     std::shared_ptr<EnemyModel> getEnemyModel() const;
     std::shared_ptr<PEnemyModel> getPEnemyModel() const;
 

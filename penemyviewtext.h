@@ -11,6 +11,7 @@ public:
     PEnemyViewText();
     void update() override;
     void clearView() override;
+    void update(int row, int col,  bool defeated) override;
 
 
     void setPEnemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel) override;
