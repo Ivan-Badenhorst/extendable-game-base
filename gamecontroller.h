@@ -86,6 +86,10 @@ private:
 
     void switchLevel(std::shared_ptr<LevelFactory> &levelFactory);
     void setupUi();
+    void setModelInViews();
+    void cacheLevel(int previousLevel);
+
+    std::vector<std::shared_ptr<EnemyViewInterface>> setupGraphicalView();
 }
 ;
 
