@@ -120,8 +120,8 @@ void GameController::startGame(std::unique_ptr<GraphicalGameView> gv)
     height = h;
     width = w;
     isInputDisabled = false;
-    if(levels.size() > 1) tileController->addPortal(h-1, w-1, true);
 
+    tileController->addPortal(h-1, w-1, true);
     //setup graphic views:
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews = setupGraphicalView();
     gameView->setEnemyView(enemyViews);

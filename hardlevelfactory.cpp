@@ -1,22 +1,22 @@
-#include "easylevelfactory.h"
+#include "hardlevelfactory.h"
+#include "hardlevel.h"
 #include "protagonistcontroller.h"
 #include "TileH/tilecontroller.h"
-#include "easylevel.h"
 #include "HealthPackH/healthpackcontroller.h"
 #include "enemymodel.h"
 #include "penemymodel.h"
 #include "enemycontroller.h"
 
-
-EasyLevelFactory::EasyLevelFactory()
+HardLevelFactory::HardLevelFactory()
 {
 
 }
 
-std::shared_ptr<Level> EasyLevelFactory::createWorld()
+std::shared_ptr<Level> HardLevelFactory::createWorld()
 {
+    ///ADD X ENEMY IN HERE
     World w;
-    w.createWorld(":/worldmap.png", 100,10);
+    w.createWorld(":/worldmap4.png", 100, 10);
 
     auto [tc, pc, hpc] = basicControllers(w);
 
@@ -40,6 +40,6 @@ std::shared_ptr<Level> EasyLevelFactory::createWorld()
     ec->addEnemyModel(em);
     ec->addEnemyModel(pem);
 
-    return std::make_shared<EasyLevel>(tc,  pc, hpc, ec);
-}
+    return std::make_shared<HardLevel>(tc,  pc, hpc, ec);
 
+}

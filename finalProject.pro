@@ -25,6 +25,8 @@ SOURCES += \
     gamecontroller.cpp \
     gameview.cpp \
     graphicalgameview.cpp \
+    hardlevel.cpp \
+    hardlevelfactory.cpp \
     healthpackviewtext.cpp \
     levelfactory.cpp \
     main.cpp \
@@ -66,6 +68,8 @@ HEADERS += \
     gamecontroller.h \
     gameview.h \
     graphicalgameview.h \
+    hardlevel.h \
+    hardlevelfactory.h \
     healthpackviewtext.h \
     level.h \
     levelfactory.h \
