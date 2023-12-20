@@ -1,4 +1,5 @@
 #include "enemycontroller.h"
+#include "penemymodel.h"
 
 
 EnemyController::EnemyController()
@@ -31,7 +32,9 @@ void EnemyController::setEnemyView(const std::vector<std::shared_ptr<EnemyViewIn
     enemyViews = newEnemyView;
 }
 
-std::vector<std::shared_ptr<EnemyModelInterface>> EnemyController::getEnemyModels() const
+
+std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getAllEnemyModels() const
+
 {
     return enemyModels;
 }
@@ -101,4 +104,26 @@ void EnemyController::attackEnemy(int col, int row, int damage)
 void EnemyController::drainPEnemy(int col, int row)
 {
     std::cout << "Draining Penemy : " << col << "," << row << std::endl;
+}
+
+std::shared_ptr<EnemyModel>  EnemyController::getEnemyModel() const
+{
+
+    for(auto&m:enemyModels){
+        if(auto enemyM = dynamic_cast<EnemyModel*>(m.get())){
+            return std::make_shared<EnemyModel>(*enemyM);
+        }
+    }
+
+}
+
+std::shared_ptr<PEnemyModel>  EnemyController::getPEnemyModel() const
+{
+
+    for(auto&m:enemyModels){
+        if(auto enemyM = dynamic_cast<PEnemyModel*>(m.get())){
+            return std::make_shared<PEnemyModel>(*enemyM);
+        }
+    }
+
 }

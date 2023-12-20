@@ -3,11 +3,13 @@
 
 
 
+
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <iostream>
 
+class TextGameView;
 
 class GameController;
 
@@ -23,6 +25,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    
+    std::unique_ptr<TextGameView> getTextView();
+    
 
 private:
     Ui::MainWindow *ui;

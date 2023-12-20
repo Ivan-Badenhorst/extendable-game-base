@@ -3,6 +3,8 @@
 #include "enemymodel.h"
 #include "enemyviewinterface.h"
 #include "penemytimer.h"
+#include "penemymodel.h"
+
 #include <memory>
 #include <iostream>
 #include <QPointer>
@@ -48,7 +50,7 @@ public:
      * @brief Retrieves the enemy models stored in the controller.
      * @return The vector of enemy models.
      */
-    std::vector<std::shared_ptr<EnemyModelInterface>> getEnemyModels() const;
+    std::vector<std::shared_ptr<EnemyModelInterface>> getAllEnemyModels() const;
 
     /**
      * @brief Checks if there is an enemy at the given coordinates.
@@ -76,6 +78,11 @@ public:
 
 
     void drainPEnemy(int col, int row);
+
+    std::vector<std::shared_ptr<EnemyModelInterface> > getAllEnemyModels() const;
+    std::shared_ptr<EnemyModel> getEnemyModel() const;
+    std::shared_ptr<PEnemyModel> getPEnemyModel() const;
+
 
 private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.

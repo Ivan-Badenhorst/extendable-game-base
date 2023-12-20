@@ -22,7 +22,7 @@ EasyLevelFactory::EasyLevelFactory()
 
 }
 
-Level* EasyLevelFactory::createWorld()
+std::shared_ptr<Level> EasyLevelFactory::createWorld()
 {
     World w;
     w.createWorld(":/worldmap.png", 100,10);
@@ -30,39 +30,28 @@ Level* EasyLevelFactory::createWorld()
     //tile
     TileModel tm;
     tm.populateTileMap(w.getRows(), w.getCols(), w.getTiles());
-//    TileViewGraphical tv(mw, std::make_shared<TileModel>(tm));
     TileController tc(std::make_shared<TileModel>(tm));
-
 
     //protagonist:
     std::unique_ptr<Protagonist> protagonistPtr = w.getProtagonist();
     auto pm = std::make_shared<ProtagonistModel>(std::move(protagonistPtr));
-//    auto pvg = std::make_shared<ProtagonistViewGraphical>(mw, pm);
     ProtagonistController pc(pm);
 
     //healthPacks
     HealthPackModel hpm(w.getHealthPacks(), 10);
- //   HealthPackViewGraphical hpv(mw, std::make_shared<HealthPackModel>(hpm));
     HealthPackController hpc(std::make_shared<HealthPackModel>(hpm));
 
     //enemies
-
-    // Create one model per enemy type
     EnemyModel em;
     em.setEnemyType("Enemy");
     PEnemyModel pem;
     pem.setEnemyType("PEnemy");
 
-
-    // Get enemies from the world and iterate through them (for Enemy and PEnemy only)
     for (auto& enemy : w.getEnemies()) {
-        // Check if the enemy can be casted to PEnemy
         if (auto pEnemy = dynamic_cast<PEnemy*>(enemy.get())) {
-            // Add the enemy to PEnemyModel
-            pem.addEnemy(move(enemy));
+            pem.addEnemy(std::move(enemy));
         } else {
-            // Add the enemy to EnemyModel
-            em.addEnemy(move(enemy));
+            em.addEnemy(std::move(enemy));
         }
     }
 
@@ -90,5 +79,5 @@ Level* EasyLevelFactory::createWorld()
                                 ec);
 
     return easyLevel;
-    }
+}
 

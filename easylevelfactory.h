@@ -8,7 +8,7 @@ class EasyLevelFactory: public LevelFactory
 {
 public:
     EasyLevelFactory();
-    Level* createWorld() override;
+    std::shared_ptr<Level> createWorld() override;
 
     //remember to cache here when moving to next level
 

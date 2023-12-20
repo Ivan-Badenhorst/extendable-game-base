@@ -17,6 +17,9 @@ public:
     int getAttackDamage();
 
 
+    bool updateEnergy(float enValue);
+
+
     void setProtView(const std::shared_ptr<ProtagonistView> &newProtView);
 
     std::shared_ptr<ProtagonistModel> getProtModel() const;
