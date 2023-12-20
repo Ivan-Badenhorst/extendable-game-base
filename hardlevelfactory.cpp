@@ -1,5 +1,6 @@
 #include "hardlevelfactory.h"
 
+#include "hardlevel.h"
 #include "protagonistcontroller.h"
 #include "protagonistmodel.h"
 #include "TileH/tilemodel.h"
@@ -20,7 +21,7 @@ std::shared_ptr<Level> HardLevelFactory::createWorld()
 {
     ///ADD X ENEMY IN HERE
     World w;
-    w.createWorld(":/worldmap4.png", 50000,50000);
+    w.createWorld(":/worldmap4.png", 100, 10);
 
     //tile
     auto tm = std::make_shared<TileModel>();
@@ -56,5 +57,6 @@ std::shared_ptr<Level> HardLevelFactory::createWorld()
     ec->addEnemyModel(em);
     ec->addEnemyModel(pem);
 
-    return std::make_shared<EasyLevel>(tc,  pc, hpc, ec);
+    return std::make_shared<HardLevel>(tc,  pc, hpc, ec);
+
 }
