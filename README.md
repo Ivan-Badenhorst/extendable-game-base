@@ -53,7 +53,9 @@ Latest update: 27/11/2023
 - Ivan: 
   -experiment with level archive using boost
 - Sudarshan: 
-  -
+  - Incorporate energy mechanism for protagonist
+  - Basic orchestration of damage between protagonist and enemy
+  - Stop game when dead 
 - Mahmoud: 
 
 ### Week 13
