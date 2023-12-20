@@ -16,9 +16,14 @@ PEnemyTimer::PEnemyTimer(std::shared_ptr<EnemyController> ec)
         timer->setProperty("counter", QVariant(0));
 
         timer->stop(); // Ensure the timer is not running
+
+        connect(timer, &QTimer::timeout, this, &PEnemyTimer::onTimerTimeout);
+
         enemyTimers.append(QPointer<QTimer>(timer));
     }
 }
+
+
 
 void PEnemyTimer::onTimerTimeout() {
     QTimer* senderTimer = qobject_cast<QTimer*>(sender());
@@ -34,6 +39,10 @@ void PEnemyTimer::onTimerTimeout() {
         if (enemycontroller) {
             enemycontroller->drainPEnemy(x, y);
         }
+
+        // Set a random interval between 500 ms and 60 seconds and restart the timer
+        int randomInterval = QRandomGenerator::global()->bounded(MIN_TIME, MAX_TIME);
+        senderTimer->start(randomInterval);
     } else {
         // Reset x, y, and counter; disable the timer
         senderTimer->setProperty("x", 0);
@@ -47,7 +56,31 @@ void PEnemyTimer::onTimerTimeout() {
 
 void PEnemyTimer::addEnemy(int x, int y)
 {
-    std::cout << "Added Penemy at " << x << ", " << y << std::endl;
+    QTimer* availableTimer = nullptr;
+
+    // Search for an available timer
+    for (QPointer<QTimer>& timer : enemyTimers) {
+        if (timer && !timer->isActive()) {
+            availableTimer = timer;
+            break;
+        }
+    }
+
+    // If no available timer, create a new one
+    if (!availableTimer) {
+        availableTimer = new QTimer(this);
+        connect(availableTimer, &QTimer::timeout, this, &PEnemyTimer::onTimerTimeout);
+        enemyTimers.append(QPointer<QTimer>(availableTimer));
+    }
+
+    // Set properties
+    availableTimer->setProperty("x", x);
+    availableTimer->setProperty("y", y);
+    availableTimer->setProperty("counter", 0);
+
+    // Set a random interval between 500 ms and 60 seconds
+    int randomInterval = QRandomGenerator::global()->bounded(MIN_TIME, MAX_TIME);
+    availableTimer->start(randomInterval);
 }
 
 
