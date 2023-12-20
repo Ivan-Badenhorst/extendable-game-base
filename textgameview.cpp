@@ -13,6 +13,7 @@
 void TextGameView::initializeMainWindow()
 {
     // Create a new QPlainTextEdit
+    mainWindow.setKeyboardEventsEnabled(false);
     textEdit = std::make_shared<QPlainTextEdit>(&mainWindow);
 
     QFont font("Courier New");
@@ -80,6 +81,8 @@ void TextGameView::initializeMainWindow()
     if(auto pView = dynamic_cast<ProtagonistViewText*>(protView.get())){
         pView->setTextEdit(textEdit);
     };
+
+    lineEdit->setFocus();
 }
 
 void TextGameView::clearMainWindow()

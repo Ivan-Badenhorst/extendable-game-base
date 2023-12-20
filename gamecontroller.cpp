@@ -84,6 +84,7 @@ void GameController::input(const ArrowDirection &direction)
         stopGame("Game Over", "Game Ended - Protagonist's energy depleted!");
     }
     hpController->update(prevRow, prevCol);
+    ///ADD A BOOLEAN THAT SAYS IF ALL ENEMIES HAVE BEEN KILLED
     tileController->update(row, col);
 
 }
@@ -354,8 +355,10 @@ void GameController::addLevel(const std::shared_ptr<LevelFactory> &level)
     std::pair<std::shared_ptr<LevelFactory>, LevelControllers> newLevel(level, controllers);
 
     levels.push_back(newLevel);
-//    levels.push_back(level);
+    //    levels.push_back(level);
 }
+
+
 
 
 
