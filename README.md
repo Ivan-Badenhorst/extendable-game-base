@@ -39,14 +39,14 @@ Latest update: 27/11/2023
 - Ivan: 
   - Implement structure for text view
 - Sudarshan:
-  - Protagonist interactions
+  - Protagonist text view
 - Mahmoud:
 
 ### Week 11
 - Ivan: 
   -implement basic level switch and start on cache
 - Sudarshan: 
-  -protagonist text view, interactions and help with cache
+  -protagonist text view finish, interactions with hp and enemy, and help with cache
 - Mahmoud: 
 
 ### Week 12
@@ -60,7 +60,7 @@ Latest update: 27/11/2023
 
 ### Week 13
 - Ivan: 
-  -complete level cache, refactoring and refine level switch
+  - Complete level cache, refactoring and refine level switch
 - Sudarshan: 
   -
 - Mahmoud: 
