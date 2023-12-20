@@ -10,6 +10,7 @@
 
 void GraphicalGameView::initializeMainWindow()
 {
+    mainWindow.setKeyboardEventsEnabled(true);
    //create health bar:
     healthBar = std::make_shared<HealthProgressBar>(&mainWindow);
     healthBar->setRange(0, 122);

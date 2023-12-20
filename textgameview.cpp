@@ -13,6 +13,7 @@
 void TextGameView::initializeMainWindow()
 {
     // Create a new QPlainTextEdit
+    mainWindow.setKeyboardEventsEnabled(false);
     textEdit = std::make_shared<QPlainTextEdit>(&mainWindow);
 
     QFont font("Courier New");
@@ -80,6 +81,8 @@ void TextGameView::initializeMainWindow()
     if(auto pView = dynamic_cast<ProtagonistViewText*>(protView.get())){
         pView->setTextEdit(textEdit);
     };
+
+    lineEdit->setFocus();
 }
 
 void TextGameView::clearMainWindow()
@@ -125,6 +128,14 @@ void TextGameView::setupBasicCommands()
 
     lineEdit->setCommandTrie(commandTrie);
 
+    auto switchView = [](){
+        auto gameController = GameController::getInstance();
+        gameController->switchView();
+    };
+    commandTrie->insert("switch view", switchView);
+
+    lineEdit->setCommandTrie(commandTrie);
+
 }
 
 
@@ -132,12 +143,26 @@ void TextGameView::setupBasicCommands()
 
 void CommandLineEdit::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
-        commandTrie->findFirstMatch(this->text().toStdString(), true);
-
-    } else {
+    std::pair<std::optional<std::string>, int> ret;
+    switch (event->key()) {
+    case Qt::Key_Return:
+    case Qt::Key_Enter:
+        ret = commandTrie->findFirstMatch(this->text().toStdString(), true);
+        std::cout << "Do I get here??" << std::endl;
+        if(ret.second == 1 || ret.second == 3){
+            if(ret.first != "switch view") this->setText("");
+        }
+        break;
+    case Qt::Key_Right:
+        ret = commandTrie->findFirstMatch(this->text().toStdString(), false);
+        std::cout << "Tab clicked" << std::endl;
+        if(ret.first.has_value()) this->setText(QString::fromStdString(ret.first.value()));
+        break;
+    default:
         QLineEdit::keyPressEvent(event);
+        break;
     }
+
 }
 
 void CommandLineEdit::setCommandTrie(const std::shared_ptr<CommandTrieNode> &newCommandTrie)

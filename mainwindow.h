@@ -24,14 +24,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
-    
     std::unique_ptr<TextGameView> getTextView();
-    
+    void setKeyboardEventsEnabled(bool newKeyboardEventsEnabled);
 
 private:
     Ui::MainWindow *ui;
     GameController* gameController;
+    bool keyboardEventsEnabled {true};
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
