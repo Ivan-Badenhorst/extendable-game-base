@@ -108,3 +108,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         break;
     }
 }
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+     this->setFocus();
+
+//    If needed later on, pass the event to the base class implementation
+//    QMainWindow::mousePressEvent(event);
+}

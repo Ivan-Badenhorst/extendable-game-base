@@ -58,11 +58,33 @@ void ProtagonistModel::updatePosition(int newXPos, int newYPos)
     yPos = newYPos;
 }
 
+void ProtagonistModel::updatePosition(int newXPos, int newYPos)
+{
+    xPos = newXPos;
+    yPos = newYPos;
+}
+
 void ProtagonistModel::addHealth(int hpValue)
 {
     maxHealth += hpValue;
     currentHealth = maxHealth;
 }
+
+void ProtagonistModel::takeDamage(int hpValue)
+{
+    currentHealth -= hpValue;
+}
+
+int ProtagonistModel::getAttackDamage() const
+{
+    return attackDamage;
+}
+
+void ProtagonistModel::setAttackDamage(int newAttackDamage)
+{
+    attackDamage = newAttackDamage;
+}
+
 
 
 

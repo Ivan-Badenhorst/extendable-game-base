@@ -35,6 +35,7 @@ private:
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 
 };
 #endif // MAINWINDOW_H

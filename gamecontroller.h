@@ -32,7 +32,7 @@ public:
    void addLevel(const std::shared_ptr<LevelFactory> &level);
 
 
- private:
+private:
    static GameController* gameControllerInstance;
    std::unique_ptr<GameView> gameView;
    std::deque<std::unique_ptr<GameView>> allGameViews;
@@ -53,6 +53,7 @@ public:
    void stopGame();
    GameController();
    ~GameController();
+
    void getNewView();
 
 
@@ -69,13 +70,6 @@ public:
     std::shared_ptr<ProtagonistController> protControllerNext{nullptr};
     std::shared_ptr<EnemyController> enemyControllerNext {nullptr};
     bool next {false};
-
-
-
-
-
-
-
 
 
     void switchLevel(std::shared_ptr<LevelFactory> &levelFactory);

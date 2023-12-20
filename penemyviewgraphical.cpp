@@ -20,6 +20,34 @@ void PEnemyViewGraphical::update()
     }
 }
 
+
+void PEnemyViewGraphical::update(int row, int col, bool defeated)
+{
+    auto enemyIcon = QPixmap(":/PEnemy_alive");
+    auto enemyIconDefeated = QPixmap(":/PEnemy_dead");
+
+    std::shared_ptr<QGraphicsPixmapItem> itemsToRerender;
+    for(auto& penemy: penemyDisplays){
+        int colDisplay = penemy.get()->y()/tileDim;
+        int rowDisplay = penemy.get()->x()/tileDim;
+
+        if(colDisplay == row && rowDisplay == col){
+            itemsToRerender = penemy;
+        }
+    }
+
+    scene->removeItem(itemsToRerender.get());
+    itemsToRerender.reset();
+
+    if(defeated){
+        displayEnemy(std::make_shared<QGraphicsPixmapItem>(enemyIconDefeated), col, row);
+    }
+    else
+    {
+        displayEnemy(std::make_shared<QGraphicsPixmapItem>(enemyIcon), col, row);
+    }
+}
+
 void PEnemyViewGraphical::clearView()
 {
     if (scene != nullptr) {

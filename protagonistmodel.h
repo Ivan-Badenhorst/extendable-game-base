@@ -26,13 +26,24 @@ public:
     //void setMaxEnergy(float value);
     // Add more methods as and when needed
     void updatePosition(int newXPos, int newYPos);
+
+
+    void addHealth(int hpValue);
+    void takeDamage(int hpValue);
+
     void addHealth(int hpValue);
     bool updateEnergy(float energy);
+
 
     // add a method that moves the protagonist later
     const std::unique_ptr<Protagonist>& getProtagonist()const;
 
+
+    int getAttackDamage() const;
+    void setAttackDamage(int newAttackDamage);
+
     float getMaxEnergy() const;
+
 
 private:
 //    std::unique_ptr<Protagonist> protagonist; // Unique pointer to hold the Protagonist
@@ -41,6 +52,7 @@ private:
     float maxHealth {0.0f};
     float currentHealth{0.0f};
     float energy {0.0f};
+    int attackDamage {10};
     float maxEnergy{0.0f};
 };
 
