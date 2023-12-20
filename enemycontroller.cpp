@@ -1,21 +1,20 @@
 #include "enemycontroller.h"
 
+
 EnemyController::EnemyController()
 {
     // Models are added in the factory using the addEnemyModel method
 }
 
-// void EnemyController::init()
-// {
-//     penemytimer =  std::make_shared<PEnemyTimer>();
-//     penemytimer->setEnemyController(shared_from_this());
-// }
-   
+void EnemyController::init()
+{
+    penemytimer = std::make_unique<PEnemyTimer>(shared_from_this());
+}
 
 void EnemyController::refreshAllGraphical()
 {
     // Iterate through the enemyGraphicalViews vector and refresh each view
-    for (auto const& x : enemyViews)
+    for (auto const &x : enemyViews)
     {
         x->update();
     }
@@ -27,12 +26,12 @@ void EnemyController::addEnemyModel(std::shared_ptr<EnemyModelInterface> em)
     enemyModels.push_back(em);
 }
 
-void EnemyController::setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface> > &newEnemyView)
+void EnemyController::setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface>> &newEnemyView)
 {
     enemyViews = newEnemyView;
 }
 
-std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getEnemyModels() const
+std::vector<std::shared_ptr<EnemyModelInterface>> EnemyController::getEnemyModels() const
 {
     return enemyModels;
 }
@@ -40,7 +39,7 @@ std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getEnemyMode
 bool EnemyController::containsEnemy(int col, int row) const
 {
     // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
-    for (auto const& x : enemyModels)
+    for (auto const &x : enemyModels)
     {
         if (x->containsEnemy(col, row))
         {
@@ -53,7 +52,7 @@ bool EnemyController::containsEnemy(int col, int row) const
 bool EnemyController::isDefeated(int col, int row) const
 {
     // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
-    for (auto const& x : enemyModels)
+    for (auto const &x : enemyModels)
     {
         if (x->containsEnemy(col, row))
         {
@@ -66,7 +65,7 @@ bool EnemyController::isDefeated(int col, int row) const
 void EnemyController::attackEnemy(int col, int row, int damage)
 {
     // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
-    for (auto const& x : enemyModels)
+    for (auto const &x : enemyModels)
     {
         if (x->containsEnemy(col, row))
         {
@@ -74,9 +73,10 @@ void EnemyController::attackEnemy(int col, int row, int damage)
             auto etype = x->getEnemyType();
             if (etype == "PEnemy")
             {
-                for (auto const& y : enemyViews)
+                penemytimer->addEnemy(col,row);
+                for (auto const &y : enemyViews)
                 {
-                    if(y->getEnemyType() == "PEnemy")
+                    if (y->getEnemyType() == "PEnemy")
                     {
                         y->update(row, col, true);
                         break;
@@ -85,9 +85,9 @@ void EnemyController::attackEnemy(int col, int row, int damage)
             }
             else if (etype == "Enemy")
             {
-                for (auto const& y : enemyViews)
+                for (auto const &y : enemyViews)
                 {
-                    if(y->getEnemyType() == "Enemy")
+                    if (y->getEnemyType() == "Enemy")
                     {
                         y->update(row, col, true);
                         break;

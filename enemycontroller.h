@@ -21,10 +21,10 @@ public:
      */
     EnemyController();
 
-    // /**
-    //  * @brief Initializes the enemy controller's timer.
-    //  */
-    // void init();
+    /**
+     * @brief Initializes the enemy controller's timer.
+     */
+    void init();
     
     /**
      * @brief Refreshes all graphical elements related to the enemies.
@@ -79,7 +79,7 @@ public:
 private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.
-    //std::shared_ptr<PEnemyTimer> penemytimer;
+    std::unique_ptr<PEnemyTimer> penemytimer;
 };
 
 
