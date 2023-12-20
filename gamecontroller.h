@@ -74,7 +74,8 @@ public:
    void addLevel(const std::shared_ptr<LevelFactory> &level);
 
    bool getIsInputDisabled() const;
-
+   void nextLevel();
+   void previousLevel();
 
 private:
     //singleton:
@@ -109,8 +110,7 @@ private:
     int currentLevel {0};
     void switchLevel(std::shared_ptr<LevelFactory> &levelFactory);
     void cacheLevel(int previousLevel);
-    void nextLevel();
-    void previousLevel();
+
 
     //game views:
     std::vector<std::shared_ptr<EnemyViewInterface>> setupGraphicalView();
