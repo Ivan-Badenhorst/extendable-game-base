@@ -10,6 +10,15 @@
 #include <deque>
 #include <memory>
 
+struct LevelControllers {
+    std::shared_ptr<TileController> tileController = nullptr;
+    std::shared_ptr<HealthPackController> hpController = nullptr;
+    std::shared_ptr<ProtagonistController> protController = nullptr;
+    std::shared_ptr<EnemyController> enemyController = nullptr;
+    bool initialized = false;
+};
+
+
 class GameController
 {
 public:
@@ -60,7 +69,8 @@ private:
 
 
 
-    std::vector<std::shared_ptr<LevelFactory>> levels;
+    std::vector<std::pair<std::shared_ptr<LevelFactory>, LevelControllers>> levels;
+
     int currentLevel {0};
     std::shared_ptr<TileController> tileControllerPrevious {nullptr};
     std::shared_ptr<HealthPackController> hpControllerPrevious {nullptr};

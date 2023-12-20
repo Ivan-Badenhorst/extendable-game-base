@@ -72,6 +72,7 @@ void GameController::input(const ArrowDirection &direction)
     }
     if(isHealthOver || isEnergyOver){
         stopGame("GAME OVER", "You Lose! Protagonist Has Died");
+
     }
 
     hpController->update(prevRow, prevCol);
@@ -100,7 +101,10 @@ void GameController::startGame(std::unique_ptr<GameView> gv)
     gameView = std::move(gv);
 
     auto easyLevelFactory = std::make_shared<EasyLevelFactory>();
-    levels.push_back(easyLevelFactory);
+    LevelControllers controllers;
+    std::pair<std::shared_ptr<LevelFactory>, LevelControllers> level(easyLevelFactory, controllers);
+
+    levels.push_back(level);
     auto easyLevel = easyLevelFactory->createWorld();
 
     tileController = easyLevel->getTileController();
@@ -249,31 +253,36 @@ void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
 
 void GameController::nextLevel()
 {
-
+    int previousLevel = currentLevel;
     if(currentLevel < levels.size()-1){
         currentLevel+=1;
     }
-    else{return;}
+    else{
+        stopGame("Game Complete!", "You win! Well done!");
+        return;
+    }
 
 
     //cache current
-    tileControllerPrevious = tileController;
-    hpControllerPrevious = hpController;
-    protControllerPrevious = protController;
-    enemyControllerPrevious = enemyController;
-    previous = true;
+    ///CHECK IF I CAN CHANGE THIS TO ONLY CHANGE IF IT HASN'T BEEN SAVED BEFORE!!!!
 
-    if(next){
-        next = false;
-        tileController = tileControllerNext;
-        hpController = hpControllerNext;
-        protController = protControllerNext;
-        enemyController = enemyControllerNext;
+    levels[previousLevel].second.enemyController = enemyController;
+    levels[previousLevel].second.hpController = hpController;
+    levels[previousLevel].second.protController = protController;
+    levels[previousLevel].second.tileController = tileController;
+    levels[previousLevel].second.initialized = true;
+
+    if(levels[currentLevel].second.initialized){
+
+        tileController = levels[currentLevel].second.tileController;
+        hpController = levels[currentLevel].second.hpController;
+        protController = levels[currentLevel].second.protController;
+        enemyController = levels[currentLevel].second.enemyController;
 
         setupUi();
     }
     else{
-        auto levelFactory = levels[currentLevel];
+        auto levelFactory = levels[currentLevel].first;
         switchLevel(levelFactory);
         switchView(false);
     }
@@ -295,31 +304,31 @@ void GameController::setupUi()
 
 void GameController::previousLevel()
 {
+    int previousLevel = currentLevel;
     if(currentLevel > 0){
         currentLevel-=1;
     }
     else return;
-    tileControllerNext = tileController;
-    hpControllerNext = hpController;
-    protControllerNext = protController;
-    enemyControllerNext = enemyController;
-    next = true;
 
-    std::cout << "PREVIOUSSSS" << std::endl;
+    levels[previousLevel].second.enemyController = enemyController;
+    levels[previousLevel].second.hpController = hpController;
+    levels[previousLevel].second.protController = protController;
+    levels[previousLevel].second.tileController = tileController;
+    levels[previousLevel].second.initialized = true;
 
-    if(previous){
-        previous = false;
-        tileController = tileControllerPrevious;
-        hpController = hpControllerPrevious;
-        protController = protControllerPrevious;
-        enemyController = enemyControllerPrevious;
+    if(levels[currentLevel].second.initialized){
+
+        tileController = levels[currentLevel].second.tileController;
+        hpController = levels[currentLevel].second.hpController;
+        protController = levels[currentLevel].second.protController;
+        enemyController = levels[currentLevel].second.enemyController;
 
         setupUi();
 
     }
     else{
         auto levelFactory = levels[currentLevel];
-        switchLevel(levelFactory);
+        //switchLevel(levelFactory);
         switchView(false);
     }
 
@@ -332,7 +341,11 @@ void GameController::previousLevel()
 
 void GameController::addLevel(const std::shared_ptr<LevelFactory> &level)
 {
-    levels.push_back(level);
+    LevelControllers controllers;
+    std::pair<std::shared_ptr<LevelFactory>, LevelControllers> newLevel(level, controllers);
+
+    levels.push_back(newLevel);
+//    levels.push_back(level);
 }
 
 
