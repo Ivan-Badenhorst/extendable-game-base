@@ -11,6 +11,7 @@
 #include "ui_mainwindow.h"
 #include "constants.h"
 #include "gamecontroller.h"
+#include  "easylevelfactory.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -30,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     gameController = GameController::getInstance();
 
     GraphicalGameView graphicalGameView(*this);
-    std::unique_ptr<GameView> gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
+    auto gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
 
     //Add here all extra views. For these the views should be made already
 
@@ -103,12 +104,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_S:
         gameController->switchView();
-        break;
-    case Qt::Key_N:
-        gameController->nextLevel();
-        break;
-    case Qt::Key_P:
-        gameController->previousLevel();
         break;
     default:
         QWidget::keyPressEvent(event);
