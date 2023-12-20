@@ -23,6 +23,7 @@ public:
 
     /**
      * @brief Initializes the enemy controller's timer.
+     * We need this because we can't pass a shared_from_this() pointer from the constructor.
      */
     void init();
     
