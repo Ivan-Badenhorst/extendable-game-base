@@ -1,12 +1,7 @@
 #include "easylevelfactory.h"
-
-
 #include "protagonistcontroller.h"
-#include "protagonistmodel.h"
-#include "TileH/tilemodel.h"
 #include "TileH/tilecontroller.h"
 #include "easylevel.h"
-#include "HealthPackH/healthpackmodel.h"
 #include "HealthPackH/healthpackcontroller.h"
 #include "enemymodel.h"
 #include "penemymodel.h"
