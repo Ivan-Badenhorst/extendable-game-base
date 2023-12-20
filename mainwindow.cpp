@@ -78,9 +78,16 @@ std::unique_ptr<TextGameView> MainWindow::getTextView()
     return gameView;
 }
 
+void MainWindow::setKeyboardEventsEnabled(bool newKeyboardEventsEnabled)
+{
+    keyboardEventsEnabled = newKeyboardEventsEnabled;
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(gameController->getIsInputDisabled()) return;
+
+    if(!keyboardEventsEnabled) return;
     switch (event->key()) {
     case Qt::Key_Left:
         gameController->input(ArrowDirection::Left);
