@@ -5,6 +5,7 @@
 #include "enemymodel.h"
 #include "penemyviewgraphical.h"
 #include "protagonistviewgraphical.h"
+#include "easylevelfactory.h"
 
 #include <iostream>
 #include <memory>
@@ -96,7 +97,7 @@ GameController* GameController::getInstance()
 }
 
 
-void GameController::startGame(std::unique_ptr<GameView> gv)
+void GameController::startGame(std::unique_ptr<GraphicalGameView> gv)
 {
     gameView = std::move(gv);
 
