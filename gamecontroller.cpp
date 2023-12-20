@@ -66,7 +66,7 @@ void GameController::input(const ArrowDirection &direction)
     if (enemyController->containsEnemy(col, row) && !(enemyController->isDefeated(col, row)))
     {
         enemyController->attackEnemy(col, row, protController->getAttackDamage());
-       // protController.attackingEnemy(); does nothing now
+        isHealthOver = protController->updateHealth(-10); //does nothing now
         row = prevRow;
         col = prevCol;
     }
@@ -74,24 +74,26 @@ void GameController::input(const ArrowDirection &direction)
 
     enemyController->refreshAllGraphical();
     int hpVal = hpController->update(row, col);
-    if (hpVal > 0)   protController->addHealth(hpVal);
+    if (hpVal > 0)  {
+        protController->updateHealth(hpVal);
+    }
     protController->update(row, col);
     float tileVal=tileController->getEnergy(row, col);
     if (tileVal > 0) {
-        isGameOver = protController->updateEnergy(tileVal);
+        isEnergyOver = protController->updateEnergy(tileVal);
     }
-    if(isGameOver){
-        stopGame();
+    if(isHealthOver || isEnergyOver){
+        stopGame("GAME OVER", "You Lose! Protagonist Has Died");
     }
+
     hpController->update(prevRow, prevCol);
     tileController->update(row, col);
-
 }
 
-void GameController::stopGame()
+void GameController::stopGame(QString title, QString message)
 {
     protController->refreshAll();
-    QMessageBox::information(nullptr, "Game Over", "Game Ended - Protagonist's energy depleted!");
+    QMessageBox::information(nullptr, title, message);
     isInputDisabled = true;
 }
 
