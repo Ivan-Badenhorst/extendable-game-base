@@ -32,15 +32,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     gameController = GameController::getInstance();
 
-    GraphicGameViewFactory graphicalGameViewFactory;
-//    auto gameView = std::make_unique<GraphicalGameView>(graphicalGameViewFactory.createView(*this));
 
     //create views to add to the gameController:
     TextGameViewFactory tvf;
     gameController->addNewView(tvf.createView(*this));
 
     //start the game
-    gameController->startGame(graphicalGameViewFactory.createView(*this));
+    GraphicGameViewFactory graphicGameViewFactory;
+    gameController->startGame(graphicGameViewFactory.createView(*this));
 
     //add aditional levels to the gameController:
     auto mediumLevel = std::make_shared<MediumLevelFactory>();
