@@ -7,7 +7,7 @@ class TextGameViewFactory: public GameViewFactory
 {
 public:
     TextGameViewFactory();
-    std::shared_ptr<GameView> createView() override;
+    std::unique_ptr<GameView> createView(MainWindow& mainWindow) override;
 };
 
 #endif // TEXTGAMEVIEWFACTORY_H

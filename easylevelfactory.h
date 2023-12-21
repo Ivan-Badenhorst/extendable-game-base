@@ -10,9 +10,6 @@ public:
     EasyLevelFactory();
     std::shared_ptr<Level> createWorld() override;
 
-    //remember to cache here when moving to next level
-
-
 };
 
 #endif // EASYLEVELFACTORY_H

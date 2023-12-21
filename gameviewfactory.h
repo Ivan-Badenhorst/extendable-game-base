@@ -7,7 +7,7 @@ class GameViewFactory
 {
 public:
     GameViewFactory();
-    virtual std::shared_ptr<GameView> createView() = 0;
+    virtual std::unique_ptr<GameView> createView(MainWindow& mainWindow) = 0;
 };
 
 #endif // GAMEVIEWFACTORY_H
