@@ -24,6 +24,7 @@ SOURCES += \
     enemyviewtext.cpp \
     gamecontroller.cpp \
     gameview.cpp \
+    gameviewfactory.cpp \
     graphicalgameview.cpp \
     hardlevel.cpp \
     hardlevelfactory.cpp \
@@ -42,6 +43,7 @@ SOURCES += \
     mainwindow.cpp \
     protagonistviewtext.cpp \
     textgameview.cpp \
+    textgameviewfactory.cpp \
     tileviewtext.cpp
 
 
@@ -67,6 +69,7 @@ HEADERS += \
     enemyviewtext.h \
     gamecontroller.h \
     gameview.h \
+    gameviewfactory.h \
     graphicalgameview.h \
     hardlevel.h \
     hardlevelfactory.h \
@@ -88,6 +91,7 @@ HEADERS += \
     constants.h \
     protagonistviewtext.h \
     textgameview.h \
+    textgameviewfactory.h \
     tileviewtext.h
 
 FORMS += \
