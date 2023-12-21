@@ -97,7 +97,7 @@ GameController* GameController::getInstance()
 }
 
 
-void GameController::startGame(std::unique_ptr<GraphicalGameView> gv)
+void GameController::startGame(std::unique_ptr<GameView> gv)
 {
     gameView = std::move(gv);
 
@@ -124,14 +124,16 @@ void GameController::startGame(std::unique_ptr<GraphicalGameView> gv)
     tileController->addPortal(h-1, w-1, true);
     //setup graphic views:
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews = setupGraphicalView();
-    gameView->setEnemyView(enemyViews);
 
-    //setup display
-    initializeView();
-    hpController->refreshAll();
-    protController->refreshAll();
-    enemyController->refreshAllGraphical();
-    tileController->update(0, 0, false);
+    switchView(false);
+//    gameView->setEnemyView(enemyViews);
+
+//    //setup display
+//    initializeView();
+//    hpController->refreshAll();
+//    protController->refreshAll();
+//    enemyController->refreshAllGraphical();
+//    tileController->update(0, 0, false);
 
 }
 

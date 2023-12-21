@@ -11,6 +11,7 @@
 #include "constants.h"
 #include "gamecontroller.h"
 #include  "easylevelfactory.h"
+#include "graphicgameviewfactory.h"
 
 #include <QHBoxLayout>
 #include <QLabel>
@@ -30,15 +31,16 @@ MainWindow::MainWindow(QWidget *parent)
     this->setFocus();
 
     gameController = GameController::getInstance();
-    GraphicalGameView graphicalGameView(*this);
-    auto gameView = std::make_unique<GraphicalGameView>(graphicalGameView);
+
+    GraphicGameViewFactory graphicalGameViewFactory;
+//    auto gameView = std::make_unique<GraphicalGameView>(graphicalGameViewFactory.createView(*this));
 
     //create views to add to the gameController:
     TextGameViewFactory tvf;
     gameController->addNewView(tvf.createView(*this));
 
     //start the game
-    gameController->startGame(std::move(gameView));
+    gameController->startGame(graphicalGameViewFactory.createView(*this));
 
     //add aditional levels to the gameController:
     auto mediumLevel = std::make_shared<MediumLevelFactory>();
