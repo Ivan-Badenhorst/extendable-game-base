@@ -46,7 +46,7 @@ public:
      * @brief Creates easy level + setting up the initial view with the first level.
      * @param GameView object that represents the view to be set up for the game.
      */
-   void startGame(std::unique_ptr<GraphicalGameView> gv);
+   void startGame(std::unique_ptr<GameView> gv);
 
    /**
     * @brief Incorporates a new type of view into the game.

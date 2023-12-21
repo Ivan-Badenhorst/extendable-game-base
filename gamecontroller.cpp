@@ -97,7 +97,7 @@ GameController* GameController::getInstance()
 }
 
 
-void GameController::startGame(std::unique_ptr<GraphicalGameView> gv)
+void GameController::startGame(std::unique_ptr<GameView> gv)
 {
     gameView = std::move(gv);
 
@@ -122,16 +122,9 @@ void GameController::startGame(std::unique_ptr<GraphicalGameView> gv)
     isInputDisabled = false;
 
     tileController->addPortal(h-1, w-1, true);
-    //setup graphic views:
-    std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews = setupGraphicalView();
-    gameView->setEnemyView(enemyViews);
 
-    //setup display
-    initializeView();
-    hpController->refreshAll();
-    protController->refreshAll();
-    enemyController->refreshAllGraphical();
-    tileController->update(0, 0, false);
+    //setup view:
+    switchView(false);
 
 }
 
@@ -329,35 +322,35 @@ void GameController::addNewView(std::unique_ptr<GameView> gv)
 }
 
 
-std::vector<std::shared_ptr<EnemyViewInterface>> GameController::setupGraphicalView()
-{
-    auto tv = std::make_shared<TileViewGraphical>();
-    tv->setTileModel(tileController->getTileModel());
-    gameView->setTileView(tv);
-    auto hpv = std::make_shared<HealthPackViewGraphical>();
-    hpv->setHpModel(hpController->getHpModel());
-    gameView->setHpView(hpv);
-    auto pv = std::make_shared<ProtagonistViewGraphical>();
-    pv->setProtModel(protController->getProtModel());
-    gameView->setProtView(pv);
-    auto em = enemyController->getAllEnemyModels();
-    std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
+//std::vector<std::shared_ptr<EnemyViewInterface>> GameController::setupGraphicalView()
+//{
+//    auto tv = std::make_shared<TileViewGraphical>();
+//    tv->setTileModel(tileController->getTileModel());
+//    gameView->setTileView(tv);
+//    auto hpv = std::make_shared<HealthPackViewGraphical>();
+//    hpv->setHpModel(hpController->getHpModel());
+//    gameView->setHpView(hpv);
+//    auto pv = std::make_shared<ProtagonistViewGraphical>();
+//    pv->setProtModel(protController->getProtModel());
+//    gameView->setProtView(pv);
+//    auto em = enemyController->getAllEnemyModels();
+//    std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
 
-    //setup enemy models for graphics view
-    for(auto& e: em){
-        if (auto pEnemyModel = dynamic_cast<PEnemyModel*>(e.get())) {
+//    //setup enemy models for graphics view
+//    for(auto& e: em){
+//        if (auto pEnemyModel = dynamic_cast<PEnemyModel*>(e.get())) {
 
-            auto pev = std::make_shared<PEnemyViewGraphical>();
-            pev->setEnemyType("PEnemy");
-            pev->setPEnemyModel(std::make_shared<PEnemyModel>(*pEnemyModel));
-            enemyViews.push_back(pev);
-        } else if(auto enemyModel = dynamic_cast<EnemyModel*>(e.get())){
-            auto ev = std::make_shared<EnemyViewGraphical>();
-            ev->setEnemyType("Enemy");
-            ev->setEnemyModel(std::make_shared<EnemyModel>(*enemyModel));
-            enemyViews.push_back(ev);
-        }
-    }
+//            auto pev = std::make_shared<PEnemyViewGraphical>();
+//            pev->setEnemyType("PEnemy");
+//            pev->setPEnemyModel(std::make_shared<PEnemyModel>(*pEnemyModel));
+//            enemyViews.push_back(pev);
+//        } else if(auto enemyModel = dynamic_cast<EnemyModel*>(e.get())){
+//            auto ev = std::make_shared<EnemyViewGraphical>();
+//            ev->setEnemyType("Enemy");
+//            ev->setEnemyModel(std::make_shared<EnemyModel>(*enemyModel));
+//            enemyViews.push_back(ev);
+//        }
+//    }
 
-    return enemyViews;
-}
+//    return enemyViews;
+//}
