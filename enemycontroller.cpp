@@ -106,15 +106,19 @@ void EnemyController::drainPEnemy(int col, int row)
     std::cout << "Draining Penemy : " << col << "," << row << std::endl;
 }
 
-std::shared_ptr<EnemyModel>  EnemyController::getEnemyModel() const
+std::shared_ptr<EnemyModel> EnemyController::getEnemyModel() const
 {
-
-    for(auto&m:enemyModels){
-        if(auto enemyM = dynamic_cast<EnemyModel*>(m.get())){
-            return std::make_shared<EnemyModel>(*enemyM);
+    for (auto& m : enemyModels)
+    {
+        if (m->getEnemyType() == "Enemy")
+        {
+            if (auto EnemyM = std::dynamic_pointer_cast<EnemyModel>(m))
+            {
+                return EnemyM;
+            }
         }
     }
-
+    return nullptr;
 }
 
 
