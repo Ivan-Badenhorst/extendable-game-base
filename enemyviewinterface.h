@@ -4,23 +4,53 @@
 #include "enemymodel.h"
 #include "qgraphicsscene.h"
 #include <memory>
-class EnemyViewInterface
-{
-public:
-    virtual void update() = 0;
 
-    virtual void update(int row, int col,  bool defeated) = 0;
+/**
+ * @brief The EnemyViewInterface class is an abstract class that defines the interface for rendering enemy views.
+ */
+class EnemyViewInterface {
+public:
+    
+    /**
+     * @brief Renders all enemies for this enemy type using data 
+     * from the corresponding enemy model.
+     */
+    virtual void render() = 0;
+
+    /**
+     * @brief Renders a specific enemy for this enemy type using data 
+     * from the corresponding enemy model.
+     * @param row The row position of the enemy.
+     * @param col The column position of the enemy.
+     */
+    virtual void render(int row, int col) = 0;
+
+    /**
+     * @brief Gets the enemy type.
+     * @return The enemy type as a string.
+     */
     std::string getEnemyType() const;
+
+    /**
+     * @brief Sets the enemy type.
+     * @param value The enemy type to set.
+     */
     void setEnemyType(const std::string &value);
 
+    /**
+     * @brief Clears the enemy view.
+     */
     virtual void clearView() = 0;
 
-
+    /**
+     * @brief Sets the scene for rendering the enemy view.
+     * @param newScene The new scene to set.
+     */
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
 
 protected:
-    std::shared_ptr<QGraphicsScene> scene;
-    std::string enemyType; // Protected string attribute for enemy type
+    std::shared_ptr<QGraphicsScene> scene; /**< The graphics scene for rendering the enemy view. */
+    std::string enemyType; /**< The type of the enemy. */
 };
 
 inline void EnemyViewInterface::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
