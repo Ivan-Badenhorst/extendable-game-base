@@ -117,13 +117,18 @@ std::shared_ptr<EnemyModel>  EnemyController::getEnemyModel() const
 
 }
 
-std::shared_ptr<PEnemyModel>  EnemyController::getPEnemyModel() const
-{
 
-    for(auto&m:enemyModels){
-        if(auto enemyM = dynamic_cast<PEnemyModel*>(m.get())){
-            return std::make_shared<PEnemyModel>(*enemyM);
+std::shared_ptr<PEnemyModel> EnemyController::getPEnemyModel() const
+{
+    for (auto& m : enemyModels)
+    {
+        if (m->getEnemyType() == "PEnemy")
+        {
+            if (auto pEnemyM = std::dynamic_pointer_cast<PEnemyModel>(m))
+            {
+                return pEnemyM;
+            }
         }
     }
-
+    return nullptr;
 }
