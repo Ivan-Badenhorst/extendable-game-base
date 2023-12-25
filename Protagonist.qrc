@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>prisoner.png</file>
         <file>prisoner_dead.png</file>
+        <file>prisoner_0.png</file>
+        <file>prisoner_1.png</file>
+        <file>prisoner_2.png</file>
+        <file>prisoner_3.png</file>
     </qresource>
 </RCC>
