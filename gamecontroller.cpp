@@ -1,7 +1,12 @@
 #include "gamecontroller.h"
+
+#include "enemyviewgraphical.h"
 #include "penemymodel.h"
 #include "enemymodel.h"
+#include "penemyviewgraphical.h"
+
 #include "easylevelfactory.h"
+
 
 #include <iostream>
 #include <memory>
