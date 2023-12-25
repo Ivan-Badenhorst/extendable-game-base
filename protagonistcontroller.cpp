@@ -5,6 +5,7 @@ ProtagonistController::ProtagonistController( std::shared_ptr<ProtagonistModel> 
 {
     connect(&attackTimer, &QTimer::timeout, this, &ProtagonistController::onAttackTimerTimeout);
     connect(&healthGainTimer, &QTimer::timeout, this, &ProtagonistController::onHealthGainTimerTimeout);
+    connect(&deathTimer, &QTimer::timeout, this, &ProtagonistController::onDeathTimeTimeout);
 }
 
 void ProtagonistController::refreshAll()
@@ -46,6 +47,15 @@ bool ProtagonistController::takeDamage(int hpValue)
 int ProtagonistController::getAttackDamage()
 {
     return protModel->getAttackDamage();
+}
+
+void ProtagonistController::showDeath()
+{
+    currentFrame = 0;
+
+    deathTimer.setInterval(450); // Adjust interval for each frame
+    deathTimer.start();
+
 }
 
 bool ProtagonistController::updateEnergy(float enValue)
@@ -92,6 +102,7 @@ void ProtagonistController::onAttackTimerTimeout()
         }
 
     }
+
 }
 
 void ProtagonistController::onHealthGainTimerTimeout()
@@ -107,6 +118,17 @@ void ProtagonistController::onHealthGainTimerTimeout()
     ++currentFrame;
     if (currentFrame > 3) {
         healthGainTimer.stop();
+        currentFrame = 0; // Reset the frame count for future iterations
+    }
+
+}
+
+void ProtagonistController::onDeathTimeTimeout()
+{
+    protView->performDeath(currentFrame);
+    ++currentFrame;
+    if (currentFrame > 4) {
+        deathTimer.stop();
         currentFrame = 0; // Reset the frame count for future iterations
     }
 

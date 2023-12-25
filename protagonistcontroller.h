@@ -16,6 +16,7 @@ public:
     void attackEnemy();
     bool takeDamage(int hpValue);
     int getAttackDamage();
+    void showDeath();
 
 
     bool updateEnergy(float enValue);
@@ -35,12 +36,14 @@ private:
     int currentFrame;
     QTimer attackTimer;
     QTimer healthGainTimer;
+    QTimer deathTimer;
 
 signals:
 
 private slots:
     void onAttackTimerTimeout();
     void onHealthGainTimerTimeout();
+    void onDeathTimeTimeout();
 
 };
 
