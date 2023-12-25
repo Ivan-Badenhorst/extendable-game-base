@@ -100,13 +100,11 @@ void ProtagonistController::onHealthGainTimerTimeout()
     if (currentFrame % 2 == 0) {
         protView->performHealthGain(0); // Display the 'prisoner_health' frame
     } else {
-        // Show the 'prisoner_0' frame for 500 ms (half a second)
         protView->performHealthGain(1); // Display the 'prisoner_0' frame
     }
 
-    // Increment the frame count
-    ++currentFrame;
 
+    ++currentFrame;
     if (currentFrame > 3) {
         healthGainTimer.stop();
         currentFrame = 0; // Reset the frame count for future iterations
