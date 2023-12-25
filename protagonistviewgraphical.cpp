@@ -29,7 +29,7 @@ void ProtagonistViewGraphical::update()
 void ProtagonistViewGraphical::update(int row, int col)
 {
     if(protModel->getEnergy() >0 && protModel->getCurrentHealth() > 0){
-        prot =  QPixmap(":/prisoner");
+        prot =  QPixmap(":/prisoner_0");
     }
     else{
         prot = QPixmap(":/prisoner_dead");
@@ -64,6 +64,25 @@ void ProtagonistViewGraphical::clearView()
 {
     scene.reset();
     healthBar.reset();
+}
+
+void ProtagonistViewGraphical::updateFrame(int currentFrame)
+{
+    QString frameImage = QString(":/prisoner_%1").arg(currentFrame);
+
+    prot = QPixmap(frameImage);
+
+
+    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
+    scene->removeItem(protagonistDisplay.get());
+    protagonistDisplay.reset();
+
+    // Update the display with the new frame
+    protIcon->setPos(protModel->getPositionY() * tileDim, protModel->getPositionX() * tileDim);
+    protIcon->setZValue(1.1);
+
+    protagonistDisplay = protIcon;
+    scene->addItem(protagonistDisplay.get());
 }
 
 void ProtagonistViewGraphical::setHealthBar(const std::shared_ptr<HealthProgressBar> newHealthBar)

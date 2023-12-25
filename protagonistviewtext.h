@@ -15,6 +15,7 @@ public:
     void update(int row, int col) override;
     void updateHealth() override;
     void updateEnergy() override;
+    void updateFrame(int currentFrame) override;
     void clearView() override;
     void setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel) override;
     void erasePreviousPosition();
