@@ -48,6 +48,7 @@ void GameController::input(const ArrowDirection &direction)
     if (enemyController->containsEnemy(col, row) && !(enemyController->isDefeated(col, row)))
     {
         enemyController->attackEnemy(col, row, protController->getAttackDamage());
+        protController->attackEnemy();
         isHealthOver = protController->updateHealth(-10); //does fixed damage now
         row = prevRow;
         col = prevCol;

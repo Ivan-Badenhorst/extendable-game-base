@@ -2,10 +2,15 @@
 #define PROTAGONISTCONTROLLER_H
 #include "protagonistmodel.h"
 #include "protagonistview.h"
+#include <QObject>
+#include <QVariant>
+#include <QVector>
+#include <QTimer>
+#include <QPointer>
 
-
-class ProtagonistController
+class ProtagonistController: public QObject
 {
+    Q_OBJECT
 public:
     ProtagonistController(std::shared_ptr<ProtagonistModel> pm);
     void refreshAll();
@@ -29,6 +34,14 @@ private:
     std::shared_ptr<ProtagonistView> protView;
     std::shared_ptr<ProtagonistModel> protModel;
     bool isDead;
+    bool forwardAnimation{true};
+    int currentFrame;
+    QTimer attackTimer;
+
+signals:
+
+private slots:
+    void onAttackTimerTimeout();
 
 };
 
