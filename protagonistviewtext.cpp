@@ -86,6 +86,11 @@ void ProtagonistViewText::performHealthGain(int currentFrame)
 
 }
 
+void ProtagonistViewText::performDeath(int currentFrame)
+{
+
+}
+
 
 void ProtagonistViewText::clearView()
 {

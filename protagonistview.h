@@ -12,6 +12,7 @@ public:
     virtual void updateEnergy()=0;
     virtual void performAttack(int currentFrame)= 0;
     virtual void performHealthGain(int currentFrame)= 0;
+    virtual void performDeath(int currentFrame)= 0;
     virtual void clearView() = 0;
     virtual void setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel) = 0;
 
