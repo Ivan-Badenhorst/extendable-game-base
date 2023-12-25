@@ -66,7 +66,7 @@ void ProtagonistViewGraphical::clearView()
     healthBar.reset();
 }
 
-void ProtagonistViewGraphical::updateFrame(int currentFrame)
+void ProtagonistViewGraphical::performAttack(int currentFrame)
 {
     QString frameImage = QString(":/prisoner_%1").arg(currentFrame);
 
@@ -83,6 +83,23 @@ void ProtagonistViewGraphical::updateFrame(int currentFrame)
 
     protagonistDisplay = protIcon;
     scene->addItem(protagonistDisplay.get());
+}
+
+void ProtagonistViewGraphical::performHealthGain(int currentFrame)
+{
+    prot = currentFrame==0? QPixmap(":/prisoner_health"): QPixmap(":/prisoner_0");;
+
+    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
+    scene->removeItem(protagonistDisplay.get());
+    protagonistDisplay.reset();
+
+    // Update the display with the new frame
+    protIcon->setPos(protModel->getPositionY() * tileDim, protModel->getPositionX() * tileDim);
+    protIcon->setZValue(1.1);
+
+    protagonistDisplay = protIcon;
+    scene->addItem(protagonistDisplay.get());
+
 }
 
 void ProtagonistViewGraphical::setHealthBar(const std::shared_ptr<HealthProgressBar> newHealthBar)

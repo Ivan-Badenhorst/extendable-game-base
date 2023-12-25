@@ -76,7 +76,12 @@ void ProtagonistViewText::updateEnergy()
 
 }
 
-void ProtagonistViewText::updateFrame(int currentFrame)
+void ProtagonistViewText::performAttack(int currentFrame)
+{
+
+}
+
+void ProtagonistViewText::performHealthGain(int currentFrame)
 {
 
 }
