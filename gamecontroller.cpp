@@ -6,6 +6,7 @@
 #include "penemyviewgraphical.h"
 #include "protagonistviewgraphical.h"
 #include "easylevelfactory.h"
+#include "qstatusbar.h"
 
 #include <iostream>
 #include <memory>
@@ -81,8 +82,13 @@ void GameController::input(const ArrowDirection &direction)
 
 void GameController::stopGame(QString title, QString message)
 {
-    protController->refreshAll();
-    QMessageBox::information(nullptr, title, message);
+    protController->showDeath();
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(title);
+    msgBox.setText(message);
+    msgBox.setGeometry(600, 400, 600, 200); //(x, y, width, height)
+    msgBox.exec();
+    isInputDisabled = true;
     isInputDisabled = true;
 }
 
