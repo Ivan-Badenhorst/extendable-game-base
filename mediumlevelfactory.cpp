@@ -1,11 +1,15 @@
 #include "mediumlevelfactory.h"
+#include "mediumlevel.h"
+
 #include "protagonistcontroller.h"
 #include "TileH/tilecontroller.h"
-#include "mediumlevel.h"
+
 #include "HealthPackH/healthpackcontroller.h"
+
+#include "enemycontroller.h"
 #include "enemymodel.h"
 #include "penemymodel.h"
-#include "enemycontroller.h"
+
 
 MediumLevelFactory::MediumLevelFactory()
 {
