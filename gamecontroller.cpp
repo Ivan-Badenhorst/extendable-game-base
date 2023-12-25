@@ -1,12 +1,7 @@
 #include "gamecontroller.h"
-#include "HealthPackH/healthpackviewgraphical.h"
-#include "enemyviewgraphical.h"
 #include "penemymodel.h"
 #include "enemymodel.h"
-#include "penemyviewgraphical.h"
-#include "protagonistviewgraphical.h"
 #include "easylevelfactory.h"
-#include "qstatusbar.h"
 
 #include <iostream>
 #include <memory>
