@@ -6,5 +6,6 @@
         <file>prisoner_1.png</file>
         <file>prisoner_2.png</file>
         <file>prisoner_3.png</file>
+        <file>prisoner_health.png</file>
     </qresource>
 </RCC>
