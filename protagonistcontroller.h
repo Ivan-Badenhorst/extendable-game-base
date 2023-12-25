@@ -3,10 +3,7 @@
 #include "protagonistmodel.h"
 #include "protagonistview.h"
 #include <QObject>
-#include <QVariant>
-#include <QVector>
 #include <QTimer>
-#include <QPointer>
 
 class ProtagonistController: public QObject
 {
@@ -17,12 +14,12 @@ public:
     void update(int row, int col);
     void landedOnHp();
     void attackEnemy();
-    void takeDamage(int hpValue);
+    bool takeDamage(int hpValue);
     int getAttackDamage();
 
 
     bool updateEnergy(float enValue);
-    bool updateHealth(int hpValue);
+    void updateHealth(int hpValue);
 
     void setProtView(const std::shared_ptr<ProtagonistView> &newProtView);
 
@@ -37,11 +34,13 @@ private:
     bool forwardAnimation{true};
     int currentFrame;
     QTimer attackTimer;
+    QTimer healthGainTimer;
 
 signals:
 
 private slots:
     void onAttackTimerTimeout();
+    void onHealthGainTimerTimeout();
 
 };
 

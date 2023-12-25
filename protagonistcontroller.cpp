@@ -4,6 +4,7 @@ ProtagonistController::ProtagonistController( std::shared_ptr<ProtagonistModel> 
     :protModel(pm)
 {
     connect(&attackTimer, &QTimer::timeout, this, &ProtagonistController::onAttackTimerTimeout);
+    connect(&healthGainTimer, &QTimer::timeout, this, &ProtagonistController::onHealthGainTimerTimeout);
 }
 
 void ProtagonistController::refreshAll()
@@ -23,18 +24,23 @@ void ProtagonistController::attackEnemy()
     attackTimer.start();
 }
 
-bool ProtagonistController::updateHealth(int hpValue)
+void ProtagonistController::updateHealth(int hpValue)
 {
     isDead = protModel->updateHealth(hpValue);
     protView->updateHealth();
-    return isDead;
+    currentFrame = 0;
+
+
+    healthGainTimer.setInterval(200); // Adjust interval for each frame
+    healthGainTimer.start();
 }
 
 
-void ProtagonistController::takeDamage(int hpValue)
+bool ProtagonistController::takeDamage(int hpValue)
 {
-    protModel->takeDamage(hpValue);
+    isDead = protModel->updateHealth(-hpValue);
     protView->updateHealth();
+    return isDead;
 }
 
 int ProtagonistController::getAttackDamage()
@@ -69,25 +75,41 @@ bool ProtagonistController::getIsDead() const
 void ProtagonistController::onAttackTimerTimeout()
 {
 
-    protView->updateFrame(currentFrame);
+    protView->performAttack(currentFrame);
     if (forwardAnimation) {
-        // Move to the next frame in the forward sequence
         if (currentFrame < 3) {
             ++currentFrame;
         } else {
-            // If reached the end of forward sequence, switch to the reverse sequence
             forwardAnimation = false;
-            currentFrame = 2; // Skip the last frame (3) in reverse sequence
+            currentFrame = 2;
         }
-    } else {
-        // Move to the next frame in the reverse sequence
+    } else { //reverse sequence
         if (currentFrame > 0) {
             --currentFrame;
         }else{
             attackTimer.stop();
             forwardAnimation = true;
-            return;
         }
 
     }
+}
+
+void ProtagonistController::onHealthGainTimerTimeout()
+{
+
+    if (currentFrame % 2 == 0) {
+        protView->performHealthGain(0); // Display the 'prisoner_health' frame
+    } else {
+        // Show the 'prisoner_0' frame for 500 ms (half a second)
+        protView->performHealthGain(1); // Display the 'prisoner_0' frame
+    }
+
+    // Increment the frame count
+    ++currentFrame;
+
+    if (currentFrame > 3) {
+        healthGainTimer.stop();
+        currentFrame = 0; // Reset the frame count for future iterations
+    }
+
 }
