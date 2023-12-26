@@ -63,7 +63,7 @@ Latest update: 27/11/2023
   - Complete level cache, refactoring and refine level switch
 - Sudarshan: 
   - implemented animations for attack, health, path followed, dead actions
-  - additional text view functionality)
+  - additional text view functionality
 - Mahmoud: 
 
 
