@@ -232,7 +232,7 @@ void GameController::nextLevel()
     else{
         auto levelFactory = levels[currentLevel].first;
         switchLevel(levelFactory);
-        //switchView(false);
+        initializeView();
     }
 
 }
