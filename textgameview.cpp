@@ -39,6 +39,13 @@ void TextGameView::initializeMainWindow()
         protagonistTextView->setEnergyLabels(energyValueLabel);
     }
 
+    availableCommandsTextLabel = std::make_shared<QLabel>(&mainWindow);
+//    availableCommandsTextEdit = std::make_shared<QPlainTextEdit>(&mainWindow);
+//    availableCommandsTextEdit->setReadOnly(true);
+//    availableCommandsTextEdit->setFont(font);
+//    availableCommandsTextEdit->setFixedSize(800, 200); // Adjust size as needed
+
+
     //create a commandline edit
     lineEdit = std::make_shared<CommandLineEdit>(&mainWindow);
     lineEdit->setFixedWidth(textEdit->width());
@@ -61,6 +68,7 @@ void TextGameView::initializeMainWindow()
 
     layout->addLayout(layout1);
     layout->addWidget(lineEdit.get());
+    layout->addWidget(availableCommandsTextLabel.get());
 
 
 
@@ -97,6 +105,7 @@ void TextGameView::clearMainWindow()
     healthValueLabel.reset();
     energyLabel.reset();
     energyValueLabel.reset();
+    availableCommandsTextLabel.reset();
 }
 
 void TextGameView::setupBasicCommands()
@@ -133,6 +142,18 @@ void TextGameView::setupBasicCommands()
         gameController->switchView();
     };
     commandTrie->insert("switch view", switchView);
+
+    lineEdit->setCommandTrie(commandTrie);
+
+    auto displayHelp = [this]() {
+        auto availableCommands = commandTrie->getAllCommands();
+        std::string helpText = "Available Commands: \n";
+        for (const auto& command : availableCommands) {
+            helpText += command + "\n";
+        }
+        availableCommandsTextLabel->setText(QString::fromStdString(helpText)); // Update the text in the QLabel
+    };
+    commandTrie->insert("help", displayHelp);
 
     lineEdit->setCommandTrie(commandTrie);
 
