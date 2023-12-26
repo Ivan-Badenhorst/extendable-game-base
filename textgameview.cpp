@@ -40,10 +40,6 @@ void TextGameView::initializeMainWindow()
     }
 
     availableCommandsTextLabel = std::make_shared<QLabel>(&mainWindow);
-//    availableCommandsTextEdit = std::make_shared<QPlainTextEdit>(&mainWindow);
-//    availableCommandsTextEdit->setReadOnly(true);
-//    availableCommandsTextEdit->setFont(font);
-//    availableCommandsTextEdit->setFixedSize(800, 200); // Adjust size as needed
 
 
     //create a commandline edit

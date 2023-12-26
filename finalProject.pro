@@ -40,7 +40,6 @@ SOURCES += \
     penemyviewtext.cpp \
     protagonistcontroller.cpp \
     protagonistmodel.cpp \
- #   protagonisttimer.cpp \
     protagonistviewgraphical.cpp \
     mainwindow.cpp \
     protagonistviewtext.cpp \
@@ -89,7 +88,6 @@ HEADERS += \
     penemyviewtext.h \
     protagonistcontroller.h \
     protagonistmodel.h \
-#    protagonisttimer.h \
     protagonistview.h \
     protagonistviewgraphical.h \
     constants.h \

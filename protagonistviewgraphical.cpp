@@ -16,14 +16,6 @@ void ProtagonistViewGraphical::update()
     auto yPos = protModel->getPositionY();
     update(xPos,yPos);
 
-//    auto prot = QPixmap(":/prisoner");
-//    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
-//    protIcon->setZValue(1.1);
-
-
-//    protagonistDisplay = protIcon;
-//    scene->addItem(protagonistDisplay.get());
-
 }
 
 void ProtagonistViewGraphical::update(int row, int col)
@@ -31,9 +23,6 @@ void ProtagonistViewGraphical::update(int row, int col)
     if(protModel->getEnergy() >0 && protModel->getCurrentHealth() > 0){
         prot =  QPixmap(":/prisoner_0");
     }
-//   else{
-//        prot = QPixmap(":/prisoner_dead_4");
-//    }
 
     auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
     scene->removeItem(protagonistDisplay.get());
