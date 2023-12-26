@@ -148,4 +148,18 @@ void CommandTrieNode::setEndOfCommand(const bool &val)
     isEndOfCommand = val;
 }
 
+std::vector<std::string> CommandTrieNode::getAllCommands() const {
+    std::vector<std::string> commands;
+    for (const auto& child : childNodes) {
+        std::string command(1, child.first);
+        auto subCommands = child.second->getAllCommands();
+        for (const auto& subCommand : subCommands) {
+            commands.push_back(command + subCommand);
+        }
+        if (child.second->getIsEndOfCommand()) {
+            commands.push_back(command);
+        }
+    }
+    return commands;
+}
 
