@@ -233,6 +233,7 @@ void GameController::nextLevel()
         auto levelFactory = levels[currentLevel].first;
         switchLevel(levelFactory);
         initializeView();
+        tileController->update(row,col,false);
     }
 
 }
