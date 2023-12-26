@@ -11,13 +11,14 @@ TileController::TileController(std::shared_ptr<TileModel> tm)
 float TileController::update(int row, int col, bool allowPortal)
 {
     auto p = tileModel->getPortalAt(row, col);
+    tileModel->markTileAsVisited(row,col);
     if(p.has_value() && allowPortal){
         auto gc = GameController::getInstance();
         if(p.value()) {gc->nextLevel();}
         else{ gc->previousLevel();}
     }
     else{
-        tileView->update(row, col);        
+        tileView->update(row, col);
     }
     float val = tileModel->getTileValueAt(row,col);
     return val;

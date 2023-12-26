@@ -38,6 +38,7 @@ private:
     std::shared_ptr<QPixmap> getIcon(int range);
     std::vector<std::shared_ptr<QGraphicsPixmapItem>> tileDisplays;
     void AddPortalImage(int row, int col);
+    void updateOpacityInRenderedArea();
 };
 
 #endif // TILEVIEWGRAPHICAL_H
