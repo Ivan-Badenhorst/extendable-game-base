@@ -75,9 +75,8 @@ void GameController::input(const ArrowDirection &direction)
 
     //if there was an hp, we put it back -> but now the used version
     hpController->update(prevRow, prevCol);
-
     //update display window
-    tileController->update(row, col);
+    tileController->update(row, col); //add bool if all enemies dead or not.
 }
 
 void GameController::stopGame(QString title, QString message)
@@ -196,7 +195,6 @@ void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
     enemyController = level->getEnemyController();
 
     setupUi();
-
     //setup portals
     tileController->addPortal(0,0,false);
     tileController->addPortal(height-1, width-1, true);
@@ -234,7 +232,7 @@ void GameController::nextLevel()
     else{
         auto levelFactory = levels[currentLevel].first;
         switchLevel(levelFactory);
-        switchView(false);
+        //switchView(false);
     }
 
 }
