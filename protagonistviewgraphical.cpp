@@ -16,23 +16,12 @@ void ProtagonistViewGraphical::update()
     auto yPos = protModel->getPositionY();
     update(xPos,yPos);
 
-//    auto prot = QPixmap(":/prisoner");
-//    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
-//    protIcon->setZValue(1.1);
-
-
-//    protagonistDisplay = protIcon;
-//    scene->addItem(protagonistDisplay.get());
-
 }
 
 void ProtagonistViewGraphical::update(int row, int col)
 {
     if(protModel->getEnergy() >0 && protModel->getCurrentHealth() > 0){
-        prot =  QPixmap(":/prisoner");
-    }
-    else{
-        prot = QPixmap(":/prisoner_dead");
+        prot =  QPixmap(":/prisoner_0");
     }
 
     auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
@@ -64,6 +53,62 @@ void ProtagonistViewGraphical::clearView()
 {
     scene.reset();
     healthBar.reset();
+}
+
+void ProtagonistViewGraphical::performAttack(int currentFrame)
+{
+    QString frameImage = QString(":/prisoner_%1").arg(currentFrame);
+
+    prot = QPixmap(frameImage);
+
+
+    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
+    scene->removeItem(protagonistDisplay.get());
+    protagonistDisplay.reset();
+
+    // Update the display with the new frame
+    protIcon->setPos(protModel->getPositionY() * tileDim, protModel->getPositionX() * tileDim);
+    protIcon->setZValue(1.1);
+
+    protagonistDisplay = protIcon;
+    scene->addItem(protagonistDisplay.get());
+}
+
+void ProtagonistViewGraphical::performHealthGain(int currentFrame)
+{
+    prot = currentFrame==0? QPixmap(":/prisoner_health"): QPixmap(":/prisoner_0");;
+
+    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
+    scene->removeItem(protagonistDisplay.get());
+    protagonistDisplay.reset();
+
+    // Update the display with the new frame
+    protIcon->setPos(protModel->getPositionY() * tileDim, protModel->getPositionX() * tileDim);
+    protIcon->setZValue(1.1);
+
+    protagonistDisplay = protIcon;
+    scene->addItem(protagonistDisplay.get());
+
+}
+
+void ProtagonistViewGraphical::performDeath(int currentFrame)
+{
+    QString frameImage = QString(":/prisoner_dead_%1").arg(currentFrame);
+
+    prot = QPixmap(frameImage);
+
+
+    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
+    scene->removeItem(protagonistDisplay.get());
+    protagonistDisplay.reset();
+
+    // Update the display with the new frame
+    protIcon->setPos(protModel->getPositionY() * tileDim, protModel->getPositionX() * tileDim);
+    protIcon->setZValue(1.1);
+
+    protagonistDisplay = protIcon;
+    scene->addItem(protagonistDisplay.get());
+
 }
 
 void ProtagonistViewGraphical::setHealthBar(const std::shared_ptr<HealthProgressBar> newHealthBar)

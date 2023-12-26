@@ -76,6 +76,21 @@ void ProtagonistViewText::updateEnergy()
 
 }
 
+void ProtagonistViewText::performAttack(int currentFrame)
+{
+
+}
+
+void ProtagonistViewText::performHealthGain(int currentFrame)
+{
+
+}
+
+void ProtagonistViewText::performDeath(int currentFrame)
+{
+
+}
+
 
 void ProtagonistViewText::clearView()
 {

@@ -15,6 +15,9 @@ public:
     void updateHealth() override;
     void updateEnergy() override;
     void clearView() override;
+    void performAttack(int currentFrame) override;
+    void performHealthGain(int currentFrame) override;
+    void performDeath(int currentFrame) override;
 
     void setHealthBar(const std::shared_ptr<HealthProgressBar> newHealthBar);
     void setEnergyBar(const std::shared_ptr<EnergyProgressBar> newEnergyBar);

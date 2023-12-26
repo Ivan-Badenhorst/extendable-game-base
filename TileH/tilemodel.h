@@ -28,10 +28,13 @@ public:
     float getTileValueAt(int row, int col);
     std::optional<bool> getPortalAt(int row, int col);
     std::pair<Portal, Portal> getPortals() const;
+    void markTileAsVisited(int row, int col);
+    bool isTileVisited(int row, int col) const;
 
 
 private:
     std::vector<std::vector<float>> tileTable;
+    std::vector<std::vector<bool>> visitedTiles;
     int rows;
     int columns;
     std::pair<Portal, Portal> portals;

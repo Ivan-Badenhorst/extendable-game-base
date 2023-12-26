@@ -1,24 +1,19 @@
 #include "mainwindow.h"
-#include "enemyviewtext.h"
-#include "hardlevelfactory.h"
-#include "healthpackviewtext.h"
+
 #include "mediumlevelfactory.h"
-#include "penemyviewtext.h"
-#include "protagonistviewtext.h"
+#include "hardlevelfactory.h"
+
+#include "graphicgameviewfactory.h"
 #include "textgameviewfactory.h"
-#include "tileviewtext.h"
 #include "ui_mainwindow.h"
+
 #include "constants.h"
 #include "gamecontroller.h"
-#include  "easylevelfactory.h"
-#include "graphicgameviewfactory.h"
+
 
 #include <QHBoxLayout>
 #include <QLabel>
 
-
-#include "graphicalgameview.h"
-#include "textgameview.h"
 
 class TextGameView;
 

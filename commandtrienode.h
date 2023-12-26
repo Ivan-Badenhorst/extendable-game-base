@@ -39,6 +39,7 @@ public:
 
     void setCommandFunction(const std::function<void ()> &newCommandFunction);
     void executeCommand();
+    std::vector<std::string> getAllCommands() const;
 
 private:
     bool isEndOfCommand {false};

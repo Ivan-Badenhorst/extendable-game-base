@@ -1,11 +1,12 @@
 #include "gamecontroller.h"
-#include "HealthPackH/healthpackviewgraphical.h"
+
 #include "enemyviewgraphical.h"
 #include "penemymodel.h"
 #include "enemymodel.h"
 #include "penemyviewgraphical.h"
-#include "protagonistviewgraphical.h"
+
 #include "easylevelfactory.h"
+
 
 #include <iostream>
 #include <memory>
@@ -48,7 +49,8 @@ void GameController::input(const ArrowDirection &direction)
     if (enemyController->containsEnemy(col, row) && !(enemyController->isDefeated(col, row)))
     {
         enemyController->attackEnemy(col, row, protController->getAttackDamage());
-        isHealthOver = protController->updateHealth(-10); //does fixed damage now
+        protController->attackEnemy();
+        isHealthOver = protController->takeDamage(10); //does fixed damage now
         row = prevRow;
         col = prevCol;
     }
@@ -73,15 +75,19 @@ void GameController::input(const ArrowDirection &direction)
 
     //if there was an hp, we put it back -> but now the used version
     hpController->update(prevRow, prevCol);
-
     //update display window
-    tileController->update(row, col);
+    tileController->update(row, col); //add bool if all enemies dead or not.
 }
 
 void GameController::stopGame(QString title, QString message)
 {
-    protController->refreshAll();
-    QMessageBox::information(nullptr, title, message);
+    protController->showDeath();
+    QMessageBox msgBox;
+    msgBox.setWindowTitle(title);
+    msgBox.setText(message);
+    msgBox.setGeometry(600, 400, 600, 200); //(x, y, width, height)
+    msgBox.exec();
+    isInputDisabled = true;
     isInputDisabled = true;
 }
 
@@ -189,7 +195,6 @@ void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
     enemyController = level->getEnemyController();
 
     setupUi();
-
     //setup portals
     tileController->addPortal(0,0,false);
     tileController->addPortal(height-1, width-1, true);
@@ -227,7 +232,7 @@ void GameController::nextLevel()
     else{
         auto levelFactory = levels[currentLevel].first;
         switchLevel(levelFactory);
-        switchView(false);
+        //switchView(false);
     }
 
 }

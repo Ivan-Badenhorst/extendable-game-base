@@ -13,6 +13,7 @@ void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<
     this->rows = rows;
     columns = cols;
     tileTable.reserve(rows);
+    visitedTiles.assign(rows, std::vector<bool>(cols, false));
 
 
     for (int i = 0; i < rows; i++) {
@@ -84,4 +85,18 @@ std::optional<bool> TileModel::getPortalAt(int row, int col)
 std::pair<Portal, Portal> TileModel::getPortals() const
 {
     return portals;
+}
+
+
+void TileModel::markTileAsVisited(int row, int col) {
+    if (row >= 0 && row < rows && col >= 0 && col < columns) {
+        visitedTiles[row][col] = true;
+    }
+}
+
+bool TileModel::isTileVisited(int row, int col) const {
+    if (row >= 0 && row < rows && col >= 0 && col < columns) {
+        return visitedTiles[row][col];
+    }
+    return false;
 }

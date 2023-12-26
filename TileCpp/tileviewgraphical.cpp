@@ -1,7 +1,7 @@
 #include "TileH/tileviewgraphical.h"
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
-
+#include <QGraphicsDropShadowEffect>
 #include "TileH/tilemodel.h"
 
 #include <iostream>
@@ -130,7 +130,7 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
         for (int col = colStart; col <= colEnd; col++ )
         {
-
+            bool visited = tileModel->isTileVisited(row, col); //new line
             if(hasBeenRendered[row+(displayHeight/2)][col+(displayWidth/2)] == false){
 //            if(hasBeenRendered[row][col] == false){
 
@@ -145,6 +145,7 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
                     auto item = std::make_shared<QGraphicsPixmapItem>(*icon.get());
                     item->setPos(col*tileDim,row*tileDim);
                     item->setZValue(0.1);
+                    //if(visited) item->setOpacity(0.8);
                     tileDisplays.push_back(item);
                     scene->addItem(item.get());
                 }
@@ -160,8 +161,6 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
                     rect->setBrush(brush);
                     rect->setZValue(0);
 
-
-
                 }
 
 
@@ -172,11 +171,12 @@ void TileViewGraphical::displaySection(int rowStart, int rowEnd, int colStart, i
 
             }
 
-
         }
 
 
     }
+
+    updateOpacityInRenderedArea();
 
 }
 
@@ -209,6 +209,31 @@ void TileViewGraphical::setTileModel(const std::shared_ptr<TileModel> &newTileMo
         }
     }
     portalsDisplayed = false;
+}
+
+void TileViewGraphical::updateOpacityInRenderedArea() {
+    auto tileTable = tileModel->getTileTable();
+
+    for (int row = 0; row < tileTable.size(); ++row) {
+        for (int col = 0; col < tileTable[0].size(); ++col) {
+            bool visited = tileModel->isTileVisited(row, col);
+
+            if (visited && hasBeenRendered[row + (displayHeight / 2)][col + (displayWidth / 2)]) {
+                // Find the corresponding item in tileDisplays and update its opacity
+                for (auto& item : tileDisplays) {
+                    if(item != nullptr){
+                       int itemRow = item->y() / tileDim;
+                       int itemCol = item->x() / tileDim;
+
+                       if (itemRow == row && itemCol == col) {
+                           item->setOpacity(0.8);// Set opacity for visited tiles within the rendered area
+                           break;
+                       }
+                    }
+                }
+            }
+        }
+    }
 }
 
 
