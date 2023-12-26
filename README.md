@@ -55,14 +55,15 @@ Latest update: 27/11/2023
 - Sudarshan: 
   - Incorporate energy mechanism for protagonist
   - Basic orchestration of damage between protagonist and enemy
-  - Stop game when dead 
+  - Dying + stop
 - Mahmoud: 
 
 ### Week 13
 - Ivan: 
   - Complete level cache, refactoring and refine level switch
 - Sudarshan: 
-  -
+  - implemented animations for attack, health, path followed, dead actions
+  - additional text view functionality
 - Mahmoud: 
 
 
