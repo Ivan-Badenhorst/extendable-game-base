@@ -169,9 +169,12 @@ void CommandLineEdit::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Return:
     case Qt::Key_Enter:
         ret = commandTrie->findFirstMatch(this->text().toStdString(), true);
-        std::cout << "Do I get here??" << std::endl;
+
         if(ret.second == 1 || ret.second == 3){
             if(ret.first != "switch view") this->setText("");
+        } else{
+            ret = commandTrie->findFirstMatch("help", true);
+            this->setText("");
         }
         break;
     case Qt::Key_Right:
