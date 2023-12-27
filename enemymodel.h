@@ -19,7 +19,6 @@ public:
     bool containsEnemy(int col, int row) override;
     bool isDefeated(int col, int row) override;
     void attackEnemy(int col, int row, int damage) override;
-    bool getDefeated(int row, int col) const override;
     EnemyState getOneEnemyState(int col, int row) const;
     std::vector<EnemyState> getAllEnemyStates() const;
     

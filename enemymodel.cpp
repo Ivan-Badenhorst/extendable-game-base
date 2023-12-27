@@ -73,23 +73,6 @@ void EnemyModel::attackEnemy(int col, int row, int damage)
     }
 }
 
-bool EnemyModel::getDefeated(int row, int col) const
-{
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(col, row);
-
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key)>0)
-    {
-        // Return the defeated status of the enemy
-        return enemyMap.at(key)->getDefeated();
-    }
-    else
-    {
-        // Return false if the enemy is not in the map
-        return false;
-    }
-}
 
 EnemyState EnemyModel::getOneEnemyState(int col, int row) const
 {
