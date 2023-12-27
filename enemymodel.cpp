@@ -72,3 +72,54 @@ void EnemyModel::attackEnemy(int col, int row, int damage)
         enemyMap[key]->setDefeated(true);
     }
 }
+
+bool EnemyModel::getDefeated(int row, int col) const
+{
+    // Create a pair with the x and y position as the key
+    std::pair<int, int> key = std::make_pair(col, row);
+
+    // Check if the enemyMap contains the key
+    if (enemyMap.count(key)>0)
+    {
+        // Return the defeated status of the enemy
+        return enemyMap.at(key)->getDefeated();
+    }
+    else
+    {
+        // Return false if the enemy is not in the map
+        return false;
+    }
+}
+
+EnemyState EnemyModel::getOneEnemyState(int col, int row) const
+{
+    // Create a pair with the x and y position as the key
+    std::pair<int, int> key = std::make_pair(col, row);
+
+    // Check if the enemyMap contains the key
+    if (enemyMap.count(key)>0)
+    {
+        // Return the enemy state
+        return {enemyMap.at(key)->getXPos(), enemyMap.at(key)->getYPos(), enemyMap.at(key)->getDefeated()};
+    }
+    else
+    {
+        // Return an empty enemy state if the enemy is not in the map
+        return {0, 0, false};
+    }
+}
+
+std::vector<EnemyState> EnemyModel::getAllEnemyStates() const
+{
+    // Create a vector to hold the enemy states
+    std::vector<EnemyState> enemyStates;
+
+    // Iterate through the enemyMap and add the enemy states to the vector
+    for (auto const& x : enemyMap)
+    {
+        enemyStates.push_back({x.second->getXPos(), x.second->getYPos(), x.second->getDefeated()});
+    }
+
+    // Return the vector
+    return enemyStates;
+}
