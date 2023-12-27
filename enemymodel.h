@@ -16,10 +16,10 @@ public:
     EnemyModel();
     void addEnemy(std::shared_ptr<Enemy> enemy) override;
     std::vector<std::shared_ptr<Enemy>> getEnemies() const override;
-    bool containsEnemy(int col, int row) override;
-    bool isDefeated(int col, int row) override;
-    void attackEnemy(int col, int row, int damage) override;
-    EnemyState getOneEnemyState(int col, int row) const;
+    bool containsEnemy(int x, int y) override;
+    bool isDefeated(int x, int y) override;
+    void attackEnemy(int x, int y, int damage) override;
+    std::optional<EnemyState> getOneEnemyState(int x, int y) const;
     std::vector<EnemyState> getAllEnemyStates() const;
     
 

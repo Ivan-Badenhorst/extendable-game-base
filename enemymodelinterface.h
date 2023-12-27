@@ -16,7 +16,6 @@ public:
     virtual bool isDefeated(int row, int col) = 0;
     virtual void attackEnemy(int row, int col, int damage) = 0;
     std::string getEnemyType() const;
-    void setEnemyType(const std::string &value);
 
 protected:
     std::string enemyType; // Protected string attribute for enemy type
@@ -24,12 +23,11 @@ protected:
 
 inline std::string EnemyModelInterface::getEnemyType() const
 {
+    if (enemyType.empty()) {
+        throw std::runtime_error("Enemy type is empty");
+    }
     return enemyType;
 }
 
-inline void EnemyModelInterface::setEnemyType(const std::string &value)
-{
-    enemyType = value;
-}
 
 #endif // ENEMYMODELINTERFACE_H

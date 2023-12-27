@@ -7,44 +7,42 @@
 EnemyViewGraphical::EnemyViewGraphical()
 
 {
-
+    enemyType = "Enemy";
 }
 
-void EnemyViewGraphical::update()
+void EnemyViewGraphical::render()
 {
-    enemyDisplays.clear();
+    // First, remove all displayed enemies from the scene and the map
+    for(auto& item : enemiesDisplayed){
+        scene->removeItem(item.second.get());
+    }
+    enemiesDisplayed.clear();
 
-    auto enemyIcon = QPixmap(":/Enemy_alive");
+    // Then fetch all enemy data from the EnemyModel
+    auto allEnemiesState = enemyModel->getAllEnemyStates();
 
-    for(auto& enemy: enemyModel->getEnemies()){
-        displayEnemy(std::make_shared<QGraphicsPixmapItem>(enemyIcon), enemy.get()->getXPos(), enemy.get()->getYPos());
+    // Then display each enemy
+    for(auto& enemyState : allEnemiesState){
+        displayEnemy(enemyState.x, enemyState.y, enemyState.isDefeated);
     }
 }
 
-void EnemyViewGraphical::update(int row, int col, bool defeated)
+void EnemyViewGraphical::render(int x, int y)
 {
-    auto enemyIcon = QPixmap(":/Enemy_alive");
-    auto enemyIconDefeated = QPixmap(":/Enemy_dead");
-
-    std::shared_ptr<QGraphicsPixmapItem> itemsToRerender;
-    for(auto& enemy: enemyDisplays){
-        int colDisplay = enemy.get()->y()/tileDim;
-        int rowDisplay = enemy.get()->x()/tileDim;
-
-        if(colDisplay == row && rowDisplay == col){
-            itemsToRerender = enemy;
-        }
+    // First we remove the icon for that enemy in our displayed enemies if there is one.
+    auto oldItem = enemiesDisplayed.find(std::make_pair(x/tileDim, y/tileDim));
+    
+    if(oldItem != enemiesDisplayed.end()){
+        scene->removeItem(oldItem->second.get());
+        enemiesDisplayed.erase(oldItem);
     }
+    
+    // Then we fetch data for this Enemy from the EnemyModel.
+    auto enemyState = enemyModel->getOneEnemyState(x, y);
 
-    scene->removeItem(itemsToRerender.get());
-    itemsToRerender.reset();
-
-    if(defeated){
-        displayEnemy(std::make_shared<QGraphicsPixmapItem>(enemyIconDefeated), col, row);
-    }
-    else
-    {
-        displayEnemy(std::make_shared<QGraphicsPixmapItem>(enemyIcon), col, row);
+    // Then we render the Enemy if we have data for it.
+    if(enemyState.has_value()){
+        displayEnemy(x, y, enemyState.value().isDefeated);
     }
 }
 
@@ -62,10 +60,22 @@ void EnemyViewGraphical::setEnemyModel(const std::shared_ptr<EnemyModel> &newEne
 }
 
 
-void EnemyViewGraphical::displayEnemy(std::shared_ptr<QGraphicsPixmapItem> icon, int x, int y)
+void EnemyViewGraphical::displayEnemy(int x, int y, bool defeated)
 {
-    icon->setPos(x*tileDim, y*tileDim);
+    QPixmap enemyIconAlive = QPixmap(":/Enemy_alive");
+    QPixmap enemyIconDefeated = QPixmap(":/Enemy_dead");
+    std::shared_ptr<QGraphicsPixmapItem> icon;
+
+    if (defeated) {
+        icon = std::make_shared<QGraphicsPixmapItem>(enemyIconDefeated);
+    } else {
+        icon = std::make_shared<QGraphicsPixmapItem>(enemyIconAlive);
+    }
+
+    icon->setPos(x * tileDim, y * tileDim);
     icon->setZValue(zValue);
     scene->addItem(icon.get());
-    enemyDisplays.push_back(icon);
+    
+    // Add the shared_ptr to the enemiesDisplayed map
+    enemiesDisplayed[std::make_pair(x, y)] = icon;
 }

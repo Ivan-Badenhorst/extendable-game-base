@@ -17,7 +17,7 @@ void EnemyController::refreshAllGraphical()
     // Iterate through the enemyGraphicalViews vector and refresh each view
     for (auto const &x : enemyViews)
     {
-        x->update();
+        x->render();
     }
 }
 
@@ -39,12 +39,12 @@ std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getAllEnemyM
     return enemyModels;
 }
 
-bool EnemyController::containsEnemy(int col, int row) const
+bool EnemyController::containsEnemy(int x, int y) const
 {
     // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
-    for (auto const &x : enemyModels)
+    for (auto const &em : enemyModels)
     {
-        if (x->containsEnemy(col, row))
+        if (em->containsEnemy(x, y))
         {
             return true;
         }
@@ -52,47 +52,47 @@ bool EnemyController::containsEnemy(int col, int row) const
     return false;
 }
 
-bool EnemyController::isDefeated(int col, int row) const
+bool EnemyController::isDefeated(int x, int y) const
 {
     // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
-    for (auto const &x : enemyModels)
+    for (auto const &em : enemyModels)
     {
-        if (x->containsEnemy(col, row))
+        if (em->containsEnemy(x, y))
         {
-            return x->isDefeated(col, row);
+            return em->isDefeated(x, y);
         }
     }
     return false;
 }
 
-void EnemyController::attackEnemy(int col, int row, int damage)
+void EnemyController::attackEnemy(int x, int y, int damage)
 {
     // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
-    for (auto const &x : enemyModels)
+    for (auto const &em : enemyModels)
     {
-        if (x->containsEnemy(col, row))
+        if (em->containsEnemy(x, y))
         {
-            x->attackEnemy(col, row, damage);
-            auto etype = x->getEnemyType();
+            em->attackEnemy(x, y, damage);
+            auto etype = em->getEnemyType();
             if (etype == "PEnemy")
             {
-                penemytimer->addEnemy(col,row);
-                for (auto const &y : enemyViews)
+                penemytimer->addEnemy(x, y);
+                for (auto const &ev : enemyViews)
                 {
-                    if (y->getEnemyType() == "PEnemy")
+                    if (ev->getEnemyType() == "PEnemy")
                     {
-                        y->update(row, col, true);
+                        ev->render(x, y);
                         break;
                     }
                 }
             }
             else if (etype == "Enemy")
             {
-                for (auto const &y : enemyViews)
+                for (auto const &ev : enemyViews)
                 {
-                    if (y->getEnemyType() == "Enemy")
+                    if (ev->getEnemyType() == "Enemy")
                     {
-                        y->update(row, col, true);
+                        ev->render(x, y);
                         break;
                     }
                 }
@@ -101,9 +101,9 @@ void EnemyController::attackEnemy(int col, int row, int damage)
     }
 }
 
-void EnemyController::drainPEnemy(int col, int row)
+void EnemyController::drainPEnemy(int x, int y)
 {
-    std::cout << "Draining Penemy : " << col << "," << row << std::endl;
+    std::cout << "Draining Penemy : " << x << "," << y << std::endl;
 }
 
 std::shared_ptr<EnemyModel> EnemyController::getEnemyModel() const

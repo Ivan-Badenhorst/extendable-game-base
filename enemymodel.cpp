@@ -1,8 +1,9 @@
 #include "enemymodel.h"
+#include <iostream>
 
 EnemyModel::EnemyModel()
 {
-    // The model is empty when created. Enemies are added using the addEnemy method from the factory.
+    enemyType = "Enemy";
 }
 
 void EnemyModel::addEnemy(std::shared_ptr<Enemy> enemy)
@@ -18,6 +19,7 @@ void EnemyModel::addEnemy(std::shared_ptr<Enemy> enemy)
     enemyMap[key] = enemy;
 }
 
+/// TODO: we should not give access to the actual data which should be private to the model !
 std::vector<std::shared_ptr<Enemy>> EnemyModel::getEnemies() const
 {
     // Create a vector to hold the enemies
@@ -33,19 +35,19 @@ std::vector<std::shared_ptr<Enemy>> EnemyModel::getEnemies() const
     return enemies;
 }
 
-bool EnemyModel::containsEnemy(int col, int row)
+bool EnemyModel::containsEnemy(int x, int y)
 {
     // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(col, row);
+    std::pair<int, int> key = std::make_pair(x, y);
 
     // Check if the enemyMap contains the key
     return (enemyMap.count(key)>0);
 }
 
-bool EnemyModel::isDefeated(int col, int row)
+bool EnemyModel::isDefeated(int x, int y)
 {
     // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(col, row);
+    std::pair<int, int> key = std::make_pair(x, y);
 
     // Check if the enemyMap contains the key
     if (enemyMap.count(key)>0)
@@ -60,10 +62,10 @@ bool EnemyModel::isDefeated(int col, int row)
     }
 }
 
-void EnemyModel::attackEnemy(int col, int row, int damage)
+void EnemyModel::attackEnemy(int x, int y, int damage)
 {
     // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(col, row);
+    std::pair<int, int> key = std::make_pair(x, y);
 
     // Check if the enemyMap contains the key
     if (enemyMap.count(key)>0)
@@ -74,21 +76,21 @@ void EnemyModel::attackEnemy(int col, int row, int damage)
 }
 
 
-EnemyState EnemyModel::getOneEnemyState(int col, int row) const
+std::optional<EnemyState> EnemyModel::getOneEnemyState(int x, int y) const
 {
     // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(col, row);
+    std::pair<int, int> key = std::make_pair(x, y);
 
     // Check if the enemyMap contains the key
     if (enemyMap.count(key)>0)
     {
         // Return the enemy state
-        return {enemyMap.at(key)->getXPos(), enemyMap.at(key)->getYPos(), enemyMap.at(key)->getDefeated()};
+        return std::optional<EnemyState>({enemyMap.at(key)->getXPos(), enemyMap.at(key)->getYPos(), enemyMap.at(key)->getDefeated()});
     }
     else
     {
-        // Return an empty enemy state if the enemy is not in the map
-        return {0, 0, false};
+        // Return an empty optional if the enemy is not in the map
+        return std::nullopt;
     }
 }
 
@@ -98,9 +100,9 @@ std::vector<EnemyState> EnemyModel::getAllEnemyStates() const
     std::vector<EnemyState> enemyStates;
 
     // Iterate through the enemyMap and add the enemy states to the vector
-    for (auto const& x : enemyMap)
+    for (auto const& e : enemyMap)
     {
-        enemyStates.push_back({x.second->getXPos(), x.second->getYPos(), x.second->getDefeated()});
+        enemyStates.push_back({e.second->getXPos(), e.second->getYPos(), e.second->getDefeated()});
     }
 
     // Return the vector

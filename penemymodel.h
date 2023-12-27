@@ -4,6 +4,13 @@
 #include <map>
 #include "enemymodelinterface.h"
 
+
+struct PEnemyState {
+    int x;
+    int y;
+    bool isDefeated;
+};
+
 class PEnemyModel: public EnemyModelInterface
 {
 public:
@@ -14,6 +21,8 @@ public:
     bool isDefeated(int row, int col) override;
     void attackEnemy(int row, int col, int damage) override;
     void drainPEnemy(int row, int col);
+    std::optional<PEnemyState> getOnePEnemyState(int x, int y) const;
+    std::vector<PEnemyState> getAllPEnemyStates() const;
 
 private:
     // Map to link x and y to shared pointer of enemy object
