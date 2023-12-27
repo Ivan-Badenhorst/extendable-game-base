@@ -2,7 +2,7 @@
 
 PEnemyModel::PEnemyModel()
 {
-    // The model is empty when created. Enemies are added using the addEnemy method from the factory.
+    enemyType = "PEnemy";
 }
 
 void PEnemyModel::addEnemy(std::shared_ptr<Enemy> enemy)
@@ -123,3 +123,36 @@ float getPoisonLevel(int row, int col)
     return 0;
 }
 
+
+std::optional<PEnemyState> PEnemyModel::getOnePEnemyState(int x, int y) const
+{
+    // Create a pair with the x and y position as the key
+    std::pair<int, int> key = std::make_pair(x, y);
+
+    // Check if the enemyMap contains the key
+    if (enemyMap.count(key)>0)
+    {
+        // Return the enemy state
+        return std::optional<PEnemyState>({enemyMap.at(key)->getXPos(), enemyMap.at(key)->getYPos(), enemyMap.at(key)->getDefeated()});
+    }
+    else
+    {
+        // Return an empty optional if the enemy is not in the map
+        return std::nullopt;
+    }
+}
+
+std::vector<PEnemyState> PEnemyModel::getAllPEnemyStates() const
+{
+    // Create a vector to hold the enemy states
+    std::vector<PEnemyState> enemyStates;
+
+    // Iterate through the enemyMap and add the enemy states to the vector
+    for (auto const& e : enemyMap)
+    {
+        enemyStates.push_back({e.second->getXPos(), e.second->getYPos(), e.second->getDefeated()});
+    }
+
+    // Return the vector
+    return enemyStates;
+}

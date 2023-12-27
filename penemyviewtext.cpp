@@ -6,7 +6,7 @@ PEnemyViewText::PEnemyViewText()
 
 }
 
-void PEnemyViewText::update()
+void PEnemyViewText::render()
 {
 
 }
@@ -16,7 +16,7 @@ void PEnemyViewText::clearView()
 
 }
 
-void PEnemyViewText::update(int row, int col, bool defeated)
+void PEnemyViewText::render(int row, int col)
 {
 
 }

@@ -6,45 +6,43 @@
 PEnemyViewGraphical::PEnemyViewGraphical()
 
 {
-
+    enemyType = "PEnemy";
 }
 
-void PEnemyViewGraphical::update()
+void PEnemyViewGraphical::render()
 {
-    penemyDisplays.clear();
+    // First, remove all displayed enemies from the scene and the map
+    for(auto& item : penemiesDisplayed){
+        scene->removeItem(item.second.get());
+    }
+    penemiesDisplayed.clear();
 
-    auto enemyIcon = QPixmap(":/PEnemy_alive");
+    // Then fetch all enemy data from the EnemyModel
+    auto allPEnemiesState = penemyModel->getAllPEnemyStates();
 
-    for(auto& penemy: penemyModel->getEnemies()){
-        displayEnemy(std::make_shared<QGraphicsPixmapItem>(enemyIcon), penemy.get()->getXPos(), penemy.get()->getYPos());
+    // Then display each enemy
+    for(auto& penemyState : allPEnemiesState){
+        displayPEnemy(penemyState.x, penemyState.y, penemyState.isDefeated);
     }
 }
 
 
-void PEnemyViewGraphical::update(int row, int col, bool defeated)
+void PEnemyViewGraphical::render(int x, int y)
 {
-    auto enemyIcon = QPixmap(":/PEnemy_alive");
-    auto enemyIconDefeated = QPixmap(":/PEnemy_dead");
-
-    std::shared_ptr<QGraphicsPixmapItem> itemsToRerender;
-    for(auto& penemy: penemyDisplays){
-        int colDisplay = penemy.get()->y()/tileDim;
-        int rowDisplay = penemy.get()->x()/tileDim;
-
-        if(colDisplay == row && rowDisplay == col){
-            itemsToRerender = penemy;
-        }
+    // First we remove the icon for that enemy in our displayed enemies if there is one.
+    auto oldItem = penemiesDisplayed.find(std::make_pair(x/tileDim, y/tileDim));
+    
+    if(oldItem != penemiesDisplayed.end()){
+        scene->removeItem(oldItem->second.get());
+        penemiesDisplayed.erase(oldItem);
     }
+    
+    // Then we fetch data for this Enemy from the EnemyModel.
+    auto penemyState = penemyModel->getOnePEnemyState(x, y);
 
-    scene->removeItem(itemsToRerender.get());
-    itemsToRerender.reset();
-
-    if(defeated){
-        displayEnemy(std::make_shared<QGraphicsPixmapItem>(enemyIconDefeated), col, row);
-    }
-    else
-    {
-        displayEnemy(std::make_shared<QGraphicsPixmapItem>(enemyIcon), col, row);
+    // Then we render the Enemy if we have data for it.
+    if(penemyState.has_value()){
+        displayPEnemy(x, y, penemyState.value().isDefeated);
     }
 }
 
@@ -62,10 +60,22 @@ void PEnemyViewGraphical::setPEnemyModel(const std::shared_ptr<PEnemyModel> &new
 }
 
 
-void PEnemyViewGraphical::displayEnemy(std::shared_ptr<QGraphicsPixmapItem> icon, int x, int y)
+void PEnemyViewGraphical::displayPEnemy(int x, int y, bool defeated)
 {
-    icon->setPos(x*tileDim, y*tileDim);
+    QPixmap penemyIconAlive = QPixmap(":/PEnemy_alive");
+    QPixmap penemyIconDefeated = QPixmap(":/PEnemy_dead");
+    std::shared_ptr<QGraphicsPixmapItem> icon;
+
+    if (defeated) {
+        icon = std::make_shared<QGraphicsPixmapItem>(penemyIconDefeated);
+    } else {
+        icon = std::make_shared<QGraphicsPixmapItem>(penemyIconAlive);
+    }
+
+    icon->setPos(x * tileDim, y * tileDim);
     icon->setZValue(zValue);
     scene->addItem(icon.get());
-    penemyDisplays.push_back(icon);
+    
+    // Add the shared_ptr to the enemiesDisplayed map
+    penemiesDisplayed[std::make_pair(x, y)] = icon;
 }

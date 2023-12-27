@@ -4,7 +4,11 @@
 #include <map>
 #include "enemymodelinterface.h"
 
-
+struct EnemyState {
+    int x;
+    int y;
+    bool isDefeated;
+};
 
 class EnemyModel: public EnemyModelInterface
 {
@@ -12,9 +16,12 @@ public:
     EnemyModel();
     void addEnemy(std::shared_ptr<Enemy> enemy) override;
     std::vector<std::shared_ptr<Enemy>> getEnemies() const override;
-    bool containsEnemy(int col, int row) override;
-    bool isDefeated(int col, int row) override;
-    void attackEnemy(int col, int row, int damage) override;
+    bool containsEnemy(int x, int y) override;
+    bool isDefeated(int x, int y) override;
+    void attackEnemy(int x, int y, int damage) override;
+    std::optional<EnemyState> getOneEnemyState(int x, int y) const;
+    std::vector<EnemyState> getAllEnemyStates() const;
+    
 
 private:
     std::map<std::pair<int, int>, std::shared_ptr<Enemy>> enemyMap; // Map to link x and y to shared pointer of enemy object

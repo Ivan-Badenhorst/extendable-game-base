@@ -22,9 +22,7 @@ std::shared_ptr<Level> EasyLevelFactory::createWorld()
 
     //enemies models
     auto em = std::make_shared<EnemyModel>();
-    em->setEnemyType("Enemy");
     auto pem = std::make_shared<PEnemyModel>();
-    pem->setEnemyType("PEnemy");
 
     for (auto& enemy : w.getEnemies()) {
         if (auto pEnemy = dynamic_cast<PEnemy*>(enemy.get())) {

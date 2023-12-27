@@ -58,7 +58,7 @@ public:
      * @param row The row to check.
      * @return True if there is an enemy at the given coordinates, false otherwise.
      */
-    bool containsEnemy(int col, int row) const;
+    bool containsEnemy(int x, int y) const;
 
     /**
      * @brief Checks if the enemy at the given coordinates has been defeated.
@@ -66,7 +66,7 @@ public:
      * @param row The row to check.
      * @return True if the enemy at the given coordinates has been defeated, false otherwise.
      */
-    bool isDefeated(int col, int row) const;
+    bool isDefeated(int x, int y) const;
 
     /**
      * @brief Attacks the enemy at the given coordinates.
@@ -74,10 +74,10 @@ public:
      * @param row The row to attack.
      * @param damage The amount of damage to deal to the enemy.
      */
-    void attackEnemy(int col, int row, int damage);
+    void attackEnemy(int x, int y, int damage);
 
 
-    void drainPEnemy(int col, int row);
+    void drainPEnemy(int x, int y);
 
     std::shared_ptr<EnemyModel> getEnemyModel() const;
     std::shared_ptr<PEnemyModel> getPEnemyModel() const;
