@@ -9,9 +9,9 @@ class PEnemyViewText: public EnemyViewInterface, public PEnemyView
 {
 public:
     PEnemyViewText();
-    void update() override;
+    void render() override;
     void clearView() override;
-    void update(int row, int col,  bool defeated) override;
+    void render(int row, int col) override;
 
 
     void setPEnemyModel(const std::shared_ptr<PEnemyModel> &newPenemyModel) override;

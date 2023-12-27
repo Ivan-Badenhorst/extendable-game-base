@@ -9,10 +9,10 @@ class EnemyViewText: public EnemyViewInterface, public EnemyView
 {
 public:
     EnemyViewText();
-    void update() override;
+    void render() override;
     void clearView() override;
     void setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyModel) override;
-    void update(int row, int col,  bool defeated) override;
+    void render(int x, int y) override;
 
 private:
     std::shared_ptr<EnemyModel> enemyModel;

@@ -23,7 +23,7 @@ public:
      * @param row The row position of the enemy.
      * @param col The column position of the enemy.
      */
-    virtual void render(int row, int col) = 0;
+    virtual void render(int x, int y) = 0;
 
     /**
      * @brief Gets the enemy type.
