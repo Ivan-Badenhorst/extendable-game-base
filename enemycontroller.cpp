@@ -2,9 +2,29 @@
 #include "penemymodel.h"
 
 
-EnemyController::EnemyController()
+EnemyController::EnemyController(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols)
 {
-    // Models are added in the factory using the addEnemyModel method
+    //Create your enemy models here
+    auto em = std::make_shared<EnemyModel>();
+    auto pem = std::make_shared<PEnemyModel>();
+
+    for (auto& enemy : enemies) {
+        if (auto pEnemy = dynamic_cast<PEnemy*>(enemy.get())) {
+            pem->addEnemy(std::move(enemy));
+        } else {
+            em->addEnemy(std::move(enemy));
+        }
+    }
+
+    // Add your models to the controller here
+    addEnemyModel(em);
+    addEnemyModel(pem);
+
+    /* Note about the views
+    Remember that the views are handled by the game controller. 
+    You should set them up there to comply with the game logic.
+    Your views should provide a method to set the enemy model if you require it.
+    */    
 }
 
 void EnemyController::init()

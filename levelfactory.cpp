@@ -5,7 +5,10 @@ LevelFactory::LevelFactory()
 
 }
 
-std::tuple<std::shared_ptr<TileController>, std::shared_ptr<ProtagonistController>, std::shared_ptr<HealthPackController> > LevelFactory::basicControllers(World &w)
+std::tuple<std::shared_ptr<TileController>, 
+            std::shared_ptr<ProtagonistController>, 
+            std::shared_ptr<HealthPackController>,
+            std::shared_ptr<EnemyController> > LevelFactory::basicControllers(World &w)
 {
     //tile
     auto tm = std::make_shared<TileModel>();
@@ -21,5 +24,9 @@ std::tuple<std::shared_ptr<TileController>, std::shared_ptr<ProtagonistControlle
     auto hpm = std::make_shared<HealthPackModel>(w.getHealthPacks(), 10);
     auto hpc = std::make_shared<HealthPackController>(hpm);
 
-    return std::make_tuple(tc, pc, hpc);
+    //enemy controller
+    auto ec = std::make_shared<EnemyController>(w.getEnemies(), w.getRows(), w.getCols());
+    ec->init();
+
+    return std::make_tuple(tc, pc, hpc, ec);
 }

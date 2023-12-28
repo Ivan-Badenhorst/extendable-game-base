@@ -21,7 +21,8 @@ public:
     /**
      * @brief Default constructor for EnemyController.
      */
-    EnemyController();
+    /// TODO: Update the doc for this constructor
+    EnemyController(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols);
 
     /**
      * @brief Initializes the enemy controller's timer.
@@ -34,11 +35,7 @@ public:
      */
     void refreshAllGraphical();
     
-    /**
-     * @brief Adds an enemy model to the controller.
-     * @param em The enemy model to be added.
-     */
-    void addEnemyModel(std::shared_ptr<EnemyModelInterface> em);
+    
 
     /**
      * @brief Sets the enemy views for the controller.
@@ -87,6 +84,12 @@ private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.
     std::unique_ptr<PEnemyTimer> penemytimer;
+
+    /**
+     * @brief Adds an enemy model to the controller.
+     * @param em The enemy model to be added.
+     */
+    void addEnemyModel(std::shared_ptr<EnemyModelInterface> em);
 };
 
 

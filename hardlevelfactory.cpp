@@ -18,25 +18,7 @@ std::shared_ptr<Level> HardLevelFactory::createWorld()
     World w;
     w.createWorld(":/worldmap4.png", 100, 10);
 
-    auto [tc, pc, hpc] = basicControllers(w);
-
-    //enemies models
-    auto em = std::make_shared<EnemyModel>();
-    auto pem = std::make_shared<PEnemyModel>();
-
-    for (auto& enemy : w.getEnemies()) {
-        if (auto pEnemy = dynamic_cast<PEnemy*>(enemy.get())) {
-            pem->addEnemy(std::move(enemy));
-        } else {
-            em->addEnemy(std::move(enemy));
-        }
-    }
-
-    //enemy controller
-    auto ec = std::make_shared<EnemyController>();
-    ec->init();
-    ec->addEnemyModel(em);
-    ec->addEnemyModel(pem);
+    auto [tc, pc, hpc, ec] = basicControllers(w);
 
     return std::make_shared<HardLevel>(tc,  pc, hpc, ec);
 
