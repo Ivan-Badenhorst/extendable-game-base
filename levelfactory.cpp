@@ -25,8 +25,7 @@ std::tuple<std::shared_ptr<TileController>,
     auto hpc = std::make_shared<HealthPackController>(hpm);
 
     //enemy controller
-    auto ec = std::make_shared<EnemyController>(w.getEnemies(), w.getRows(), w.getCols());
-    ec->init();
+    auto ec = EnemyController::getInstance(w.getEnemies(), w.getRows(), w.getCols());
 
     return std::make_tuple(tc, pc, hpc, ec);
 }

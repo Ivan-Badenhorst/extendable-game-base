@@ -11,6 +11,7 @@
 
 
 
+
 /**
  * @class EnemyController
  * @brief Class responsible for controlling enemies in the game.
@@ -18,23 +19,19 @@
 class EnemyController: public std::enable_shared_from_this<EnemyController>
 {
 public:
-    /**
-     * @brief Default constructor for EnemyController.
-     */
-    /// TODO: Update the doc for this constructor
-    EnemyController(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols);
+    // Deleted copy constructor and assignment operator.
+    EnemyController(const EnemyController&) = delete;
+    EnemyController& operator=(const EnemyController&) = delete;
 
-    /**
-     * @brief Initializes the enemy controller's timer.
-     * We need this because we can't pass a shared_from_this() pointer from the constructor.
-     */
-    void init();
+    
+
+    // Static factory method for getting the singleton instance.
+    static std::shared_ptr<EnemyController> getInstance(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols);
     
     /**
      * @brief Refreshes all graphical elements related to the enemies.
      */
     void refreshAllGraphical();
-    
     
 
     /**
@@ -79,8 +76,20 @@ public:
     std::shared_ptr<EnemyModel> getEnemyModel() const;
     std::shared_ptr<PEnemyModel> getPEnemyModel() const;
 
+    
+
 
 private:
+
+    /**
+     * @brief Default constructor for EnemyController.
+     */
+    EnemyController();
+
+    // Static member for the single instance.
+    //static std::shared_ptr<EnemyController> instance;
+    void init(std::shared_ptr<EnemyController> ec);
+
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.
     std::unique_ptr<PEnemyTimer> penemytimer;
