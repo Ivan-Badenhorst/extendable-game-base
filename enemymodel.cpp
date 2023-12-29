@@ -1,110 +1,75 @@
 #include "enemymodel.h"
 #include <iostream>
 
-EnemyModel::EnemyModel()
+EnemyModel::EnemyModel(int w_rows, int w_cols)
 {
+    world_rows = w_rows;
+    world_cols = w_cols;
     enemyType = "Enemy";
 }
 
-void EnemyModel::addEnemy(std::shared_ptr<Enemy> enemy)
+
+void EnemyModel::addEnemy(std::unique_ptr<Enemy> enemy)
 {
-    // Get the x and y position of the enemy
-    int x = enemy->getXPos();
-    int y = enemy->getYPos();
-
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
-
-    // Add the enemy to the enemyMap with the key
-    enemyMap[key] = enemy;
+    EnemyState enemyState = {enemy->getXPos(), enemy->getYPos(), enemy->getDefeated(), enemy->getValue()};
+    enemySet.insert(enemyState);
 }
 
-/// TODO: we should not give access to the actual data which should be private to the model !
-std::vector<std::shared_ptr<Enemy>> EnemyModel::getEnemies() const
-{
-    // Create a vector to hold the enemies
-    std::vector<std::shared_ptr<Enemy>> enemies;
-
-    // Iterate through the enemyMap and add the enemies to the vector
-    for (auto const& x : enemyMap)
-    {
-        enemies.push_back(x.second);
-    }
-
-    // Return the vector
-    return enemies;
-}
 
 bool EnemyModel::containsEnemy(int x, int y)
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
-
-    // Check if the enemyMap contains the key
-    return (enemyMap.count(key)>0);
+    EnemyState queryEnemyState = {x, y, false, 0};
+    return enemySet.find(queryEnemyState) != enemySet.end();
 }
 
 bool EnemyModel::isDefeated(int x, int y)
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
-
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key)>0)
+    EnemyState queryEnemyState = {x, y, false, 0};
+    auto it = enemySet.find(queryEnemyState);
+    if (it != enemySet.end())
     {
-        // Return the defeated status of the enemy
-        return enemyMap[key]->getDefeated();
+        return it->isDefeated;
     }
     else
     {
-        // Return false if the enemy is not in the map
         return false;
     }
 }
 
 void EnemyModel::attackEnemy(int x, int y, int damage)
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
-
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key)>0)
+    EnemyState queryEnemyState = {x, y, false, 0};
+    auto it = enemySet.find(queryEnemyState);
+    if (it != enemySet.end())
     {
-        // Attack the enemy
-        enemyMap[key]->setDefeated(true);
+        EnemyState updatedEnemyState = *it;
+        updatedEnemyState.isDefeated = true;
+        enemySet.erase(it);
+        enemySet.insert(updatedEnemyState);
     }
 }
 
 
 std::optional<EnemyState> EnemyModel::getOneEnemyState(int x, int y) const
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
-
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key)>0)
+    EnemyState queryEnemyState = {x, y, false, 0};
+    auto it = enemySet.find(queryEnemyState);
+    if (it != enemySet.end())
     {
-        // Return the enemy state
-        return std::optional<EnemyState>({enemyMap.at(key)->getXPos(), enemyMap.at(key)->getYPos(), enemyMap.at(key)->getDefeated()});
+        return std::optional<EnemyState>{*it};
     }
     else
     {
-        // Return an empty optional if the enemy is not in the map
         return std::nullopt;
     }
 }
 
 std::vector<EnemyState> EnemyModel::getAllEnemyStates() const
 {
-    // Create a vector to hold the enemy states
-    std::vector<EnemyState> enemyStates;
-
-    // Iterate through the enemyMap and add the enemy states to the vector
-    for (auto const& e : enemyMap)
+    std::vector<EnemyState> allEnemyStates;
+    for (const auto& enemyState : enemySet)
     {
-        enemyStates.push_back({e.second->getXPos(), e.second->getYPos(), e.second->getDefeated()});
+        allEnemyStates.push_back(enemyState);
     }
-
-    // Return the vector
-    return enemyStates;
+    return allEnemyStates;
 }

@@ -11,6 +11,7 @@
 
 
 
+
 /**
  * @class EnemyController
  * @brief Class responsible for controlling enemies in the game.
@@ -18,27 +19,16 @@
 class EnemyController: public std::enable_shared_from_this<EnemyController>
 {
 public:
-    /**
-     * @brief Default constructor for EnemyController.
-     */
-    EnemyController();
-
-    /**
-     * @brief Initializes the enemy controller's timer.
-     * We need this because we can't pass a shared_from_this() pointer from the constructor.
-     */
-    void init();
+    // Factory method to create the single instance of EnemyController.
+    static std::shared_ptr<EnemyController> create(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols);
     
+    std::tuple<int, int> getWorldDimensions(int x, int y) const;
+
     /**
      * @brief Refreshes all graphical elements related to the enemies.
      */
     void refreshAllGraphical();
     
-    /**
-     * @brief Adds an enemy model to the controller.
-     * @param em The enemy model to be added.
-     */
-    void addEnemyModel(std::shared_ptr<EnemyModelInterface> em);
 
     /**
      * @brief Sets the enemy views for the controller.
@@ -82,11 +72,32 @@ public:
     std::shared_ptr<EnemyModel> getEnemyModel() const;
     std::shared_ptr<PEnemyModel> getPEnemyModel() const;
 
+    
+
 
 private:
+
+    /**
+     * @brief Default constructor for EnemyController.
+     */
+    EnemyController(int w_rows, int w_cols);
+
+    // Static member for the single instance.
+    //static std::shared_ptr<EnemyController> instance;
+    void init(std::shared_ptr<EnemyController> ec);
+
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.
     std::unique_ptr<PEnemyTimer> penemytimer;
+
+    int world_rows;
+    int world_cols;
+
+    /**
+     * @brief Adds an enemy model to the controller.
+     * @param em The enemy model to be added.
+     */
+    void addEnemyModel(std::shared_ptr<EnemyModelInterface> em);
 };
 
 

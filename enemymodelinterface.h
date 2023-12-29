@@ -10,8 +10,7 @@
 class EnemyModelInterface
 {
 public:
-    virtual void addEnemy(std::shared_ptr<Enemy> enemy) = 0;
-    virtual std::vector<std::shared_ptr<Enemy>> getEnemies() const = 0;
+    virtual void addEnemy(std::unique_ptr<Enemy> enemy) = 0;
     virtual bool containsEnemy(int row, int col) = 0;
     virtual bool isDefeated(int row, int col) = 0;
     virtual void attackEnemy(int row, int col, int damage) = 0;
@@ -19,6 +18,9 @@ public:
 
 protected:
     std::string enemyType; // Protected string attribute for enemy type
+    // If you need your model to know the size of the world, you can initialize those in your constructor.
+    int world_rows;
+    int world_cols;
 };
 
 inline std::string EnemyModelInterface::getEnemyType() const

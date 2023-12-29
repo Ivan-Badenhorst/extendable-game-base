@@ -1,143 +1,109 @@
 #include "penemymodel.h"
 
-PEnemyModel::PEnemyModel()
+PEnemyModel::PEnemyModel(int w_rows, int w_cols)
 {
+    world_rows = w_rows;
+    world_cols = w_cols;
     enemyType = "PEnemy";
 }
 
-void PEnemyModel::addEnemy(std::shared_ptr<Enemy> enemy)
-{
-    // Get the x and y position of the enemy
-    int x = enemy->getXPos();
-    int y = enemy->getYPos();
 
+void PEnemyModel::addEnemy(std::unique_ptr<Enemy> enemy)
+{
     // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
+    std::pair<int, int> key = std::make_pair(enemy->getXPos(), enemy->getYPos());
+
+    auto pEnemy = dynamic_cast<PEnemy*>(enemy.get());
 
     // Add the enemy to the enemyMap with the key
-    enemyMap[key] = enemy;
+    enemySet.insert({enemy->getXPos(), enemy->getYPos(), 
+                    enemy->getDefeated(), enemy->getValue(), 
+                    pEnemy->getPoisonLevel(), pEnemy->getPoisonLevel()});
 }
 
-std::vector<std::shared_ptr<Enemy>> PEnemyModel::getEnemies() const
+bool PEnemyModel::containsEnemy(int x, int y)
 {
-    // Create a vector to hold the enemies
-    std::vector<std::shared_ptr<Enemy>> enemies;
+    // Create a PEnemyState object with the given coordinates
+    PEnemyState queryEnemyState;
+    queryEnemyState.x = x;
+    queryEnemyState.y = y;
 
-    // Iterate through the enemyMap and add the enemies to the vector
-    for (auto const& x : enemyMap)
+    // Check if the enemySet contains the enemy
+    if (enemySet.find(queryEnemyState) != enemySet.end())
     {
-        enemies.push_back(x.second);
-    }
-
-    // Return the vector
-    return enemies;
-}
-
-bool PEnemyModel::containsEnemy(int row, int col)
-{
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(row, col);
-
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key) > 0)
-    {
-        // Return true if the enemyMap contains the key
+        // Return true if the enemySet contains the enemy
         return true;
     }
     else
     {
-        // Return false if the enemyMap does not contain the key
+        // Return false if the enemySet does not contain the enemy
         return false;
     }
 }
 
-bool PEnemyModel::isDefeated(int row, int col)
+bool PEnemyModel::isDefeated(int x, int y)
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(row, col);
+    // Create a PEnemyState object with the given coordinates
+    PEnemyState queryEnemyState;
+    queryEnemyState.x = x;
+    queryEnemyState.y = y;
 
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key) > 0)
+    // Find the enemy in the set
+    auto it = enemySet.find(queryEnemyState);
+
+    if (it != enemySet.end())
     {
-        // Return the defeated status of the enemy
-        return enemyMap[key]->getDefeated();
+        // The enemy was found, return its defeated status
+        return it->isDefeated;
     }
     else
     {
-        // Return false if the enemy is not in the map
+        // The enemy was not found, return false
         return false;
     }
 }
 
-void PEnemyModel::attackEnemy(int row, int col, int damage)
+void PEnemyModel::attackEnemy(int x, int y, int damage)
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(row, col);
+    // Create a PEnemyState object with the given coordinates
+    PEnemyState queryEnemyState;
+    queryEnemyState.x = x;
+    queryEnemyState.y = y;
 
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key) > 0)
+    // Find the enemy in the set
+    auto it = enemySet.find(queryEnemyState);
+
+    if (it != enemySet.end())
     {
-        // Attack the enemy
-        enemyMap[key]->setDefeated(true);
+        // The enemy was found, create a new PEnemyState with the updated status
+        PEnemyState updatedEnemyState = *it;
+        updatedEnemyState.isDefeated = true;
+
+        // Erase the old enemy and insert the updated one
+        enemySet.erase(it);
+        enemySet.insert(updatedEnemyState);
     }
-}
-
-void PEnemyModel::drainPEnemy(int row, int col)
-{
-
-}
-
-int PEnemyModel::calculateFireState(float poisonLevel) const
-{
-    // Assuming 0-24: Fire1, 25-49: Fire2, 50-74: Fire3, 75-100: Fire4
-    return static_cast<int>(poisonLevel / 25) + 1;
-}
-
-
-    
-
-float getPoisonLevel(int row, int col) 
-{
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(row, col);
-
-    // // Check if the enemyMap contains the key
-    // if (enemyMap.count(key) > 0)
-    // {
-    //     // Attack the enemy
-    //     enemyMap[key]->setDefeated(true);
-    // }
-
-    // // Check if the enemyMap contains the key
-    // if (enemyMap.count(key) > 0)
-    // {
-    //     // Cast the enemy to PEnemy and call its getPoisonLevel method
-    //     auto pEnemy = dynamic_cast<PEnemy*>( enemyMap[key] );
-    //     if (pEnemy)
-    //     {
-    //         return pEnemy->getPoisonLevel();
-    //     }
-    // }
-
-    // Return 0 if the enemy is not in the map or is not of type PEnemy
-    return 0;
 }
 
 
 std::optional<PEnemyState> PEnemyModel::getOnePEnemyState(int x, int y) const
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
+    // Create a PEnemyState object with the given coordinates
+    PEnemyState queryEnemyState;
+    queryEnemyState.x = x;
+    queryEnemyState.y = y;
 
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key)>0)
+    // Find the enemy in the set
+    auto it = enemySet.find(queryEnemyState);
+
+    if (it != enemySet.end())
     {
-        // Return the enemy state
-        return std::optional<PEnemyState>({enemyMap.at(key)->getXPos(), enemyMap.at(key)->getYPos(), enemyMap.at(key)->getDefeated()});
+        // The enemy was found, return it wrapped in a std::optional
+        return std::optional<PEnemyState>{*it};
     }
     else
     {
-        // Return an empty optional if the enemy is not in the map
+        // The enemy was not found, return an empty std::optional
         return std::nullopt;
     }
 }
@@ -147,12 +113,119 @@ std::vector<PEnemyState> PEnemyModel::getAllPEnemyStates() const
     // Create a vector to hold the enemy states
     std::vector<PEnemyState> enemyStates;
 
-    // Iterate through the enemyMap and add the enemy states to the vector
-    for (auto const& e : enemyMap)
+    // Iterate over the set and add each enemy state to the vector
+    for (const PEnemyState& enemyState : enemySet)
     {
-        enemyStates.push_back({e.second->getXPos(), e.second->getYPos(), e.second->getDefeated()});
+        enemyStates.push_back(enemyState);
     }
 
-    // Return the vector
     return enemyStates;
+}
+
+void PEnemyModel::drainPEnemy(int x, int y)
+{
+    // We try to deduce poison from the enemy
+    if(deducePoison(x, y))
+    {
+        // If it succeeded, we update the fire set
+        auto fires = getPEnemyFire(x, y);
+
+        for (const auto& fire : fires) {
+            auto existingFire = fireSet.find(fire);
+            if (existingFire != fireSet.end()) {
+                // If the fire already exists and its fireType is less than the new one
+                if (existingFire->fireType < fire.fireType) {
+                    // Remove the old fire from the set
+                    fireSet.erase(existingFire);
+
+                    // Insert the new fire into the set
+                    fireSet.insert(fire);
+                }
+            } else {
+                // If the fire does not exist in the set, insert it
+                fireSet.insert(fire);
+            }
+        }
+    }
+}
+
+
+
+std::vector<FireOnTile> PEnemyModel::getPEnemyFire(int x, int y) const {
+    std::vector<FireOnTile> fires;
+    auto it = enemySet.find(PEnemyState{x, y, false, 0, 0, 0});
+    if (it != enemySet.end()) {
+        int initialStage = getFireStageFromPoisonLevel(it->initialPoisonLevel);
+        int currentStage = getFireStageFromPoisonLevel(it->currentPoisonLevel);
+        int drainCount = initialStage - currentStage;
+        fires = calculateFireTiles(x, y, drainCount);
+    }
+    return fires;
+}
+
+bool PEnemyModel::deducePoison(int x, int y)
+{
+    auto enemyState = enemySet.find(PEnemyState{x, y, false, 0, 0, 0});
+    if (enemyState != enemySet.end() && enemyState->currentPoisonLevel > 0) {
+        // Create a copy of the found enemy state
+        PEnemyState newEnemyState = *enemyState;
+
+        // Decrease the current poison level by 25, with a minimum value of 0
+        newEnemyState.currentPoisonLevel = std::max(0.0f, newEnemyState.currentPoisonLevel - 25);
+
+        // Remove the old enemy state from the set
+        enemySet.erase(enemyState);
+
+        // Insert the new enemy state into the set
+        enemySet.insert(newEnemyState);
+
+        // Return true as poison was deduced
+        return true;
+    }
+
+    // Return false as there was no poison to deduce
+    return false;
+}
+
+int PEnemyModel::getFireStageFromPoisonLevel(int poisonLevel) const
+{
+    return poisonLevel / 25;
+}
+
+
+std::vector<FireOnTile> PEnemyModel::calculateFireTiles(int x, int y, int drainCount) const {
+    std::vector<FireOnTile> fires;
+
+    // We can add multi-threading here later if we want to
+    for (int i = 1; i <= drainCount; ++i) {
+        // Top side
+        for (int j = x - i; j <= x + i; ++j) {
+            if (j >= 0 && j < world_rows && y - i >= 0) {
+                fires.push_back(FireOnTile{j, y - i, drainCount - i + 1});
+            }
+        }
+
+        // Bottom side
+        for (int j = x - i; j <= x + i; ++j) {
+            if (j >= 0 && j < world_rows && y + i < world_cols) {
+                fires.push_back(FireOnTile{j, y + i, drainCount - i + 1});
+            }
+        }
+
+        // Left side
+        for (int j = y - i + 1; j < y + i; ++j) {
+            if (j >= 0 && j < world_cols && x - i >= 0) {
+                fires.push_back(FireOnTile{x - i, j, drainCount - i + 1});
+            }
+        }
+
+        // Right side
+        for (int j = y - i + 1; j < y + i; ++j) {
+            if (j >= 0 && j < world_cols && x + i < world_rows) {
+                fires.push_back(FireOnTile{x + i, j, drainCount - i + 1});
+            }
+        }
+    }
+
+    return fires;
 }
