@@ -23,6 +23,7 @@ void PEnemyViewGraphical::render()
     // Then display each enemy
     for(auto& penemyState : allPEnemiesState){
         displayPEnemy(penemyState.x, penemyState.y, penemyState.isDefeated);
+        displayFire(penemyState.x, penemyState.y);
     }
 }
 
@@ -43,6 +44,7 @@ void PEnemyViewGraphical::render(int x, int y)
     // Then we render the Enemy if we have data for it.
     if(penemyState.has_value()){
         displayPEnemy(x, y, penemyState.value().isDefeated);
+        displayFire(x, y);
     }
 }
 
@@ -78,4 +80,45 @@ void PEnemyViewGraphical::displayPEnemy(int x, int y, bool defeated)
     
     // Add the shared_ptr to the enemiesDisplayed map
     penemiesDisplayed[std::make_pair(x, y)] = icon;
+}
+
+void PEnemyViewGraphical::displayFire(int x, int y)
+{
+    QPixmap fire1Icon = QPixmap(":/fire1");
+    QPixmap fire2Icon = QPixmap(":/fire2");
+    QPixmap fire3Icon = QPixmap(":/fire3");
+    QPixmap fire4Icon = QPixmap(":/fire4");
+
+    auto fires = penemyModel->getPEnemyFire(x, y);
+
+    for (const auto& fire : fires) {
+        auto oldFire = firesDisplayed.find(std::make_pair(fire.x, fire.y));
+        if (oldFire != firesDisplayed.end()) {
+            scene->removeItem(oldFire->second.get());
+            firesDisplayed.erase(oldFire);
+        }
+
+        std::shared_ptr<QGraphicsPixmapItem> icon;
+        switch (fire.fireType) {
+            case 1:
+                icon = std::make_shared<QGraphicsPixmapItem>(fire1Icon);
+                break;
+            case 2:
+                icon = std::make_shared<QGraphicsPixmapItem>(fire2Icon);
+                break;
+            case 3:
+                icon = std::make_shared<QGraphicsPixmapItem>(fire3Icon);
+                break;
+            case 4:
+                icon = std::make_shared<QGraphicsPixmapItem>(fire4Icon);
+                break;
+        }
+
+        icon->setPos(fire.x * tileDim, fire.y * tileDim);
+        icon->setZValue(zValue);
+        scene->addItem(icon.get());
+
+        // Add the shared_ptr to the firesDisplayed map
+        firesDisplayed[std::make_pair(fire.x, fire.y)] = icon;
+    }
 }

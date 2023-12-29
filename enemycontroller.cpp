@@ -23,8 +23,8 @@ std::shared_ptr<EnemyController> EnemyController::create(std::vector<std::unique
     instance->init(instance);
 
     //Create your enemy models here
-    auto em = std::make_shared<EnemyModel>();
-    auto pem = std::make_shared<PEnemyModel>();
+    auto em = std::make_shared<EnemyModel>(world_rows, world_cols);
+    auto pem = std::make_shared<PEnemyModel>(world_rows, world_cols);
 
     for (auto& enemy : enemies) {
         if (auto pEnemy = dynamic_cast<PEnemy*>(enemy.get())) {
@@ -144,6 +144,26 @@ void EnemyController::attackEnemy(int x, int y, int damage)
 void EnemyController::drainPEnemy(int x, int y)
 {
     std::cout << "Draining Penemy : " << x << "," << y << std::endl;
+    for (auto& m : enemyModels)
+    {
+        if (m->getEnemyType() == "PEnemy")
+        {
+            if (auto PEnemyM = std::dynamic_pointer_cast<PEnemyModel>(m))
+            {
+                PEnemyM->drainPEnemy(x, y);
+                break;
+            }
+        }
+    }
+
+    for (auto const &ev : enemyViews)
+    {
+        if (ev->getEnemyType() == "PEnemy")
+        {
+            ev->render(x, y);
+            break;
+        }
+    }
 }
 
 std::shared_ptr<EnemyModel> EnemyController::getEnemyModel() const

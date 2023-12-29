@@ -18,6 +18,9 @@ public:
 
 protected:
     std::string enemyType; // Protected string attribute for enemy type
+    // If you need your model to know the size of the world, you can initialize those in your constructor.
+    int world_rows;
+    int world_cols;
 };
 
 inline std::string EnemyModelInterface::getEnemyType() const

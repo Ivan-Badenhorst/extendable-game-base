@@ -32,7 +32,7 @@ struct EnemyCoordinateEqual {
 class EnemyModel: public EnemyModelInterface
 {
 public:
-    EnemyModel();
+    EnemyModel(int w_rows, int w_cols);
     void addEnemy(std::unique_ptr<Enemy> enemy) override;
     bool containsEnemy(int x, int y) override;
     bool isDefeated(int x, int y) override;

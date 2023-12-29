@@ -1,10 +1,13 @@
 #include "enemymodel.h"
 #include <iostream>
 
-EnemyModel::EnemyModel()
+EnemyModel::EnemyModel(int w_rows, int w_cols)
 {
+    world_rows = w_rows;
+    world_cols = w_cols;
     enemyType = "Enemy";
 }
+
 
 void EnemyModel::addEnemy(std::unique_ptr<Enemy> enemy)
 {

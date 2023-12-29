@@ -3,6 +3,7 @@
 #include <memory>
 #include <map>
 #include <unordered_set>
+#include <algorithm>
 #include "enemymodelinterface.h"
 
 
@@ -57,34 +58,59 @@ struct FireOnTileEqual {
 class PEnemyModel: public EnemyModelInterface
 {
 public:
-    PEnemyModel();
+    PEnemyModel(int w_rows, int w_cols);
     void addEnemy(std::unique_ptr<Enemy> enemy) override;
-    bool containsEnemy(int row, int col) override;
-    bool isDefeated(int row, int col) override;
-    void attackEnemy(int row, int col, int damage) override;
-    void drainPEnemy(int row, int col);
+    bool containsEnemy(int x, int y) override;
+    bool isDefeated(int x, int y) override;
+    void attackEnemy(int x, int y, int damage) override;
+    void drainPEnemy(int x, int y);
     std::optional<PEnemyState> getOnePEnemyState(int x, int y) const;
     std::vector<PEnemyState> getAllPEnemyStates() const;
-    // Get all fire to render for a given PEnemy
     
+    // Get all fire for a given PEnemy
+    std::vector<FireOnTile> getPEnemyFire(int x, int y) const;
 
-    std::vector<FireOnTile> getPEnemyFireToRender(int x, int y) const;
+private:
+    // Unordered set of PEnemyStates
+    std::unordered_set<PEnemyState, PEnemyCoordinateHash, PEnemyCoordinateEqual> enemySet; 
+    /***
+     * Set of fire types by tile.
+     * There are 4 types of fire. The strongest one applies 100% of the damage to the player. 
+     * The weakest one applies 25%.
+     * */ 
+    std::unordered_set<FireOnTile, FireOnTileHash, FireOnTileEqual> fireSet;
 
-    private:
-        // Unordered set of PEnemyStates
-        std::unordered_set<PEnemyState, PEnemyCoordinateHash, PEnemyCoordinateEqual> enemySet; 
-        /***
-         * Set of fire types by tile.
-         * There are 4 types of fire. The strongest one applies 100% of the strength of the PEnemy
-         * as damage to the player. The weakest one applies 25% of the strength of the PEnemy as damage
-         * */ 
-        std::unordered_set<FireOnTile, FireOnTileHash, FireOnTileEqual> fireSet; 
-        // To keep track of how many times a penemy has been drained
-        // Get the fire state for a given PEnemy from his poison level
-        int calculateFireState(float poisonLevel) const;
+    bool deducePoison(int x, int y);
 
-    float getPoisonLevel(int row, int col) const;
-    
+    /**
+     * @brief Calculates the fire stage from a given poison level.
+     * 
+     * The poison level is a value between 0 and 100. This method divides the poison level by 25 to determine the fire stage.
+     * There are 5 stages (0, 1, 2, 3, 4) and each stage represents a range of 25 poison levels:
+     * - Stage 0: Poison level 0
+     * - Stage 1: Poison level 1 to 24
+     * - Stage 2: Poison level 25 to 49
+     * - Stage 3: Poison level 50 to 74
+     * - Stage 4: Poison level 75 to 100
+     * 
+     * @param poisonLevel The poison level of a PEnemy.
+     * @return The fire stage corresponding to the given poison level.
+     */
+    int getFireStageFromPoisonLevel(int poisonLevel) const;
+
+    /**
+ * @brief Calculates the fire tiles around a given enemy position.
+ *
+ * This method calculates a square-shaped fire pattern around the enemy, with the fire intensity increasing as we get closer to the enemy.
+ * The fire pattern is determined by the `drainCount`, which represents the difference between the initial and current fire stages of the enemy.
+ * Each side of the square is calculated separately, and for each tile in the square, if it is within the world boundaries, a `FireOnTile` object is created and added to the `fires` vector.
+ *
+ * @param x The x-coordinate of the enemy.
+ * @param y The y-coordinate of the enemy.
+ * @param drainCount The difference between the initial and current fire stages of the enemy.
+ * @return A vector of `FireOnTile` objects representing the fire tiles around the enemy.
+ */
+    std::vector<FireOnTile> calculateFireTiles(int x, int y, int drainCount) const;
 };
 
 #endif // PENEMYMODEL_H

@@ -37,7 +37,9 @@ private:
     int tileDim {50};
 
     std::map<std::pair<int, int>, std::shared_ptr<QGraphicsPixmapItem>> penemiesDisplayed;
+    std::map<std::pair<int, int>, std::shared_ptr<QGraphicsPixmapItem>> firesDisplayed;
     void displayPEnemy(int x, int y, bool defeated);
+    void displayFire(int x, int y);
 };
 
 #endif // PENEMYVIEWGRAPHICAL_H
