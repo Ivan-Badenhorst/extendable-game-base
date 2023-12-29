@@ -2,9 +2,10 @@
 #include "penemymodel.h"
 
 
-EnemyController::EnemyController()
+EnemyController::EnemyController(int w_rows, int w_cols)
 {
-    
+    world_rows = w_rows;
+    world_cols = w_cols;
 }
 
 void EnemyController::init(std::shared_ptr<EnemyController> ec)
@@ -16,7 +17,7 @@ void EnemyController::init(std::shared_ptr<EnemyController> ec)
 std::shared_ptr<EnemyController> EnemyController::create(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols)
 {
     // We first create an instance of the controller
-    std::shared_ptr<EnemyController> instance(new EnemyController());
+    std::shared_ptr<EnemyController> instance(new EnemyController(world_rows, world_cols));
 
     // We then call the init method to set up the penemytimer
     instance->init(instance);
@@ -44,6 +45,11 @@ std::shared_ptr<EnemyController> EnemyController::create(std::vector<std::unique
     */ 
     
     return instance;
+}
+
+std::tuple<int, int> EnemyController::getWorldDimensions(int x, int y) const
+{
+    return std::make_tuple(world_rows, world_cols);
 }
 
 void EnemyController::refreshAllGraphical()

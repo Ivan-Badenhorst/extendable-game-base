@@ -22,6 +22,8 @@ public:
     // Factory method to create the single instance of EnemyController.
     static std::shared_ptr<EnemyController> create(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols);
     
+    std::tuple<int, int> getWorldDimensions(int x, int y) const;
+
     /**
      * @brief Refreshes all graphical elements related to the enemies.
      */
@@ -78,7 +80,7 @@ private:
     /**
      * @brief Default constructor for EnemyController.
      */
-    EnemyController();
+    EnemyController(int w_rows, int w_cols);
 
     // Static member for the single instance.
     //static std::shared_ptr<EnemyController> instance;
@@ -87,6 +89,9 @@ private:
     std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.
     std::unique_ptr<PEnemyTimer> penemytimer;
+
+    int world_rows;
+    int world_cols;
 
     /**
      * @brief Adds an enemy model to the controller.
