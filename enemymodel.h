@@ -8,14 +8,14 @@ struct EnemyState {
     int x;
     int y;
     bool isDefeated;
+    float strength;
 };
 
 class EnemyModel: public EnemyModelInterface
 {
 public:
     EnemyModel();
-    void addEnemy(std::shared_ptr<Enemy> enemy) override;
-    std::vector<std::shared_ptr<Enemy>> getEnemies() const override;
+    void addEnemy(std::unique_ptr<Enemy> enemy) override;
     bool containsEnemy(int x, int y) override;
     bool isDefeated(int x, int y) override;
     void attackEnemy(int x, int y, int damage) override;
@@ -24,7 +24,7 @@ public:
     
 
 private:
-    std::map<std::pair<int, int>, std::shared_ptr<Enemy>> enemyMap; // Map to link x and y to shared pointer of enemy object
+    std::map<std::pair<int, int>, EnemyState> enemyMap; // Map to link x and y to shared pointer of enemy object
 };
 
 #endif // ENEMYMODEL_H

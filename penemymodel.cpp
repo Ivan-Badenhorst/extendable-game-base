@@ -5,32 +5,17 @@ PEnemyModel::PEnemyModel()
     enemyType = "PEnemy";
 }
 
-void PEnemyModel::addEnemy(std::shared_ptr<Enemy> enemy)
+void PEnemyModel::addEnemy(std::unique_ptr<Enemy> enemy)
 {
-    // Get the x and y position of the enemy
-    int x = enemy->getXPos();
-    int y = enemy->getYPos();
-
     // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
+    std::pair<int, int> key = std::make_pair(enemy->getXPos(), enemy->getYPos());
+
+    auto pEnemy = dynamic_cast<PEnemy*>(enemy.get());
 
     // Add the enemy to the enemyMap with the key
-    enemyMap[key] = enemy;
-}
-
-std::vector<std::shared_ptr<Enemy>> PEnemyModel::getEnemies() const
-{
-    // Create a vector to hold the enemies
-    std::vector<std::shared_ptr<Enemy>> enemies;
-
-    // Iterate through the enemyMap and add the enemies to the vector
-    for (auto const& x : enemyMap)
-    {
-        enemies.push_back(x.second);
-    }
-
-    // Return the vector
-    return enemies;
+    enemyMap[key] = {enemy->getXPos(), enemy->getYPos(), 
+                        enemy->getDefeated(), enemy->getValue(),
+                        pEnemy->getPoisonLevel(), pEnemy->getPoisonLevel()};
 }
 
 bool PEnemyModel::containsEnemy(int row, int col)
@@ -60,7 +45,7 @@ bool PEnemyModel::isDefeated(int row, int col)
     if (enemyMap.count(key) > 0)
     {
         // Return the defeated status of the enemy
-        return enemyMap[key]->getDefeated();
+        return enemyMap[key].isDefeated;
     }
     else
     {
@@ -78,7 +63,7 @@ void PEnemyModel::attackEnemy(int row, int col, int damage)
     if (enemyMap.count(key) > 0)
     {
         // Attack the enemy
-        enemyMap[key]->setDefeated(true);
+        enemyMap[key].isDefeated = true;
     }
 }
 
@@ -133,7 +118,9 @@ std::optional<PEnemyState> PEnemyModel::getOnePEnemyState(int x, int y) const
     if (enemyMap.count(key)>0)
     {
         // Return the enemy state
-        return std::optional<PEnemyState>({enemyMap.at(key)->getXPos(), enemyMap.at(key)->getYPos(), enemyMap.at(key)->getDefeated()});
+        return std::optional<PEnemyState>({enemyMap.at(key).x, enemyMap.at(key).y,
+         enemyMap.at(key).isDefeated, enemyMap.at(key).strength,
+         enemyMap.at(key).initialPoisonLevel, enemyMap.at(key).currentPoisonLevel});
     }
     else
     {
@@ -150,7 +137,8 @@ std::vector<PEnemyState> PEnemyModel::getAllPEnemyStates() const
     // Iterate through the enemyMap and add the enemy states to the vector
     for (auto const& e : enemyMap)
     {
-        enemyStates.push_back({e.second->getXPos(), e.second->getYPos(), e.second->getDefeated()});
+        enemyStates.push_back({e.second.x, e.second.y, e.second.isDefeated,
+         e.second.strength, e.second.initialPoisonLevel, e.second.currentPoisonLevel});
     }
 
     // Return the vector

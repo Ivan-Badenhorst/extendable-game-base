@@ -6,34 +6,15 @@ EnemyModel::EnemyModel()
     enemyType = "Enemy";
 }
 
-void EnemyModel::addEnemy(std::shared_ptr<Enemy> enemy)
+void EnemyModel::addEnemy(std::unique_ptr<Enemy> enemy)
 {
-    // Get the x and y position of the enemy
-    int x = enemy->getXPos();
-    int y = enemy->getYPos();
-
     // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
+    std::pair<int, int> key = std::make_pair(enemy->getXPos(), enemy->getYPos());
 
     // Add the enemy to the enemyMap with the key
-    enemyMap[key] = enemy;
+    enemyMap[key] = {enemy->getXPos(), enemy->getYPos(), enemy->getDefeated(), enemy->getValue()};
 }
 
-/// TODO: we should not give access to the actual data which should be private to the model !
-std::vector<std::shared_ptr<Enemy>> EnemyModel::getEnemies() const
-{
-    // Create a vector to hold the enemies
-    std::vector<std::shared_ptr<Enemy>> enemies;
-
-    // Iterate through the enemyMap and add the enemies to the vector
-    for (auto const& x : enemyMap)
-    {
-        enemies.push_back(x.second);
-    }
-
-    // Return the vector
-    return enemies;
-}
 
 bool EnemyModel::containsEnemy(int x, int y)
 {
@@ -53,7 +34,7 @@ bool EnemyModel::isDefeated(int x, int y)
     if (enemyMap.count(key)>0)
     {
         // Return the defeated status of the enemy
-        return enemyMap[key]->getDefeated();
+        return enemyMap[key].isDefeated;
     }
     else
     {
@@ -71,7 +52,7 @@ void EnemyModel::attackEnemy(int x, int y, int damage)
     if (enemyMap.count(key)>0)
     {
         // Attack the enemy
-        enemyMap[key]->setDefeated(true);
+        enemyMap[key].isDefeated = true;
     }
 }
 
@@ -85,7 +66,7 @@ std::optional<EnemyState> EnemyModel::getOneEnemyState(int x, int y) const
     if (enemyMap.count(key)>0)
     {
         // Return the enemy state
-        return std::optional<EnemyState>({enemyMap.at(key)->getXPos(), enemyMap.at(key)->getYPos(), enemyMap.at(key)->getDefeated()});
+        return std::optional<EnemyState>(enemyMap.at(key));
     }
     else
     {
@@ -102,7 +83,7 @@ std::vector<EnemyState> EnemyModel::getAllEnemyStates() const
     // Iterate through the enemyMap and add the enemy states to the vector
     for (auto const& e : enemyMap)
     {
-        enemyStates.push_back({e.second->getXPos(), e.second->getYPos(), e.second->getDefeated()});
+        enemyStates.push_back(e.second);
     }
 
     // Return the vector
