@@ -19,14 +19,8 @@
 class EnemyController: public std::enable_shared_from_this<EnemyController>
 {
 public:
-    // Deleted copy constructor and assignment operator.
-    EnemyController(const EnemyController&) = delete;
-    EnemyController& operator=(const EnemyController&) = delete;
-
-    
-
-    // Static factory method for getting the singleton instance.
-    static std::shared_ptr<EnemyController> getInstance(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols);
+    // Factory method to create the single instance of EnemyController.
+    static std::shared_ptr<EnemyController> create(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols);
     
     /**
      * @brief Refreshes all graphical elements related to the enemies.
