@@ -1,7 +1,7 @@
 #ifndef ENEMYMODEL_H
 #define ENEMYMODEL_H
 #include <memory>
-#include <map>
+#include <unordered_set>
 #include "enemymodelinterface.h"
 
 struct EnemyState {
@@ -9,6 +9,18 @@ struct EnemyState {
     int y;
     bool isDefeated;
     float strength;
+};
+
+struct EnemyCoordinateHash {
+    std::size_t operator()(const EnemyState& e) const {
+        return 0.5 * (e.x + e.y) * (e.x + e.y + 1) + e.y;
+    }
+};
+
+struct EnemyCoordinateEqual {
+    bool operator()(const EnemyState& lhs, const EnemyState& rhs) const {
+        return lhs.x == rhs.x && lhs.y == rhs.y;
+    }
 };
 
 class EnemyModel: public EnemyModelInterface
@@ -24,7 +36,7 @@ public:
     
 
 private:
-    std::map<std::pair<int, int>, EnemyState> enemyMap; // Map to link x and y to shared pointer of enemy object
+    std::unordered_set<EnemyState, EnemyCoordinateHash, EnemyCoordinateEqual> enemySet; // Map to link x and y to shared pointer of enemy object
 };
 
 #endif // ENEMYMODEL_H

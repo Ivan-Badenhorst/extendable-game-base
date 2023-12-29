@@ -13,57 +13,72 @@ void PEnemyModel::addEnemy(std::unique_ptr<Enemy> enemy)
     auto pEnemy = dynamic_cast<PEnemy*>(enemy.get());
 
     // Add the enemy to the enemyMap with the key
-    enemyMap[key] = {enemy->getXPos(), enemy->getYPos(), 
-                        enemy->getDefeated(), enemy->getValue(),
-                        pEnemy->getPoisonLevel(), pEnemy->getPoisonLevel()};
+    enemySet.insert({enemy->getXPos(), enemy->getYPos(), 
+                    enemy->getDefeated(), enemy->getValue(), 
+                    pEnemy->getPoisonLevel(), pEnemy->getPoisonLevel()});
 }
 
 bool PEnemyModel::containsEnemy(int row, int col)
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(row, col);
+    // Create a PEnemyState object with the given coordinates
+    PEnemyState queryEnemyState;
+    queryEnemyState.x = row;
+    queryEnemyState.y = col;
 
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key) > 0)
+    // Check if the enemySet contains the enemy
+    if (enemySet.find(queryEnemyState) != enemySet.end())
     {
-        // Return true if the enemyMap contains the key
+        // Return true if the enemySet contains the enemy
         return true;
     }
     else
     {
-        // Return false if the enemyMap does not contain the key
+        // Return false if the enemySet does not contain the enemy
         return false;
     }
 }
 
 bool PEnemyModel::isDefeated(int row, int col)
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(row, col);
+    // Create a PEnemyState object with the given coordinates
+    PEnemyState queryEnemyState;
+    queryEnemyState.x = row;
+    queryEnemyState.y = col;
 
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key) > 0)
+    // Find the enemy in the set
+    auto it = enemySet.find(queryEnemyState);
+
+    if (it != enemySet.end())
     {
-        // Return the defeated status of the enemy
-        return enemyMap[key].isDefeated;
+        // The enemy was found, return its defeated status
+        return it->isDefeated;
     }
     else
     {
-        // Return false if the enemy is not in the map
+        // The enemy was not found, return false
         return false;
     }
 }
 
 void PEnemyModel::attackEnemy(int row, int col, int damage)
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(row, col);
+    // Create a PEnemyState object with the given coordinates
+    PEnemyState queryEnemyState;
+    queryEnemyState.x = row;
+    queryEnemyState.y = col;
 
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key) > 0)
+    // Find the enemy in the set
+    auto it = enemySet.find(queryEnemyState);
+
+    if (it != enemySet.end())
     {
-        // Attack the enemy
-        enemyMap[key].isDefeated = true;
+        // The enemy was found, create a new PEnemyState with the updated status
+        PEnemyState updatedEnemyState = *it;
+        updatedEnemyState.isDefeated = true;
+
+        // Erase the old enemy and insert the updated one
+        enemySet.erase(it);
+        enemySet.insert(updatedEnemyState);
     }
 }
 
@@ -109,22 +124,24 @@ float getPoisonLevel(int row, int col)
 }
 
 
-std::optional<PEnemyState> PEnemyModel::getOnePEnemyState(int x, int y) const
+std::optional<PEnemyState> PEnemyModel::getOnePEnemyState(int row, int col) const
 {
-    // Create a pair with the x and y position as the key
-    std::pair<int, int> key = std::make_pair(x, y);
+    // Create a PEnemyState object with the given coordinates
+    PEnemyState queryEnemyState;
+    queryEnemyState.x = row;
+    queryEnemyState.y = col;
 
-    // Check if the enemyMap contains the key
-    if (enemyMap.count(key)>0)
+    // Find the enemy in the set
+    auto it = enemySet.find(queryEnemyState);
+
+    if (it != enemySet.end())
     {
-        // Return the enemy state
-        return std::optional<PEnemyState>({enemyMap.at(key).x, enemyMap.at(key).y,
-         enemyMap.at(key).isDefeated, enemyMap.at(key).strength,
-         enemyMap.at(key).initialPoisonLevel, enemyMap.at(key).currentPoisonLevel});
+        // The enemy was found, return it wrapped in a std::optional
+        return std::optional<PEnemyState>{*it};
     }
     else
     {
-        // Return an empty optional if the enemy is not in the map
+        // The enemy was not found, return an empty std::optional
         return std::nullopt;
     }
 }
@@ -134,13 +151,11 @@ std::vector<PEnemyState> PEnemyModel::getAllPEnemyStates() const
     // Create a vector to hold the enemy states
     std::vector<PEnemyState> enemyStates;
 
-    // Iterate through the enemyMap and add the enemy states to the vector
-    for (auto const& e : enemyMap)
+    // Iterate over the set and add each enemy state to the vector
+    for (const PEnemyState& enemyState : enemySet)
     {
-        enemyStates.push_back({e.second.x, e.second.y, e.second.isDefeated,
-         e.second.strength, e.second.initialPoisonLevel, e.second.currentPoisonLevel});
+        enemyStates.push_back(enemyState);
     }
 
-    // Return the vector
     return enemyStates;
 }
