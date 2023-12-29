@@ -11,6 +11,12 @@ struct EnemyState {
     float strength;
 };
 
+/*
+Cantor Pairing Function is used to hash of all coordinates.
+More info on the Cantor Pairing function here : 
+https://www.singlelunch.com/2018/09/26/programming-trick-cantor-pairing-perfect-hashing-of-two-integers/
+*/
+
 struct EnemyCoordinateHash {
     std::size_t operator()(const EnemyState& e) const {
         return 0.5 * (e.x + e.y) * (e.x + e.y + 1) + e.y;
