@@ -50,7 +50,7 @@ void GameController::input(const ArrowDirection &direction)
     {
         enemyController->attackEnemy(col, row, protController->getAttackDamage());
         protController->attackEnemy();
-        isHealthOver = protController->takeDamage(10); //does fixed damage now
+        
         row = prevRow;
         col = prevCol;
     }
@@ -67,12 +67,13 @@ void GameController::input(const ArrowDirection &direction)
     //update protagonist
     protController->update(row, col);
     float tileVal=tileController->getEnergy(row, col);
+
     if (tileVal > 0) {
         isEnergyOver = protController->updateEnergy(tileVal);
     }
-    if(isHealthOver || isEnergyOver){
-        stopGame("GAME OVER", "You Lose! Protagonist Has Died");
 
+    if(isEnergyOver){
+        stopGame("GAME OVER", "You Lose! Protagonist Has Died");
     }
 
     //if there was an hp, we put it back -> but now the used version
@@ -282,7 +283,10 @@ void GameController::previousLevel()
 
 void GameController::damageToProtagonist(float damage)
 {
-    protController->takeDamage(damage);
+    isHealthOver = protController->takeDamage(damage);
+    if(isHealthOver || isEnergyOver){
+        stopGame("GAME OVER", "You Lose! Protagonist Has Died");
+    }
 }
 
 void GameController::setupUi()
