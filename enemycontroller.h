@@ -8,6 +8,7 @@
 #include <memory>
 #include <iostream>
 #include <QPointer>
+#include <QObject>
 
 
 
@@ -16,8 +17,10 @@
  * @class EnemyController
  * @brief Class responsible for controlling enemies in the game.
  */
-class EnemyController: public std::enable_shared_from_this<EnemyController>
+class EnemyController: public QObject, public std::enable_shared_from_this<EnemyController>
 {
+    Q_OBJECT
+
 public:
     // Factory method to create the single instance of EnemyController.
     static std::shared_ptr<EnemyController> create(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols);
@@ -72,8 +75,7 @@ public:
     std::shared_ptr<EnemyModel> getEnemyModel() const;
     std::shared_ptr<PEnemyModel> getPEnemyModel() const;
 
-    
-
+    void updateProtagonistPosition(int x, int y);
 
 private:
 
@@ -93,11 +95,19 @@ private:
     int world_rows;
     int world_cols;
 
+    int prot_x;
+    int prot_y;
+
     /**
      * @brief Adds an enemy model to the controller.
      * @param em The enemy model to be added.
      */
     void addEnemyModel(std::shared_ptr<EnemyModelInterface> em);
+
+signals:
+
+private slots:
+
 };
 
 

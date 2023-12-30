@@ -196,3 +196,9 @@ std::shared_ptr<PEnemyModel> EnemyController::getPEnemyModel() const
     }
     return nullptr;
 }
+
+void EnemyController::updateProtagonistPosition(int x, int y)
+{
+    prot_x = x;
+    prot_y = y;
+}
