@@ -39,6 +39,7 @@ public:
     void attackEnemy(int x, int y, int damage) override;
     std::optional<EnemyState> getOneEnemyState(int x, int y) const;
     std::vector<EnemyState> getAllEnemyStates() const;
+    float getStrength(int x, int y) const;
     
 
 private:

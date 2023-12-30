@@ -73,3 +73,17 @@ std::vector<EnemyState> EnemyModel::getAllEnemyStates() const
     }
     return allEnemyStates;
 }
+
+float EnemyModel::getStrength(int x, int y) const
+{
+    EnemyState queryEnemyState = {x, y, false, 0};
+    auto it = enemySet.find(queryEnemyState);
+    if (it != enemySet.end())
+    {
+        return it->strength;
+    }
+    else
+    {
+        return 0;
+    }
+}
