@@ -70,6 +70,18 @@ public:
     // Get all fire for a given PEnemy
     std::vector<FireOnTile> getPEnemyFire(int x, int y) const;
 
+    /**
+     * @brief Checks if there is fire at the specified coordinates.
+     *
+     * This function checks if there is fire at the given coordinates (x, y) in the PEnemyModel.
+     * It returns the fire type present at the specified coordinates.
+     *
+     * @param x The x-coordinate of the tile.
+     * @param y The y-coordinate of the tile.
+     * @return The fire type present at the specified coordinates.
+     */
+    int containsFire(int x, int y) const;
+
 private:
     // Unordered set of PEnemyStates
     std::unordered_set<PEnemyState, PEnemyCoordinateHash, PEnemyCoordinateEqual> enemySet; 

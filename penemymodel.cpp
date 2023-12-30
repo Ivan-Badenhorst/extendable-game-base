@@ -163,6 +163,28 @@ std::vector<FireOnTile> PEnemyModel::getPEnemyFire(int x, int y) const {
     return fires;
 }
 
+int PEnemyModel::containsFire(int x, int y) const
+{
+    // Create a FireOnTile object with the given coordinates
+    FireOnTile queryFire;
+    queryFire.x = x;
+    queryFire.y = y;
+
+    // Find the fire in the set
+    auto it = fireSet.find(queryFire);
+
+    if (it != fireSet.end())
+    {
+        // The fire was found, return its fire type
+        return it->fireType;
+    }
+    else
+    {
+        // The fire was not found, return 0
+        return 0;
+    }
+}
+
 bool PEnemyModel::deducePoison(int x, int y)
 {
     auto enemyState = enemySet.find(PEnemyState{x, y, false, 0, 0, 0});
