@@ -55,6 +55,8 @@ void GameController::input(const ArrowDirection &direction)
         col = prevCol;
     }
 
+    // We let the enemies know that the protagonist has moved
+    enemyController->updateProtagonistPosition(row, col);
 
     //check for healthpack
     int hpVal = hpController->update(row, col);
