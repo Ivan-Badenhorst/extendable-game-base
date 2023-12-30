@@ -278,6 +278,10 @@ void GameController::previousLevel()
 
 }
 
+void GameController::damageToProtagonist(float damage)
+{
+    protController->takeDamage(damage);
+}
 
 void GameController::setupUi()
 {

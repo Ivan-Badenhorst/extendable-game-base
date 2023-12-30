@@ -77,6 +77,8 @@ public:
    void nextLevel();
    void previousLevel();
 
+   void damageToProtagonist(float damage);
+
 private:
     //singleton:
     GameController();
