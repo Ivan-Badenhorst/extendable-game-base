@@ -1,11 +1,20 @@
 #include "enemycontroller.h"
 #include "penemymodel.h"
+#include "gamecontroller.h"
+#include <QCoreApplication>
 
 
 EnemyController::EnemyController(int w_rows, int w_cols)
 {
     world_rows = w_rows;
     world_cols = w_cols;
+    // Initialize the timer
+    timer = new QTimer(this);
+    // Connect the timer's timeout signal to the checkProtagonistPosition method
+    connect(timer, &QTimer::timeout, this, &EnemyController::checkProtagonistPosition);
+    // Start the timer to trigger every second
+    timer->start(1000);
+    gameController = GameController::getInstance();
 }
 
 void EnemyController::init(std::shared_ptr<EnemyController> ec)
@@ -199,6 +208,81 @@ std::shared_ptr<PEnemyModel> EnemyController::getPEnemyModel() const
 
 void EnemyController::updateProtagonistPosition(int x, int y)
 {
+    // We first update the protagonist position
     prot_x = x;
     prot_y = y;
+
+    // If he is on a tile that has fire, he will get one damage by default
+    auto pEnemyModel = getPEnemyModel();
+    if (pEnemyModel) {
+        auto pEnemy = std::dynamic_pointer_cast<PEnemyModel>(pEnemyModel);
+        if (auto fireType = pEnemy->containsFire(x, y)) {
+            switch(fireType) {
+                case 1:
+                    gameController->damageToProtagonist(25);
+                    break;
+                case 2:
+                    gameController->damageToProtagonist(50);
+                    break;
+                case 3:
+                    gameController->damageToProtagonist(75);
+                    break;
+                case 4:
+                    gameController->damageToProtagonist(100);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
+void EnemyController::stopAttacks()
+{
+    timer->stop();
+}
+
+void EnemyController::checkProtagonistPosition()
+{   
+    // Check if the protagonist is on a tile that has fire
+    auto pEnemyModel = getPEnemyModel();
+    if (pEnemyModel) {
+        auto pEnemy = std::dynamic_pointer_cast<PEnemyModel>(pEnemyModel);
+        if (auto fireType = pEnemy->containsFire(prot_x, prot_y)) {
+            switch(fireType) {
+                case 1:
+                    gameController->damageToProtagonist(25);
+                    break;
+                case 2:
+                    gameController->damageToProtagonist(50);
+                    break;
+                case 3:
+                    gameController->damageToProtagonist(75);
+                    break;
+                case 4:
+                    gameController->damageToProtagonist(100);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    
+    // Check if there is an enemy up, left, right or down to the protagonist
+    auto enemyModel = getEnemyModel();
+    std::vector<std::pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    for (const auto& direction : directions) {
+        int newX = prot_x + direction.first;
+        int newY = prot_y + direction.second;
+
+        // Check if newX and newY are within the map boundaries
+        if (newX >= 0 && newX < world_cols && newY >= 0 && newY < world_rows) {
+            auto enemyStrength = enemyModel->getStrength(newX, newY);
+            if (enemyStrength > 0) {
+                gameController->damageToProtagonist(enemyStrength);
+            }
+        }
+    }
+
 }

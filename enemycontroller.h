@@ -9,6 +9,9 @@
 #include <iostream>
 #include <QPointer>
 #include <QObject>
+#include <QTimer>
+
+class GameController; 
 
 
 
@@ -77,6 +80,8 @@ public:
 
     void updateProtagonistPosition(int x, int y);
 
+    void stopAttacks();
+
 private:
 
     /**
@@ -98,6 +103,10 @@ private:
     int prot_x;
     int prot_y;
 
+    QTimer* timer;
+
+    GameController *gameController;
+
     /**
      * @brief Adds an enemy model to the controller.
      * @param em The enemy model to be added.
@@ -107,7 +116,7 @@ private:
 signals:
 
 private slots:
-
+    void checkProtagonistPosition();
 };
 
 
