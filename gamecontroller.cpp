@@ -84,6 +84,7 @@ void GameController::input(const ArrowDirection &direction)
 
 void GameController::stopGame(QString title, QString message)
 {
+    enemyController->stopAttacks();
     protController->showDeath();
     QMessageBox msgBox;
     msgBox.setWindowTitle(title);
@@ -284,7 +285,7 @@ void GameController::previousLevel()
 void GameController::damageToProtagonist(float damage)
 {
     isHealthOver = protController->takeDamage(damage);
-    if(isHealthOver || isEnergyOver){
+    if(isHealthOver){
         stopGame("GAME OVER", "You Lose! Protagonist Has Died");
     }
 }
