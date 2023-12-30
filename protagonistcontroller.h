@@ -14,6 +14,7 @@ public:
     void update(int row, int col);
     void landedOnHp();
     void attackEnemy();
+    /// TODO: Isn't the health a float in the lib?
     bool takeDamage(int hpValue);
     int getAttackDamage();
     void showDeath();
