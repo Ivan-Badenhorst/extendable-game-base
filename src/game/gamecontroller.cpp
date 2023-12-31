@@ -56,7 +56,8 @@ void GameController::input(const ArrowDirection &direction)
     }
 
     // We let the enemies know that the protagonist has moved
-    enemyController->updateProtagonistPosition(row, col);
+    // !! row corresponds to y and col corresponds to x !! 
+    enemyController->updateProtagonistPosition(col, row);
 
     //check for healthpack
     int hpVal = hpController->update(row, col);
@@ -285,7 +286,6 @@ void GameController::previousLevel()
 void GameController::damageToProtagonist(float damage)
 {
     isHealthOver = protController->takeDamage(damage);
-    std::cout << "Protagonist is actually at :" << row << " " << col << std::endl;
     if(isHealthOver){
         stopGame("GAME OVER", "You Lose! Protagonist Has Died");
     }
