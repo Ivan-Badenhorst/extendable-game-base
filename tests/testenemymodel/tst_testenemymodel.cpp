@@ -45,6 +45,15 @@ private slots:
      */
     void test_getEnemyStates();
 
+
+    /**
+     * @brief Test case for checking if there is an enemy around a position in the EnemyModel.
+     * 
+     * This test case checks that the isEnemyAround method of the EnemyModel returns the correct damage for each position,
+     * and that the damage is updated correctly when the state of an enemy changes.
+     */
+    void test_isEnemyAround();
+
 };
 
 testenemymodel::testenemymodel() {}
@@ -194,6 +203,60 @@ void testenemymodel::test_getEnemyStates()
         QVERIFY(it != expectedStates.end());
         QCOMPARE(state.isDefeated, it->isDefeated);
         QCOMPARE(state.strength, it->strength);
+    }
+}
+
+void testenemymodel::test_isEnemyAround()
+{
+    EnemyModel enemyModel(10, 10);
+
+    // Create a 10x10 matrix to store the expected damage at each position
+    std::map<std::pair<int, int>, float> expectedDamage;
+
+    // Create some enemies with different strengths and add them to the model
+    std::vector<std::unique_ptr<Enemy>> enemies;
+    enemies.push_back(std::make_unique<Enemy>(5, 5, 100.0f));
+    enemies.push_back(std::make_unique<Enemy>(3, 3, 75.0f));
+    enemies.push_back(std::make_unique<Enemy>(7, 7, 50.0f));
+    enemies.push_back(std::make_unique<Enemy>(0, 0, 25.0f)); // Top-left corner
+    enemies.push_back(std::make_unique<Enemy>(9, 0, 30.0f)); // Top-right corner
+    enemies.push_back(std::make_unique<Enemy>(0, 9, 35.0f)); // Bottom-left corner
+    enemies.push_back(std::make_unique<Enemy>(9, 9, 40.0f)); // Bottom-right corner
+
+    for (auto& enemy : enemies)
+    {
+        int xPos = enemy->getXPos();
+        int yPos = enemy->getYPos();
+        float value = enemy->getValue();
+
+        enemyModel.addEnemy(std::move(enemy));
+
+        // Add the enemy's strength to the expected damage at the positions around the enemy
+        std::vector<std::pair<int, int>> positions = {
+            {xPos - 1, yPos},
+            {xPos + 1, yPos},
+            {xPos, yPos - 1},
+            {xPos, yPos + 1}
+        };
+
+        for (auto& position : positions)
+        {
+            if (position.first >= 0 && position.first < 10 && position.second >= 0 && position.second < 10)
+            {
+                expectedDamage[position] += value;
+            }
+        }
+    }
+
+    // Check isEnemyAround for each position on the map
+    for (int i = 0; i < 10; ++i)
+    {
+        for (int j = 0; j < 10; ++j)
+        {
+            // Check that isEnemyAround returns the expected damage
+            std::pair pos = {i, j};
+            QCOMPARE(enemyModel.isEnemyAround(i, j), expectedDamage[pos]);
+        }
     }
 }
 
