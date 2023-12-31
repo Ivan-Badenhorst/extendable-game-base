@@ -86,7 +86,7 @@ float EnemyModel::getStrength(int x, int y) const
     return 0;
 }
 
-float EnemyModel::isEnemyAround(int x, int y) const
+float EnemyModel::isEnemyAround(int x, int y) 
 {
     // Up coordinate
     int up_x = x;
@@ -107,25 +107,25 @@ float EnemyModel::isEnemyAround(int x, int y) const
     float damage = 0;
 
     // Check up
-    if (up_y >= 0)
+    if (up_y >= 0 && !isDefeated(up_x, up_y))
     {
         damage += getStrength(up_x, up_y);
     }
 
     // Check down
-    if (down_y < world_rows)
+    if (down_y < world_rows && !isDefeated(down_x, down_y))
     {
         damage += getStrength(down_x, down_y);
     }
 
     // Check left
-    if (left_x >= 0)
+    if (left_x >= 0 && !isDefeated(left_x, left_y))
     {
         damage += getStrength(left_x, left_y);
     }
 
     // Check right
-    if (right_x < world_cols)
+    if (right_x < world_cols && !isDefeated(right_x, right_y))
     {
         damage += getStrength(right_x, right_y);
     }
