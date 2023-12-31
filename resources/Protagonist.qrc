@@ -10,5 +10,6 @@
         <file>protagonist/prisoner_dead_2.png</file>
         <file>protagonist/prisoner_dead_3.png</file>
         <file>protagonist/prisoner_dead_4.png</file>
+        <file>protagonist/prisoner_hit.png</file>
     </qresource>
 </RCC>
