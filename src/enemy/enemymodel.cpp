@@ -80,9 +80,8 @@ float EnemyModel::getStrength(int x, int y) const
     auto it = enemySet.find(queryEnemyState);
     if (it != enemySet.end())
     {
-        std::cout << "EnemyModel::getStrength: Enemy found at (" << x << ", " << y << ")" << std::endl;
         return it->strength;
     }
-    std::cout << "EnemyModel::getStrength: Enemy NOT found at (" << x << ", " << y << ")" << std::endl;
+    
     return 0;
 }
