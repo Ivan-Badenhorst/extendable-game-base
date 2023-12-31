@@ -17,10 +17,13 @@ EnemyController::EnemyController(int w_rows, int w_cols)
     gameController = GameController::getInstance();
 }
 
+
+
 void EnemyController::init(std::shared_ptr<EnemyController> ec)
 {
     penemytimer = std::make_unique<PEnemyTimer>(ec);
 }
+
 
 
 std::shared_ptr<EnemyController> EnemyController::create(std::vector<std::unique_ptr<Enemy>> enemies, int world_rows, int world_cols)
@@ -56,10 +59,14 @@ std::shared_ptr<EnemyController> EnemyController::create(std::vector<std::unique
     return instance;
 }
 
+
+
 std::tuple<int, int> EnemyController::getWorldDimensions(int x, int y) const
 {
     return std::make_tuple(world_rows, world_cols);
 }
+
+
 
 void EnemyController::refreshAllGraphical()
 {
@@ -70,11 +77,14 @@ void EnemyController::refreshAllGraphical()
     }
 }
 
+
+
 void EnemyController::addEnemyModel(std::shared_ptr<EnemyModelInterface> em)
 {
     // Add the model to the vector
     enemyModels.push_back(em);
 }
+
 
 
 void EnemyController::setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface>> &newEnemyView)
@@ -83,11 +93,14 @@ void EnemyController::setEnemyView(const std::vector<std::shared_ptr<EnemyViewIn
 }
 
 
+
 std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getAllEnemyModels() const
 
 {
     return enemyModels;
 }
+
+
 
 bool EnemyController::containsEnemy(int x, int y) const
 {
@@ -102,6 +115,8 @@ bool EnemyController::containsEnemy(int x, int y) const
     return false;
 }
 
+
+
 bool EnemyController::isDefeated(int x, int y) const
 {
     // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
@@ -114,6 +129,8 @@ bool EnemyController::isDefeated(int x, int y) const
     }
     return false;
 }
+
+
 
 void EnemyController::attackEnemy(int x, int y, int damage)
 {
@@ -151,6 +168,8 @@ void EnemyController::attackEnemy(int x, int y, int damage)
     }
 }
 
+
+
 void EnemyController::drainPEnemy(int x, int y)
 {
     for (auto& m : enemyModels)
@@ -175,6 +194,8 @@ void EnemyController::drainPEnemy(int x, int y)
     }
 }
 
+
+
 std::shared_ptr<EnemyModel> EnemyController::getEnemyModel() const
 {
     for (auto& m : enemyModels)
@@ -191,6 +212,7 @@ std::shared_ptr<EnemyModel> EnemyController::getEnemyModel() const
 }
 
 
+
 std::shared_ptr<PEnemyModel> EnemyController::getPEnemyModel() const
 {
     for (auto& m : enemyModels)
@@ -205,6 +227,8 @@ std::shared_ptr<PEnemyModel> EnemyController::getPEnemyModel() const
     }
     return nullptr;
 }
+
+
 
 void EnemyController::checkForFire()
 {
@@ -232,6 +256,8 @@ void EnemyController::checkForFire()
     }
 }
 
+
+
 void EnemyController::checkForEnemies()
 {
     auto enemyModel = getEnemyModel();
@@ -240,6 +266,8 @@ void EnemyController::checkForEnemies()
         gameController->damageToProtagonist(damage);
     }
 }
+
+
 
 void EnemyController::updateProtagonistPosition(int x, int y)
 {
@@ -251,10 +279,14 @@ void EnemyController::updateProtagonistPosition(int x, int y)
     checkForFire();
 }
 
+
+
 void EnemyController::stopAttacks()
 {
     timer->stop();
 }
+
+
 
 void EnemyController::checkProtagonistPosition()
 {   
