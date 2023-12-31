@@ -113,6 +113,10 @@ private:
      */
     void addEnemyModel(std::shared_ptr<EnemyModelInterface> em);
 
+    void checkForFire();
+
+    void checkForEnemies();
+
 signals:
 
 private slots:

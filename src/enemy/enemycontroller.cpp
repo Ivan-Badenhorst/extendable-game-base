@@ -76,6 +76,7 @@ void EnemyController::addEnemyModel(std::shared_ptr<EnemyModelInterface> em)
     enemyModels.push_back(em);
 }
 
+
 void EnemyController::setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface>> &newEnemyView)
 {
     enemyViews = newEnemyView;
@@ -206,17 +207,12 @@ std::shared_ptr<PEnemyModel> EnemyController::getPEnemyModel() const
     return nullptr;
 }
 
-void EnemyController::updateProtagonistPosition(int x, int y)
+void EnemyController::checkForFire()
 {
-    // We first update the protagonist position
-    prot_x = x;
-    prot_y = y;
-
-    // If he is on a tile that has fire, he will get one damage by default
     auto pEnemyModel = getPEnemyModel();
     if (pEnemyModel) {
         auto pEnemy = std::dynamic_pointer_cast<PEnemyModel>(pEnemyModel);
-        if (auto fireType = pEnemy->containsFire(x, y)) {
+        if (auto fireType = pEnemy->containsFire(prot_x, prot_y)) {
             switch(fireType) {
                 case 1:
                     std::cout << "Fire type 1" << std::endl;
@@ -241,6 +237,25 @@ void EnemyController::updateProtagonistPosition(int x, int y)
     }
 }
 
+void EnemyController::checkForEnemies()
+{
+    auto enemyModel = getEnemyModel();
+    auto damage = enemyModel->isEnemyAround(prot_x, prot_y);
+    if (damage > 0) {
+        gameController->damageToProtagonist(damage);
+    }
+}
+
+void EnemyController::updateProtagonistPosition(int x, int y)
+{
+    // We first update the protagonist position
+    prot_x = x;
+    prot_y = y;
+
+    // If he is on a tile that has fire, he will get one damage by default
+    checkForFire();
+}
+
 void EnemyController::stopAttacks()
 {
     timer->stop();
@@ -249,50 +264,9 @@ void EnemyController::stopAttacks()
 void EnemyController::checkProtagonistPosition()
 {   
     // Check if the protagonist is on a tile that has fire
-    auto pEnemyModel = getPEnemyModel();
-    if (pEnemyModel) {
-        auto pEnemy = std::dynamic_pointer_cast<PEnemyModel>(pEnemyModel);
-        if (auto fireType = pEnemy->containsFire(prot_x, prot_y)) {
-            switch(fireType) {
-                case 1:
-                    std::cout << "Fire type 1 from timer" << std::endl;
-                    gameController->damageToProtagonist(25);
-                    break;
-                case 2:
-                    std::cout << "Fire type 2 from timer" << std::endl;
-                    gameController->damageToProtagonist(50);
-                    break;
-                case 3:
-                    std::cout << "Fire type 3 from timer" << std::endl;
-                    gameController->damageToProtagonist(75);
-                    break;
-                case 4:
-                    std::cout << "Fire type 4 from timer" << std::endl;
-                    gameController->damageToProtagonist(100);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+    checkForFire();
 
-    
-    // Check if there is an enemy up, left, right or down to the protagonist
-    auto enemyModel = getEnemyModel();
-    std::vector<std::pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-    for (const auto& direction : directions) {
-        int newX = prot_x + direction.first;
-        int newY = prot_y + direction.second;
-
-        // Check if newX and newY are within the map boundaries
-        if (newX >= 0 && newX < world_cols && newY >= 0 && newY < world_rows) {
-            auto enemyStrength = enemyModel->getStrength(newX, newY);
-            if (enemyStrength > 0) {
-                std::cout << "There is an enemy in " << newX << ", " << newY << " with strength " << enemyStrength << std::endl;
-                std::cout << "Protagonist is at (cont) " << prot_x << ":" << prot_y  << std::endl;
-                gameController->damageToProtagonist(enemyStrength);
-            }
-        }
-    }
+    // Check if there are enemies around the protagonist
+    checkForEnemies();
 
 }
