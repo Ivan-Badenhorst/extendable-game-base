@@ -40,6 +40,7 @@ public:
     std::optional<EnemyState> getOneEnemyState(int x, int y) const;
     std::vector<EnemyState> getAllEnemyStates() const;
     float getStrength(int x, int y) const;
+    float isEnemyAround(int x, int y) const;
     
 
 private:

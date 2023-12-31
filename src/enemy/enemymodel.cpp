@@ -85,3 +85,51 @@ float EnemyModel::getStrength(int x, int y) const
     
     return 0;
 }
+
+float EnemyModel::isEnemyAround(int x, int y) const
+{
+    // Up coordinate
+    int up_x = x;
+    int up_y = y - 1;
+
+    // Down coordinate
+    int down_x = x;
+    int down_y = y + 1;
+
+    // Left coordinate
+    int left_x = x - 1;
+    int left_y = y;
+
+    // Right coordinate
+    int right_x = x + 1;
+    int right_y = y;
+
+    float damage = 0;
+
+    // Check up
+    if (up_y >= 0)
+    {
+        damage += getStrength(up_x, up_y);
+    }
+
+    // Check down
+    if (down_y < world_rows)
+    {
+        damage += getStrength(down_x, down_y);
+    }
+
+    // Check left
+    if (left_x >= 0)
+    {
+        damage += getStrength(left_x, left_y);
+    }
+
+    // Check right
+    if (right_x < world_cols)
+    {
+        damage += getStrength(right_x, right_y);
+    }
+
+    return damage;
+
+}
