@@ -61,6 +61,7 @@ testenemymodel::testenemymodel() {}
 testenemymodel::~testenemymodel() {}
 
 
+
 void testenemymodel::test_addingEnemies() {
     // Create an instance of EnemyModel with a 10x10 map
     EnemyModel enemyModel(10, 10);
@@ -87,6 +88,8 @@ void testenemymodel::test_addingEnemies() {
     }
 }
 
+
+
 void testenemymodel::test_getStrength()
 {
     EnemyModel enemyModel(10, 10);
@@ -110,6 +113,8 @@ void testenemymodel::test_getStrength()
     QCOMPARE(enemyModel.getStrength(1, 1), 0.0f);
     QCOMPARE(enemyModel.getStrength(2, 2), 0.0f);
 }
+
+
 
 void testenemymodel::test_defeatEnemies()
 {
@@ -143,6 +148,7 @@ void testenemymodel::test_defeatEnemies()
     QVERIFY(!enemyModel.isDefeated(1, 1));
     QVERIFY(!enemyModel.isDefeated(2, 2));
 }
+
 
 
 void testenemymodel::test_getEnemyStates()
@@ -206,6 +212,8 @@ void testenemymodel::test_getEnemyStates()
     }
 }
 
+
+
 void testenemymodel::test_isEnemyAround()
 {
     EnemyModel enemyModel(10, 10);
@@ -259,6 +267,7 @@ void testenemymodel::test_isEnemyAround()
         }
     }
 }
+
 
 
 QTEST_MAIN(testenemymodel)
