@@ -153,7 +153,6 @@ void EnemyController::attackEnemy(int x, int y, int damage)
 
 void EnemyController::drainPEnemy(int x, int y)
 {
-    std::cout << "Draining Penemy : " << x << "," << y << std::endl;
     for (auto& m : enemyModels)
     {
         if (m->getEnemyType() == "PEnemy")
@@ -215,19 +214,15 @@ void EnemyController::checkForFire()
         if (auto fireType = pEnemy->containsFire(prot_x, prot_y)) {
             switch(fireType) {
                 case 1:
-                    std::cout << "Fire type 1" << std::endl;
                     gameController->damageToProtagonist(25);
                     break;
                 case 2:
-                std::cout << "Fire type 2" << std::endl;
                     gameController->damageToProtagonist(50);
                     break;
                 case 3:
-                    std::cout << "Fire type 3" << std::endl;
                     gameController->damageToProtagonist(75);
                     break;
                 case 4:
-                    std::cout << "Fire type 4" << std::endl;
                     gameController->damageToProtagonist(100);
                     break;
                 default:
@@ -268,5 +263,4 @@ void EnemyController::checkProtagonistPosition()
 
     // Check if there are enemies around the protagonist
     checkForEnemies();
-
 }
