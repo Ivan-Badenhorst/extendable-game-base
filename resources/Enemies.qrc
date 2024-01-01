@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>enemy/Enemy/Enemy_alive.png</file>
+        <file>enemy/Enemy/Enemy_dead.png</file>
+        <file>enemy/PEnemy/PEnemy_alive.png</file>
+        <file>enemy/PEnemy/PEnemy_dead.png</file>
+        <file>enemy/PEnemy/fire1.png</file>
+        <file>enemy/PEnemy/fire2.png</file>
+        <file>enemy/PEnemy/fire3.png</file>
+        <file>enemy/PEnemy/fire4.png</file>
+    </qresource>
+</RCC>

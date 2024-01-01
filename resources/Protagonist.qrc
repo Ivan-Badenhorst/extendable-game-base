@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>protagonist/prisoner_0.png</file>
+        <file>protagonist/prisoner_1.png</file>
+        <file>protagonist/prisoner_2.png</file>
+        <file>protagonist/prisoner_3.png</file>
+        <file>protagonist/prisoner_health.png</file>
+        <file>protagonist/prisoner_dead_0.png</file>
+        <file>protagonist/prisoner_dead_1.png</file>
+        <file>protagonist/prisoner_dead_2.png</file>
+        <file>protagonist/prisoner_dead_3.png</file>
+        <file>protagonist/prisoner_dead_4.png</file>
+        <file>protagonist/prisoner_hit.png</file>
+    </qresource>
+</RCC>
