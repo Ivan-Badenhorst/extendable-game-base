@@ -1,6 +1,7 @@
 #ifndef XENEMYMODEL_H
 #define XENEMYMODEL_H
 #include "enemymodelinterface.h"
+#include "tilemodel.h"
 
 
 struct XEnemyState {
@@ -24,6 +25,8 @@ public:
 
     float isEnemyAround(int x, int y);
 
+    void setTileModel(const std::shared_ptr<TileModel> &newTileModel);
+
 private:
     /**
      * @brief A vector to store all the enemies.
@@ -32,6 +35,8 @@ private:
      * Vectors provide efficient random access and are therefore well-suited for this use case.
      */
     std::vector<XEnemyState> enemyVector; // Vector to store all the enemies
+    std::shared_ptr<TileModel> tileModel;
 };
+
 
 #endif // XENEMYMODEL_H

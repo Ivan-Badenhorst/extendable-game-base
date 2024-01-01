@@ -1,6 +1,8 @@
 #ifndef TILEMODEL_H
 #define TILEMODEL_H
 #include "world.h"
+#include "node.h"
+
 
 ///TODO:
 /// ADAPT SUCH THAT YOU CAN ADJUST HP VALUE IF ITS BEEN USED
@@ -12,6 +14,7 @@ struct Portal {
     int col=-1;
     bool nextLevel;
 };
+
 
 
 class TileModel
@@ -30,6 +33,8 @@ public:
     std::pair<Portal, Portal> getPortals() const;
     void markTileAsVisited(int row, int col);
     bool isTileVisited(int row, int col) const;
+    std::vector<int> findPath(int startX, int startY, int endX, int endY);
+    bool compareNodes(const Node& a, const Node& b);
 
 
 private:
@@ -38,6 +43,8 @@ private:
     int rows;
     int columns;
     std::pair<Portal, Portal> portals;
+    std::vector<Node> nodes;
+
 
 };
 

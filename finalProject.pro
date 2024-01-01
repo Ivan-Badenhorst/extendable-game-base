@@ -2,7 +2,7 @@ QT       += core gui
 QT       += widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++17
+CONFIG += c++20
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -18,7 +18,8 @@ SOURCES += $$files(src/enemy/*.cpp) \
            $$files(src/protagonist/*.cpp) \
            $$files(src/tile/*.cpp) \
            $$files(src/trie/*.cpp) \
-           src/main.cpp
+           src/main.cpp \
+
            
            
 HEADERS += $$files(include/enemy/*.h) \
@@ -29,7 +30,7 @@ HEADERS += $$files(include/enemy/*.h) \
            $$files(include/mainwindow/*.h) \
            $$files(include/protagonist/*.h) \
            $$files(include/tile/*.h) \
-           $$files(include/trie/*.h)
+           $$files(include/trie/*.h) \
 
 
 INCLUDEPATH += $$PWD/include \
@@ -68,3 +69,11 @@ unix:!macx: LIBS += -L$$PWD/../worldlib/ -lworld
 
 INCLUDEPATH += $$PWD/../worldlib
 DEPENDPATH += $$PWD/../worldlib
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../CompiledLib/ -lworl
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../CompiledLib/ -lworld
+
+INCLUDEPATH += $$PWD/../CompiledLib/inc
+DEPENDPATH += $$PWD/../CompiledLib/inc

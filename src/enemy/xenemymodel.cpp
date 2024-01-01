@@ -153,3 +153,8 @@ float XEnemyModel::isEnemyAround(int x, int y)
 
     return damage;
 }
+
+void XEnemyModel::setTileModel(const std::shared_ptr<TileModel> &newTileModel)
+{
+    tileModel = newTileModel;
+}

@@ -2,7 +2,9 @@
 #include <vector>
 
 #include <iostream>
+#include "pathfinder_class.h"
 
+#include <functional>
 TileModel::TileModel()
 {
 
@@ -24,7 +26,12 @@ void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<
     for(int j = 0; j < tile.size(); j++){
 
         tileTable[j/cols].push_back(tile[j]->getValue());
+        //convert tiles to nodes and place them in the node 1D list
+        nodes.push_back(Node(tile[j]->getXPos(),tile[j]->getYPos(),tile[j]->getValue()));
+
     }
+
+
 }
 
 void TileModel::addPortal(int row, int col, bool nextLevel)
@@ -99,4 +106,18 @@ bool TileModel::isTileVisited(int row, int col) const {
         return visitedTiles[row][col];
     }
     return false;
+}
+
+std::vector<int> TileModel::findPath(int startX, int startY, int endX, int endY)
+{
+    Tile startTile(startX, startY,  getTileValueAt(startX, startY) );
+    Tile destinationTile(endX, endY, getTileValueAt(endX, endY));
+
+    Comparator<Node> comp = [](const Node& a, const Node& b) { return a.getValue() < b.getValue(); };
+    PathFinder<Node, Tile> finder(nodes, &startTile, &destinationTile, comp, columns, 0);
+    return finder.A_star();
+}
+
+bool TileModel::compareNodes(const Node& a, const Node& b) {
+    return a.getValue() < b.getValue();  // or any other comparison logic relevant to your application
 }
