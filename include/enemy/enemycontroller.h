@@ -4,6 +4,7 @@
 #include "enemyviewinterface.h"
 #include "penemytimer.h"
 #include "penemymodel.h"
+#include "xenemymodel.h"
 
 #include <memory>
 #include <iostream>
@@ -46,7 +47,7 @@ public:
      * @brief Retrieves the enemy models stored in the controller.
      * @return The vector of enemy models.
      */
-    std::vector<std::shared_ptr<EnemyModelInterface>> getAllEnemyModels() const;
+    std::map<QString, std::shared_ptr<EnemyModelInterface>> getAllEnemyModels() const;
 
     /**
      * @brief Checks if there is an enemy at the given coordinates.
@@ -75,12 +76,13 @@ public:
 
     void drainPEnemy(int x, int y);
 
-    std::shared_ptr<EnemyModel> getEnemyModel() const;
-    std::shared_ptr<PEnemyModel> getPEnemyModel() const;
+    std::shared_ptr<EnemyModelInterface> getEnemyModelByType(const QString& type) const;
 
     void updateProtagonistPosition(int x, int y);
 
     void stopAttacks();
+
+    void addXEnemy(int amount);
 
 private:
 
@@ -93,7 +95,7 @@ private:
     //static std::shared_ptr<EnemyController> instance;
     void init(std::shared_ptr<EnemyController> ec);
 
-    std::vector<std::shared_ptr<EnemyModelInterface>> enemyModels; ///< Vector of enemy models.
+    std::map<QString, std::shared_ptr<EnemyModelInterface>> enemyModels;
     std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.
     std::unique_ptr<PEnemyTimer> penemytimer;
 
@@ -116,6 +118,8 @@ private:
     void checkForFire();
 
     void checkForEnemies();
+
+    void checkForXEnemies();
 
 signals:
 

@@ -29,11 +29,10 @@ HEADERS += $$files(include/enemy/*.h) \
            $$files(include/mainwindow/*.h) \
            $$files(include/protagonist/*.h) \
            $$files(include/tile/*.h) \
-           $$files(include/trie/*.h) 
+           $$files(include/trie/*.h)
 
 
 INCLUDEPATH += $$PWD/include \
-               $$PWD/include/CompiledWorld \
                $$PWD/include/enemy \
                $$PWD/include/game \
                $$PWD/include/gameview \
@@ -65,20 +64,7 @@ RESOURCES += \
 
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../include/CompiledLib/ -lworl
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../include/CompiledLib/ -lworld
-
-INCLUDEPATH += $$PWD/../include/CompiledLib/inc
-DEPENDPATH += $$PWD/../include/CompiledLib/inc
-
 unix:!macx: LIBS += -L$$PWD/../worldlib/ -lworld
-
-
-
-
-INCLUDEPATH += $$PWD/../APT_fp_resources/worldsource
-DEPENDPATH += $$PWD/../APT_fp_resources/worldsource
-
 
 INCLUDEPATH += $$PWD/../worldlib
 DEPENDPATH += $$PWD/../worldlib

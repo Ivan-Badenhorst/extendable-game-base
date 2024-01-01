@@ -161,12 +161,16 @@ void GameController::setModelInViews()
     for(auto& ev: evs){
         //check the view type:
         if (auto enemyV = dynamic_cast<EnemyView*>(ev.get())) {
-            enemyV->setEnemyModel(enemyController->getEnemyModel());
+            auto Model = ems[QString("Enemy")];
+            auto eModel = std::dynamic_pointer_cast<EnemyModel>(Model);
+            enemyV->setEnemyModel(eModel);
+
         }
         if (auto enemyV = dynamic_cast<PEnemyView*>(ev.get())) {
-            enemyV->setPEnemyModel(enemyController->getPEnemyModel());
+            auto Model = ems[QString("PEnemy")];
+            auto peModel = std::dynamic_pointer_cast<PEnemyModel>(Model);
+            enemyV->setPEnemyModel(peModel);
         }
-
     }
 }
 
@@ -288,6 +292,15 @@ void GameController::damageToProtagonist(float damage)
     isHealthOver = protController->takeDamage(damage);
     if(isHealthOver){
         stopGame("GAME OVER", "You Lose! Protagonist Has Died");
+    }
+}
+
+void GameController::warnProtagonist(bool isInDanger)
+{
+    if(isInDanger)
+    {
+        //protController->warn();
+        std::cout << "WARNING: XENEMY IS NEARBY" << std::endl;
     }
 }
 

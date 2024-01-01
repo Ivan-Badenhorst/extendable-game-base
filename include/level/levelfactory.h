@@ -2,6 +2,7 @@
 #define LEVELFACTORY_H
 
 #include "level.h"
+#include "prison.h"
 
 class LevelFactory
 {
@@ -13,7 +14,7 @@ protected:
     std::tuple<std::shared_ptr<TileController>, 
                 std::shared_ptr<ProtagonistController>, 
                 std::shared_ptr<HealthPackController>,
-                std::shared_ptr<EnemyController>> basicControllers(World& w);
+                std::shared_ptr<EnemyController>> basicControllers(Prison &p);
 };
 
 #endif // LEVELFACTORY_H

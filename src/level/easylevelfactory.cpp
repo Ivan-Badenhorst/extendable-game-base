@@ -16,9 +16,14 @@ EasyLevelFactory::EasyLevelFactory()
 std::shared_ptr<Level> EasyLevelFactory::createWorld()
 {
     World w;
-    w.createWorld(":/map/worldmap.png", 100,10);
+    w.createWorld(":/map/worldmap.png", 10,10);
 
-    auto [tc, pc, hpc, ec] = basicControllers(w);
+    Prison p(w.getTiles(), w.getEnemies(), w.getHealthPacks(), w.getRows(), w.getCols());
+
+    auto [tc, pc, hpc, ec] = basicControllers(p);
+
+    // Add XEnemies here
+    ec->addXEnemy(5);
 
     return std::make_shared<EasyLevel>(tc,  pc, hpc, ec);
 }

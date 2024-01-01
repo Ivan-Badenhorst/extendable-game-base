@@ -19,9 +19,11 @@ MediumLevelFactory::MediumLevelFactory()
 std::shared_ptr<Level> MediumLevelFactory::createWorld()
 {
     World w;
-    w.createWorld(":/map/worldmap.png", 100,100);
+    w.createWorld(":/map/worldmap.png", 20, 20);
 
-    auto [tc, pc, hpc, ec] = basicControllers(w);
+    Prison p(w.getTiles(), w.getEnemies(), w.getHealthPacks(), w.getRows(), w.getCols());
+
+    auto [tc, pc, hpc, ec] = basicControllers(p);
 
     return std::make_shared<MediumLevel>(tc,  pc, hpc, ec);
 }

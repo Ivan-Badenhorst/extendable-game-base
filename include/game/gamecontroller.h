@@ -79,6 +79,8 @@ public:
 
    void damageToProtagonist(float damage);
 
+   void warnProtagonist(bool isInDanger);
+
 private:
     //singleton:
     GameController();

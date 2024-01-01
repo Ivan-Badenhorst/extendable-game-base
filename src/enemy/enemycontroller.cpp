@@ -37,18 +37,20 @@ std::shared_ptr<EnemyController> EnemyController::create(std::vector<std::unique
     //Create your enemy models here
     auto em = std::make_shared<EnemyModel>(world_rows, world_cols);
     auto pem = std::make_shared<PEnemyModel>(world_rows, world_cols);
-
-    for (auto& enemy : enemies) {
-        if (auto pEnemy = dynamic_cast<PEnemy*>(enemy.get())) {
-            pem->addEnemy(std::move(enemy));
-        } else {
-            em->addEnemy(std::move(enemy));
-        }
-    }
+    auto xem = std::make_shared<XEnemyModel>(world_rows, world_cols);
 
     // Add your models to the controller here
     instance->addEnemyModel(em);
     instance->addEnemyModel(pem);
+    instance->addEnemyModel(xem);
+
+    for (auto& enemy : enemies) {
+        QString enemyType = enemy->property("enemyType").toString();
+        auto model = instance->enemyModels.find(enemyType);
+        if (model != instance->enemyModels.end()) {
+            model->second->addEnemy(std::move(enemy));
+        } 
+    }
 
     /* Note about the views
     Remember that the views are handled by the game controller. 
@@ -81,8 +83,8 @@ void EnemyController::refreshAllGraphical()
 
 void EnemyController::addEnemyModel(std::shared_ptr<EnemyModelInterface> em)
 {
-    // Add the model to the vector
-    enemyModels.push_back(em);
+    QString enemyType = QString::fromStdString(em->getEnemyType());
+    enemyModels[enemyType] = em;
 }
 
 
@@ -94,7 +96,7 @@ void EnemyController::setEnemyView(const std::vector<std::shared_ptr<EnemyViewIn
 
 
 
-std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getAllEnemyModels() const
+std::map<QString, std::shared_ptr<EnemyModelInterface>> EnemyController::getAllEnemyModels() const
 
 {
     return enemyModels;
@@ -104,11 +106,9 @@ std::vector<std::shared_ptr<EnemyModelInterface> > EnemyController::getAllEnemyM
 
 bool EnemyController::containsEnemy(int x, int y) const
 {
-    // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
-    for (auto const &em : enemyModels)
-    {
-        if (em->containsEnemy(x, y))
-        {
+    // Iterate through the enemyModels map and check if any of the models contain the given coordinates
+    for (const auto& pair : enemyModels) {
+        if (pair.second->containsEnemy(x, y)) {
             return true;
         }
     }
@@ -119,12 +119,10 @@ bool EnemyController::containsEnemy(int x, int y) const
 
 bool EnemyController::isDefeated(int x, int y) const
 {
-    // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
-    for (auto const &em : enemyModels)
-    {
-        if (em->containsEnemy(x, y))
-        {
-            return em->isDefeated(x, y);
+    // Iterate through the enemyModels map and check if any of the models contain the given coordinates
+    for (const auto& pair : enemyModels) {
+        if (pair.second->containsEnemy(x, y)) {
+            return pair.second->isDefeated(x, y);
         }
     }
     return false;
@@ -134,36 +132,21 @@ bool EnemyController::isDefeated(int x, int y) const
 
 void EnemyController::attackEnemy(int x, int y, int damage)
 {
-    // Iterate through the enemyModels vector and check if any of the models contain the given coordinates
-    for (auto const &em : enemyModels)
-    {
-        if (em->containsEnemy(x, y))
-        {
-            em->attackEnemy(x, y, damage);
-            auto etype = em->getEnemyType();
-            if (etype == "PEnemy")
-            {
+    // Iterate through the enemyModels map and check if any of the models contain the given coordinates
+    for (const auto& pair : enemyModels) {
+        if (pair.second->containsEnemy(x, y)) {
+            pair.second->attackEnemy(x, y, damage);
+            auto etype = pair.second->getEnemyType();
+            for (auto const &ev : enemyViews) {
+                if (ev->getEnemyType() == etype) {
+                    ev->render(x, y);
+                    break;
+                }
+            }
+            if (etype == "PEnemy") {
                 penemytimer->addEnemy(x, y);
-                for (auto const &ev : enemyViews)
-                {
-                    if (ev->getEnemyType() == "PEnemy")
-                    {
-                        ev->render(x, y);
-                        break;
-                    }
-                }
             }
-            else if (etype == "Enemy")
-            {
-                for (auto const &ev : enemyViews)
-                {
-                    if (ev->getEnemyType() == "Enemy")
-                    {
-                        ev->render(x, y);
-                        break;
-                    }
-                }
-            }
+            break;
         }
     }
 }
@@ -172,15 +155,10 @@ void EnemyController::attackEnemy(int x, int y, int damage)
 
 void EnemyController::drainPEnemy(int x, int y)
 {
-    for (auto& m : enemyModels)
-    {
-        if (m->getEnemyType() == "PEnemy")
-        {
-            if (auto PEnemyM = std::dynamic_pointer_cast<PEnemyModel>(m))
-            {
-                PEnemyM->drainPEnemy(x, y);
-                break;
-            }
+    auto model = enemyModels.find("PEnemy");
+    if (model != enemyModels.end()) {
+        if (auto PEnemyM = std::dynamic_pointer_cast<PEnemyModel>(model->second)) {
+            PEnemyM->drainPEnemy(x, y);
         }
     }
 
@@ -194,36 +172,11 @@ void EnemyController::drainPEnemy(int x, int y)
     }
 }
 
-
-
-std::shared_ptr<EnemyModel> EnemyController::getEnemyModel() const
+std::shared_ptr<EnemyModelInterface> EnemyController::getEnemyModelByType(const QString& type) const
 {
-    for (auto& m : enemyModels)
-    {
-        if (m->getEnemyType() == "Enemy")
-        {
-            if (auto EnemyM = std::dynamic_pointer_cast<EnemyModel>(m))
-            {
-                return EnemyM;
-            }
-        }
-    }
-    return nullptr;
-}
-
-
-
-std::shared_ptr<PEnemyModel> EnemyController::getPEnemyModel() const
-{
-    for (auto& m : enemyModels)
-    {
-        if (m->getEnemyType() == "PEnemy")
-        {
-            if (auto pEnemyM = std::dynamic_pointer_cast<PEnemyModel>(m))
-            {
-                return pEnemyM;
-            }
-        }
+    auto model = enemyModels.find(type);
+    if (model != enemyModels.end()) {
+        return model->second;
     }
     return nullptr;
 }
@@ -232,7 +185,7 @@ std::shared_ptr<PEnemyModel> EnemyController::getPEnemyModel() const
 
 void EnemyController::checkForFire()
 {
-    auto pEnemyModel = getPEnemyModel();
+    auto pEnemyModel = getEnemyModelByType(QString("PEnemy"));
     if (pEnemyModel) {
         auto pEnemy = std::dynamic_pointer_cast<PEnemyModel>(pEnemyModel);
         if (auto fireType = pEnemy->containsFire(prot_x, prot_y)) {
@@ -260,14 +213,23 @@ void EnemyController::checkForFire()
 
 void EnemyController::checkForEnemies()
 {
-    auto enemyModel = getEnemyModel();
-    auto damage = enemyModel->isEnemyAround(prot_x, prot_y);
+    auto Model = getEnemyModelByType(QString("Enemy"));
+    auto enModel = std::dynamic_pointer_cast<EnemyModel>(Model);
+    auto damage = enModel->isEnemyAround(prot_x, prot_y);
     if (damage > 0) {
         gameController->damageToProtagonist(damage);
     }
 }
 
-
+void EnemyController::checkForXEnemies()
+{
+    auto Model = getEnemyModelByType(QString("XEnemy"));
+    auto xenModel = std::dynamic_pointer_cast<XEnemyModel>(Model);
+    auto damage = xenModel->isEnemyAround(prot_x, prot_y);
+    if (damage > 0) {
+        gameController->damageToProtagonist(damage);
+    }
+}
 
 void EnemyController::updateProtagonistPosition(int x, int y)
 {
@@ -277,6 +239,12 @@ void EnemyController::updateProtagonistPosition(int x, int y)
 
     // If he is on a tile that has fire, he will get one damage by default
     checkForFire();
+
+    // Tell the enemies to follow the protagonist
+    auto Model = getEnemyModelByType(QString("XEnemy"));
+    auto xenModel = std::dynamic_pointer_cast<XEnemyModel>(Model);
+
+    gameController->warnProtagonist(xenModel->follow(prot_x, prot_y));
 }
 
 
@@ -288,6 +256,15 @@ void EnemyController::stopAttacks()
 
 
 
+void EnemyController::addXEnemy(int amount)
+{
+    auto Model = getEnemyModelByType(QString("XEnemy"));
+    auto xEnemyModel = std::dynamic_pointer_cast<XEnemyModel>(Model);
+    xEnemyModel->addXEnemy(amount);
+}
+
+
+
 void EnemyController::checkProtagonistPosition()
 {   
     // Check if the protagonist is on a tile that has fire
@@ -295,4 +272,7 @@ void EnemyController::checkProtagonistPosition()
 
     // Check if there are enemies around the protagonist
     checkForEnemies();
+
+    // Check if there are X enemies around the protagonist
+    checkForXEnemies();
 }
