@@ -64,7 +64,8 @@ Latest update: 27/11/2023
 - Sudarshan: 
   - implemented animations for attack, health, path followed, dead actions
   - additional text view functionality
+  - Xenemy and Pathfinder (with Mahmoud)
 - Mahmoud: 
-
+  - Xenemy and Pathfinder (with Sudarshan)
 
 
