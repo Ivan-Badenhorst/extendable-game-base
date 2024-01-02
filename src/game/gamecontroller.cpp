@@ -45,12 +45,12 @@ void GameController::input(const ArrowDirection &direction)
         break;
     }
 
+
     //if there is an enemy where I am trying to move, we attack the enemy
     if (enemyController->containsEnemy(col, row) && !(enemyController->isDefeated(col, row)))
     {
         enemyController->attackEnemy(col, row, protController->getAttackDamage());
         protController->attackEnemy();
-        
         row = prevRow;
         col = prevCol;
     }
@@ -80,7 +80,7 @@ void GameController::input(const ArrowDirection &direction)
     //if there was an hp, we put it back -> but now the used version
     hpController->update(prevRow, prevCol);
     //update display window
-    tileController->update(row, col); //add bool if all enemies dead or not.
+    tileController->update(row, col, true); //add bool if all enemies dead or not.
 }
 
 void GameController::stopGame(QString title, QString message)
@@ -92,7 +92,6 @@ void GameController::stopGame(QString title, QString message)
     msgBox.setText(message);
     msgBox.setGeometry(600, 400, 600, 200); //(x, y, width, height)
     msgBox.exec();
-    isInputDisabled = true;
     isInputDisabled = true;
 }
 
@@ -205,7 +204,7 @@ void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
 
     setupUi();
     //setup portals
-    tileController->addPortal(0,0,false);
+    tileController->addPortal(0,0, false);
     tileController->addPortal(height-1, width-1, true);
 }
 
@@ -243,7 +242,7 @@ void GameController::nextLevel()
         switchLevel(levelFactory);
 
         initializeView();
-        tileController->update(row,col,false);
+        tileController->update(row,col,false); //was false
     }
 
 }
@@ -302,6 +301,11 @@ void GameController::warnProtagonist(bool isInDanger)
         std::cout << "WARNING: XENEMY IS NEARBY" << std::endl;
     }
 
+}
+
+bool GameController::getIsLevelComplete()
+{
+    return enemyController->checkLevelComplete();
 }
 
 void GameController::setupUi()

@@ -12,16 +12,35 @@ float TileController::update(int row, int col, bool allowPortal)
 {
     auto p = tileModel->getPortalAt(row, col);
     tileModel->markTileAsVisited(row,col);
+    auto gc = GameController::getInstance();
     if(p.has_value() && allowPortal){
         auto gc = GameController::getInstance();
-        if(p.value()) {gc->nextLevel();}
+        if(p.value()) {
+            if(gc->getIsLevelComplete()){
+                gc->nextLevel();
+            }
+        }
         else{ gc->previousLevel();}
     }
     else{
         tileView->update(row, col);
     }
+
+//    if(p.has_value()){ //check if portal
+//        if(!p.value()){
+//            gc->previousLevel();
+//        }
+//        else if(allowPortal){
+//            gc->nextLevel();
+//        }
+//    }
+//    else{
+//        tileView->update(row, col);
+//    }
     float val = tileModel->getTileValueAt(row,col);
     return val;
+
+
     }
 
 std::tuple<int, int> TileController::getDimensions()
