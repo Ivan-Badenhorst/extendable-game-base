@@ -85,6 +85,8 @@ public:
     void addXEnemy(int amount);
 
     void setTileModel(const std::shared_ptr<TileModel> &newTileModel);
+    
+    bool checkLevelComplete();
 
 private:
 
@@ -123,6 +125,7 @@ private:
     void checkForEnemies();
 
     void checkForXEnemies();
+
 
 signals:
 

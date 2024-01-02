@@ -26,8 +26,7 @@ public:
     float isEnemyAround(int x, int y);
 
     void setTileModel(const std::shared_ptr<TileModel> &newTileModel);
-    std::vector<XEnemyState> enemyVector; // Vector to store all the enemies //cng
-    std::pair<int, int> getNewPos(int move_encoded, int oldX, int oldY); //cng
+    bool isCompleted() override;
 
 private:
 
@@ -38,8 +37,9 @@ private:
      * We use a vector because we will be iterating over the enemies very often.
      * Vectors provide efficient random access and are therefore well-suited for this use case.
      */
-    //std::vector<XEnemyState> enemyVector; // Vector to store all the enemies
     std::shared_ptr<TileModel> tileModel;
+    std::vector<XEnemyState> enemyVector; // Vector to store all the enemies //cng
+    std::pair<int, int> getNewPos(int move_encoded, int oldX, int oldY); //cng
 };
 
 

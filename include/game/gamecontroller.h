@@ -80,6 +80,7 @@ public:
    void damageToProtagonist(float damage);
 
    void warnProtagonist(bool isInDanger);
+   bool getIsLevelComplete();
 
 private:
     //singleton:
@@ -104,6 +105,7 @@ private:
     bool isInputDisabled{false};
     bool isHealthOver{false};
     bool isEnergyOver{false};
+    //bool isLevelComplete{false};
 
 
     void stopGame(QString title, QString message);
@@ -124,8 +126,6 @@ private:
     void initializeView();
     std::unique_ptr<GameView> gameView;
     std::deque<std::unique_ptr<GameView>> allGameViews;
-
-
 
 }
 ;

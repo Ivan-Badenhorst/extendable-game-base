@@ -235,6 +235,19 @@ void EnemyController::checkForXEnemies()
     }
 }
 
+bool EnemyController::checkLevelComplete()
+{
+    auto enemyModels = getAllEnemyModels();
+    for (auto& pair : enemyModels) {
+        auto& enemyModel = pair.second;
+        if (!enemyModel->isCompleted()) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 void EnemyController::moveXEnemy()
 {
     // Tell the enemies to follow the protagonist

@@ -45,12 +45,12 @@ void GameController::input(const ArrowDirection &direction)
         break;
     }
 
+
     //if there is an enemy where I am trying to move, we attack the enemy
     if (enemyController->containsEnemy(col, row) && !(enemyController->isDefeated(col, row)))
     {
         enemyController->attackEnemy(col, row, protController->getAttackDamage());
         protController->attackEnemy();
-        
         row = prevRow;
         col = prevCol;
     }
@@ -80,7 +80,7 @@ void GameController::input(const ArrowDirection &direction)
     //if there was an hp, we put it back -> but now the used version
     hpController->update(prevRow, prevCol);
     //update display window
-    tileController->update(row, col); //add bool if all enemies dead or not.
+    tileController->update(row, col, true); //add bool if all enemies dead or not.
 }
 
 void GameController::stopGame(QString title, QString message)
@@ -92,7 +92,6 @@ void GameController::stopGame(QString title, QString message)
     msgBox.setText(message);
     msgBox.setGeometry(600, 400, 600, 200); //(x, y, width, height)
     msgBox.exec();
-    isInputDisabled = true;
     isInputDisabled = true;
 }
 
@@ -205,7 +204,7 @@ void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
 
     setupUi();
     //setup portals
-    tileController->addPortal(0,0,false);
+    tileController->addPortal(0,0, false);
     tileController->addPortal(height-1, width-1, true);
 }
 
@@ -304,6 +303,11 @@ void GameController::warnProtagonist(bool isInDanger)
 
 }
 
+bool GameController::getIsLevelComplete()
+{
+    return enemyController->checkLevelComplete();
+}
+
 void GameController::setupUi()
 {
     //get current map dimensions
@@ -352,37 +356,3 @@ void GameController::addNewView(std::unique_ptr<GameView> gv)
 {
     allGameViews.push_back(std::move(gv));
 }
-
-
-//std::vector<std::shared_ptr<EnemyViewInterface>> GameController::setupGraphicalView()
-//{
-//    auto tv = std::make_shared<TileViewGraphical>();
-//    tv->setTileModel(tileController->getTileModel());
-//    gameView->setTileView(tv);
-//    auto hpv = std::make_shared<HealthPackViewGraphical>();
-//    hpv->setHpModel(hpController->getHpModel());
-//    gameView->setHpView(hpv);
-//    auto pv = std::make_shared<ProtagonistViewGraphical>();
-//    pv->setProtModel(protController->getProtModel());
-//    gameView->setProtView(pv);
-//    auto em = enemyController->getAllEnemyModels();
-//    std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
-
-//    //setup enemy models for graphics view
-//    for(auto& e: em){
-//        if (auto pEnemyModel = dynamic_cast<PEnemyModel*>(e.get())) {
-
-//            auto pev = std::make_shared<PEnemyViewGraphical>();
-//            pev->setEnemyType("PEnemy");
-//            pev->setPEnemyModel(std::make_shared<PEnemyModel>(*pEnemyModel));
-//            enemyViews.push_back(pev);
-//        } else if(auto enemyModel = dynamic_cast<EnemyModel*>(e.get())){
-//            auto ev = std::make_shared<EnemyViewGraphical>();
-//            ev->setEnemyType("Enemy");
-//            ev->setEnemyModel(std::make_shared<EnemyModel>(*enemyModel));
-//            enemyViews.push_back(ev);
-//        }
-//    }
-
-//    return enemyViews;
-//}

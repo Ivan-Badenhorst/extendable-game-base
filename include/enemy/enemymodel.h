@@ -41,6 +41,7 @@ public:
     std::vector<EnemyState> getAllEnemyStates() const;
     float getStrength(int x, int y) const;
     float isEnemyAround(int x, int y);
+    bool isCompleted() override;
     
 
 private:
