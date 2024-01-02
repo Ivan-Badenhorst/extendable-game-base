@@ -19,7 +19,7 @@ MediumLevelFactory::MediumLevelFactory()
 std::shared_ptr<Level> MediumLevelFactory::createWorld()
 {
     World w;
-    w.createWorld(":/map/worldmap.png", 20, 20);
+    w.createWorld(":/map/worldmap.png", 2, 20);
 
     Prison p(w.getTiles(), w.getEnemies(), w.getHealthPacks(), w.getRows(), w.getCols());
 

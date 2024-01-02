@@ -16,7 +16,7 @@ EasyLevelFactory::EasyLevelFactory()
 std::shared_ptr<Level> EasyLevelFactory::createWorld()
 {
     World w;
-    w.createWorld(":/map/worldmap.png", 10,10);
+    w.createWorld(":/map/worldmap.png", 3,10);
 
     Prison p(w.getTiles(), w.getEnemies(), w.getHealthPacks(), w.getRows(), w.getCols());
 
