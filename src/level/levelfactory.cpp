@@ -11,7 +11,7 @@ std::tuple<std::shared_ptr<TileController>,
             std::shared_ptr<EnemyController> > LevelFactory::basicControllers(Prison &p)
 {
     //tile
-    auto tm = std::make_shared<TileModel>();
+    auto tm = std::make_shared<TileModel>(p.getRows(), p.getCols());
     tm->populateTileMap(p.getRows(), p.getCols(), p.getTiles());
     auto tc = std::make_shared<TileController>(tm);
 
@@ -26,6 +26,7 @@ std::tuple<std::shared_ptr<TileController>,
 
     //enemy controller
     auto ec = EnemyController::create(p.getEnemies(), p.getRows(), p.getCols());
+    ec->setTileModel(tc->getTileModel());
 
     return std::make_tuple(tc, pc, hpc, ec);
 }

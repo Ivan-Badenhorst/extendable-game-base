@@ -84,6 +84,8 @@ public:
 
     void addXEnemy(int amount);
 
+    void setTileModel(const std::shared_ptr<TileModel> &newTileModel);
+
 private:
 
     /**

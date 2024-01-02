@@ -263,6 +263,13 @@ void EnemyController::addXEnemy(int amount)
     xEnemyModel->addXEnemy(amount);
 }
 
+void EnemyController::setTileModel(const std::shared_ptr<TileModel> &newTileModel)
+{
+    auto Model = getEnemyModelByType(QString("XEnemy"));
+    auto xEnemyModel = std::dynamic_pointer_cast<XEnemyModel>(Model);
+    xEnemyModel->setTileModel(newTileModel);
+}
+
 
 
 void EnemyController::checkProtagonistPosition()

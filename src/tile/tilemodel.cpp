@@ -2,12 +2,19 @@
 #include <vector>
 
 #include <iostream>
-#include "pathfinder_class.h"
+#include <optional>
 
 #include <functional>
-TileModel::TileModel()
+TileModel::TileModel(int rows, int cols)
 {
+    columns = cols;
+    Tile startTile(0,0,0);
+    Tile destinationTile(0,0,0);
 
+    comp = [this](const Node& a, const Node& b) { return this->compareNodes(a,b); };
+    finder = nullptr; //std::make_unique<PathFinder<Node, Tile>>(nodes, &startTile, &destinationTile, comp, columns, 0);
+
+//    finder = PathFinder<Node, Tile>& pf(nodes, &startTile, &destinationTile, comp, columns, 0);
 }
 
 void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<Tile> > tile)
@@ -30,6 +37,8 @@ void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<
         nodes.push_back(Node(tile[j]->getXPos(),tile[j]->getYPos(),tile[j]->getValue()));
 
     }
+
+
 
 
 }
@@ -113,11 +122,29 @@ std::vector<int> TileModel::findPath(int startX, int startY, int endX, int endY)
     Tile startTile(startX, startY,  getTileValueAt(startX, startY) );
     Tile destinationTile(endX, endY, getTileValueAt(endX, endY));
 
-    Comparator<Node> comp = [](const Node& a, const Node& b) { return a.getValue() < b.getValue(); };
-    PathFinder<Node, Tile> finder(nodes, &startTile, &destinationTile, comp, columns, 0);
-    return finder.A_star();
+    getPathfinder(startTile, destinationTile);
+    std::cout << "Pathfinder created" << std::endl;
+    std::vector<int> moveList = finder->A_star();
+    std::cout << "Pathfinder finished" << std::endl;
+    return moveList;
 }
 
 bool TileModel::compareNodes(const Node& a, const Node& b) {
-    return a.getValue() < b.getValue();  // or any other comparison logic relevant to your application
+    return a.getValue() > b.getValue();  // or any other comparison logic relevant to your application
 }
+
+void TileModel::getPathfinder(Tile& startTile, Tile& destinationTile)
+{
+    for (auto& node : nodes) {
+        node.visited = false; // Reset all nodes' visited status to false
+        node.f =0;
+        node.g = 0;
+        node.h =0;
+        node.prev = nullptr;
+    }
+    finder.release();
+
+    finder = std::make_unique<PathFinder<Node, Tile>>(nodes, &startTile, &destinationTile, comp, columns, 0);
+
+}
+
