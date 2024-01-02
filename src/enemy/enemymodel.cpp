@@ -133,3 +133,16 @@ float EnemyModel::isEnemyAround(int x, int y)
     return damage;
 
 }
+
+bool EnemyModel::isCompleted()
+{
+   //iterate over the enemySet and check if all enemies are defeated
+    for (const auto& enemyState : enemySet)
+    {
+         if (!enemyState.isDefeated)
+         {
+              return false;
+         }
+    }
+    return true;
+}

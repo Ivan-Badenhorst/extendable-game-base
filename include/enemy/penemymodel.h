@@ -81,6 +81,7 @@ public:
      * @return The fire type present at the specified coordinates.
      */
     int containsFire(int x, int y) const;
+    bool isCompleted() override;
 
 private:
     // Unordered set of PEnemyStates

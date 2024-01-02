@@ -29,16 +29,8 @@ bool PEnemyModel::containsEnemy(int x, int y)
     queryEnemyState.y = y;
 
     // Check if the enemySet contains the enemy
-    if (enemySet.find(queryEnemyState) != enemySet.end())
-    {
-        // Return true if the enemySet contains the enemy
-        return true;
-    }
-    else
-    {
-        // Return false if the enemySet does not contain the enemy
-        return false;
-    }
+    return enemySet.find(queryEnemyState) != enemySet.end();
+
 }
 
 bool PEnemyModel::isDefeated(int x, int y)
@@ -183,6 +175,19 @@ int PEnemyModel::containsFire(int x, int y) const
         // The fire was not found, return 0
         return 0;
     }
+}
+
+bool PEnemyModel::isCompleted()
+{
+    // Iterate over the set and check if any enemy is not defeated
+    for (const PEnemyState& enemyState : enemySet)
+    {
+        if (!enemyState.isDefeated)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 bool PEnemyModel::deducePoison(int x, int y)

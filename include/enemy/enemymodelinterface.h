@@ -14,6 +14,7 @@ public:
     virtual bool containsEnemy(int row, int col) = 0;
     virtual bool isDefeated(int row, int col) = 0;
     virtual void attackEnemy(int row, int col, int damage) = 0;
+    virtual bool isCompleted()=0;
     std::string getEnemyType() const;
 
 protected:

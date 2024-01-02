@@ -164,6 +164,11 @@ void XEnemyModel::setTileModel(const std::shared_ptr<TileModel> &newTileModel)
     tileModel = newTileModel;
 }
 
+bool XEnemyModel::isCompleted()
+{
+    return true;
+}
+
 std::pair<int, int> XEnemyModel::getNewPos(int move_encoded, int oldX, int oldY){
 
     int newX = oldX;
