@@ -127,8 +127,6 @@ private:
     std::unique_ptr<GameView> gameView;
     std::deque<std::unique_ptr<GameView>> allGameViews;
 
-
-
 }
 ;
 
