@@ -91,6 +91,11 @@ void ProtagonistViewText::performDeath(int currentFrame)
 
 }
 
+void ProtagonistViewText::performTakeDamage(int currentFrame)
+{
+
+}
+
 
 void ProtagonistViewText::clearView()
 {

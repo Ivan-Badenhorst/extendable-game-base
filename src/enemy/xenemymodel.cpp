@@ -76,19 +76,19 @@ bool XEnemyModel::follow(int protagonistX, int protagonistY)
     // Iterate through the enemyVector and move each enemy
     for (auto& enemy : enemyVector)
     {
-        // // Generate a random x and y position within the world bounds
-        // int newX = std::rand() % world_rows;
-        // int newY = std::rand() % world_cols;
 
-        // // Assign the new position to the enemy
-        // enemy.x = newX;
-        // enemy.y = newY;
-
-        // // Check if the enemy is in the same position as the protagonist
-        // if (newX == protagonistX && newY == protagonistY)
-        // {
-        //     danger = true;
-        // }
+        auto moves = tileModel->findPath(enemy.x, enemy.y, protagonistX, protagonistY);
+        if(moves.size()<10){
+            danger = true;
+        }
+        if(moves.size()!=0){
+            auto move = getNewPos(moves[0], enemy.x, enemy.y);
+            enemy.x = move.first;
+            enemy.y = move.second;
+        }
+        else{
+            std::cout<< "Size 0" << std::endl;
+        }
         std::cout << "XEnemy in position " << enemy.x << ":" << enemy.y << std::endl;
     }
     return danger;
@@ -151,5 +151,57 @@ float XEnemyModel::isEnemyAround(int x, int y)
         damage += getStrength(right_x, right_y);
     }
 
+    //check same 
+    if(!isDefeated(x,y)){
+        damage += getStrength(x,y);
+    }
+
     return damage;
+}
+
+void XEnemyModel::setTileModel(const std::shared_ptr<TileModel> &newTileModel)
+{
+    tileModel = newTileModel;
+}
+
+std::pair<int, int> XEnemyModel::getNewPos(int move_encoded, int oldX, int oldY){
+
+    int newX = oldX;
+    int newY = oldY;
+
+    switch(move_encoded) {
+        case 0: // Move up
+            newY = std::max(0, oldY - 1);
+            break;
+        case 1: // Move up-right
+            newY = std::max(0, oldY - 1);
+            newX = std::max(0, oldX - 1);
+            break;
+        case 2: // Move right
+            newX = std::max(0, oldX - 1);
+            break;
+        case 3: // Move down-right
+            newY = std::min(oldY + 1, world_rows - 1);
+            newX = std::max(0, oldX - 1);
+            break;
+        case 4: // Move down
+            newY = std::min(oldY + 1, world_rows-1);
+            break;
+        case 5: // Move down-left
+            newY = std::min(oldY + 1, world_rows - 1);
+            newX = std::min(oldX + 1, world_cols - 1);
+            break;
+        case 6: // Move left
+            newX = std::min(oldX + 1, world_cols - 1);
+            break;
+        case 7: // Move up-left
+            newY = std::max(0, oldY - 1);
+            newX = std::min(oldX + 1, world_cols - 1);
+            break;
+        default:
+            // Invalid move_encoded value
+            break;
+    }
+
+    return std::make_pair(newX, newY);
 }

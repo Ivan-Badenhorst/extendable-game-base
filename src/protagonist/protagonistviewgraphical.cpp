@@ -21,7 +21,12 @@ void ProtagonistViewGraphical::update()
 void ProtagonistViewGraphical::update(int row, int col)
 {
     if(protModel->getEnergy() >0 && protModel->getCurrentHealth() > 0){
-        prot =  QPixmap(":/protagonist/prisoner_0");
+        if(protModel->getInDangerZone()){
+            prot =  QPixmap(":/protagonist/prisoner_danger");
+        }
+        else{
+            prot =  QPixmap(":/protagonist/prisoner_0");
+        }
     }
 
     auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
@@ -109,6 +114,21 @@ void ProtagonistViewGraphical::performDeath(int currentFrame)
     protagonistDisplay = protIcon;
     scene->addItem(protagonistDisplay.get());
 
+}
+
+void ProtagonistViewGraphical::performTakeDamage(int currentFrame)
+{
+    prot = currentFrame ==0? QPixmap(":/protagonist/prisoner_damage"): QPixmap(":/protagonist/prisoner_0");
+    auto protIcon = std::make_shared<QGraphicsPixmapItem>(prot);
+    scene->removeItem(protagonistDisplay.get());
+    protagonistDisplay.reset();
+
+    // Update the display with the new frame
+    protIcon->setPos(protModel->getPositionY() * tileDim, protModel->getPositionX() * tileDim);
+    protIcon->setZValue(1.1);
+
+    protagonistDisplay = protIcon;
+    scene->addItem(protagonistDisplay.get());
 }
 
 void ProtagonistViewGraphical::setHealthBar(const std::shared_ptr<HealthProgressBar> newHealthBar)

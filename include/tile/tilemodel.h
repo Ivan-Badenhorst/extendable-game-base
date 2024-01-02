@@ -1,6 +1,10 @@
 #ifndef TILEMODEL_H
 #define TILEMODEL_H
+//#include "pathfinder_class.h"
 #include "world.h"
+#include "node.h"
+#include "pathfinder_class.h"
+
 
 ///TODO:
 /// ADAPT SUCH THAT YOU CAN ADJUST HP VALUE IF ITS BEEN USED
@@ -14,10 +18,11 @@ struct Portal {
 };
 
 
+
 class TileModel
 {
 public:
-    TileModel();
+    TileModel(int rows, int cols);
     void populateTileMap(int rows, int cols, std::vector<std::unique_ptr<Tile>> tile);
 
     void addPortal(int row, int col, bool nextLevel);
@@ -30,6 +35,9 @@ public:
     std::pair<Portal, Portal> getPortals() const;
     void markTileAsVisited(int row, int col);
     bool isTileVisited(int row, int col) const;
+    std::vector<int> findPath(int startX, int startY, int endX, int endY);
+    bool compareNodes(const Node& a, const Node& b);
+    void getPathfinder(Tile& startTile, Tile& destinationTile);
 
 
 private:
@@ -38,6 +46,12 @@ private:
     int rows;
     int columns;
     std::pair<Portal, Portal> portals;
+    std::vector<Node> nodes;
+    std::unique_ptr<PathFinder<Node, Tile>> finder;
+    Comparator<Node> comp;
+
+//    std::vector<int> moves;
+
 
 };
 

@@ -3,10 +3,14 @@ QT += gui
 QT += widgets
 CONFIG += qt warn_on depend_includepath testcase
 
+CONFIG += c++20
 TEMPLATE = app
 
-SOURCES +=  tst_testenemymodel.cpp \
-            ../../src/enemy/EnemyModel.cpp
+SOURCES +=  tst_testtilemodel.cpp \
+            ../../src/tile/tileModel.cpp\
+            ../../src/tile/node.cpp\
+            ../../src/enemy/xenemymodel.cpp
+
 
 INCLUDEPATH += $$PWD/../../include \
                $$PWD/../../include/CompiledWorld \
@@ -19,6 +23,13 @@ INCLUDEPATH += $$PWD/../../include \
                $$PWD/../../include/protagonist \
                $$PWD/../../include/tile \
                $$PWD/../../include/trie \
+
+RESOURCES += \
+    ../../resources/Maps.qrc \
+    ../../resources/Protagonist.qrc \
+    ../../resources/HealthPack.qrc \
+    ../../resources/Enemies.qrc \
+    ../../resources/tiles.qrc
 
 
 INCLUDEPATH += $$PWD/../../../worldlib

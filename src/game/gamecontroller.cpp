@@ -297,11 +297,11 @@ void GameController::damageToProtagonist(float damage)
 
 void GameController::warnProtagonist(bool isInDanger)
 {
-    if(isInDanger)
-    {
-        //protController->warn();
+    protController->warn(isInDanger);
+    if(isInDanger){
         std::cout << "WARNING: XENEMY IS NEARBY" << std::endl;
     }
+
 }
 
 void GameController::setupUi()

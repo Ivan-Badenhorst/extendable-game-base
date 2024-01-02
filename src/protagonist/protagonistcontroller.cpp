@@ -6,6 +6,7 @@ ProtagonistController::ProtagonistController( std::shared_ptr<ProtagonistModel> 
     connect(&attackTimer, &QTimer::timeout, this, &ProtagonistController::onAttackTimerTimeout);
     connect(&healthGainTimer, &QTimer::timeout, this, &ProtagonistController::onHealthGainTimerTimeout);
     connect(&deathTimer, &QTimer::timeout, this, &ProtagonistController::onDeathTimeTimeout);
+    connect(&takeDamageTimer, &QTimer::timeout, this, &ProtagonistController::onDamageTimerTimeout);
 }
 
 void ProtagonistController::refreshAll()
@@ -41,6 +42,8 @@ bool ProtagonistController::takeDamage(int hpValue)
 {
     isDead = protModel->updateHealth(-hpValue);
     protView->updateHealth();
+    takeDamageTimer.setInterval(300);
+    takeDamageTimer.start();
     return isDead;
 }
 
@@ -70,6 +73,11 @@ bool ProtagonistController::updateEnergy(float enValue)
 void ProtagonistController::setProtView(const std::shared_ptr<ProtagonistView> &newProtView)
 {
     protView = newProtView;
+}
+
+void ProtagonistController::warn(bool isInDanger)
+{
+    protModel->setInDangerZone(isInDanger);
 }
 
 std::shared_ptr<ProtagonistModel> ProtagonistController::getProtModel() const
@@ -129,6 +137,23 @@ void ProtagonistController::onDeathTimeTimeout()
     ++currentFrame;
     if (currentFrame > 4) {
         deathTimer.stop();
+        currentFrame = 0; // Reset the frame count for future iterations
+    }
+
+}
+
+void ProtagonistController::onDamageTimerTimeout()
+{
+    if (currentFrame % 2 == 0) {
+        protView->performTakeDamage(0); // Display the 'prisoner_health' frame
+    } else {
+        protView->performTakeDamage(1); // Display the 'prisoner_0' frame
+    }
+
+
+    ++currentFrame;
+    if (currentFrame > 3) {
+        takeDamageTimer.stop();
         currentFrame = 0; // Reset the frame count for future iterations
     }
 
