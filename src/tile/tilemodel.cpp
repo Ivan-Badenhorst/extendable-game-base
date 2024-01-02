@@ -144,7 +144,7 @@ void TileModel::getPathfinder(Tile& startTile, Tile& destinationTile)
     }
     finder.release();
 
-    finder = std::make_unique<PathFinder<Node, Tile>>(nodes, &startTile, &destinationTile, comp, columns, 0);
+    finder = std::make_unique<PathFinder<Node, Tile>>(nodes, &startTile, &destinationTile, comp, columns, std::numeric_limits<float>::infinity());
 
 }
 

@@ -151,6 +151,11 @@ float XEnemyModel::isEnemyAround(int x, int y)
         damage += getStrength(right_x, right_y);
     }
 
+    //check same 
+    if(!isDefeated(x,y)){
+        damage += getStrength(x,y);
+    }
+
     return damage;
 }
 

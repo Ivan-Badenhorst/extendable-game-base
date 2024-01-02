@@ -108,6 +108,7 @@ private:
     int prot_y;
 
     QTimer* timer;
+    QTimer* XEnemyTimer;
 
     GameController *gameController;
 
@@ -127,6 +128,7 @@ signals:
 
 private slots:
     void checkProtagonistPosition();
+    void moveXEnemy();
 };
 
 

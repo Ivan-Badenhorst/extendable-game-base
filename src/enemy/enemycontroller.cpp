@@ -10,10 +10,14 @@ EnemyController::EnemyController(int w_rows, int w_cols)
     world_cols = w_cols;
     // Initialize the timer
     timer = new QTimer(this);
+    XEnemyTimer = new QTimer(this);
+
+    connect(XEnemyTimer, &QTimer::timeout, this, &EnemyController::moveXEnemy);
     // Connect the timer's timeout signal to the checkProtagonistPosition method
     connect(timer, &QTimer::timeout, this, &EnemyController::checkProtagonistPosition);
     // Start the timer to trigger every second
     timer->start(2000);
+    XEnemyTimer->start(2000);
     gameController = GameController::getInstance();
 }
 
@@ -231,6 +235,14 @@ void EnemyController::checkForXEnemies()
     }
 }
 
+void EnemyController::moveXEnemy()
+{
+    // Tell the enemies to follow the protagonist
+    auto Model = getEnemyModelByType(QString("XEnemy"));
+    auto xenModel = std::dynamic_pointer_cast<XEnemyModel>(Model);
+    gameController->warnProtagonist(xenModel->follow(prot_x, prot_y));
+}
+
 void EnemyController::updateProtagonistPosition(int x, int y)
 {
     // We first update the protagonist position
@@ -240,11 +252,6 @@ void EnemyController::updateProtagonistPosition(int x, int y)
     // If he is on a tile that has fire, he will get one damage by default
     checkForFire();
 
-    // Tell the enemies to follow the protagonist
-    auto Model = getEnemyModelByType(QString("XEnemy"));
-    auto xenModel = std::dynamic_pointer_cast<XEnemyModel>(Model);
-
-    gameController->warnProtagonist(xenModel->follow(prot_x, prot_y));
 }
 
 
