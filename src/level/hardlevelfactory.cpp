@@ -27,6 +27,9 @@ std::shared_ptr<Level> HardLevelFactory::createWorld()
 
 
     auto [tc, pc, hpc, ec] = basicControllers(p);
+    // Add XEnemies here
+    ec->addXEnemy(2);
+
 
     return std::make_shared<HardLevel>(tc,  pc, hpc, ec);
 

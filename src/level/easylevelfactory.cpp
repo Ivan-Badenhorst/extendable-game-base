@@ -22,9 +22,6 @@ std::shared_ptr<Level> EasyLevelFactory::createWorld()
 
     auto [tc, pc, hpc, ec] = basicControllers(p);
 
-    // Add XEnemies here
-    ec->addXEnemy(2);
-
     return std::make_shared<EasyLevel>(tc,  pc, hpc, ec);
 }
 
