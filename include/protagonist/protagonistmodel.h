@@ -44,6 +44,9 @@ public:
     float getMaxEnergy() const;
 
 
+    bool getInDangerZone() const;
+    void setInDangerZone(bool newInDangerZone);
+
 private:
 //    std::unique_ptr<Protagonist> protagonist; // Unique pointer to hold the Protagonist
     int xPos {0};
@@ -53,6 +56,7 @@ private:
     float energy {0.0f};
     int attackDamage {10};
     float maxEnergy{0.0f};
+    bool inDangerZone{false};
 };
 
 #endif // PROTAGONISTMODEL_H

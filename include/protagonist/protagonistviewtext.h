@@ -18,6 +18,7 @@ public:
     void performAttack(int currentFrame) override;
     void performHealthGain(int currentFrame) override;
     void performDeath(int currentFrame) override;
+    void performTakeDamage(int currentFrame) override;
     void clearView() override;
     void setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel) override;
     void erasePreviousPosition();

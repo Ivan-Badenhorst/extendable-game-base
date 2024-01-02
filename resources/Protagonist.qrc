@@ -11,5 +11,7 @@
         <file>protagonist/prisoner_dead_3.png</file>
         <file>protagonist/prisoner_dead_4.png</file>
         <file>protagonist/prisoner_hit.png</file>
+        <file>protagonist/prisoner_damage.png</file>
+        <file>protagonist/prisoner_danger.png</file>
     </qresource>
 </RCC>

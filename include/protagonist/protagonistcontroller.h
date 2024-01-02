@@ -24,6 +24,7 @@ public:
     void updateHealth(int hpValue);
 
     void setProtView(const std::shared_ptr<ProtagonistView> &newProtView);
+    void warn(bool isInDanger);
 
     std::shared_ptr<ProtagonistModel> getProtModel() const;
 
@@ -38,6 +39,7 @@ private:
     QTimer attackTimer;
     QTimer healthGainTimer;
     QTimer deathTimer;
+    QTimer takeDamageTimer;
 
 signals:
 
@@ -45,6 +47,7 @@ private slots:
     void onAttackTimerTimeout();
     void onHealthGainTimerTimeout();
     void onDeathTimeTimeout();
+    void onDamageTimerTimeout();
 
 };
 

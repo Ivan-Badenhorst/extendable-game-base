@@ -52,6 +52,16 @@ float ProtagonistModel::getMaxEnergy() const
     return maxEnergy;
 }
 
+bool ProtagonistModel::getInDangerZone() const
+{
+    return inDangerZone;
+}
+
+void ProtagonistModel::setInDangerZone(bool newInDangerZone)
+{
+    inDangerZone = newInDangerZone;
+}
+
 void ProtagonistModel::updatePosition(int newXPos, int newYPos)
 {
     xPos = newXPos;
