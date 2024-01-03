@@ -9,7 +9,7 @@ This project develops a grid-based game with manual and auto-play modes, featuri
 - The UML class diagram below provides an overview of the class structure, relationships, and method signatures. 
 Latest update: 27/11/2023
 
-    ![UML](uml_20232511.png)
+    ![UML](uml_20240301.svg)
 
 ## Work Distribution:
 ### Week 6
