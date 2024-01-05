@@ -193,7 +193,7 @@ void GameController::switchView(bool change)
 }
 
 
-void GameController::switchLevel(std::shared_ptr<LevelFactory> &levelFactory)
+void GameController::createLevel(std::shared_ptr<LevelFactory> &levelFactory)
 {
     auto level = levelFactory->createWorld();
     //get new controllers
@@ -235,7 +235,7 @@ void GameController::nextLevel()
     }
     else{
         auto levelFactory = levels[currentLevel].first;
-        switchLevel(levelFactory);
+        createLevel(levelFactory);
 
         initializeView();
         tileController->update(row,col,false);
