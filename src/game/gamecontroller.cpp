@@ -188,7 +188,7 @@ void GameController::switchView(bool change)
     tileController->update(row, col,false);
     hpController->refreshAll();
     protController->refreshAll();
-    enemyController->refreshAllGraphical();
+    enemyController->refreshAll();
     protController->update(row, col);
 }
 

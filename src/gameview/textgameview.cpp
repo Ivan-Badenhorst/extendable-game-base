@@ -85,6 +85,11 @@ void TextGameView::initializeMainWindow()
     if(auto pView = dynamic_cast<ProtagonistViewText*>(protView.get())){
         pView->setTextEdit(textEdit);
     };
+    for(auto& eV: enemyView){
+        if(auto eView = dynamic_cast<EnemyViewInterface*>(eV.get())){
+            eView->setTextEdit(textEdit);
+        };
+    }
 
     lineEdit->setFocus();
 }
@@ -96,6 +101,9 @@ void TextGameView::clearMainWindow()
     tileView->clearView();
     hpView->clearView();
     protView->clearView();
+    for(auto& eV: enemyView){
+        eV->clearView();
+    }
     textEdit.reset();
     healthLabel.reset();
     healthValueLabel.reset();

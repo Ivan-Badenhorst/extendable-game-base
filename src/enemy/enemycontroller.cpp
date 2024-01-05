@@ -74,7 +74,7 @@ std::tuple<int, int> EnemyController::getWorldDimensions(int x, int y) const
 
 
 
-void EnemyController::refreshAllGraphical()
+void EnemyController::refreshAll()
 {
     // Iterate through the enemyGraphicalViews vector and refresh each view
     for (auto const &x : enemyViews)

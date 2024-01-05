@@ -2,8 +2,12 @@
 #define ENEMYVIEWINTERFACE_H
 
 #include "enemymodel.h"
-#include "qgraphicsscene.h"
+
 #include <memory>
+#include <QGraphicsScene>
+#include <QTextCursor>
+#include <QPlainTextEdit>
+#include <QTextBlock>
 
 /**
  * @brief The EnemyViewInterface class is an abstract class that defines the interface for rendering enemy views.
@@ -48,14 +52,22 @@ public:
      */
     void setScene(const std::shared_ptr<QGraphicsScene> &newScene);
 
+    void setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit);
+
 protected:
     std::shared_ptr<QGraphicsScene> scene; /**< The graphics scene for rendering the enemy view. */
     std::string enemyType; /**< The type of the enemy. */
+    std::shared_ptr<QPlainTextEdit> textEdit;
 };
 
 inline void EnemyViewInterface::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
 {
     scene = newScene;
+}
+
+inline void EnemyViewInterface::setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit)
+{
+    textEdit = newTextEdit;
 }
 
 inline std::string EnemyViewInterface::getEnemyType() const
