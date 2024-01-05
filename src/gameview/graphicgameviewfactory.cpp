@@ -24,7 +24,7 @@ std::unique_ptr<GameView> GraphicGameViewFactory::createView(MainWindow &mainWin
     gameView->setTileView(std::make_shared<TileViewGraphical>());
 
     //for each type of enemy view we make a view!
-    std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews;
+    std::vector<std::shared_ptr<BaseEnemyView>> enemyViews;
     auto pev = std::make_shared<PEnemyViewGraphical>();
     enemyViews.push_back(pev);
     auto ev = std::make_shared<EnemyViewGraphical>();

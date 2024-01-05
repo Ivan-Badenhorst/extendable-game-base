@@ -120,7 +120,7 @@ private:
 
 
     //game views:
-    std::vector<std::shared_ptr<EnemyViewInterface>> setupGraphicalView();
+    std::vector<std::shared_ptr<BaseEnemyView>> setupGraphicalView();
     void setupUi();
     void setModelInViews();
     void getNewView();

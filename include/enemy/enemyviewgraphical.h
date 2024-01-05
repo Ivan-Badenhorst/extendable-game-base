@@ -3,13 +3,13 @@
 #include <memory>
 #include <unordered_set>
 #include "enemyview.h"
-#include "enemyviewinterface.h"
+#include "baseenemyview.h"
 #include "enemymodel.h"
 #include "mainwindow.h"
 
 
 
-class EnemyViewGraphical: public EnemyViewInterface, public EnemyView
+class EnemyViewGraphical: public BaseEnemyView, public EnemyView
 {
 public:
     EnemyViewGraphical();

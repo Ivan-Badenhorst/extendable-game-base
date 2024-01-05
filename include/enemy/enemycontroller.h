@@ -1,7 +1,7 @@
 #ifndef ENEMYCONTROLLER_H
 #define ENEMYCONTROLLER_H
 #include "enemymodel.h"
-#include "enemyviewinterface.h"
+#include "baseenemyview.h"
 #include "penemytimer.h"
 #include "penemymodel.h"
 #include "xenemymodel.h"
@@ -46,13 +46,13 @@ public:
      * @brief Sets the enemy views for the controller.
      * @param newEnemyView The vector of enemy views to be set.
      */
-    void setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface>>& newEnemyView);
+    void setEnemyView(const std::vector<std::shared_ptr<BaseEnemyView>>& newEnemyView);
 
     /**
      * @brief Retrieves the enemy models stored in the controller.
      * @return The vector of enemy models.
      */
-    std::map<QString, std::shared_ptr<EnemyModelInterface>> getAllEnemyModels() const;
+    std::map<QString, std::shared_ptr<BaseEnemyModel>> getAllEnemyModels() const;
 
     /**
      * @brief Checks if there is an enemy at the given coordinates.
@@ -81,7 +81,7 @@ public:
 
     void drainPEnemy(int x, int y);
 
-    std::shared_ptr<EnemyModelInterface> getEnemyModelByType(const QString& type) const;
+    std::shared_ptr<BaseEnemyModel> getEnemyModelByType(const QString& type) const;
 
     void updateProtagonistPosition(int x, int y);
 
@@ -106,8 +106,8 @@ private:
     //static std::shared_ptr<EnemyController> instance;
     void init(std::shared_ptr<EnemyController> ec);
 
-    std::map<QString, std::shared_ptr<EnemyModelInterface>> enemyModels;
-    std::vector<std::shared_ptr<EnemyViewInterface>> enemyViews; ///< Vector of enemy views.
+    std::map<QString, std::shared_ptr<BaseEnemyModel>> enemyModels;
+    std::vector<std::shared_ptr<BaseEnemyView>> enemyViews; ///< Vector of enemy views.
     std::unique_ptr<PEnemyTimer> penemytimer;
 
     int world_rows;
@@ -125,7 +125,7 @@ private:
      * @brief Adds an enemy model to the controller.
      * @param em The enemy model to be added.
      */
-    void addEnemyModel(std::shared_ptr<EnemyModelInterface> em);
+    void addEnemyModel(std::shared_ptr<BaseEnemyModel> em);
 
     void checkForFire();
 

@@ -75,7 +75,7 @@ void GraphicalGameView::initializeMainWindow()
         hView->setScene(scene);
     };
     for(auto& eV: enemyView){
-        if(auto eView = dynamic_cast<EnemyViewInterface*>(eV.get())){
+        if(auto eView = dynamic_cast<BaseEnemyView*>(eV.get())){
             eView->setScene(scene);
         };
     }

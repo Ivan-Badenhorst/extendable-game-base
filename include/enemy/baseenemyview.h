@@ -10,9 +10,9 @@
 #include <QTextBlock>
 
 /**
- * @brief The EnemyViewInterface class is an abstract class that defines the interface for rendering enemy views.
+ * @brief The BaseEnemyView class is an abstract class that defines the interface for rendering enemy views.
  */
-class EnemyViewInterface {
+class BaseEnemyView {
 public:
     
     /**
@@ -60,22 +60,22 @@ protected:
     std::shared_ptr<QPlainTextEdit> textEdit;
 };
 
-inline void EnemyViewInterface::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
+inline void BaseEnemyView::setScene(const std::shared_ptr<QGraphicsScene> &newScene)
 {
     scene = newScene;
 }
 
-inline void EnemyViewInterface::setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit)
+inline void BaseEnemyView::setTextEdit(const std::shared_ptr<QPlainTextEdit> &newTextEdit)
 {
     textEdit = newTextEdit;
 }
 
-inline std::string EnemyViewInterface::getEnemyType() const
+inline std::string BaseEnemyView::getEnemyType() const
 {
     return enemyType;
 }
 
-inline void EnemyViewInterface::setEnemyType(const std::string &value)
+inline void BaseEnemyView::setEnemyType(const std::string &value)
 {
     enemyType = value;
 }

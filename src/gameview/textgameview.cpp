@@ -86,7 +86,7 @@ void TextGameView::initializeMainWindow()
         pView->setTextEdit(textEdit);
     };
     for(auto& eV: enemyView){
-        if(auto eView = dynamic_cast<EnemyViewInterface*>(eV.get())){
+        if(auto eView = dynamic_cast<BaseEnemyView*>(eV.get())){
             eView->setTextEdit(textEdit);
         };
     }
