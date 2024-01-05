@@ -39,7 +39,7 @@ public:
     /**
      * @brief Refreshes all graphical elements related to the enemies.
      */
-    void refreshAllGraphical();
+    void refreshAll();
     
 
     /**
