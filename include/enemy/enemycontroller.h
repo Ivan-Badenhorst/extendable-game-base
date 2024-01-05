@@ -12,6 +12,11 @@
 #include <QObject>
 #include <QTimer>
 
+
+constexpr int XENEMY_TIMER_INTERVAL = 2000;
+constexpr int ENEMY_TIMER_INTERVAL = 2000;
+
+
 class GameController; 
 
 
@@ -80,13 +85,15 @@ public:
 
     void updateProtagonistPosition(int x, int y);
 
-    void stopAttacks();
-
     void addXEnemy(int amount);
 
     void setTileModel(const std::shared_ptr<TileModel> &newTileModel);
     
     bool checkLevelComplete();
+
+    void freezeEnemies();
+
+    void unfreezeEnemies();
 
 private:
 
@@ -109,7 +116,7 @@ private:
     int prot_x;
     int prot_y;
 
-    QTimer* timer;
+    QTimer* DamageTimer;
     QTimer* XEnemyTimer;
 
     GameController *gameController;

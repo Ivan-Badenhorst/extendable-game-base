@@ -85,7 +85,7 @@ void GameController::input(const ArrowDirection &direction)
 
 void GameController::stopGame(QString title, QString message)
 {
-    enemyController->stopAttacks();
+    enemyController->freezeEnemies();
     protController->showDeath();
     QMessageBox msgBox;
     msgBox.setWindowTitle(title);
@@ -230,11 +230,7 @@ void GameController::nextLevel()
     //if the next level is in cache, retrieve it - else make a new one
     if(levels[currentLevel].second.initialized){
 
-        tileController = levels[currentLevel].second.tileController;
-        hpController = levels[currentLevel].second.hpController;
-        protController = levels[currentLevel].second.protController;
-        enemyController = levels[currentLevel].second.enemyController;
-
+        uncacheLevel(currentLevel);
         setupUi();
     }
     else{
@@ -264,14 +260,8 @@ void GameController::previousLevel()
 
     //if the next level is in cache, retrieve it - else make a new one
     if(levels[currentLevel].second.initialized){
-
-        tileController = levels[currentLevel].second.tileController;
-        hpController = levels[currentLevel].second.hpController;
-        protController = levels[currentLevel].second.protController;
-        enemyController = levels[currentLevel].second.enemyController;
-
+        uncacheLevel(currentLevel);
         setupUi();
-
     }
     else{
         auto levelFactory = levels[currentLevel];
@@ -338,13 +328,23 @@ void GameController::getNewView()
     allGameViews.pop_front();
 }
 
-void GameController::cacheLevel(int previousLevel)
+void GameController::cacheLevel(int level_id)
 {
-    levels[previousLevel].second.enemyController = enemyController;
-    levels[previousLevel].second.hpController = hpController;
-    levels[previousLevel].second.protController = protController;
-    levels[previousLevel].second.tileController = tileController;
-    levels[previousLevel].second.initialized = true;
+    enemyController->freezeEnemies();
+    levels[level_id].second.enemyController = enemyController;
+    levels[level_id].second.hpController = hpController;
+    levels[level_id].second.protController = protController;
+    levels[level_id].second.tileController = tileController;
+    levels[level_id].second.initialized = true;
+}
+
+void GameController::uncacheLevel(int level_id)
+{
+    tileController = levels[level_id].second.tileController;
+    hpController = levels[level_id].second.hpController;
+    protController = levels[level_id].second.protController;
+    enemyController = levels[level_id].second.enemyController;
+    enemyController->unfreezeEnemies();
 }
 
 bool GameController::getIsInputDisabled() const

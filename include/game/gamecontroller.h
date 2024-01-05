@@ -115,7 +115,8 @@ private:
     std::vector<std::pair<std::shared_ptr<LevelFactory>, LevelControllers>> levels;
     int currentLevel {0};
     void switchLevel(std::shared_ptr<LevelFactory> &levelFactory);
-    void cacheLevel(int previousLevel);
+    void cacheLevel(int level_id);
+    void uncacheLevel(int level_id);
 
 
     //game views:
