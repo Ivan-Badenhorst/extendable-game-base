@@ -50,6 +50,23 @@ void PEnemyViewGraphical::render(int x, int y)
 
 void PEnemyViewGraphical::clearView()
 {
+    // Remove all items from penemiesDisplayed from the scene and clear the map
+    for (auto& item : penemiesDisplayed) {
+        if (item.second) {
+            scene->removeItem(item.second.get());
+        }
+    }
+    penemiesDisplayed.clear();
+
+    // Remove all items from firesDisplayed from the scene and clear the map
+    for (auto& item : firesDisplayed) {
+        if (item.second) {
+            scene->removeItem(item.second.get());
+        }
+    }
+    firesDisplayed.clear();
+    
+    // Release the scene
     if (scene != nullptr) {
         scene.reset();
     }
