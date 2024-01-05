@@ -85,7 +85,7 @@ void EnemyController::refreshAll()
 
 
 
-void EnemyController::addEnemyModel(std::shared_ptr<EnemyModelInterface> em)
+void EnemyController::addEnemyModel(std::shared_ptr<BaseEnemyModel> em)
 {
     QString enemyType = QString::fromStdString(em->getEnemyType());
     enemyModels[enemyType] = em;
@@ -93,14 +93,14 @@ void EnemyController::addEnemyModel(std::shared_ptr<EnemyModelInterface> em)
 
 
 
-void EnemyController::setEnemyView(const std::vector<std::shared_ptr<EnemyViewInterface>> &newEnemyView)
+void EnemyController::setEnemyView(const std::vector<std::shared_ptr<BaseEnemyView>> &newEnemyView)
 {
     enemyViews = newEnemyView;
 }
 
 
 
-std::map<QString, std::shared_ptr<EnemyModelInterface>> EnemyController::getAllEnemyModels() const
+std::map<QString, std::shared_ptr<BaseEnemyModel>> EnemyController::getAllEnemyModels() const
 
 {
     return enemyModels;
@@ -176,7 +176,7 @@ void EnemyController::drainPEnemy(int x, int y)
     }
 }
 
-std::shared_ptr<EnemyModelInterface> EnemyController::getEnemyModelByType(const QString& type) const
+std::shared_ptr<BaseEnemyModel> EnemyController::getEnemyModelByType(const QString& type) const
 {
     auto model = enemyModels.find(type);
     if (model != enemyModels.end()) {

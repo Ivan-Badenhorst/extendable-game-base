@@ -4,7 +4,7 @@
 #include <map>
 #include <unordered_set>
 #include <algorithm>
-#include "enemymodelinterface.h"
+#include "baseenemymodel.h"
 
 
 struct PEnemyState {
@@ -55,7 +55,7 @@ struct FireOnTileEqual {
 
 
 
-class PEnemyModel: public EnemyModelInterface
+class PEnemyModel: public BaseEnemyModel
 {
 public:
     PEnemyModel(int w_rows, int w_cols);

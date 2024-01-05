@@ -1,12 +1,12 @@
 #ifndef PENEMYVIEWGRAPHICAL_H
 #define PENEMYVIEWGRAPHICAL_H
 #include <memory>
-#include "enemyviewinterface.h"
+#include "baseenemyview.h"
 #include "penemymodel.h"
 #include "penemyview.h"
 
 
-class PEnemyViewGraphical: public EnemyViewInterface, public PEnemyView
+class PEnemyViewGraphical: public BaseEnemyView, public PEnemyView
 {
 public:
     PEnemyViewGraphical();

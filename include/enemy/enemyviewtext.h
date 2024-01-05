@@ -4,8 +4,8 @@
 
 #include "enemymodel.h"
 #include "enemyview.h"
-#include "enemyviewinterface.h"
-class EnemyViewText: public EnemyViewInterface, public EnemyView
+#include "baseenemyview.h"
+class EnemyViewText: public BaseEnemyView, public EnemyView
 {
 public:
     EnemyViewText();

@@ -13,12 +13,12 @@ GameView::GameView(MainWindow& mw)
 
 ///Getters and Setters:
 
-std::vector<std::shared_ptr<EnemyViewInterface>>GameView::getEnemyView() const
+std::vector<std::shared_ptr<BaseEnemyView>>GameView::getEnemyView() const
 {
     return enemyView;
 }
 
-void GameView::setEnemyView(std::vector<std::shared_ptr<EnemyViewInterface> > newEnemyView)
+void GameView::setEnemyView(std::vector<std::shared_ptr<BaseEnemyView> > newEnemyView)
 {
     enemyView = newEnemyView;
 }

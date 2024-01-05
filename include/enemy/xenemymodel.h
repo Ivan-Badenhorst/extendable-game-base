@@ -1,6 +1,6 @@
 #ifndef XENEMYMODEL_H
 #define XENEMYMODEL_H
-#include "enemymodelinterface.h"
+#include "baseenemymodel.h"
 #include "tilemodel.h"
 
 
@@ -11,7 +11,7 @@ struct XEnemyState {
     float strength;
 };
 
-class XEnemyModel : public EnemyModelInterface
+class XEnemyModel : public BaseEnemyModel
 {
 public:
     XEnemyModel(int w_rows, int w_cols);

@@ -2,7 +2,7 @@
 #define ENEMYMODEL_H
 #include <memory>
 #include <unordered_set>
-#include "enemymodelinterface.h"
+#include "baseenemymodel.h"
 
 struct EnemyState {
     int x;
@@ -29,7 +29,7 @@ struct EnemyCoordinateEqual {
     }
 };
 
-class EnemyModel: public EnemyModelInterface
+class EnemyModel: public BaseEnemyModel
 {
 public:
     EnemyModel(int w_rows, int w_cols);

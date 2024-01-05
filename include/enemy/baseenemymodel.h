@@ -7,7 +7,7 @@
 /* As we need more methods to control the game, we will add them here and all
     models that implement this interface will have to implement the new methods
 */
-class EnemyModelInterface
+class BaseEnemyModel
 {
 public:
     virtual void addEnemy(std::unique_ptr<Enemy> enemy) = 0;
@@ -24,7 +24,7 @@ protected:
     int world_cols;
 };
 
-inline std::string EnemyModelInterface::getEnemyType() const
+inline std::string BaseEnemyModel::getEnemyType() const
 {
     if (enemyType.empty()) {
         throw std::runtime_error("Enemy type is empty");

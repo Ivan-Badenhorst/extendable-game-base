@@ -5,7 +5,7 @@
 
 #include "tileview.h"
 #include "healthpackview.h"
-#include "enemyviewinterface.h"
+#include "baseenemyview.h"
 #include "protagonistview.h"
 #include "mainwindow.h"
 
@@ -21,8 +21,8 @@ protected:
 ///View attributes, getters and setters:
 
 public:
-    std::vector<std::shared_ptr<EnemyViewInterface>>getEnemyView() const;
-    void setEnemyView(std::vector<std::shared_ptr<EnemyViewInterface>> newEnemyView);
+    std::vector<std::shared_ptr<BaseEnemyView>>getEnemyView() const;
+    void setEnemyView(std::vector<std::shared_ptr<BaseEnemyView>> newEnemyView);
 
     std::shared_ptr<TileView>getTileView() const;
     void setTileView(std::shared_ptr<TileView> newTileView);
@@ -34,7 +34,7 @@ public:
     void setProtView(std::shared_ptr<ProtagonistView> newProtView);
 
 protected:
-    std::vector<std::shared_ptr<EnemyViewInterface>> enemyView;
+    std::vector<std::shared_ptr<BaseEnemyView>> enemyView;
     std::shared_ptr<TileView> tileView;
     std::shared_ptr<HealthPackView> hpView;
     std::shared_ptr<ProtagonistView> protView;

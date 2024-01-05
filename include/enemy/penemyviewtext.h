@@ -2,10 +2,10 @@
 #define PENEMYVIEWTEXT_H
 
 
-#include "enemyviewinterface.h"
+#include "baseenemyview.h"
 #include "penemymodel.h"
 #include "penemyview.h"
-class PEnemyViewText: public EnemyViewInterface, public PEnemyView
+class PEnemyViewText: public BaseEnemyView, public PEnemyView
 {
 public:
     PEnemyViewText();
