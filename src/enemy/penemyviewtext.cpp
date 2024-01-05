@@ -47,7 +47,7 @@ void PEnemyViewText::render()
 
 void PEnemyViewText::clearView()
 {
-
+    textEdit.reset();
 }
 
 

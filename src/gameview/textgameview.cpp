@@ -101,6 +101,9 @@ void TextGameView::clearMainWindow()
     tileView->clearView();
     hpView->clearView();
     protView->clearView();
+    for(auto& eV: enemyView){
+        eV->clearView();
+    }
     textEdit.reset();
     healthLabel.reset();
     healthValueLabel.reset();

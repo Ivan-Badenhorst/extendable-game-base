@@ -51,7 +51,7 @@ void EnemyViewText::render()
 
 void EnemyViewText::clearView()
 {
-
+    textEdit.reset();
 }
 
 void EnemyViewText::setEnemyModel(const std::shared_ptr<EnemyModel> &newEnemyModel)
