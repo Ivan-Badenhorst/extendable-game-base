@@ -9,15 +9,15 @@ EnemyController::EnemyController(int w_rows, int w_cols)
     world_rows = w_rows;
     world_cols = w_cols;
     // Initialize the timer
-    timer = new QTimer(this);
+    DamageTimer = new QTimer(this);
     XEnemyTimer = new QTimer(this);
 
     connect(XEnemyTimer, &QTimer::timeout, this, &EnemyController::moveXEnemy);
     // Connect the timer's timeout signal to the checkProtagonistPosition method
-    connect(timer, &QTimer::timeout, this, &EnemyController::checkProtagonistPosition);
+    connect(DamageTimer, &QTimer::timeout, this, &EnemyController::checkProtagonistPosition);
     // Start the timer to trigger every second
-    timer->start(2000);
-    XEnemyTimer->start(2000);
+    DamageTimer->start(ENEMY_TIMER_INTERVAL);
+    XEnemyTimer->start(XENEMY_TIMER_INTERVAL);
     gameController = GameController::getInstance();
 }
 
@@ -248,6 +248,24 @@ bool EnemyController::checkLevelComplete()
     return true;
 }
 
+
+
+void EnemyController::freezeEnemies()
+{
+    DamageTimer->stop();
+    XEnemyTimer->stop();
+}
+
+
+
+void EnemyController::unfreezeEnemies()
+{
+    DamageTimer->start(ENEMY_TIMER_INTERVAL);
+    XEnemyTimer->start(XENEMY_TIMER_INTERVAL);
+}
+
+
+
 void EnemyController::moveXEnemy()
 {
     // Tell the enemies to follow the protagonist
@@ -267,12 +285,6 @@ void EnemyController::updateProtagonistPosition(int x, int y)
 
 }
 
-
-
-void EnemyController::stopAttacks()
-{
-    timer->stop();
-}
 
 
 
