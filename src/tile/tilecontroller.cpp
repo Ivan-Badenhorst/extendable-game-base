@@ -26,22 +26,9 @@ float TileController::update(int row, int col, bool allowPortal)
         tileView->update(row, col);
     }
 
-//    if(p.has_value()){ //check if portal
-//        if(!p.value()){
-//            gc->previousLevel();
-//        }
-//        else if(allowPortal){
-//            gc->nextLevel();
-//        }
-//    }
-//    else{
-//        tileView->update(row, col);
-//    }
     float val = tileModel->getTileValueAt(row,col);
     return val;
-
-
-    }
+}
 
 std::tuple<int, int> TileController::getDimensions()
 {
