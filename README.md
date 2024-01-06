@@ -68,5 +68,7 @@ Latest update: 03/01/2024
 - Mahmoud: 
   - Xenemy and Pathfinder (with Sudarshan)
 
-## Week 14
-Team Task: Documenting Code
+### Week 14
+- Team Task: 
+  - Documenting Code
+  - Creating final UML
