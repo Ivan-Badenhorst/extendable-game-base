@@ -12,9 +12,7 @@ TileModel::TileModel(int rows, int cols)
     Tile destinationTile(0,0,0);
 
     comp = [this](const Node& a, const Node& b) { return this->compareNodes(a,b); };
-    finder = nullptr; //std::make_unique<PathFinder<Node, Tile>>(nodes, &startTile, &destinationTile, comp, columns, 0);
-
-//    finder = PathFinder<Node, Tile>& pf(nodes, &startTile, &destinationTile, comp, columns, 0);
+    finder = nullptr;
 }
 
 void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<Tile> > tile)
@@ -37,10 +35,6 @@ void TileModel::populateTileMap(int rows, int cols, std::vector<std::unique_ptr<
         nodes.push_back(Node(tile[j]->getXPos(),tile[j]->getYPos(),tile[j]->getValue()));
 
     }
-
-
-
-
 }
 
 void TileModel::addPortal(int row, int col, bool nextLevel)
