@@ -62,7 +62,7 @@ void GameController::input(const ArrowDirection &direction)
     //check for healthpack
     int hpVal = hpController->update(row, col);
     if (hpVal > 0)  {
-        protController->updateHealth(hpVal);
+        protController->gainHealth(hpVal);
     }
 
     //update protagonist
@@ -286,7 +286,7 @@ void GameController::damageToProtagonist(float damage)
 
 void GameController::warnProtagonist(bool isInDanger)
 {
-    protController->warn(isInDanger);
+    protController->updateWarning(isInDanger);
     if(isInDanger){
         std::cout << "WARNING: XENEMY IS NEARBY" << std::endl;
     }
