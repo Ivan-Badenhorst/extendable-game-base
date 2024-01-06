@@ -12,6 +12,8 @@ Latest update: 03/01/2024
     ![UML](uml_20240501.svg)
 
 ## Work Distribution:
+For a detailed overview of each member's involvement, please refer to the project's activity section and issue board. These areas provide valuable insights, with clear statistics and well-documented commit messages for an accurate representation of the work conducted.
+
 ### Week 6
 - design first UML and testing basic qt graphics
 
@@ -41,6 +43,7 @@ Latest update: 03/01/2024
 - Sudarshan:
   - Protagonist text view
 - Mahmoud:
+  - Worked on implementing enemies within the game.
 
 ### Week 11
 - Ivan: 
@@ -48,6 +51,7 @@ Latest update: 03/01/2024
 - Sudarshan: 
   - protagonist text view finish, interactions with hp and enemy, and help with cache
 - Mahmoud: 
+  - Actively managed project branches
 
 ### Week 12
 - Ivan: 
@@ -57,6 +61,8 @@ Latest update: 03/01/2024
   - Basic orchestration of damage between protagonist and enemy
   - Dying + stop
 - Mahmoud: 
+  - Concentrated on protagonist attacking the enemies and refining enemy behavior.
+  - Implemented poison mechanics and integrated new gameplay elements using timers.
 
 ### Week 13
 - Ivan: 
@@ -66,6 +72,8 @@ Latest update: 03/01/2024
   - additional text view functionality
   - Xenemy and Pathfinder (with Mahmoud)
 - Mahmoud: 
+  - Project restructuration
+  - Writing tests
   - Xenemy and Pathfinder (with Sudarshan)
 
 ### Week 14
