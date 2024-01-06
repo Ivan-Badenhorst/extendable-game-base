@@ -78,30 +78,22 @@ void ProtagonistViewText::updateEnergy()
 
 void ProtagonistViewText::performAttack(int currentFrame)
 {
-
+    // Perform attack animation
 }
 
 void ProtagonistViewText::performHealthGain(int currentFrame)
 {
-
+    // Perform health gain animation    
 }
 
 void ProtagonistViewText::performDeath(int currentFrame)
 {
-
+    // Perform death animation
 }
 
 void ProtagonistViewText::performTakeDamage(int currentFrame)
 {
-
-}
-
-
-void ProtagonistViewText::clearView()
-{
-    textEdit.reset();
-    energyValueLabel.reset();
-    healthValueLabel.reset();
+    // Perform take damage animation
 }
 
 void ProtagonistViewText::setProtModel(const std::shared_ptr<ProtagonistModel> &newProtModel)
@@ -117,6 +109,15 @@ void ProtagonistViewText::setTextEdit(const std::shared_ptr<QPlainTextEdit> &new
 void ProtagonistViewText::setHealthLabels(std::shared_ptr<QLabel> healthValue) {
     healthValueLabel = healthValue;
 }
-void ProtagonistViewText::setEnergyLabels(std::shared_ptr<QLabel> energyValue) {
+
+void ProtagonistViewText::setEnergyLabels(std::shared_ptr<QLabel> energyValue) 
+{
     energyValueLabel = energyValue;
+}
+
+void ProtagonistViewText::clearView()
+{
+    textEdit.reset();
+    energyValueLabel.reset();
+    healthValueLabel.reset();
 }
