@@ -1,9 +1,5 @@
 #include "levelfactory.h"
 
-LevelFactory::LevelFactory()
-{
-
-}
 
 std::tuple<std::shared_ptr<TileController>, 
             std::shared_ptr<ProtagonistController>, 

@@ -19,7 +19,6 @@ HardLevelFactory::HardLevelFactory()
 
 std::shared_ptr<Level> HardLevelFactory::createWorld()
 {
-    ///ADD X ENEMY IN HERE
     World w;
     w.createWorld(":/map/worldmap.png", 20, 20);
 
