@@ -44,14 +44,14 @@ Latest update: 03/01/2024
 
 ### Week 11
 - Ivan: 
-  -implement basic level switch and start on cache
+  - implement basic level switch and start on cache
 - Sudarshan: 
-  -protagonist text view finish, interactions with hp and enemy, and help with cache
+  - protagonist text view finish, interactions with hp and enemy, and help with cache
 - Mahmoud: 
 
 ### Week 12
 - Ivan: 
-  -experiment with level archive using boost
+  - experiment with level archive using boost
 - Sudarshan: 
   - Incorporate energy mechanism for protagonist
   - Basic orchestration of damage between protagonist and enemy
@@ -68,4 +68,5 @@ Latest update: 03/01/2024
 - Mahmoud: 
   - Xenemy and Pathfinder (with Sudarshan)
 
-
+## Week 14
+Team Task: Documenting Code
