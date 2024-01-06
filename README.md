@@ -36,6 +36,7 @@ For a detailed overview of each member's involvement, please refer to the projec
 - Sudarshan: 
   - Graphics view protagonist
 - Mahmoud:
+  - Worked on implementing enemies within the game.
 
 ### Week 10
 - Ivan: 
@@ -43,7 +44,8 @@ For a detailed overview of each member's involvement, please refer to the projec
 - Sudarshan:
   - Protagonist text view
 - Mahmoud:
-  - Worked on implementing enemies within the game.
+  - Working on views for the enemies
+  
 
 ### Week 11
 - Ivan: 
