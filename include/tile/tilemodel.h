@@ -1,3 +1,10 @@
+/**
+ * @file tilemodel.h
+ * @brief Contains structures and classes related to the model of the tiles used.
+ *
+ * This file contains structures and classes that define elements and mechanics within the game world.
+ */
+
 #ifndef TILEMODEL_H
 #define TILEMODEL_H
 //#include "pathfinder_class.h"
@@ -7,7 +14,7 @@
 
 
 /**
- * @brief Represents a portal in the game.
+ * @struct Represents a portal in the game.
  * Stores information about its position and whether it leads to the next level.
  */
 struct Portal {
@@ -18,7 +25,7 @@ struct Portal {
 
 
 /**
- * @brief Manages the data for the tiles in the game.
+ * @class Manages the data for the tiles in the game.
  * This class handles tile-related functionalities and information.
  */
 class TileModel

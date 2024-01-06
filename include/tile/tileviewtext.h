@@ -1,3 +1,12 @@
+/**
+ * @file tileviewtext.h
+ * @brief Class for managing text-based display of tiles in the game environment.
+ *
+ * This file contains the TileViewText class, responsible for handling text-based representation
+ * of tiles in the game. It provides methods for updating the textual view, clearing the display,
+ * setting the associated TileModel, and managing the QPlainTextEdit for textual representation.
+ */
+
 #ifndef TILEVIEWTEXT_H
 #define TILEVIEWTEXT_H
 

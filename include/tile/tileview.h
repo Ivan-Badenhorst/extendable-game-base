@@ -1,3 +1,12 @@
+/**
+ * @file tileview.h
+ * @brief Defines the abstract TileView class for managing tile views in a game environment.
+ *
+ * This file contains the TileView class, an abstract class responsible for defining the structure
+ * and interface for managing and updating tile views in a game environment. It includes methods for
+ * updating the view, clearing the display, and setting the associated TileModel.
+ */
+
 #ifndef TILEVIEW_H
 #define TILEVIEW_H
 

@@ -1,3 +1,12 @@
+/**
+ * @file tileviewgraphical.h
+ * @brief Class for managing graphical display of tiles in the game environment.
+ *
+ * This file contains the TileViewGraphical class, responsible for handling graphical representation
+ * of tiles in the game. It provides methods for updating the graphical view based on the current position,
+ * clearing the graphical display, setting the associated QGraphicsScene, and managing the TileModel for graphical representation.
+ */
+
 #ifndef TILEVIEWGRAPHICAL_H
 #define TILEVIEWGRAPHICAL_H
 
