@@ -22,7 +22,6 @@ void TileViewText::update(int row, int col)
         textEdit->ensureCursorVisible();
         return;
 
-        ///ADJUST THIS TO MOVE WITH THE CHARACTER!!!!
     }
     displayed = true;
     auto grid = tileModel->getTileTable();
@@ -53,7 +52,6 @@ void TileViewText::update(int row, int col)
         output += "+\n";
     }
 
-
     //update the position to work with the right location from row and col!!!
     textEdit->clear();
     textEdit->setPlainText(output);
@@ -62,8 +60,6 @@ void TileViewText::update(int row, int col)
     cursor.setPosition(50); // Set the position where you want to move the viewport
     textEdit->setTextCursor(cursor);
     textEdit->centerCursor();
-
-
 }
 
 void TileViewText::clearView()
