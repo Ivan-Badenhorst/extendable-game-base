@@ -11,6 +11,8 @@ ProtagonistModel::ProtagonistModel(std::unique_ptr<Protagonist> prot)
     energy = maxEnergy;
 }
 
+
+//position-related methods
 int ProtagonistModel::getPositionX() const
 {
     return xPos;
@@ -20,6 +22,25 @@ int ProtagonistModel::getPositionY() const
 {
     return yPos;
 }
+
+void ProtagonistModel::updatePosition(int newXPos, int newYPos)
+{
+    xPos = newXPos;
+    yPos = newYPos;
+}
+
+bool ProtagonistModel::getInDangerZone() const
+{
+    return inDangerZone;
+}
+
+void ProtagonistModel::setInDangerZone(bool newInDangerZone)
+{
+    inDangerZone = newInDangerZone;
+}
+
+
+//health-related methods
 
 float ProtagonistModel::getCurrentHealth() const
 {
@@ -36,6 +57,32 @@ void ProtagonistModel::setMaxHealth(float value)
     maxHealth = value;
 }
 
+bool ProtagonistModel::updateHealth(float hpValue)
+{
+    currentHealth += hpValue;
+    if(currentHealth > maxHealth){
+        maxHealth = currentHealth;
+    }
+    return (currentHealth <= 0);
+}
+
+void ProtagonistModel::takeDamage(int hpValue)
+{
+    currentHealth -= hpValue;
+}
+
+int ProtagonistModel::getAttackDamage() const
+{
+    return attackDamage;
+}
+
+void ProtagonistModel::setAttackDamage(int newAttackDamage)
+{
+    attackDamage = newAttackDamage;
+}
+
+//energy-related methods
+
 float ProtagonistModel::getEnergy() const
 {
     return energy;
@@ -51,54 +98,3 @@ float ProtagonistModel::getMaxEnergy() const
 {
     return maxEnergy;
 }
-
-bool ProtagonistModel::getInDangerZone() const
-{
-    return inDangerZone;
-}
-
-void ProtagonistModel::setInDangerZone(bool newInDangerZone)
-{
-    inDangerZone = newInDangerZone;
-}
-
-void ProtagonistModel::updatePosition(int newXPos, int newYPos)
-{
-    xPos = newXPos;
-    yPos = newYPos;
-}
-
-
-void ProtagonistModel::addHealth(int hpValue)
-{
-    maxHealth += hpValue;
-    currentHealth = maxHealth;
-}
-
-void ProtagonistModel::takeDamage(int hpValue)
-{
-    currentHealth -= hpValue;
-}
-
-bool ProtagonistModel::updateHealth(float hpValue)
-{
-    currentHealth += hpValue;
-    if(currentHealth > maxHealth){
-        maxHealth = currentHealth;
-    }
-    return (currentHealth <= 0);
-}
-
-int ProtagonistModel::getAttackDamage() const
-{
-    return attackDamage;
-}
-
-void ProtagonistModel::setAttackDamage(int newAttackDamage)
-{
-    attackDamage = newAttackDamage;
-}
-
-
-
-

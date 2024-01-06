@@ -5,7 +5,7 @@ ProtagonistController::ProtagonistController( std::shared_ptr<ProtagonistModel> 
 {
     connect(&attackTimer, &QTimer::timeout, this, &ProtagonistController::onAttackTimerTimeout);
     connect(&healthGainTimer, &QTimer::timeout, this, &ProtagonistController::onHealthGainTimerTimeout);
-    connect(&deathTimer, &QTimer::timeout, this, &ProtagonistController::onDeathTimeTimeout);
+    connect(&deathTimer, &QTimer::timeout, this, &ProtagonistController::onDeathTimerTimeout);
     connect(&takeDamageTimer, &QTimer::timeout, this, &ProtagonistController::onDamageTimerTimeout);
 }
 
@@ -20,23 +20,16 @@ void ProtagonistController::update(int row, int col)
     protModel->updatePosition(row, col);
 }
 
-void ProtagonistController::attackEnemy()
+void ProtagonistController::gainHealth(int hpValue)
 {
-    attackTimer.setInterval(200);
-    attackTimer.start();
-}
-
-void ProtagonistController::updateHealth(int hpValue)
-{
-    isDead = protModel->updateHealth(hpValue);
+    protModel->updateHealth(hpValue);
     protView->updateHealth();
     currentFrame = 0;
 
 
-    healthGainTimer.setInterval(200); // Adjust interval for each frame
+    healthGainTimer.setInterval(200);
     healthGainTimer.start();
 }
-
 
 bool ProtagonistController::takeDamage(int hpValue)
 {
@@ -47,9 +40,27 @@ bool ProtagonistController::takeDamage(int hpValue)
     return isDead;
 }
 
+void ProtagonistController::attackEnemy()
+{
+    attackTimer.setInterval(200);
+    attackTimer.start();
+}
+
 int ProtagonistController::getAttackDamage()
 {
     return protModel->getAttackDamage();
+}
+
+bool ProtagonistController::updateEnergy(float enValue)
+{
+    isDead = protModel->updateEnergy(-enValue);
+    protView->updateEnergy();
+    return isDead;
+}
+
+void ProtagonistController::updateWarning(bool isInDanger)
+{
+    protModel->setInDangerZone(isInDanger);
 }
 
 void ProtagonistController::showDeath()
@@ -61,33 +72,19 @@ void ProtagonistController::showDeath()
 
 }
 
-bool ProtagonistController::updateEnergy(float enValue)
+bool ProtagonistController::getIsDead() const
 {
-    isDead = protModel->updateEnergy(-enValue);
-    protView->updateEnergy();
     return isDead;
 }
-
-
 
 void ProtagonistController::setProtView(const std::shared_ptr<ProtagonistView> &newProtView)
 {
     protView = newProtView;
 }
 
-void ProtagonistController::warn(bool isInDanger)
-{
-    protModel->setInDangerZone(isInDanger);
-}
-
 std::shared_ptr<ProtagonistModel> ProtagonistController::getProtModel() const
 {
     return protModel;
-}
-
-bool ProtagonistController::getIsDead() const
-{
-    return isDead;
 }
 
 void ProtagonistController::onAttackTimerTimeout()
@@ -131,7 +128,7 @@ void ProtagonistController::onHealthGainTimerTimeout()
 
 }
 
-void ProtagonistController::onDeathTimeTimeout()
+void ProtagonistController::onDeathTimerTimeout()
 {
     protView->performDeath(currentFrame);
     ++currentFrame;

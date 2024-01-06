@@ -7,7 +7,7 @@
 
 ProtagonistViewGraphical::ProtagonistViewGraphical()
 {
-    //updateHealth();
+
 }
 
 void ProtagonistViewGraphical::update()
@@ -54,11 +54,7 @@ void ProtagonistViewGraphical::updateEnergy()
     energyBar->setValue(protModel->getEnergy());
 }
 
-void ProtagonistViewGraphical::clearView()
-{
-    scene.reset();
-    healthBar.reset();
-}
+//animation methods
 
 void ProtagonistViewGraphical::performAttack(int currentFrame)
 {
@@ -131,6 +127,8 @@ void ProtagonistViewGraphical::performTakeDamage(int currentFrame)
     scene->addItem(protagonistDisplay.get());
 }
 
+//setters
+
 void ProtagonistViewGraphical::setHealthBar(const std::shared_ptr<HealthProgressBar> newHealthBar)
 {
     healthBar = newHealthBar;
@@ -153,4 +151,9 @@ void ProtagonistViewGraphical::setProtModel(const std::shared_ptr<ProtagonistMod
     protModel = newProtModel;
 }
 
-
+//clear
+void ProtagonistViewGraphical::clearView()
+{
+    scene.reset();
+    healthBar.reset();
+}
