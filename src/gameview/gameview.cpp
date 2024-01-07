@@ -7,10 +7,6 @@ GameView::GameView(MainWindow& mw)
 
 }
 
-
-
-
-
 ///Getters and Setters:
 
 std::vector<std::shared_ptr<BaseEnemyView>>GameView::getEnemyView() const
